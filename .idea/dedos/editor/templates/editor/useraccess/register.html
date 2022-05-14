@@ -1,0 +1,71 @@
+{% load static %}
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Kodinger">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>My Login Page &mdash; Bootstrap 4 Login Page Snippet</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/register.css' %}">
+		<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 col-xl-5 mx-auto">
+        <div class="card card-signin flex-row my-5">
+
+          <div class="card-body">
+            <h5 class="card-title text-center">Register</h5>
+            <form method="POST" action="/editor/register" class="form-signin">
+				{% csrf_token %}
+              <div class="form-label-group">
+                <input type="text" name="username" id="inputUserame" class="form-control" placeholder="Username" required autofocus>
+                <label for="inputUserame">Username</label>
+              </div>
+                {% if "username" in form_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form_errors.username %}
+                            {{error.message}}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+              <div class="form-label-group">
+                <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required>
+                <label for="inputEmail">Email address</label>
+              </div>
+                {% if "email" in form_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form_errors.email %}
+                            {{error.message}}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+              <hr>
+
+              <div class="form-label-group">
+                <input type="password" id="inputPassword" name="password1" class="form-control" placeholder="Password" required>
+                <label for="inputPassword">Password</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="password" id="inputConfirmPassword" name="password2" class="form-control" placeholder="Password" required>
+                <label for="inputConfirmPassword">Confirm password</label>
+              </div>
+
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+              <hr class="my-4">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

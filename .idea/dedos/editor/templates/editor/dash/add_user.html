@@ -1,0 +1,86 @@
+{% extends "editor/dash/base.html" %}
+{% load static %} <!-- Cargamos los archivos estaticos -->
+{% load i18n %} <!-- Cargamos el módulo de Internacionalización -->
+{% block content %}
+
+<div class="container-fluid">
+    <h1 class="mt-4"> User profile</h1>
+    <div class="row">
+        <div class="col-md-7">
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title">Add student</h4>
+            </div>
+            <div class="card-body">
+              <form id="addFormAll" method="POST" action="/editor/add_user" id="profile_form">
+                {% csrf_token %}
+                  {{formset.management_form}}
+                  {% for form in formset %}
+                 <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Username</label>
+                          {{form.username}}
+                        </div>
+                          {% if "username" in form.errors.as_data %}
+                    <div class="alert alert-danger">
+                        {% for error in form.errors.as_data.username %}
+                            {{error.message}}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Password</label>
+                            {{form.password1}}
+                        </div>
+                                          {% if "password1" in form.errors.as_data %}
+                    <div class="alert alert-danger">
+                        {% for error in form.errors.as_data.password1 %}
+                            {{error.message}}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Confirm password</label>
+                          {{form.password2}}
+                        </div>
+                          {% if "password2" in form.errors.as_data %}
+                    <div class="alert alert-danger">
+                        {% for error in form.errors.as_data.password2 %}
+                            {{error.message}}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                      </div>
+                  </div>
+                 {% endfor %}
+                 <button id="add_more" type="button" class="btn btn-outline btn-primary btn-sm" >+</button>
+                <button type="submit" class="btn btn-primary float-right">Add student</button>
+                <div class="clearfix"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>
+
+<script>
+    $('#add_more').click(function() {
+        var form_idx = $('#id_form-TOTAL_FORMS').val();
+        $('#addFormAll').append($('#addForm').html().replace(/__prefix__/g, form_idx));
+        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      $("#groupMenu").collapse("toggle");
+      $("#userAdd").addClass("active");
+  })
+</script>
+{% endblock %}

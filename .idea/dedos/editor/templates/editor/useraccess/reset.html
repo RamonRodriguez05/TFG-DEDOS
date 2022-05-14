@@ -1,0 +1,71 @@
+{% load static %}
+{% load socialaccount %}
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Kodinger">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>My Login Page &mdash; Bootstrap 4 Login Page Snippet</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/register.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+              {% if messages %}
+    {% for message in messages %}
+    <div class="{{message.tags}}">
+        {{message}}
+    </div>
+    <!--<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
+    {% endfor %}
+{% endif %}
+          <div class="card-body">
+            <h5 class="card-title text-center">Change password</h5>
+            <form method="POST" action="{% url 'password_change' uidb64=uid token=token %}" class="form-signin">
+              {% csrf_token %}
+
+				<div class="form-label-group">
+                <input type="password" id="inputPassword" name="password1" class="form-control" placeholder="Password" required>
+                <label for="inputPassword">Password</label>
+              </div>
+				{% if "password1" in form_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form_errors.password1 %}
+                            {{error.message}}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+              <div class="form-label-group">
+                <input type="password" id="inputPassword" name="password2" class="form-control" placeholder="Password" required>
+                <label for="inputPassword">Password</label>
+              </div>
+				{% if "password2" in form_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form_errors.password2 %}
+                            {{error.message}}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Submit</button>
+              <hr class="my-4">
+			</form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

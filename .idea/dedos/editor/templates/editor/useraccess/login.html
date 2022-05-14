@@ -1,0 +1,89 @@
+{% load static %}
+{% load socialaccount %}
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Kodinger">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>My Login Page &mdash; Bootstrap 4 Login Page Snippet</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/register.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+</head>
+<body>
+
+<div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Request password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form method="POST" action="/editor/requestpassword">
+          {% csrf_token %}
+      <div class="modal-body">
+
+          <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="email" id="email" placeholder="Email">
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Reset password</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Back to login</button>
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
+  <div class="container">
+
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+              {% if messages %}
+                {% for message in messages %}
+                <div class="{{message.tags}}">
+                    {{message}}
+                </div>
+    <!--<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
+    {% endfor %}
+{% endif %}
+          <div class="card-body">
+            <h5 class="card-title text-center">Sign In</h5>
+            <form method="POST" action="/editor/login" class="form-signin">
+              {% csrf_token %}
+              <div class="form-label-group">
+                <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
+                <label for="inputEmail">Username</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+                <label for="inputPassword">Password</label>
+              </div>
+                <div class="col-md-12 form-group">
+                    <a href="#" data-target="#pwdModal" data-toggle="modal"><u>Forgot my password</u></a>
+                           <a class="float-right" href="/editor/register"><u>Sign Up</u></a>
+                </div>
+
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+              <hr class="my-4">
+              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i>  <a style="color:#fff" href="{% provider_login_url 'google' %}">Log in with Google</a></button>
+              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> <a style="color:#fff" href="{% provider_login_url "facebook" method="oauth2" %}">Log in with Facebook</a></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

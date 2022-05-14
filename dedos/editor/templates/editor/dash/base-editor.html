@@ -1,0 +1,702 @@
+{% load static %}
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - SB Admin</title>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" type="text/javascript"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'dash/dist/js/scripts.js' %}" type="text/javascript"></script>
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" type="text/css" rel="stylesheet"
+        crossorigin="anonymous" />
+    <link href="{% static 'dash/dist/css/styles.css' %}" type="text/css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"
+        integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Dropzone -->
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+
+
+
+
+    <style>
+        #draggable {
+            width: 150px;
+            height: 150px;
+            padding: 0.5em;
+            border: solid #000000;
+            position: relative;
+        }
+
+        #sortable {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        #sortable li {
+            margin: 0 5px 5px 5px;
+            padding: 5px;
+            font-size: 1.2em;
+        }
+
+        #sortable li img {
+            width: 100%;
+        }
+
+        .ui-state-highlight {
+            height: 1.5em;
+            line-height: 1.2em;
+        }
+
+        #editzone {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #editzone ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        #editzone li {
+            margin: 5px;
+            padding: 5px;
+            width: 150px;
+            position: relative;
+        }
+
+        .area {
+            min-width: 60px;
+            min-height: 60px;
+            width: 400px;
+            height: 200px;
+            border: 3px solid rgb(0, 168, 190);
+            border-radius: 10px;
+            background-color: rgb(219, 245, 255);
+            -webkit-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
+            box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
+            border-style: ridge;
+            -webkit-background-size: 50%;
+            -moz-background-size: 50%;
+            -o-background-size: 50%;
+            background-size: 80%;
+            background-origin:content-box;
+            background-repeat: no-repeat;
+
+            background-position: center
+
+        }
+
+        .card {
+            width: 300px;
+            height: 150px;
+            min-width: 170px;
+            min-height: 105px;
+            border: 3px solid rgb(0, 168, 190);
+            border-radius: 10px;
+
+            -webkit-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
+            box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
+            border-style: ridge;
+            border: 1px solid rgb(21, 138, 17);
+
+        }
+
+        .picture {
+            width: 380px;
+            height: 220px;
+            border: 1px solid rgb(9, 255, 0);
+            min-width: 100px;
+            min-height: 100px;
+            border: 3px solid rgb(0, 168, 190);
+            border-radius: 10px;
+            background-color: rgb(253, 253, 234);
+            -webkit-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
+            box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.7 5);
+            border-style: ridge;
+            border: 1px solid rgb(21, 138, 17);
+        }
+
+        .objetive {
+            width: 20px;
+            height: 20px;
+            resize: none;
+            position: relative;
+        }
+
+        .pairing {
+            width: 80px;
+            height: 80px;
+            border: 1px solid rgb(247, 0, 255);
+        }
+
+        .path {
+            width: 80px;
+            height: 80px;
+            border: 1px solid rgb(0, 162, 255);
+        }
+
+        .math {
+            width: 20px;
+            height: 20px;
+        }
+
+        .time {
+            width: 145px;
+            height: 100px;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, serif;
+            font-size: 13px;
+            position: relative
+        }
+
+
+        .margenIzquierdo {
+            padding-left: 5px;
+            padding-top: 5px;
+
+        }
+
+        .margenDerecho {
+            margin-right: 5px;
+            float: right;
+            padding-right: 5px;
+
+        }
+
+        .imagenPrueba {
+            /* Background pattern from Toptal Subtle Patterns */
+            background-image: url("https://amymhaddad.s3.amazonaws.com/morocco-blue.png");
+        }
+
+        #TextoBueno,
+        #FotoBueno,
+        #SeleccionadoBueno,
+        #EmparejarBueno,
+        #CaminoBueno,
+        #MatesBueno,
+        #TemporizadorBueno {
+
+            font-size: 15px;
+
+        }
+
+        .sticky-div {
+            position: sticky;
+            top: 0px;
+            padding-top: 5px;
+        }
+
+        .fondo {
+            background-color: rgb(231, 243, 233);
+        }
+
+        #TextoTemp,
+        #FotoTemp,
+        #SeleccionTemp,
+        #EmparejarTemp,
+        #CaminoTemp,
+        #MatesTemp,
+        #TemporizadorTemp {
+            color: gainsboro;
+            font-size: 15px;
+
+        }
+
+        .SeleccionIcono,
+        .MatesIcono,
+        .TempIcono {
+            color: rgb(2, 187, 2);
+        }
+
+        #temporizadorMinutos {
+            margin-right: 12px;
+            width: 80px;
+        }
+
+        .fa-vector-square {
+
+            font-size: 15px;
+
+
+        }
+
+        #imagenArea:hover,
+        #imagenTexto:hover,
+        #imagenFoto:hover,
+        #imagenSeleccion:hover,
+        #imagenEmparejar:hover,
+        #imagenCamino:hover,
+        #imagenMates:hover,
+        #imagenTemporizador:hover {
+            color: rgb(34, 5, 194);
+            font-size: 35px;
+
+        }
+
+        .fa-user:hover,
+        .fa-users:hover {
+            color: rgb(34, 5, 194);
+            font-size: 20px;
+
+        }
+
+        #PruebaIcono {
+            color: rgb(236, 6, 6);
+        }
+
+        #PruebaIcono:hover {
+            color: rgb(56, 160, 56);
+            font-size: 20px;
+        }
+
+        .fa-upload{
+            margin-top: 5px;
+            font-size: 17px;
+        }
+        
+        .ocultar {
+            display: none;
+        }
+
+        .user-image {
+            size: 100%;
+        }
+
+        .tituloTexto {
+            background-color: aquamarine;
+            border-bottom: 1px solid rgb(0, 0, 0);
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            height: 30px;
+            display: block;
+        }
+
+        .tituloTexto2 {
+           
+         
+            text-align: center;
+           
+        }
+
+        .inputText {
+            margin-top: 5%;
+            margin-left: 5%;
+            margin-right: auto;
+            margin-bottom: 5%;
+            height: 70%;
+            width: 90%;
+        }
+
+        .inputTextRetroalimentacion {
+            width: 100%;
+            height: 75%;
+            
+            margin-bottom: 3%;
+        }
+
+        .inputNumero {
+            width: auto;
+            margin: 1;
+        }
+
+
+        .tituloImagen {
+            background-color: rgb(248, 94, 197);
+            border-bottom: 1px solid rgb(0, 0, 0);
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .noBackground {
+
+
+
+            float: right;
+            margin-right: 0;
+
+        }
+
+        .image-upload:hover {
+
+
+
+            color: rgb(34, 5, 194);
+            font-size: 15px;
+
+            float: right;
+            margin-right: 0;
+
+        }
+
+        .image-upload>input {
+            display: none;
+            float: right;
+            margin-right: 0;
+            
+        }
+
+        .image-upload {
+
+            float: right;
+            margin-right: 0;
+            padding-right: 5px;
+            padding-top: 3px;
+        }
+
+        /* PRUEBAS GIRAR TARJETA*/
+
+
+        #card {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        #card figure {
+            margin-left: 0;
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+
+        #card .front {
+            background: red;
+            margin-left: -24px;
+        }
+
+        #card .back {
+            background: blue;
+            margin-left: 24px;
+            transform: rotateY(180deg);
+        }
+
+        #card.flipped,
+        .girar.flipped {
+            transform: rotateY(180deg);
+
+            /* FIN PRUEBAS GIRAR TARJETA*/
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .fixed {
+            background-repeat: no-repeat;
+
+        }
+
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 12px;
+            transition: 0.3s;
+            font-size: 12px;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            border-top: 1px solid black;
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
+            margin-top: 3%;
+            margin-left: 3%;
+
+        }
+
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+
+            border-top: none;
+        }
+
+        .config {
+            position: absolute;
+            bottom: 2px;
+            left: 2px;
+
+
+        }
+
+        .fa-thumbtack {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+        }
+
+
+        .transparente {
+            background-color: transparent;
+            padding: 0;
+            border: none;
+            background: none;
+            outline: 0 !important;
+            width: 15px;
+            height: 15px;
+            float: left; 
+        }
+
+        #editzone {
+            overflow: auto;
+        }
+
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .eliminar {
+            position: fixed;
+            bottom: 18px;
+            width: 100%;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+        }
+
+        #papelera {
+            border-radius: 50%;
+            background: radial-gradient(#d6f5fd, #46ade9);
+        }
+
+        /* Dropzone */
+        .form {
+            max-width: 100%;
+            max-height: 100%;
+
+        }
+
+        .dropzone {
+            	
+           
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            border:   dashed 3px rgb(92, 152, 180);
+            border-radius: 35px;
+            margin: 1%;
+            margin-bottom: 3%;
+
+        }
+
+
+        img,
+        .dz-preview,
+        .dz-processing,
+        .dz-error,
+        .dz-complete,
+        .dz-image-preview,
+        .dz-image,
+        .dz-details,
+        .dz-progress,
+        .dz-success-mark,
+        .dz-remove,
+        .dz-error-mark {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            /* remove extra space below image */
+            
+            margin-bottom: 3%;
+            border-radius: 0;
+
+        }
+
+
+        .dz-preview {
+            max-width: 100%;
+            max-height: 100%;
+            margin-bottom: 5%;
+            border: 5px solid rgb(34, 5, 194);
+
+        }
+
+        .dz-error-message {
+            display: none;
+        }
+
+        .form {
+            border: 2px solid #000000;
+            width: 100%;
+            height: 80%;
+            
+            overflow-y: auto;
+            overflow-x: none;
+     
+            margin-bottom: 3%;
+
+
+        }
+    </style>
+
+    <script>
+        $(function () {
+            $("#sortable").sortable({
+                placeholder: "ui-state-highlight"
+            });
+            $("#sortable").disableSelection();
+
+            $("#draggable").draggable();
+        });
+    </script>
+</head>
+
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand" href="old.index.html">Start Bootstrap</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
+                class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search"
+                    aria-describedby="basic-addon2" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ml-auto ml-md-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="#">Settings</a>
+                    <a class="dropdown-item" href="#">Activity Log</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/editor/logout">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <a class="nav-link" href="/editor/main">
+                            main menu
+                        </a>
+                        <ul id="sortable">
+                            <li class="ui-state-default">1
+                                <img src="{% static 'dash/dist/assets/img/placeholder.png' %}">
+                            </li>
+                            <li class="ui-state-default">2
+                                <img src="{% static 'dash/dist/assets/img/placeholder.png' %}">
+                            </li>
+                            <li class="ui-state-default">3
+                                <img src="{% static 'dash/dist/assets/img/placeholder.png' %}">
+                            </li>
+                            <li class="ui-state-default">4
+                                <img src="{% static 'dash/dist/assets/img/placeholder.png' %}">
+                            </li>
+                            <li class="ui-state-default">5
+                                <img src="{% static 'dash/dist/assets/img/placeholder.png' %}">
+                            </li>
+                        </ul>
+
+                        <div id="listado">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-light">Insertar</button>
+                    </div>
+                    <hr>
+                    <div class="small">Logged in as:</div>
+                    {{user.username}}
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            {% block content %}
+            {% endblock %}
+            <!-- 
+            <footer class="py-4 bg-light mt-auto">
+                <hr>
+                <div class="container-fluid">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        -->
+        </div>
+    </div>
+
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" type="text/javascript" crossorigin="anonymous"></script>
+        <script src="{% static 'dash/dist/assets/demo/chart-area-demo.js' %}" type="text/javascript"></script>
+        <script src="{% static 'dash/dist/assets/demo/chart-bar-demo.js' %}" type="text/javascript"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" type="text/javascript" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" type="text/javascript" crossorigin="anonymous"></script>
+        <script src="{% static 'dash/dist/assets/demo/datatables-demo.js' %}" type="text/javascript"></script>-->
+</body>
+
+</html>
