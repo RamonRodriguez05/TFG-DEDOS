@@ -9,7 +9,7 @@
 </div>
 <div id="editzone">
 	<section class="sticky-div fondo">
-		<div class="row" id="toolbar" style="margin-top: 45px; margin-bottom: 45px;">
+		<div class="row" id="toolbar" style="margin-top: 10px;">
 			<div class="col-md-2"></div>
 			<div class="col-md-1 tool " id="tool-1-icon draggable tool"
 				title="Arrástreme al área de edición para crear una Zona" type="area">
@@ -20,11 +20,11 @@
 			<div id="TextoBueno" class="col-md-1 tool area-accept  ocultar" id="tool-2-icon draggable tool" type="card">
 				<i id="imagenTexto" class="fa-solid fa-pen fa-2xl"></i>
 			</div>
-			<div id="FotoBueno" class="col-md-1 tool area-accept  ocultar" id="tool-3-icon draggable tool"
+			<div id="FotoBueno" class="col-md-1 tool area-accept area-accept  ocultar" id="tool-3-icon draggable tool"
 				type="picture">
 				<i id="imagenFoto" class="fa-solid fa-image fa-2xl "></i>
 			</div>
-			<div id="SeleccionBueno" class="col-md-1 tool area-accept ocultar" id="tool-4-icon draggable tool"
+			<div id="SeleccionBueno" class="col-md-1 tool  ocultar" id="tool-4-icon draggable tool"
 				type="objetive"><i id="imagenSeleccion" class="fa-solid fa-circle-dot fa-2xl"></i>
 			</div>
 			<div id="EmparejarBueno" class="col-md-1 tool area-accept  ocultar" id="tool-5-icon draggable tool"
@@ -300,7 +300,7 @@
 				// Card
 				var idTextoTitle = "idTitle_" + num_card.toString()
 				var idButtonCard = "idbuttonCard_" + num_card.toString()
-				var titleTextoCard = $('<div id="' + idTextoTitle + '" class="tituloTexto"><button id="' + idButtonCard + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span class="tituloTexto2">Texto</span></div>').click(function () {
+				var titleTextoCard = $('<div id="' + idTextoTitle + '" class="tituloTexto"><button id="' + idButtonCard + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span>Texto</span></div>').click(function () {
 					console.log("primero")
 					var parentDiv = $(this).parent();
 					console.log("title texto", parentDiv[0].id)
@@ -384,7 +384,7 @@
 				var titleImageID = "titleImage_" + num_picture.toString()
 				var idButtonImage = "idbuttonImage_" + num_picture.toString()
 				//				var titleImage = $('<div id="' + titleImageID + '"><header class="tituloImagen">Imagen<div class="image-upload"><label for="file-input"><i class="fa-solid fa-upload"></i></label><input id="file-input" type="file"/></div></header></div>').click(function () {
-				var titleImage = $('<div id="' + titleImageID + '" class="tituloTexto"><button id="' + idButtonImage + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span class="tituloTexto2">Imagen</span></div>').click(function () {
+				var titleImage = $('<div id="' + titleImageID + '" class="tituloTexto2"><button id="' + idButtonImage + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span>Imagen</span></div>').click(function () {
 					var parentDiv = $(this).parent();
 					console.log("title texto", parentDiv)
 					parentDiv.appendTo($('#source2'))
@@ -446,7 +446,7 @@
 				var dropzoneID = "dropzone_" + num_picture.toString()
 				dropzoneIDCrear = dropzoneID
 				var formDropzoneID = "formDropzone_" + num_picture.toString()
-				var dropzoneElement = $('<form id="' + formDropzoneID + '" class="form" action="#" method="post"><div class="fv-row"><div class="dropzone" id="' + dropzoneID + '"><div class="dz-message needsclick"><i class="fa-solid fa-cloud-arrow-up fa-2xl"></i><div class="ms-4"><div >Suelte los archivos aquí o pulse para seleccionar.</div></div></div></div></div></form>').click(function () {
+				var dropzoneElement = $('<form id="' + formDropzoneID + '" class="form" action="#" method="post"><div class="fv-row"><div class="dropzone" id="' + dropzoneID + '"><div class="dz-message needsclick"><i class="fa-solid fa-cloud-arrow-up fa-2xl"></i><div class="ms-4"><div >Arrastre hasta aquí los archivos o pulse para seleccionar.</div></div></div></div></div></form>').click(function () {
 					var parentDiv = $(this).parent();
 					console.log("parentdiv essss", parentDiv)
 
@@ -492,7 +492,7 @@
 					identifier = 'card' + num_card.toString()
 					$item.empty()
 					$item.attr("id", 'card' + num_card.toString());
-					$item.attr("class", 'card ui-resizable area-accept girar')
+					$item.attr("class", 'card ui-resizable area-accept')
 					$item.append(titleTextoCard)
 					$item.append(inputTexto)
 					$item.append(tabsCard)
@@ -720,7 +720,7 @@
 		posRight = e.clientY //- rect.top; 
 
 
-		console.log("mouse location:", "left", posLeft, "top", posRight)
+	//	console.log("mouse location:", "left", posLeft, "top", posRight)
 
 	}
 	function makeDraggable($item) {
@@ -867,10 +867,10 @@
 				temporizador.style.top = "85%"
 			}
 
-			if (lastItem != null) {
-				console.log("el id es", lastItem[0].id)
-				console.log("el padre del item es", lastItem.parent()[0].id)
-			}
+			// if (lastItem != null ) {
+			// 	console.log("el id es", lastItem[0].id)
+			// 	console.log("el padre del item es", lastItem.parent()[0].id)
+			// }
 
 		}
 	});
