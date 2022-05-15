@@ -24,8 +24,8 @@
 				type="picture">
 				<i id="imagenFoto" class="fa-solid fa-image fa-2xl "></i>
 			</div>
-			<div id="SeleccionBueno" class="col-md-1 tool  ocultar" id="tool-4-icon draggable tool"
-				type="objetive"><i id="imagenSeleccion" class="fa-solid fa-circle-dot fa-2xl"></i>
+			<div id="SeleccionBueno" class="col-md-1 tool  ocultar" id="tool-4-icon draggable tool" type="objetive"><i
+					id="imagenSeleccion" class="fa-solid fa-circle-dot fa-2xl"></i>
 			</div>
 			<div id="EmparejarBueno" class="col-md-1 tool area-accept  ocultar" id="tool-5-icon draggable tool"
 				type="pairing"><i id="imagenEmparejar" class="fa-solid fa-arrows-split-up-and-left fa-2xl"></i>
@@ -68,7 +68,8 @@
 	</section>
 
 	<div id="board">
-		<div id="editor-canvas" class="editor-canvas dropzone" style="border:2px;width:100%; height:100%">
+		<div id="editor-canvas" class="editor-canvas dropzone" style="border:2px;width:120%; height:120%">
+
 		</div>
 	</div>
 
@@ -141,6 +142,8 @@
 		theDiv.appendChild(tag3);
 
 		console.log("docuemnt ready")
+		//	$("#prueba").load("/editor/editor #editor-canvas");´
+
 
 
 	})
@@ -720,7 +723,7 @@
 		posRight = e.clientY //- rect.top; 
 
 
-	//	console.log("mouse location:", "left", posLeft, "top", posRight)
+		//	console.log("mouse location:", "left", posLeft, "top", posRight)
 
 	}
 	function makeDraggable($item) {
@@ -749,7 +752,7 @@
 				var papeleraY = rect.right
 				console.log("Papelera", papeleraX, papeleraY)
 
-				if (elementoX - 30 > papeleraX && elementoY  +30 < papeleraY) {
+				if (elementoX - 30 > papeleraX && elementoY + 30 < papeleraY) {
 					console.log("HA ENTRADO")
 					if ($item[0].id.includes("time")) {
 						num_time = 0
@@ -820,7 +823,7 @@
 					}
 				}
 
-
+				captura();
 				//	ocultarOpciones()
 
 
@@ -834,6 +837,7 @@
 			},
 			stop: function (e, ui) {
 				console.log('resizing stopped');
+				captura()
 			}
 		});
 	}
@@ -866,6 +870,32 @@
 				temporizador.style.left = "88%"
 				temporizador.style.top = "85%"
 			}
+
+			captura();
+
+			// var canvas = document.getElementById("editor-canvas")
+
+			// var clone = canvas.cloneNode(true)
+
+			// console.log("El canvas es", canvas)
+			// console.log("El clon es", clone)
+
+
+			// var prueba = 	document.getElementById("prueba")
+			// prueba.innerHTML = '';
+			// console.log("La ´hijos prueba es", prueba)
+
+			// console.log("La prueba es", prueba)
+
+			// var nodes = clone.childNodes;
+			// for(var i=0; i<nodes.length; i++) {
+
+			// 		 nodes[i].style.width = "10%";
+			// 		 nodes[i].style.height = "auto";
+
+			// }
+			// prueba.append(clone)
+			//	$("#prueba").load("/editor/editor #area1");
 
 			// if (lastItem != null ) {
 			// 	console.log("el id es", lastItem[0].id)
@@ -1071,6 +1101,15 @@
 		}
 	}
 
-
+	function captura() {
+		html2canvas(document.querySelector("#editor-canvas")).then(canvas => {
+			var prueba = document.getElementById("pruebita")
+			prueba.innerHTML = '';
+			canvas.style.width = "90%"
+			canvas.style.height = "auto"
+			console.log("la captura es", canvas)
+			prueba.appendChild(canvas)
+		});
+	}
 </script>
 {% endblock %}
