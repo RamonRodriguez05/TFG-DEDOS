@@ -155,11 +155,12 @@
         }
 
         .path {
-            width: 80px;
-            height: 80px;
-            border: 1px solid rgb(0, 162, 255);
+            width: 20px;
+            height: 20px;
+            /* border: 1px solid rgb(0, 162, 255); */
         }
 
+       
         .math {
             width: 20px;
             height: 20px;
@@ -231,8 +232,20 @@
 
         .SeleccionIcono,
         .MatesIcono,
-        .TempIcono {
+        .TempIcono,
+        .PathIcono {
             color: rgb(2, 187, 2);
+        }
+
+        .PathIcono {
+            margin-left: 5px;
+            margin-top: 8px;
+        }
+
+        .squarePath{
+            color: rgb(153, 123, 41);
+            margin-bottom: -8px;
+            position: relative;
         }
 
         #temporizadorMinutos {
@@ -512,8 +525,8 @@
             position: fixed;
             bottom: 18px;
             width: 100%;
-            width: 100px;
-            height: 100px;
+            width: 70px;
+            height: 70px;
             text-align: center;
         }
 
@@ -592,10 +605,40 @@
             border: 3px solid rgb(0, 168, 190);
             border-radius: 10px;
             height: 120px;
+            
             -webkit-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
             -moz-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
             box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
+        } 
+
+        .configurarPath {
+            width: 200px;
+            height: auto;
+            border: 1px solid rgb(0, 162, 255); 
+            margin-left: 25px;
+            margin-top: -15px;
+            border-radius: 10px;
+            background-color: #b1f8f8;
+            
         }
+
+        .insidePath{
+            background-color: #dee2daf3;
+            height: 80px;
+            border: 1px solid rgb(255, 255, 255);
+            margin: 5px;
+            padding: 2px;
+            border-radius: 4px;
+        }
+
+        .xMark{
+            color: red;
+            float: right;
+            padding-right: 5px;
+            padding-top: 5px;
+        }
+
+
     </style>
 
     <script>

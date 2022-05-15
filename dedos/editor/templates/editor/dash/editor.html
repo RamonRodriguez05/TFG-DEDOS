@@ -68,13 +68,41 @@
 	</section>
 
 	<div id="board">
-		<div id="editor-canvas" class="editor-canvas dropzone" style="border:2px;width:120%; height:120%">
+		<div id="editor-canvas" class="editor-canvas dropzone" style="border:2px;width:100%; height:100%">
 
 		</div>
-	</div>
+	<section>
+		<div>
+			<i class="squarePath fa-solid fa-square"></i>
+		</div>
+		<div>
+			<div class="PathIcono">
+				<i class="fa-solid fa-location-dot fa-2xl"></i>
+			</div>
+			<div class="configurarPath">
+				<div style="height:50px">
+					<i class="PathIcono fa-solid fa-location-dot fa-2xl"></i>
+					<i class=" fa-solid fa-square"></i>
+					<i class="xMark fa-solid fa-xmark" onclick="ocultar(this)"></i>
+				</div>
+				<div class="insidePath">
+					<div style="background-color: green;height:80px"></div>
+					<div> jejeje</div>	
+					<div>ups</div>
+				</div>
+				<div class="insidePath">
+					<i class="PathIcono fa-solid fa-location-dot fa-2xl"></i>
+					Arrastre hasta aquí para crear un nuevo camino
+				</div>
+			</div>
+		</div>
+	</section>	
+		
 
-	<div id="papelera" class="eliminar" class="col-md-1"><i class="fas fa-trash-alt fa-2x"
-			style="margin-top: 35px ;"></i></div>
+
+
+	<!-- <div id="papelera" class="eliminar" class="col-md-1"><i class="fas fa-trash-alt fa-2x"
+			style="margin-top: 22px ;"></i></div> -->
 
 	<button id="btn_add" onclick="addCanvas()">Add a Div</button>
 </div>
@@ -476,6 +504,16 @@
 				var idTemporizador = "Temporizador_" + num_time.toString()
 				var TemporizadorIcono = $('<section  id="' + idTemporizador + '"><div style="margin-bottom:8px;">La actividad finaliza en:</div> <div><i class="TempIcono fa-solid fa-stopwatch fa-2xl"></i><input id="temporizadorMinutos" type="number" value="1" step="any" /> seg.</div></div></section>')
 
+				// Path 
+				var idSquarePath = "SquearePath_" + num_path.toString()
+				var pathSqueareIcono = $('<div class="squarePath"><div><i id="' + idSquarePath + '" class="squarePath fa-solid fa-square"></i></div></i></div>').click(function () { 
+				
+				
+				
+				});
+				var idPath = "Path_" + num_path.toString()
+				var pathIcono = $('<div class="PathIcono"><i id="' + idPath + '"class="fa-solid fa-location-dot fa-2xl"></i></div>').click(function () { 	});
+
 
 				if (type == "area") {
 					num_area = num_area + 1
@@ -534,6 +572,9 @@
 					$item.empty()
 					$item.attr("id", 'path' + num_path.toString());
 					$item.attr("class", 'path ui-resizable area-accept')
+					$item.append(pathSqueareIcono)
+					$item.append(pathIcono)
+
 				} else if (type == "math") {
 					num_math = num_math + 1
 					identifier = 'math' + num_math.toString()
@@ -823,7 +864,8 @@
 					}
 				}
 
-				captura();
+				//		captura();
+				captura()
 				//	ocultarOpciones()
 
 
@@ -838,6 +880,7 @@
 			stop: function (e, ui) {
 				console.log('resizing stopped');
 				captura()
+				//	captura()
 			}
 		});
 	}
@@ -871,7 +914,9 @@
 				temporizador.style.top = "85%"
 			}
 
+			//	captura();
 			captura();
+
 
 			// var canvas = document.getElementById("editor-canvas")
 
@@ -1101,15 +1146,43 @@
 		}
 	}
 
+	// function captura() {
+	// 	html2canvas(document.querySelector("#editzone")).then(canvas => {
+	// 		var prueba = document.getElementById("pruebita")
+	// 		prueba.innerHTML = ''; 
+	// 		canvas.style.width = "80%"
+	// 		canvas.style.height = "auto"
+	// 		console.log("la captura es", canvas)
+	// 		prueba.appendChild(canvas)
+	// 	});
+	// }
+
 	function captura() {
-		html2canvas(document.querySelector("#editor-canvas")).then(canvas => {
+		var el = document.querySelector("#editor-canvas")
+		html2canvas(el, {
+			scale: 0.9,
+			useCORS: true,
+			// foreignObjectRendering:true,
+			//    windowWidth: el.scrollWidth,
+			//   windowHeight: el.scrollHeight,
+			onclone: () => {
+				//lert();
+			}
+		}).then((canvas) => {
+
 			var prueba = document.getElementById("pruebita")
 			prueba.innerHTML = '';
-			canvas.style.width = "90%"
+			canvas.style.width = "100%"
 			canvas.style.height = "auto"
 			console.log("la captura es", canvas)
 			prueba.appendChild(canvas)
 		});
 	}
+
+
+
+
+
+
 </script>
 {% endblock %}
