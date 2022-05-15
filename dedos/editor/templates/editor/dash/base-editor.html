@@ -155,8 +155,8 @@
         }
 
         .path {
-            width: 20px;
-            height: 20px;
+            width: 25px;
+            height: 40px;
             /* border: 1px solid rgb(0, 162, 255); */
         }
 
@@ -612,7 +612,7 @@
         } 
 
         .configurarPath {
-            width: 200px;
+            width: 300px;
             height: auto;
             border: 1px solid rgb(0, 162, 255); 
             margin-left: 25px;
@@ -624,11 +624,12 @@
 
         .insidePath{
             background-color: #dee2daf3;
-            height: 80px;
+            height: auto;
             border: 1px solid rgb(255, 255, 255);
             margin: 5px;
             padding: 2px;
             border-radius: 4px;
+            display: flex;
         }
 
         .xMark{
@@ -638,7 +639,23 @@
             padding-top: 5px;
         }
 
-
+        input[type="color"] {
+    -webkit-appearance: none;
+    border: none;
+    width: 15px;
+    height: 15px;
+    margin-top: 4px;
+  
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+}
+    .flexDiseño{
+        display: flex;
+    }
     </style>
 
     <script>
