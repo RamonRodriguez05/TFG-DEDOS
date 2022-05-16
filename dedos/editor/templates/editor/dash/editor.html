@@ -67,56 +67,65 @@
 		<hr>
 	</section>
 
+	
+ 
 	<div id="board">
 		<div id="editor-canvas" class="editor-canvas dropzone" style="border:2px;width:100%; height:100%">
 
 		</div>
 
-	<div id="nuevo">
+	
 
-	</div>
-	<section>
-		<div>
-			<i class="squarePath fa-solid fa-square"></i>
-		</div>
-		<div>
-			<div class="PathIcono">
-				<i class="fa-solid fa-location-dot fa-2xl"></i>
+		<!-- <section>
+			<div>
+				<i class="squarePath fa-solid fa-square" onclick="mostrar('conf')"></i>
 			</div>
-			<div class="configurarPath">
-				<div style="height:50px">
-					<i class="PathIcono fa-solid fa-location-dot fa-2xl"></i>
-					<i class=" fa-solid fa-square"></i>
-					<i class="xMark fa-solid fa-xmark" onclick="ocultar(this)"></i>
+			<div>
+				<div class="PathIcono">
+					<i class="fa-solid fa-location-dot fa-2xl"></i>
 				</div>
-				<div id="mover" class="insidePath">
-					<div style="background-color: green;width:40px">Hola</div>
-					<div  id="pathid" style="width:220px"></div>	
-					<div style="background-color: green;width:40px;  text-align: center;">
-						<i class="fa-solid fa-eye fa-xl"></i>
-						<input type="color" id="favcolor" name="favcolor" value="#ff0000" >
-						<i class="fa-brands fa-connectdevelop fa-xl"></i>
+				<div id="conf" class="configurarPath">
+					<div style="height:50px">
+						<i class="PathIcono fa-solid fa-location-dot fa-2xl"></i>
+						<i class=" fa-solid fa-square" ></i>
+						<i class="xMark fa-solid fa-xmark" onclick="ocultar('conf')"></i>
+					</div>
+					<div id="mover" class="insidePath ">
+						<div style="background-color: green;width:40px">Hola</div>
+						<div  id="pathidPadre" style="width:220px">
+							<div id="pathid" class="wrap">
+	
+							</div>
+							
+						</div>	
+						<div style="background-color: green;width:40px;  text-align: center;">
+							<i class="fa-solid fa-eye fa-xl"></i>
+							<input type="color" id="favcolor" name="favcolor" value="#ff0000" >
+							<i class="fa-brands fa-connectdevelop fa-xl"></i>
+						</div>
+					</div>
+					<div id="arrastrar" class="insidePath dropzone">
+						<i class="PathIcono fa-solid fa-location-dot fa-2x"></i>
+						Arrastre hasta aquí para crear un nuevo camino
 					</div>
 				</div>
-				<div class="insidePath">
-					<i class="PathIcono fa-solid fa-location-dot fa-2x"></i>
-					Arrastre hasta aquí para crear un nuevo camino
-				</div>
 			</div>
-		</div>
-	</section>	
+			
+			<canvas id="canvas2" width="1000px" height="500px" ></canvas>
+		</section> -->
 		
 
 
-
+		
 	<div id="papelera" class="eliminar" class="col-md-1"><i class="fas fa-trash-alt fa-2x"
-			style="margin-top: 22px ;"></i></div>
+		style="margin-top: 22px ;"></i></div>
+
 
 	<button id="btn_add" onclick="addCanvas()">Add a Div</button>
 </div>
 
 
-
+{% csrf_token %}
 
 <script type="text/javascript">
 
@@ -140,8 +149,9 @@
 	posLeft = 0
 	posRight = 0
 	lastPath = null
-
-
+	num_pathid = 1
+	mouseX = 500
+	mouseY = 500
 
 	const position = {
 		x: 0,
@@ -151,6 +161,9 @@
 	borrar = true;
 	fix = false;
 	var uploadAreaID = ""
+
+
+	const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
 	$(document).ready(function () {
 		$("#groupMenu").collapse("toggle");
@@ -334,7 +347,10 @@
 					console.log("uploadArea id", parentDiv[0].id)
 					parentDiv.appendTo($('#source2'))
 					$('#source2 div').appendTo($('#source2'));
-					uploadAreaID = parentDiv[0].id;
+					uploadAreaID = parentDiv[0].id; 
+					
+					
+  
 				});
 
 				// Card
@@ -523,7 +539,7 @@
 				var idPath = "Path_" + num_path.toString()
 				var pathIcono = $('<div class="PathIcono"><i id="' + idPath + '"class="fa-solid fa-location-dot fa-2xl"></i></div>').click(function () { 	});
 
-
+				var prueba = $('<section><div><i class="squarePath fa-solid fa-square" onclick="mostrar('+"conf"+')"></i></div><div><div class="PathIcono"><i class="fa-solid fa-location-dot fa-2xl"></i></div><div id="conf" class="configurarPath ocultar"><div style="height:50px"><i class="PathIcono fa-solid fa-location-dot fa-2xl"></i><i class=" fa-solid fa-square"></i><i class="xMark fa-solid fa-xmark" onclick="ocultar('+"conf"+')"></i></div><div id="mover" class="insidePath "><div style="background-color: green;width:40px">Hola</div><div id="pathidPadre" style="width:220px"><div id="pathid" ></div></div><div style="background-color: green;width:40px; text-align: center;"><i class="fa-solid fa-eye fa-xl"></i></br><input type="color" id="favcolor" name="favcolor" value="#ff0000" ></br><i class="fa-brands fa-connectdevelop fa-xl"></i></div></div><div id="arrastrar" class="insidePath"><i class="PathIcono fa-solid fa-location-dot fa-2x"></i>Arrastre hasta aquí para crear un nuevo camino</div></div></div></section>')
 				if (type == "area") {
 					num_area = num_area + 1
 					num_areas_creadas = num_areas_creadas + 1
@@ -534,7 +550,7 @@
 					$item.attr("class", 'area ui-resizable');
 					$item.append(addUser)
 					$item.append(uploadArea)
-
+					
 					makeAreaDroppable($item)
 				} else if (type == "card") {
 					console.log("Se crea card");
@@ -581,8 +597,8 @@
 					$item.empty()
 					$item.attr("id", 'path' + num_path.toString());
 					$item.attr("class", 'path ui-resizable area-accept')
-					$item.append(pathSqueareIcono)
-					$item.append(pathIcono)
+				//	$item.append(pathSqueareIcono)
+					$item.append(prueba)
 					lastPath = $item
 					console.log("el path es", $item[0])
 					var clon = $item[0].cloneNode(true)
@@ -590,12 +606,29 @@
 					clon.id = "jeje_" + num_path.toString()
 					var newDiv = document.createElement("div");
 					newDiv.id = "pruebamover_" + num_path.toString()
-					newDiv.classList.add("flexDiseño")
+					newDiv.classList.add("inline")
+				//	newDiv.classList.add("links")
 					newDiv.style="width: 30px; height: 30px"
 					newDiv.appendChild(clon)
-					document.getElementById("pathid").append(newDiv)
+					
 					$(newDiv).draggable(); 
-					 	
+					
+					// if(num_path <= 5){
+					// 	document.getElementById("pathid").append(newDiv)
+					// }else{
+					// 	document.getElementById("pathid2").append(newDiv)
+					// }
+					// var rect = newDiv.getBoundingClientRect();
+					// console.log("Path position:",rect.top, rect.right, rect.bottom, rect.left);
+					// var medioX = rect.top + 30
+					// console.log("mdioX", medioX)
+					// var medioY = rect.right + 30
+					// console.log("mdioY", medioY)
+					// if (num_path == 2){
+					// 	unir()
+					// }
+					
+					//makeAreaDroppable(document.getElementById("arrastrar"))
 				} else if (type == "math") {
 					num_math = num_math + 1
 					identifier = 'math' + num_math.toString()
@@ -615,7 +648,8 @@
 				}
 				$(this).append($item);
 				makeDraggable($item);
-
+				var a = document.getElementById("area1").getBoundingClientRect();
+					console.log("a", a.left, a.top,a.bottom, a.right)
 				if (type == "objetive" || type == "math" || type == "time" || type == "path") {
 					var content = document.getElementById($item[0].id)
 					content.lastElementChild.remove()
@@ -779,12 +813,21 @@
 
 		// Get the bounding rectangle of target
 		const rect = target.getBoundingClientRect();
-
+		
 		// Mouse position
-		posLeft = e.clientX //- rect.left;;
+		posLeft = e.clientX // - rect.left;;
 		posRight = e.clientY //- rect.top; 
-
-
+		//dibujar(mouseX,mouseY,posLeft,posRight)
+		// var canv = document.getElementById("canvas2")
+		// var ctx = document.getElementById("canvas2").getContext("2d")
+		// ctx.clearRect(0, 0, canv.width, canv.height);
+		
+		// ctx.beginPath();
+		// ctx.moveTo(mouseX,mouseY)
+		// ctx.lineTo(posLeft, posRight)
+		// ctx.strokeStyle = "black"
+		// ctx.lineWidth = 10;
+		// ctx.stroke()
 		//	console.log("mouse location:", "left", posLeft, "top", posRight)
 
 	}
@@ -909,6 +952,8 @@
 	function printMousePos(event) {
 		console.log("mouse", "top:", event.clientY, "left:", event.clientX)
 
+		mouseX = event.clientX
+		mouseY = event.clientY
 	}
 
 	document.addEventListener("click", printMousePos);
@@ -1147,19 +1192,20 @@
 	// Crear dropzone
 	function dropzoneUpload(id) {
 		try {
+			
 			var myDropzone = new Dropzone("#" + id, {
-				url: "/editor/editor.html", // Set the url for your upload script location
+				url: "/editor/editor", // Set the url for your upload script location
+				headers: {'X-CSRFToken': csrftoken},
 				paramName: "file", // The name that will be used to transfer the file
 				maxFiles: 10,
 				acceptedFiles: ".jpeg,.jpg,.png,.gif",
 				maxFilesize: 100, // MB
 				addRemoveLinks: true,
+				dictRemoveFile: "X",
+				
 				accept: function (file, done) {
-					if (file.name == "wow.jpg") {
-						done("Naha, you don't.");
-					} else {
-						done();
-					}
+					done()
+					
 				}
 			});
 		} catch (error) {
@@ -1204,9 +1250,17 @@
 	 $("#jeje_1").draggable(); 
 	 
 
-	 $("#pruebamover_1").droppable({
+	 $("#arrastrar").droppable({
             drop: function(event, ui) {
                 $(this).css('background', 'rgb(0,200,0)');
+				console.log("Elemento", ui.draggable[0].id)
+
+				var newDiv = document.createElement("div");
+				newDiv.id = "pathid" + num_pathid.toString()
+				num_pathid++
+				newDiv.append(document.getElementById(ui.draggable[0].id))
+
+				document.getElementById("pathidPadre").append(newDiv)
             },
             over: function(event, ui) {
                 $(this).css('background', 'orange');
@@ -1217,8 +1271,74 @@
         });
 
 
+		function ocultar(elemento){
+			console.log("El ide para borrar", elemento)
+			document.getElementById(elemento.id).classList.add("ocultar")
+		}
 
+		function mostrar(elemento){
+			console.log("El ide para borrar", elemento)
+			document.getElementById(elemento.id).classList.remove("ocultar")
+		}
 
+	  
+	  // 
+	  //Canvas
 
+	function dibujar(x1,y1,x2,y2){
+		var canvas=document.getElementById("canvas2");
+        var context=canvas.getContext("2d");
+
+        function Line(x1,y1,x2,y2){
+            this.x1=x1;
+            this.y1=y1;
+            this.x2=x2;
+            this.y2=y2;
+        }
+        Line.prototype.drawWithArrowheads=function(ctx){
+
+            // arbitrary styling
+            ctx.strokeStyle="gray";
+            ctx.fillStyle="red";
+            ctx.lineWidth=10;
+            
+            // draw the line
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+		
+		
+            ctx.beginPath();
+            ctx.moveTo(this.x1,this.y1);
+            ctx.lineTo(this.x2,this.y2);
+			
+			ctx.lineCap = "round";
+            ctx.stroke();
+
+            // draw the starting arrowhead
+
+            // draw the ending arrowhead
+            var endRadians=Math.atan((this.y2-this.y1)/(this.x2-this.x1));
+            endRadians+=((this.x2>this.x1)?90:-90)*Math.PI/180;
+            this.drawArrowhead(ctx,this.x2,this.y2,endRadians);
+
+        }
+        Line.prototype.drawArrowhead=function(ctx,x,y,radians){
+            ctx.save();
+            ctx.beginPath();
+            ctx.translate(x,y);
+            ctx.rotate(radians);
+            ctx.moveTo(0,0);
+            ctx.lineTo(50,100);
+            ctx.lineTo(-50,100);
+            ctx.closePath();
+            ctx.restore();
+            ctx.fill();
+        }
+
+        // create a new line object
+        var line=new Line(x1,y1,x2,y2);
+        // draw the line
+        line.drawWithArrowheads(context);
+	}
+//
 </script>
 {% endblock %}

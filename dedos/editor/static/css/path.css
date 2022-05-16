@@ -1,0 +1,96 @@
+.inline { 
+	float:left; 
+	margin-right: 6px;
+	margin-top: 2px;
+	margin-bottom: 5px;
+	margin-left: 4px;
+	
+}
+
+.configurarPath {
+	width: 300px;
+	height: auto;
+	border: 1px solid rgb(0, 162, 255);
+	margin-left: 25px;
+	margin-top: -15px;
+	border-radius: 10px;
+	background-color: #b1f8f8;
+
+}
+
+.insidePath {
+	background-color: #dee2daf3;
+	height: auto;
+	border: 1px solid rgb(255, 255, 255);
+	margin: 5px;
+	padding: 2px;
+	border-radius: 4px;
+	display: flex;
+}
+
+.xMark {
+	color: red;
+	float: right;
+	padding-right: 5px;
+	padding-top: 5px;
+}
+
+input[type="color"] {
+	-webkit-appearance: none;
+	border: none;
+	width: 15px;
+	height: 15px;
+	margin-top: 4px;
+
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+}
+
+.flexDiseño {
+	display: flex;
+}
+
+
+/* .borde{
+	 border: 1px solid rgb(0, 162, 255); 
+}
+
+.wrap {
+	text-align: center;
+	
+	position: relative;
+  }
+  .links {
+	padding: 0 10px;
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+  }
+  .wrap:before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 0;
+	border-top: 1px solid black;
+	background: black;
+	width: 100%;
+	transform: translateY(-50%);
+  }
+  .dot {
+	width: 20px;
+	height: 20px;
+	background: red;
+  } */
+
+
+  #canvas2 {
+ 
+    border: 5px solid #000000;
+	background-color: rgb(245, 234, 234);
+}
