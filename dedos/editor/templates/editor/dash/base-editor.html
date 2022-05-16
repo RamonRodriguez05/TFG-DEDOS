@@ -578,12 +578,43 @@
 
         }
 
+        .dz-remove
+{
+    display:inline-block !important;
+    width:1.2em;
+    height:1.2em;
+    
+    position:absolute;
+    top:-5px;
+    right:5px;
+    z-index:1000;
+    
+    font-size:1.2em !important;
+    line-height:1em;
+   
+    text-align:center;
+    font-weight:bold;
+    border:1px solid rgb(255, 0, 0) !important;
+    border-radius:1.2em;
+    color:rgb(255, 0, 0);
+    background-color:rgb(247, 243, 243);
+    
+    
+}
+.dz-remove:hover{
+    width:1.3em;
+    height:1.3em;
+    font-size:1.4em !important;
+    background-color: red;
+    color: white;
+}
 
         .dz-preview {
-            max-width: 100%;
-            max-height: 100%;
+            display: flex;
+            max-width: 50%;
+            max-height: 50%;
             margin-bottom: 5%;
-            border: 5px solid rgb(34, 5, 194);
+  
 
         }
 
@@ -620,6 +651,7 @@
     </style>
 
     <script>
+        num_activity = 2
         $(function () {
             $("#sortable").sortable({
                 placeholder: "ui-state-highlight"
@@ -628,6 +660,9 @@
 
             $("#draggable").draggable();
         });
+
+        
+
     </script>
 </head>
 
@@ -671,7 +706,7 @@
 
                         <ul id="sortable">
 
-                            <li id="pruebita" class="ui-state-default preview">
+                            <li id="activity_1" onclick="alerta($(this))" class="ui-state-default preview">
 
                             </li>
                             <!--
@@ -696,7 +731,7 @@
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="text-center">
-                        <button type="button" class="btn btn-light">Insertar</button>
+                        <button type="button" class="btn btn-light" title="Añadir actividad" onclick="addActivity()">Insertar</button>
                     </div>
                     <hr>
                     <div class="small">Logged in as:</div>

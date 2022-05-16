@@ -17,11 +17,10 @@
 			</div>
 
 			<!-- Buenos ´area-accept-->
-			<div id="TextoBueno" class="col-md-1 tool area-accept  ocultar" id="tool-2-icon draggable tool" type="card">
+			<div id="TextoBueno" class="col-md-1 tool   ocultar" id="tool-2-icon draggable tool" type="card">
 				<i id="imagenTexto" class="fa-solid fa-pen fa-2xl"></i>
 			</div>
-			<div id="FotoBueno" class="col-md-1 tool area-accept area-accept  ocultar" id="tool-3-icon draggable tool"
-				type="picture">
+			<div id="FotoBueno" class="col-md-1 tool   ocultar" id="tool-3-icon draggable tool" type="picture">
 				<i id="imagenFoto" class="fa-solid fa-image fa-2xl "></i>
 			</div>
 			<div id="SeleccionBueno" class="col-md-1 tool  ocultar" id="tool-4-icon draggable tool" type="objetive"><i
@@ -33,7 +32,7 @@
 			<div id="CaminoBueno" class="col-md-1 tool area-accept ocultar" id="tool-6-icon draggable tool" type="path">
 				<i id="imagenCamino" class="fa-solid fa-location-dot fa-2xl"></i>
 			</div>
-			<div id="MatesBueno" class="col-md-1 tool area-accept  ocultar" id="tool-7-icon draggable tool" type="math">
+			<div id="MatesBueno" class="col-md-1 tool   ocultar" id="tool-7-icon draggable tool" type="math">
 				<i id="imagenMates" class="fa-solid fa-calculator fa-2xl"></i>
 			</div>
 			<div id="TemporizadorBueno" class="col-md-1 tool  area-accept ocultar" id="tool-8-icon draggable tool"
@@ -67,14 +66,14 @@
 		<hr>
 	</section>
 
-	
- 
-	<div id="board">
-		<div id="editor-canvas" class="editor-canvas dropzone" style="border:2px;width:100%; height:100%">
+
+
+	<div id="listaCanvas">
+		<div id="editor-canvas_1" class="editor-canvas dropzone" style="border:2px;width:100%; height:100%">
 
 		</div>
 
-	
+
 
 		<!-- <section>
 			<div>
@@ -113,1146 +112,1200 @@
 			
 			<canvas id="canvas2" width="1000px" height="500px" ></canvas>
 		</section> -->
-		
 
 
-		
+
+
+
+
+
+		<!-- 	<button id="btn_add" onclick="addCanvas()">Add a Div</button> -->
+	</div>
 	<div id="papelera" class="eliminar" class="col-md-1"><i class="fas fa-trash-alt fa-2x"
-		style="margin-top: 22px ;"></i></div>
+			style="margin-top: 22px ;"></i></div>
 
+	{% csrf_token %}
 
-	<button id="btn_add" onclick="addCanvas()">Add a Div</button>
-</div>
+	<script type="text/javascript">
 
+		Dropzone.autoDiscover = false;
+		num_config_card = 0;
+		num_area = 0;
+		num_card = 0;
+		num_picture = 0;
+		num_objetive = 0;
+		num_pairing = 0;
+		num_path = 0;
+		num_math = 0;
+		num_time = 0;
+		numero_areas_activas = 0;
+		num_areas_creadas = 0;
+		num_edior_dfdf = 0;
+		num_editor_canvas = 1;
+		itemTemporizador = null
+		dropzoneIDCrear = null
+		lastItem = null
+		posLeft = 0
+		posRight = 0
+		lastPath = null
+		num_pathid = 1
+		mouseX = 500
+		mouseY = 500
+		lastPadreObjetive = null
+		activity = "activity_1"
+		canvas = "#editor-canvas_1"
+		isarea = true
 
-{% csrf_token %}
-
-<script type="text/javascript">
-
-	Dropzone.autoDiscover = false;
-	num_config_card = 0;
-	num_area = 0;
-	num_card = 0;
-	num_picture = 0;
-	num_objetive = 0;
-	num_pairing = 0;
-	num_path = 0;
-	num_math = 0;
-	num_time = 0;
-	numero_areas_activas = 0;
-	num_areas_creadas = 0;
-	num_edior_dfdf = 0;
-	num_editor_canvas = 1;
-	itemTemporizador = null
-	dropzoneIDCrear = null
-	lastItem = null
-	posLeft = 0
-	posRight = 0
-	lastPath = null
-	num_pathid = 1
-	mouseX = 500
-	mouseY = 500
-
-	const position = {
-		x: 0,
-		y: 0
-	}
-
-	borrar = true;
-	fix = false;
-	var uploadAreaID = ""
-
-
-	const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-	$(document).ready(function () {
-		$("#groupMenu").collapse("toggle");
-		$("#editor").addClass("active");
-		var theDiv = document.getElementById("editor-canvas");
-
-		theDiv.appendChild(document.createElement("br"));
-		theDiv.appendChild(document.createElement("br"));
-		var tag = document.createElement("h1");
-		tag.classList.add("center");
-		var text = document.createTextNode("Este es el área de edición:");
-		tag.appendChild(text);
-		theDiv.appendChild(tag);
-		theDiv.appendChild(document.createElement("br"));
-
-		var tag2 = document.createElement("h1");
-		tag2.classList.add("center");
-		var text2 = document.createTextNode("Arrastra sobre el área los iconos de la barra de");
-		tag2.appendChild(text2);
-		theDiv.appendChild(tag2);
-
-		var tag3 = document.createElement("h1");
-		tag3.classList.add("center");
-		var text3 = document.createTextNode("herramientas para crear una actividad");
-		tag3.appendChild(text3);
-		theDiv.appendChild(tag3);
-
-		console.log("docuemnt ready")
-		//	$("#prueba").load("/editor/editor #editor-canvas");´
-
-
-
-	})
-
-
-	function addCanvas() {
-		num_editor_canvas = num_editor_canvas + 1;
-		editorCanvasID = "editor-canvas-" + num_editor_canvas.toString();
-
-		if (num_editor_canvas == 2) {
-			$("#board").append('<div id="' + editorCanvasID + '" class="editor-canvas dropzone" style="background-color:green;border:2px;width:100%; height:100%">');
-		} else {
-
-			$("#board").append('<div id="' + editorCanvasID + '" class="editor-canvas dropzone" style="background-color:powderblue;border:2px;width:100%; height:100%">');
+		const position = {
+			x: 0,
+			y: 0
 		}
-	}
 
-	$("#editor-canvas").droppable({
-		drop: function (event, ui) {
-			//this if condition is for avoiding multiple time drop and attachment of same item
-			console.log("Drop en canvas de nuevo ");
-			if (borrar) {
-				document.getElementById("editor-canvas").innerHTML = "";
-				borrar = false
-				div = document.getElementById("TextoBueno");
-				div.classList.remove("ocultar");
-				div = document.getElementById("TextoTemp");
-				div.classList.add("ocultar");
+		borrar = true;
+		fix = false;
+		var uploadAreaID = ""
 
-				div = document.getElementById("FotoBueno");
-				div.classList.remove("ocultar");
-				div = document.getElementById("FotoTemp");
-				div.classList.add("ocultar");
 
-				div = document.getElementById("SeleccionBueno");
-				div.classList.remove("ocultar");
-				div = document.getElementById("SeleccionTemp");
-				div.classList.add("ocultar");
+		const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-				div = document.getElementById("EmparejarBueno");
-				div.classList.remove("ocultar");
-				div = document.getElementById("EmparejarTemp");
-				div.classList.add("ocultar");
+		$(document).ready(function () {
+			$("#groupMenu").collapse("toggle");
+			$("#editor").addClass("active");
+			var theDiv = document.getElementById(canvas.replace("#", ""));
 
-				div = document.getElementById("CaminoBueno");
-				div.classList.remove("ocultar");
-				div = document.getElementById("CaminoTemp");
-				div.classList.add("ocultar");
+			theDiv.appendChild(document.createElement("br"));
+			theDiv.appendChild(document.createElement("br"));
+			var tag = document.createElement("h1");
+			tag.classList.add("center");
+			var text = document.createTextNode("Este es el área de edición:");
+			tag.appendChild(text);
+			theDiv.appendChild(tag);
+			theDiv.appendChild(document.createElement("br"));
 
-				div = document.getElementById("MatesBueno");
-				div.classList.remove("ocultar");
-				div = document.getElementById("MatesTemp");
-				div.classList.add("ocultar");
+			var tag2 = document.createElement("h1");
+			tag2.classList.add("center");
+			var text2 = document.createTextNode("Arrastra sobre el área los iconos de la barra de");
+			tag2.appendChild(text2);
+			theDiv.appendChild(tag2);
 
-				div = document.getElementById("TemporizadorBueno");
-				div.classList.remove("ocultar");
-				div = document.getElementById("TemporizadorTemp");
-				div.classList.add("ocultar");
-			}
+			var tag3 = document.createElement("h1");
+			tag3.classList.add("center");
+			var text3 = document.createTextNode("herramientas para crear una actividad");
+			tag3.appendChild(text3);
+			theDiv.appendChild(tag3);
 
+			console.log("docuemnt ready")
+			//	$("#prueba").load("/editor/editor #editor-canvas");´
 
 
 
-			if (ui.draggable.hasClass("tool")) {
-				console.log("Tiene clase tool");
-				var $item = $(ui.helper).clone(); //getting the cloned item
-
-				type = $item.attr('type');
-				$item.removeAttr('title');
-				$item.removeClass("tool");
-
-				// Area
-
-				// Viejo
-				// var removeButton = $("<span onclick=ocultarOpciones() class='margenIzquierdo'>X</span>").click(function () {
-				// 	var parentDiv = $(this).parent();
-				// 	$($item).remove()
-				// });
-
-				// var addImageBackground = $('<input type="button" value="+" class="margenDerecho">').click(function () {
-				// 	var parentDiv = $(this).parent();
-				// 	//  alert("Le he dado al mas")´
-				// 	var atributo = $(this).attr("value")
-				// 	var ancho = $(this).attr("width")
-				// 	var largo = $(this).attr("height")
-				// 	console.log("Ancho", ancho)
-				// 	console.log("largo", largo)
-
-				// 	if (ancho == undefined) {
-				// 		ancho = "400px"
-				// 	}
-				// 	if (largo == undefined) {
-				// 		largo = "200px"
-				// 	}
-				// 	if (atributo == "-") {
-				// 		$(this).attr("value", "+")
-
-				// 		var clasesAntiguas = ($item).attr("class")
-				// 		clasesAntiguas = clasesAntiguas.replace("imagenPrueba", "")
-				// 		$($item).attr("class", clasesAntiguas)
-				// 	} else {
-				// 		$(this).attr("value", "-")
-
-				// 		var clasesAntiguas = ($item).attr("class") + " imagenPrueba"
-				// 		$($item).attr("class", clasesAntiguas)
-				// 	}
-				// 	console.log("Ancho", ancho)
-				// 	console.log("largo", largo)
-				// 	$($item).attr("width", ancho)
-				// 	$($item).attr("height", largo)
-
-				// 	parentDiv.appendTo($('#source'))
-				// 	$('#source div').appendTo($('#source'));
-
-				// });
-
-				// var addImage = $('<img src="https://people.sc.fsu.edu/~jburkardt/data/png/voronoi_sphere2.png" width="200" height="121" alt="Italian Trulli">').click(function () {
-				// 	var parentDiv = $(this).parent();
-				// 	parentDiv.appendTo($('#source'))
-				// 	$('#source div').appendTo($('#source'));
-
-				// });
-
-				// Area
-				var imageUsuarioID = "usuario_" + num_area.toString()
-				var botonUsuarioID = "botonUsuario_" + num_area.toString()
-				var addUser = $('<a id="' + botonUsuarioID + '" class="btn user-image" title="Cambiar a zona de juego"><i id="' + imageUsuarioID + '" class="fa-solid fa-user margenIzquierdo"></i></a>').click(function () {
-					var parentDiv = $(this).parent();
-					var elemento = document.getElementById(parentDiv.context.children[0].id);
-					var areaPadre = document.getElementById(parentDiv[0].id);
-					var botonUsuario = document.getElementById(parentDiv.context.id)
-
-					if (elemento.classList.contains("fa-user")) {
-						elemento.classList.remove("fa-user")
-						elemento.classList.add("fa-users")
-						areaPadre.style.backgroundColor = "#F0FFB4";
-						botonUsuario.title = "Cambiar a zona de jugador"
-					} else {
-						elemento.classList.remove("fa-users")
-						elemento.classList.add("fa-user")
-						areaPadre.style.backgroundColor = "#DBF5FF";
-						botonUsuario.title = "Cambiar a zona de juego"
-					}
-				});
-
-				var idUploadArea = "uploadArea_" + num_area.toString();
-
-
-				var uploadArea = $('<div class="image-upload"> <label for="' + idUploadArea + '"> <i class="fa-solid fa-upload image-upload"></i> </label> <input id="' + idUploadArea + '" type="file" accept="image/png, image/gif, image/jpeg" onchange="changeBackground(this);" style="display: none;" /> </div>').click(function () {
-					var parentDiv = $(this).parent();
-					console.log("uploadArea id", parentDiv[0].id)
-					parentDiv.appendTo($('#source2'))
-					$('#source2 div').appendTo($('#source2'));
-					uploadAreaID = parentDiv[0].id; 
-					
-					
-  
-				});
-
-				// Card
-				var idTextoTitle = "idTitle_" + num_card.toString()
-				var idButtonCard = "idbuttonCard_" + num_card.toString()
-				var titleTextoCard = $('<div id="' + idTextoTitle + '" class="tituloTexto"><button id="' + idButtonCard + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span>Texto</span></div>').click(function () {
-					console.log("primero")
-					var parentDiv = $(this).parent();
-					console.log("title texto", parentDiv[0].id)
-					parentDiv.appendTo($('#source2'))
-					$('#source2 div').appendTo($('#source2'));
-					if (fix) {
-						var $item = $(ui.draggable[0]).parent()
-						console.log("Dragableee", $item.parent().context.id)
-						var clases = parentDiv.attr("class") + " fixed card"
-						parentDiv.attr("class", clases)
-
-						parentDiv.draggable("disable");
-					} else {
-						var $item = $(ui.draggable[0]).parent()
-						console.log("Dragableee", $item)
-						var clases = parentDiv.attr("class") + " fixed card"
-						parentDiv.attr("class", clases)
-						parentDiv.draggable("enable");
-					}
-				});
-
-				var texto3id = "back_" + num_card.toString()
-				var idAcciones = "Acciones_" + num_card.toString()
-				var idFeedback = "Feedback_" + num_card.toString()
-				var idMatematicas = "Matematicas_" + num_card.toString()
-				var tabsCard = $('<section id ="' + texto3id + '" class="ocultar"><div class="tab center"><button class="tablinks active" onclick="openCity(event, ' + idAcciones + ')">Acciones</button><button class="tablinks" onclick="openCity(event, ' + idFeedback + ')">Feedback</button><button class="tablinks" onclick="openCity(event, ' + idMatematicas + ')">Matemáticas</button></div><div id="' + idAcciones + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + idFeedback + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
-					idMatematicas + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>').click(function () {
-						var parentDiv = $(this).parent();
-						console.log("pulso", parentDiv)
-						parentDiv.appendTo($('#source2'))
-						$('#source2 div').appendTo($('#source2'));
-					});
-
-				var textAreaid = "textArea_" + num_card.toString()
-				var inputTexto = $('<textarea id="' + textAreaid + '"class="inputText" placeholder="Escriba aquí el texto" name = "description" ></textarea>').click(function () {
-					var parentDiv = $(this).parent();
-					console.log("title texto", parentDiv)
-					parentDiv.appendTo($('#source2'))
-					$('#source2 div').appendTo($('#source2'));
-
-				});
-
-				var configid = "config_card_" + num_card.toString()
-				var configurationButton = $("<div id='" + configid + "' class='config'><i class='fa-solid fa-gear'></i></div>").click(function () {
-					var parentDiv = $(this).parent();
-					var hijo = parentDiv.children(0).children(7).context.id
-
-					var splitData = hijo.split('_')
-					var idd = "back_" + splitData[2].toString();
-					var idd2 = "textArea_" + splitData[2].toString();
-					var idd3 = "idTitle_" + splitData[2].toString();
-					let menu = document.getElementById(idd);
-					let menu2 = document.getElementById(idd2);
-					let menu3 = document.getElementById(idd3)
-
-					if (menu.classList.contains("ocultar")) {
-						menu.classList.remove("ocultar")
-						menu2.classList.add("ocultar")
-						menu3.classList.add("ocultar")
-						menu.classList.add("inputTextRetroalimentacion")
-					} else {
-						menu.classList.add("ocultar")
-						menu2.classList.remove("ocultar")
-						menu3.classList.remove("ocultar")
-					}
-				});
-
-				// Image
-				var backImageID = "backImage_" + num_picture.toString()
-				var AccionesImageID = "AccionesImage_" + num_picture.toString()
-				var FeedbackImageID = "FeedbackImage_" + num_picture.toString()
-				var MatematicasImageID = "MatematicasImage_" + num_picture.toString()
-				var tabImage = $('<section id ="' + backImageID + '" class="ocultar"><div class="tab center"><button class="tablinks active" onclick="evaluarTabImage(event, ' + AccionesImageID + ')">Acciones</button><button class="tablinks" onclick="evaluarTabImage(event, ' + FeedbackImageID + ')">Feedback</button><button class="tablinks" onclick="evaluarTabImage(event, ' + MatematicasImageID + ')">Matemáticas</button></div><div id="' + AccionesImageID + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + FeedbackImageID + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
-					MatematicasImageID + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>').click(function () {
-						var parentDiv = $(this).parent();
-						console.log("pulso", parentDiv)
-						parentDiv.appendTo($('#source2'))
-						$('#source2 div').appendTo($('#source2'));
-					});
-
-				var titleImageID = "titleImage_" + num_picture.toString()
-				var idButtonImage = "idbuttonImage_" + num_picture.toString()
-				//				var titleImage = $('<div id="' + titleImageID + '"><header class="tituloImagen">Imagen<div class="image-upload"><label for="file-input"><i class="fa-solid fa-upload"></i></label><input id="file-input" type="file"/></div></header></div>').click(function () {
-				var titleImage = $('<div id="' + titleImageID + '" class="tituloTexto2"><button id="' + idButtonImage + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span>Imagen</span></div>').click(function () {
-					var parentDiv = $(this).parent();
-					console.log("title texto", parentDiv)
-					parentDiv.appendTo($('#source2'))
-					$('#source2 div').appendTo($('#source2'));
-
-					if (fix) {
-						var $item = $(ui.draggable[0]).parent()
-						console.log("Dragableee", $item.parent().context.id)
-						var clases = parentDiv.attr("class") + " fixed picture"
-						parentDiv.attr("class", clases)
-
-						parentDiv.draggable("disable");
-					} else {
-						var $item = $(ui.draggable[0]).parent()
-						console.log("Dragableee", $item)
-						var clases = parentDiv.attr("class") + " fixed picture"
-						parentDiv.attr("class", clases)
-						parentDiv.draggable("enable");
-					}
-				});
-
-
-
-
-
-				// var titleTexto2 = $('<section class="container"><div id="card" class="girar"><figure class="front"><header class="tituloTexto">Texto</header><textarea class="inputText" placeholder="Escriba aquí el texto" name = "description" ></textarea><button id="flip" onclick="myFunction()">Flip Card</button></figure><figure class="back"><button id="flip">Flip Card</button></figure></div></section>').click(function () {
-				// 	var parentDiv = $(this).parent();
-				// 	console.log("title texto", parentDiv)
-				// 	parentDiv.appendTo($('#source2'))
-				// 	$('#source2 div').appendTo($('#source2'));
-				// });
-
-
-
-				var configidImagen = "config_picture_" + num_picture.toString()
-				var configurationButtonImagen = $("<div id='" + configidImagen + "' class='config'><i class='fa-solid fa-gear'></i></div>").click(function () {
-					var parentDiv = $(this).parent();
-					var hijo = parentDiv.children(0).children(7).context.id
-					var splitData = hijo.split('_')
-					var idd = "backImage_" + splitData[2].toString();
-					var idd2 = "formDropzone_" + splitData[2].toString();
-					var idd3 = "titleImage_" + splitData[2].toString();
-					let menu = document.getElementById(idd);
-					let menu2 = document.getElementById(idd2);
-					let menu3 = document.getElementById(idd3);
-
-					if (menu.classList.contains("ocultar")) {
-						menu.classList.remove("ocultar")
-						menu2.classList.add("ocultar")
-						menu3.classList.add("ocultar")
-						menu.classList.add("inputTextRetroalimentacion")
-					} else {
-						menu.classList.add("ocultar")
-						menu2.classList.remove("ocultar")
-						menu3.classList.remove("ocultar")
-					}
-				});
-
-				var dropzoneID = "dropzone_" + num_picture.toString()
-				dropzoneIDCrear = dropzoneID
-				var formDropzoneID = "formDropzone_" + num_picture.toString()
-				var dropzoneElement = $('<form id="' + formDropzoneID + '" class="form" action="#" method="post"><div class="fv-row"><div class="dropzone" id="' + dropzoneID + '"><div class="dz-message needsclick"><i class="fa-solid fa-cloud-arrow-up fa-2xl"></i><div class="ms-4"><div >Arrastre hasta aquí los archivos o pulse para seleccionar.</div></div></div></div></div></form>').click(function () {
-					var parentDiv = $(this).parent();
-					console.log("parentdiv essss", parentDiv)
-
-
-				});
-
-
-				// Seleccion
-				var idSelecciono = "Seleccion_" + num_objetive.toString()
-
-				var seleccionIcono = $('<div id="' + idSelecciono + '" class="SeleccionIcono"><i  class="fa-solid fa-circle-dot fa-2xl"></i></div>').click(function () {
-					var parentDiv = $(this).parent();
-					console.log("parentdiv essss", parentDiv)
-					parentDiv.resizable("destroy");
-				});
-
-				//Matematicas
-				var idMates = "Matematicas_" + num_math.toString()
-				var MatesIcono = $('<div class="MatesIcono"><i id="' + idMates + '" class="fa-solid fa-calculator fa-2xl"></i></div>').click(function () {
-
-				});
-
-				// Temporizador
-				var idTemporizador = "Temporizador_" + num_time.toString()
-				var TemporizadorIcono = $('<section  id="' + idTemporizador + '"><div style="margin-bottom:8px;">La actividad finaliza en:</div> <div><i class="TempIcono fa-solid fa-stopwatch fa-2xl"></i><input id="temporizadorMinutos" type="number" value="1" step="any" /> seg.</div></div></section>')
-
-				// Path 
-				var idSquarePath = "SquearePath_" + num_path.toString()
-				var pathSqueareIcono = $('<div class="squarePath"><div><i id="' + idSquarePath + '" class="squarePath fa-solid fa-square"></i></div></i></div>').click(function () { 
-				
-				
-				
-				});
-				var idPath = "Path_" + num_path.toString()
-				var pathIcono = $('<div class="PathIcono"><i id="' + idPath + '"class="fa-solid fa-location-dot fa-2xl"></i></div>').click(function () { 	});
-
-				var prueba = $('<section><div><i class="squarePath fa-solid fa-square" onclick="mostrar('+"conf"+')"></i></div><div><div class="PathIcono"><i class="fa-solid fa-location-dot fa-2xl"></i></div><div id="conf" class="configurarPath ocultar"><div style="height:50px"><i class="PathIcono fa-solid fa-location-dot fa-2xl"></i><i class=" fa-solid fa-square"></i><i class="xMark fa-solid fa-xmark" onclick="ocultar('+"conf"+')"></i></div><div id="mover" class="insidePath "><div style="background-color: green;width:40px">Hola</div><div id="pathidPadre" style="width:220px"><div id="pathid" ></div></div><div style="background-color: green;width:40px; text-align: center;"><i class="fa-solid fa-eye fa-xl"></i></br><input type="color" id="favcolor" name="favcolor" value="#ff0000" ></br><i class="fa-brands fa-connectdevelop fa-xl"></i></div></div><div id="arrastrar" class="insidePath"><i class="PathIcono fa-solid fa-location-dot fa-2x"></i>Arrastre hasta aquí para crear un nuevo camino</div></div></div></section>')
-				if (type == "area") {
-					num_area = num_area + 1
-					num_areas_creadas = num_areas_creadas + 1
-					numero_areas_activas = numero_areas_activas + 1;
-					identifier = 'area' + num_area.toString()
-					$item.empty()
-					$item.attr("id", 'area' + num_area.toString());
-					$item.attr("class", 'area ui-resizable');
-					$item.append(addUser)
-					$item.append(uploadArea)
-					
-					makeAreaDroppable($item)
-				} else if (type == "card") {
-					console.log("Se crea card");
-					num_card = num_card + 1
-					identifier = 'card' + num_card.toString()
-					$item.empty()
-					$item.attr("id", 'card' + num_card.toString());
-					$item.attr("class", 'card ui-resizable area-accept')
-					$item.append(titleTextoCard)
-					$item.append(inputTexto)
-					$item.append(tabsCard)
-					$item.append(configurationButton)
-
-					makeAreaDroppable($item)
-				} else if (type == "picture") {
-					num_picture = num_picture + 1
-					identifier = 'picture' + num_picture.toString()
-					$item.empty()
-					$item.attr("id", 'picture' + num_picture.toString());
-					$item.attr("class", 'picture ui-resizable area-accept')
-					$item.append(titleImage)
-					$item.append(dropzoneElement)
-					$item.append(tabImage)
-					$item.append(configurationButtonImagen)
-					makeAreaDroppable($item)
-				} else if (type == "objetive") {
-					console.log("Entro en objetive", $item.parent())
-					num_objetive = num_objetive + 1
-					identifier = 'objetive' + num_objetive.toString()
-					$item.empty()
-					$item.attr("id", 'objetive' + num_objetive.toString());
-					$item.attr("class", 'objetive area-accept')
-					$item.append(seleccionIcono)
-					lastItem = $item
-				} else if (type == "pairing") {
-					num_pairing = num_pairing + 1
-					identifier = 'pairing' + num_pairing.toString()
-					$item.empty()
-					$item.attr("id", 'pairing' + num_pairing.toString());
-					$item.attr("class", 'pairing ui-resizable area-accept')
-				} else if (type == "path") {
-					num_path = num_path + 1
-					identifier = 'path' + num_path.toString()
-					$item.empty()
-					$item.attr("id", 'path' + num_path.toString());
-					$item.attr("class", 'path ui-resizable area-accept')
-				//	$item.append(pathSqueareIcono)
-					$item.append(prueba)
-					lastPath = $item
-					console.log("el path es", $item[0])
-					var clon = $item[0].cloneNode(true)
-					clon.style = "left: 0px; top: 0px; position: relative"
-					clon.id = "jeje_" + num_path.toString()
-					var newDiv = document.createElement("div");
-					newDiv.id = "pruebamover_" + num_path.toString()
-					newDiv.classList.add("inline")
-				//	newDiv.classList.add("links")
-					newDiv.style="width: 30px; height: 30px"
-					newDiv.appendChild(clon)
-					
-					$(newDiv).draggable(); 
-					
-					// if(num_path <= 5){
-					// 	document.getElementById("pathid").append(newDiv)
-					// }else{
-					// 	document.getElementById("pathid2").append(newDiv)
-					// }
-					// var rect = newDiv.getBoundingClientRect();
-					// console.log("Path position:",rect.top, rect.right, rect.bottom, rect.left);
-					// var medioX = rect.top + 30
-					// console.log("mdioX", medioX)
-					// var medioY = rect.right + 30
-					// console.log("mdioY", medioY)
-					// if (num_path == 2){
-					// 	unir()
-					// }
-					
-					//makeAreaDroppable(document.getElementById("arrastrar"))
-				} else if (type == "math") {
-					num_math = num_math + 1
-					identifier = 'math' + num_math.toString()
-					$item.empty()
-					$item.attr("id", 'math' + num_math.toString());
-					$item.attr("class", 'math ui-resizable area-accept')
-					$item.append(MatesIcono)
-				} else if (type == "time") {
-					num_time = num_time + 1
-					identifier = 'time' + num_time.toString()
-					$item.empty()
-					$item.attr("id", 'time' + num_time.toString());
-					$item.attr("class", 'time ui-resizable ')
-					$item.append(TemporizadorIcono)
-					itemTemporizador = $item
-
-				}
-				$(this).append($item);
-				makeDraggable($item);
-				var a = document.getElementById("area1").getBoundingClientRect();
-					console.log("a", a.left, a.top,a.bottom, a.right)
-				if (type == "objetive" || type == "math" || type == "time" || type == "path") {
-					var content = document.getElementById($item[0].id)
-					content.lastElementChild.remove()
-					content.lastElementChild.remove()
-					content.lastElementChild.remove()
-				}
-
-			} else {
-				/** Una tarjeta, área o objetivo se está soltando **/
-				var $item = $(ui.draggable[0])
-				if ($item.parent().attr("id") != $(this).attr("id")) {
-					$item.css("left", parseFloat($item.css("left"), 10) + parseFloat($item.parent().css(
-						"left"), 10))
-					$item.css("top", parseFloat($item.css("top"), 10) + parseFloat($item.parent().css("top"),
-						10))
-				}
-				$(this).append($item)
-			}
-			console.log("numero areas activas", numero_areas_activas)
-			if (numero_areas_activas = !0) {
-				div = document.getElementById("TextoBueno");
-				div.classList.remove("ocultar");
-				div = document.getElementById("TextoTemp");
-				div.classList.add("ocultar");
-
-				div = document.getElementById("FotoBueno");
-				div.classList.remove("ocultar");
-				div = document.getElementById("FotoTemp");
-				div.classList.add("ocultar");
-
-				div = document.getElementById("SeleccionBueno");
-				div.classList.remove("ocultar");
-				div = document.getElementById("SeleccionTemp");
-				div.classList.add("ocultar");
-
-				div = document.getElementById("EmparejarBueno");
-				div.classList.remove("ocultar");
-				div = document.getElementById("EmparejarTemp");
-				div.classList.add("ocultar");
-
-				div = document.getElementById("CaminoBueno");
-				div.classList.remove("ocultar");
-				div = document.getElementById("CaminoTemp");
-				div.classList.add("ocultar");
-
-				div = document.getElementById("MatesBueno");
-				div.classList.remove("ocultar");
-				div = document.getElementById("MatesTemp");
-				div.classList.add("ocultar");
-
-				div = document.getElementById("TemporizadorBueno");
-				div.classList.remove("ocultar");
-				div = document.getElementById("TemporizadorTemp");
-				div.classList.add("ocultar");
-			}
-
-			if (num_time > 0) {
-				div = document.getElementById("TemporizadorTemp");
-				div.classList.remove("ocultar");
-				div = document.getElementById("TemporizadorBueno");
-				div.classList.add("ocultar");
-			}
-
-		}
-	})
-
-	function makeAreaDroppable($item) {
-		$item.droppable({
-			accept: ".area-accept",
-			greedy: true,
-			drop: function (event, ui) {
-				//this if condition is for avoiding multiple time drop and attachment of same item
-				console.log("Drop en zona")
-				if (ui.draggable.hasClass("tool")) {
-					console.log("Se dropea en zona");
-					var $item = $(ui.helper).clone(); //getting the cloned item
-					type = $item.attr('type');
-					$item.removeClass("tool");
-					if (type == "area") {
-						num_area = num_area + 1
-						identifier = 'area' + num_area.toString()
-						$item.empty()
-						$item.attr("id", 'area' + num_area.toString());
-						$item.attr("class", 'area ui-resizable');
-					} else if (type == "card") {
-						num_card = num_card + 1
-						identifier = 'card' + num_area.toString()
-						$item.empty()
-						$item.attr("id", 'card' + num_area.toString());
-						$item.attr("class", 'card ui-resizable area-accept')
-						$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
-							10))
-						$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
-					} else if (type == "picture") {
-						num_picture = num_picture + 1
-						identifier = 'picture' + num_area.toString()
-						$item.empty()
-						$item.attr("id", 'picture' + num_area.toString());
-						$item.attr("class", 'picture ui-resizable area-accept')
-						$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
-							10))
-						$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
-					} else if (type == "objetive") {
-						num_objetive = num_objetive + 1
-						identifier = 'objetive' + num_area.toString()
-						$item.empty()
-						$item.attr("id", 'objetive' + num_area.toString());
-						$item.attr("class", 'objetive  area-accept')
-						$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
-							10))
-						$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
-					} else if (type == "pairing") {
-						num_pairing = num_pairing + 1
-						identifier = 'pairing' + num_area.toString()
-						$item.empty()
-						$item.attr("id", 'pairing' + num_area.toString());
-						$item.attr("class", 'pairing ui-resizable area-accept')
-						$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
-							10))
-						$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
-					} else if (type == "path") {
-						num_path = num_path + 1
-						identifier = 'path' + num_area.toString()
-						$item.empty()
-						$item.attr("id", 'path' + num_area.toString());
-						$item.attr("class", 'path ui-resizable area-accept')
-						$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
-							10))
-						$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
-					} else if (type == "math") {
-						num_math = num_math + 1
-						identifier = 'math' + num_area.toString()
-						$item.empty()
-						$item.attr("id", 'math' + num_area.toString());
-						$item.attr("class", 'math ui-resizable area-accept')
-						$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
-							10))
-						$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
-					}
-					$(this).append($item);
-					makeDraggable($item);
-				} else {
-					/** Una tarjeta, área o objetivo se está soltando **/
-					var $item = $(ui.draggable[0])
-					if ($item.parent().attr("id") != $(this).attr("id")) {
-						console.log("Cambia de padre");
-						$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
-							10))
-						$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
-					}
-					console.log("el padres this es", $(this))
-					console.log("el padre item es", $item)
-					$(this).append($item)
-				}
-			}
 		})
-	}
-	onmousemove = function (e) {
-
-		const target = e.target;
-
-		// Get the bounding rectangle of target
-		const rect = target.getBoundingClientRect();
-		
-		// Mouse position
-		posLeft = e.clientX // - rect.left;;
-		posRight = e.clientY //- rect.top; 
-		//dibujar(mouseX,mouseY,posLeft,posRight)
-		// var canv = document.getElementById("canvas2")
-		// var ctx = document.getElementById("canvas2").getContext("2d")
-		// ctx.clearRect(0, 0, canv.width, canv.height);
-		
-		// ctx.beginPath();
-		// ctx.moveTo(mouseX,mouseY)
-		// ctx.lineTo(posLeft, posRight)
-		// ctx.strokeStyle = "black"
-		// ctx.lineWidth = 10;
-		// ctx.stroke()
-		//	console.log("mouse location:", "left", posLeft, "top", posRight)
-
-	}
-	function makeDraggable($item) {
-		$item.draggable({
-			containment: "#editzone",
-			helper: "original",
-			appendTo: "body",
-			start: function () { },
-			stop: function () {
-				console.log('stopped 1')
 
 
-				var positions = $item.position()
-				//	console.log("pp", positions)
-				var rect = $item[0].getBoundingClientRect();
-				console.log("ELEMENTO:", "top:", rect.top, "left:", rect.left, "bottom:", rect.bottom, "right:", rect.right,);
+		// function addCanvas() {
+		// 	num_editor_canvas = num_editor_canvas + 1;
+		// 	editorCanvasID = "editor-canvas-" + num_editor_canvas.toString();
 
-				var elementoX = rect.bottom
-				var elementoY = rect.left
-				console.log("punto elemento", elementoX, elementoY)
-				var papelera = document.getElementById("papelera")
+		// 	if (num_editor_canvas == 2) {
+		// 		$("#listaCanvas").append('<div id="' + editorCanvasID + '" class="editor-canvas dropzone" style="background-color:green;border:2px;width:100%; height:100%">');
+		// 	} else {
 
-				var rect = papelera.getBoundingClientRect();
-				console.log("PAPELERA:", "top:", rect.top, "left:", rect.left, "bottom:", rect.bottom, "right:", rect.right,);
-				var papeleraX = rect.top
-				var papeleraY = rect.right
-				console.log("Papelera", papeleraX, papeleraY)
+		// 		$("#listaCanvas").append('<div id="' + editorCanvasID + '" class="editor-canvas dropzone" style="background-color:powderblue;border:2px;width:100%; height:100%">');
+		// 	}
+		// }
+		function lanzar() {
+			$(canvas).droppable({
+				drop: function (event, ui) {
+					//this if condition is for avoiding multiple time drop and attachment of same item
+					console.log("Drop en canvas de nuevo ");
+					if (borrar) {
+						document.getElementById(canvas.replace("#", "")).innerHTML = "";
+						borrar = false
+						div = document.getElementById("TextoBueno");
+						div.classList.remove("ocultar");
+						div = document.getElementById("TextoTemp");
+						div.classList.add("ocultar");
 
-				if (elementoX - 30 > papeleraX && elementoY + 30 < papeleraY) {
-					console.log("HA ENTRADO")
-					if ($item[0].id.includes("time")) {
-						num_time = 0
+						div = document.getElementById("FotoBueno");
+						div.classList.remove("ocultar");
+						div = document.getElementById("FotoTemp");
+						div.classList.add("ocultar");
+
+						div = document.getElementById("SeleccionBueno");
+						div.classList.remove("ocultar");
+						div = document.getElementById("SeleccionTemp");
+						div.classList.add("ocultar");
+
+						div = document.getElementById("EmparejarBueno");
+						div.classList.remove("ocultar");
+						div = document.getElementById("EmparejarTemp");
+						div.classList.add("ocultar");
+
+						div = document.getElementById("CaminoBueno");
+						div.classList.remove("ocultar");
+						div = document.getElementById("CaminoTemp");
+						div.classList.add("ocultar");
+
+						div = document.getElementById("MatesBueno");
+						div.classList.remove("ocultar");
+						div = document.getElementById("MatesTemp");
+						div.classList.add("ocultar");
+
 						div = document.getElementById("TemporizadorBueno");
 						div.classList.remove("ocultar");
 						div = document.getElementById("TemporizadorTemp");
 						div.classList.add("ocultar");
-						itemTemporizador = null
-					}
-					if ($item[0].id.includes("area")) {
-						num_area--;
-					}
-					$($item).remove()
-				} else {
-					//	lastItem.style ="left:" + posLeft + "; right:"+ posRight;
-					if ($item[0].id.includes("time")) {
-						console.log('Temporizador', $item[0].id)
-						var temporizador = document.getElementById($item[0].id)
-						// temporizador.style.top = "140px"
-						// temporizador.style.left = "5px"
-						temporizador.style.position = "fixed"
-						temporizador.style.left = "88%"
-						temporizador.style.top = "85%"
 					}
 
-					// Alinear con padre
-					if ($item[0].id.includes("objetive")) {
-						console.log("el id´dddd es", $item[0].id)
-						console.log("el padre del item es", $item.parent()[0].children[0])
-						if ($item.parent()[0].id.includes("editor-canvas")) {
-							$item.remove()
-						} else {
-							if ($item.parent()[0].id.includes("card")) {
-								var hijo = document.getElementById($item[0].id)
-								hijo.style = " left: 15px;"
-								var parent = document.getElementById($item.parent()[0].children[0].id)
-								parent.insertBefore(hijo, parent.children[0]);
+
+
+
+					if (ui.draggable.hasClass("tool")) {
+						console.log("Tiene clase tool");
+						var $item = $(ui.helper).clone(); //getting the cloned item
+
+						type = $item.attr('type');
+						$item.removeAttr('title');
+						$item.removeClass("tool");
+
+						// Area
+
+						// Viejo
+						// var removeButton = $("<span onclick=ocultarOpciones() class='margenIzquierdo'>X</span>").click(function () {
+						// 	var parentDiv = $(this).parent();
+						// 	$($item).remove()
+						// });
+
+						// var addImageBackground = $('<input type="button" value="+" class="margenDerecho">').click(function () {
+						// 	var parentDiv = $(this).parent();
+						// 	//  alert("Le he dado al mas")´
+						// 	var atributo = $(this).attr("value")
+						// 	var ancho = $(this).attr("width")
+						// 	var largo = $(this).attr("height")
+						// 	console.log("Ancho", ancho)
+						// 	console.log("largo", largo)
+
+						// 	if (ancho == undefined) {
+						// 		ancho = "400px"
+						// 	}
+						// 	if (largo == undefined) {
+						// 		largo = "200px"
+						// 	}
+						// 	if (atributo == "-") {
+						// 		$(this).attr("value", "+")
+
+						// 		var clasesAntiguas = ($item).attr("class")
+						// 		clasesAntiguas = clasesAntiguas.replace("imagenPrueba", "")
+						// 		$($item).attr("class", clasesAntiguas)
+						// 	} else {
+						// 		$(this).attr("value", "-")
+
+						// 		var clasesAntiguas = ($item).attr("class") + " imagenPrueba"
+						// 		$($item).attr("class", clasesAntiguas)
+						// 	}
+						// 	console.log("Ancho", ancho)
+						// 	console.log("largo", largo)
+						// 	$($item).attr("width", ancho)
+						// 	$($item).attr("height", largo)
+
+						// 	parentDiv.appendTo($('#source'))
+						// 	$('#source div').appendTo($('#source'));
+
+						// });
+
+						// var addImage = $('<img src="https://people.sc.fsu.edu/~jburkardt/data/png/voronoi_sphere2.png" width="200" height="121" alt="Italian Trulli">').click(function () {
+						// 	var parentDiv = $(this).parent();
+						// 	parentDiv.appendTo($('#source'))
+						// 	$('#source div').appendTo($('#source'));
+
+						// });
+
+						// Area
+						var imageUsuarioID = "usuario_" + num_area.toString()
+						var botonUsuarioID = "botonUsuario_" + num_area.toString()
+						var addUser = $('<a id="' + botonUsuarioID + '" class="btn user-image" title="Cambiar a zona de juego"><i id="' + imageUsuarioID + '" class="fa-solid fa-user margenIzquierdo"></i></a>').click(function () {
+							var parentDiv = $(this).parent();
+							var elemento = document.getElementById(parentDiv.context.children[0].id);
+							var areaPadre = document.getElementById(parentDiv[0].id);
+							var botonUsuario = document.getElementById(parentDiv.context.id)
+
+							if (elemento.classList.contains("fa-user")) {
+								elemento.classList.remove("fa-user")
+								elemento.classList.add("fa-users")
+								areaPadre.style.backgroundColor = "#F0FFB4";
+								botonUsuario.title = "Cambiar a zona de jugador"
+							} else {
+								elemento.classList.remove("fa-users")
+								elemento.classList.add("fa-user")
+								areaPadre.style.backgroundColor = "#DBF5FF";
+								botonUsuario.title = "Cambiar a zona de juego"
 							}
+						});
 
-							if ($item.parent()[0].id.includes("area")) {
-								console.log("el padre del item es area ", $item.parent()[0].id)
-								var hijo = document.getElementById($item[0].id)
-									//	var rect = hijo.getBoundingClientRect();
-									//	console.log("Las posiciones hijo son",rect.top, rect.right, rect.bottom, rect.left);
-									;// =" position: absolute; left: 60px; top: 35px;"
-								parent = document.getElementById("area1")
-								var rect = parent.getBoundingClientRect();
-								console.log("Las posiciones padre son", rect.top, rect.right, rect.bottom, rect.left);
-								var je = posRight - rect.top - 45
-								var jo = posLeft - rect.left - 10
-								console.log("resta top", je, "resta left", jo)
-								hijo.style = "top:" + je + "px; left:" + jo + "px;"
-								parent.appendChild(document.getElementById("objetive1"))
+						var idUploadArea = "uploadArea_" + num_area.toString();
+
+
+						var uploadArea = $('<div class="image-upload"> <label for="' + idUploadArea + '"> <i class="fa-solid fa-upload image-upload"></i> </label> <input id="' + idUploadArea + '" type="file" accept="image/png, image/gif, image/jpeg" onchange="changeBackground(this);" style="display: none;" /> </div>').click(function () {
+							var parentDiv = $(this).parent();
+							console.log("uploadArea id", parentDiv[0].id)
+							parentDiv.appendTo($('#source2'))
+							$('#source2 div').appendTo($('#source2'));
+							uploadAreaID = parentDiv[0].id;
+
+
+
+						});
+
+						// Card
+						var idTextoTitle = "idTitle_" + num_card.toString()
+						var idButtonCard = "idbuttonCard_" + num_card.toString()
+						var titleTextoCard = $('<div id="' + idTextoTitle + '" class="tituloTexto"><button id="' + idButtonCard + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span>Texto</span></div>').click(function () {
+							console.log("primero")
+							var parentDiv = $(this).parent();
+							console.log("title texto", parentDiv[0].id)
+							parentDiv.appendTo($('#source2'))
+							$('#source2 div').appendTo($('#source2'));
+							if (fix) {
+								var $item = $(ui.draggable[0]).parent()
+								console.log("Dragableee", $item.parent().context.id)
+								var clases = parentDiv.attr("class") + " fixed card"
+								parentDiv.attr("class", clases)
+
+								parentDiv.draggable("disable");
+							} else {
+								var $item = $(ui.draggable[0]).parent()
+								console.log("Dragableee", $item)
+								var clases = parentDiv.attr("class") + " fixed card"
+								parentDiv.attr("class", clases)
+								parentDiv.draggable("enable");
 							}
+						});
+
+						var texto3id = "back_" + num_card.toString()
+						var idAcciones = "Acciones_" + num_card.toString()
+						var idFeedback = "Feedback_" + num_card.toString()
+						var idMatematicas = "Matematicas_" + num_card.toString()
+						var tabsCard = $('<section id ="' + texto3id + '" class="ocultar"><div class="tab center"><button class="tablinks active" onclick="openCity(event, ' + idAcciones + ')">Acciones</button><button class="tablinks" onclick="openCity(event, ' + idFeedback + ')">Feedback</button><button class="tablinks" onclick="openCity(event, ' + idMatematicas + ')">Matemáticas</button></div><div id="' + idAcciones + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + idFeedback + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
+							idMatematicas + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>').click(function () {
+								var parentDiv = $(this).parent();
+								console.log("pulso", parentDiv)
+								parentDiv.appendTo($('#source2'))
+								$('#source2 div').appendTo($('#source2'));
+							});
+
+						var textAreaid = "textArea_" + num_card.toString()
+						var inputTexto = $('<textarea id="' + textAreaid + '"class="inputText" placeholder="Escriba aquí el texto" name = "description" ></textarea>').click(function () {
+							var parentDiv = $(this).parent();
+							console.log("title texto", parentDiv)
+							parentDiv.appendTo($('#source2'))
+							$('#source2 div').appendTo($('#source2'));
+
+						});
+
+						var configid = "config_card_" + num_card.toString()
+						var configurationButton = $("<div id='" + configid + "' class='config'><i class='fa-solid fa-gear'></i></div>").click(function () {
+							var parentDiv = $(this).parent();
+							var hijo = parentDiv.children(0).children(7).context.id
+
+							var splitData = hijo.split('_')
+							var idd = "back_" + splitData[2].toString();
+							var idd2 = "textArea_" + splitData[2].toString();
+							var idd3 = "idTitle_" + splitData[2].toString();
+							let menu = document.getElementById(idd);
+							let menu2 = document.getElementById(idd2);
+							let menu3 = document.getElementById(idd3)
+
+							if (menu.classList.contains("ocultar")) {
+								menu.classList.remove("ocultar")
+								menu2.classList.add("ocultar")
+								menu3.classList.add("ocultar")
+								menu.classList.add("inputTextRetroalimentacion")
+							} else {
+								menu.classList.add("ocultar")
+								menu2.classList.remove("ocultar")
+								menu3.classList.remove("ocultar")
+							}
+						});
+
+						// Image
+						var backImageID = "backImage_" + num_picture.toString()
+						var AccionesImageID = "AccionesImage_" + num_picture.toString()
+						var FeedbackImageID = "FeedbackImage_" + num_picture.toString()
+						var MatematicasImageID = "MatematicasImage_" + num_picture.toString()
+						var tabImage = $('<section id ="' + backImageID + '" class="ocultar"><div class="tab center"><button class="tablinks active" onclick="evaluarTabImage(event, ' + AccionesImageID + ')">Acciones</button><button class="tablinks" onclick="evaluarTabImage(event, ' + FeedbackImageID + ')">Feedback</button><button class="tablinks" onclick="evaluarTabImage(event, ' + MatematicasImageID + ')">Matemáticas</button></div><div id="' + AccionesImageID + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + FeedbackImageID + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
+							MatematicasImageID + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>').click(function () {
+								var parentDiv = $(this).parent();
+								console.log("pulso", parentDiv)
+								parentDiv.appendTo($('#source2'))
+								$('#source2 div').appendTo($('#source2'));
+							});
+
+						var titleImageID = "titleImage_" + num_picture.toString()
+						var idButtonImage = "idbuttonImage_" + num_picture.toString()
+						//				var titleImage = $('<div id="' + titleImageID + '"><header class="tituloImagen">Imagen<div class="image-upload"><label for="file-input"><i class="fa-solid fa-upload"></i></label><input id="file-input" type="file"/></div></header></div>').click(function () {
+						var titleImage = $('<div id="' + titleImageID + '" class="tituloTexto2"><button id="' + idButtonImage + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span>Imagen</span></div>').click(function () {
+							var parentDiv = $(this).parent();
+							console.log("title texto", parentDiv)
+							parentDiv.appendTo($('#source2'))
+							$('#source2 div').appendTo($('#source2'));
+
+							if (fix) {
+								var $item = $(ui.draggable[0]).parent()
+								console.log("Dragableee", $item.parent().context.id)
+								var clases = parentDiv.attr("class") + " fixed picture"
+								parentDiv.attr("class", clases)
+
+								parentDiv.draggable("disable");
+							} else {
+								var $item = $(ui.draggable[0]).parent()
+								console.log("Dragableee", $item)
+								var clases = parentDiv.attr("class") + " fixed picture"
+								parentDiv.attr("class", clases)
+								parentDiv.draggable("enable");
+							}
+						});
+
+
+
+
+
+						// var titleTexto2 = $('<section class="container"><div id="card" class="girar"><figure class="front"><header class="tituloTexto">Texto</header><textarea class="inputText" placeholder="Escriba aquí el texto" name = "description" ></textarea><button id="flip" onclick="myFunction()">Flip Card</button></figure><figure class="back"><button id="flip">Flip Card</button></figure></div></section>').click(function () {
+						// 	var parentDiv = $(this).parent();
+						// 	console.log("title texto", parentDiv)
+						// 	parentDiv.appendTo($('#source2'))
+						// 	$('#source2 div').appendTo($('#source2'));
+						// });
+
+
+
+						var configidImagen = "config_picture_" + num_picture.toString()
+						var configurationButtonImagen = $("<div id='" + configidImagen + "' class='config'><i class='fa-solid fa-gear'></i></div>").click(function () {
+							var parentDiv = $(this).parent();
+							var hijo = parentDiv.children(0).children(7).context.id
+							var splitData = hijo.split('_')
+							var idd = "backImage_" + splitData[2].toString();
+							var idd2 = "formDropzone_" + splitData[2].toString();
+							var idd3 = "titleImage_" + splitData[2].toString();
+							let menu = document.getElementById(idd);
+							let menu2 = document.getElementById(idd2);
+							let menu3 = document.getElementById(idd3);
+
+							if (menu.classList.contains("ocultar")) {
+								menu.classList.remove("ocultar")
+								menu2.classList.add("ocultar")
+								menu3.classList.add("ocultar")
+								menu.classList.add("inputTextRetroalimentacion")
+							} else {
+								menu.classList.add("ocultar")
+								menu2.classList.remove("ocultar")
+								menu3.classList.remove("ocultar")
+							}
+						});
+
+						var dropzoneID = "dropzone_" + num_picture.toString()
+						dropzoneIDCrear = dropzoneID
+						var formDropzoneID = "formDropzone_" + num_picture.toString()
+						var dropzoneElement = $('<form id="' + formDropzoneID + '" class="form" action="#" method="post"><div class="fv-row"><div class="dropzone" id="' + dropzoneID + '"><div class="dz-message needsclick"><i class="fa-solid fa-cloud-arrow-up fa-2xl"></i><div class="ms-4"><div >Arrastre hasta aquí los archivos o pulse para seleccionar.</div></div></div></div></div></form>').click(function () {
+							var parentDiv = $(this).parent();
+							console.log("parentdiv essss", parentDiv)
+
+
+						});
+
+
+						// Seleccion
+						var idSelecciono = "Seleccion_" + num_objetive.toString()
+
+						var seleccionIcono = $('<div id="' + idSelecciono + '" class="SeleccionIcono"><i  class="fa-solid fa-circle-dot fa-2xl"></i></div>').click(function () {
+							var parentDiv = $(this).parent();
+							console.log("parentdiv essss", parentDiv)
+							parentDiv.resizable("destroy");
+						});
+
+						//Matematicas
+						var idMates = "Matematicas_" + num_math.toString()
+						var MatesIcono = $('<div class="MatesIcono"><i id="' + idMates + '" class="fa-solid fa-calculator fa-2xl"></i></div>').click(function () {
+
+						});
+
+						// Temporizador
+						var idTemporizador = "Temporizador_" + num_time.toString()
+						var TemporizadorIcono = $('<section  id="' + idTemporizador + '"><div style="margin-bottom:8px;">La actividad finaliza en:</div> <div><i class="TempIcono fa-solid fa-stopwatch fa-2xl"></i><input id="temporizadorMinutos" type="number" value="1" step="any" /> seg.</div></div></section>')
+
+						// Path 
+						var idSquarePath = "SquearePath_" + num_path.toString()
+						var pathSqueareIcono = $('<div class="squarePath"><div><i id="' + idSquarePath + '" class="squarePath fa-solid fa-square"></i></div></i></div>').click(function () {
+
+
+
+						});
+						var idPath = "Path_" + num_path.toString()
+						var pathIcono = $('<div class="PathIcono"><i id="' + idPath + '"class="fa-solid fa-location-dot fa-2xl"></i></div>').click(function () { });
+
+						var prueba = $('<section><div><i class="squarePath fa-solid fa-square" onclick="mostrar(' + "conf" + ')"></i></div><div><div class="PathIcono"><i class="fa-solid fa-location-dot fa-2xl"></i></div><div id="conf" class="configurarPath ocultar"><div style="height:50px"><i class="PathIcono fa-solid fa-location-dot fa-2xl"></i><i class=" fa-solid fa-square"></i><i class="xMark fa-solid fa-xmark" onclick="ocultar(' + "conf" + ')"></i></div><div id="mover" class="insidePath "><div style="background-color: green;width:40px">Hola</div><div id="pathidPadre" style="width:220px"><div id="pathid" ></div></div><div style="background-color: green;width:40px; text-align: center;"><i class="fa-solid fa-eye fa-xl"></i></br><input type="color" id="favcolor" name="favcolor" value="#ff0000" ></br><i class="fa-brands fa-connectdevelop fa-xl"></i></div></div><div id="arrastrar" class="insidePath"><i class="PathIcono fa-solid fa-location-dot fa-2x"></i>Arrastre hasta aquí para crear un nuevo camino</div></div></div></section>')
+						if (type == "area") {
+							num_area = num_area + 1
+							num_areas_creadas = num_areas_creadas + 1
+							numero_areas_activas = numero_areas_activas + 1;
+							identifier = 'area' + num_area.toString()
+							$item.empty()
+							$item.attr("id", 'area' + num_area.toString());
+							$item.attr("class", 'area ui-resizable');
+							$item.append(addUser)
+							$item.append(uploadArea)
+
+							makeAreaDroppable($item)
+						} else if (type == "card") {
+							console.log("Se crea card");
+							num_card = num_card + 1
+							identifier = 'card' + num_card.toString()
+							$item.empty()
+							$item.attr("id", 'card' + num_card.toString());
+							$item.attr("class", 'card ui-resizable area-accept')
+							$item.append(titleTextoCard)
+							$item.append(inputTexto)
+							$item.append(tabsCard)
+							$item.append(configurationButton)
+
+							makeAreaDroppable($item)
+						} else if (type == "picture") {
+							num_picture = num_picture + 1
+							identifier = 'picture' + num_picture.toString()
+							$item.empty()
+							$item.attr("id", 'picture' + num_picture.toString());
+							$item.attr("class", 'picture ui-resizable area-accept')
+							$item.append(titleImage)
+							$item.append(dropzoneElement)
+							$item.append(tabImage)
+							$item.append(configurationButtonImagen)
+							makeAreaDroppable($item)
+						} else if (type == "objetive") {
+							console.log("Entro en objetive", $item.parent())
+							num_objetive = num_objetive + 1
+							identifier = 'objetive' + num_objetive.toString()
+							$item.empty()
+							$item.attr("id", 'objetive' + num_objetive.toString());
+							$item.attr("class", 'objetive area-accept')
+							$item.append(seleccionIcono)
+							lastItem = $item
+						} else if (type == "pairing") {
+							num_pairing = num_pairing + 1
+							identifier = 'pairing' + num_pairing.toString()
+							$item.empty()
+							$item.attr("id", 'pairing' + num_pairing.toString());
+							$item.attr("class", 'pairing ui-resizable area-accept')
+						} else if (type == "path") {
+							num_path = num_path + 1
+							identifier = 'path' + num_path.toString()
+							$item.empty()
+							$item.attr("id", 'path' + num_path.toString());
+							$item.attr("class", 'path ui-resizable area-accept')
+							//	$item.append(pathSqueareIcono)
+							$item.append(prueba)
+							lastPath = $item
+							console.log("el path es", $item[0])
+							var clon = $item[0].cloneNode(true)
+							clon.style = "left: 0px; top: 0px; position: relative"
+							clon.id = "jeje_" + num_path.toString()
+							var newDiv = document.createElement("div");
+							newDiv.id = "pruebamover_" + num_path.toString()
+							newDiv.classList.add("inline")
+							//	newDiv.classList.add("links")
+							newDiv.style = "width: 30px; height: 30px"
+							newDiv.appendChild(clon)
+
+							$(newDiv).draggable();
+
+							// if(num_path <= 5){
+							// 	document.getElementById("pathid").append(newDiv)
+							// }else{
+							// 	document.getElementById("pathid2").append(newDiv)
+							// }
+							// var rect = newDiv.getBoundingClientRect();
+							// console.log("Path position:",rect.top, rect.right, rect.bottom, rect.left);
+							// var medioX = rect.top + 30
+							// console.log("mdioX", medioX)
+							// var medioY = rect.right + 30
+							// console.log("mdioY", medioY)
+							// if (num_path == 2){
+							// 	unir()
+							// }
+
+							//makeAreaDroppable(document.getElementById("arrastrar"))
+						} else if (type == "math") {
+							num_math = num_math + 1
+							identifier = 'math' + num_math.toString()
+							$item.empty()
+							$item.attr("id", 'math' + num_math.toString());
+							$item.attr("class", 'math  area-accept')
+							$item.append(MatesIcono)
+						} else if (type == "time") {
+							num_time = num_time + 1
+							identifier = 'time' + num_time.toString()
+							$item.empty()
+							$item.attr("id", 'time' + num_time.toString());
+							$item.attr("class", 'time ui-resizable ')
+							$item.append(TemporizadorIcono)
+							itemTemporizador = $item
+
 						}
+						$(this).append($item);
+						makeDraggable($item);
+						var a = document.getElementById("area1").getBoundingClientRect();
+						console.log("a", a.left, a.top, a.bottom, a.right)
+						if (type == "objetive" || type == "math" || type == "time" || type == "path") {
+							var content = document.getElementById($item[0].id)
+							content.lastElementChild.remove()
+							content.lastElementChild.remove()
+							content.lastElementChild.remove()
+						}
+
+					} else {
+						/** Una tarjeta, área o objetivo se está soltando **/
+						var $item = $(ui.draggable[0])
+						if ($item.parent().attr("id") != $(this).attr("id")) {
+							$item.css("left", parseFloat($item.css("left"), 10) + parseFloat($item.parent().css(
+								"left"), 10))
+							$item.css("top", parseFloat($item.css("top"), 10) + parseFloat($item.parent().css("top"),
+								10))
+						}
+						$(this).append($item)
+					}
+					console.log("numero areas activas", numero_areas_activas)
+					if (numero_areas_activas = !0) {
+						div = document.getElementById("TextoBueno");
+						div.classList.remove("ocultar");
+						div = document.getElementById("TextoTemp");
+						div.classList.add("ocultar");
+
+						div = document.getElementById("FotoBueno");
+						div.classList.remove("ocultar");
+						div = document.getElementById("FotoTemp");
+						div.classList.add("ocultar");
+
+						div = document.getElementById("SeleccionBueno");
+						div.classList.remove("ocultar");
+						div = document.getElementById("SeleccionTemp");
+						div.classList.add("ocultar");
+
+						div = document.getElementById("EmparejarBueno");
+						div.classList.remove("ocultar");
+						div = document.getElementById("EmparejarTemp");
+						div.classList.add("ocultar");
+
+						div = document.getElementById("CaminoBueno");
+						div.classList.remove("ocultar");
+						div = document.getElementById("CaminoTemp");
+						div.classList.add("ocultar");
+
+						div = document.getElementById("MatesBueno");
+						div.classList.remove("ocultar");
+						div = document.getElementById("MatesTemp");
+						div.classList.add("ocultar");
+
+						div = document.getElementById("TemporizadorBueno");
+						div.classList.remove("ocultar");
+						div = document.getElementById("TemporizadorTemp");
+						div.classList.add("ocultar");
 					}
 
-					if ($item[0].id.includes("picture")) {
-						if ($item.parent()[0].id.includes("card")) {
+					if (num_time > 0) {
+						div = document.getElementById("TemporizadorTemp");
+						div.classList.remove("ocultar");
+						div = document.getElementById("TemporizadorBueno");
+						div.classList.add("ocultar");
+					}
 
-							console.log("el padre del item es picture ", $item.parent()[0].id)
-							console.log("el padre del item es picture ", $item)
-							var hijo = document.getElementById($item[0].id)
-							hijo.style = "  left: 60px;"
-							var parent = document.getElementById("card1")
-							parent.appendChild(document.getElementById("picture1"))
+				}
+			})
+		}
+		lanzar()
+
+		// PRUEBA CANVAS2
+
+
+
+
+
+		// FIN PRUEBA CANVAS 2
+		function makeAreaDroppable($item) {
+			$item.droppable({
+				accept: ".area-accept",
+				greedy: true,
+				drop: function (event, ui) {
+					//this if condition is for avoiding multiple time drop and attachment of same item
+					console.log("Drop en zona")
+					if (ui.draggable.hasClass("tool")) {
+						console.log("Se dropea en zona");
+						var $item = $(ui.helper).clone(); //getting the cloned item
+						type = $item.attr('type');
+						$item.removeClass("tool");
+						if (type == "area") {
+							num_area = num_area + 1
+							identifier = 'area' + num_area.toString()
+							$item.empty()
+							$item.attr("id", 'area' + num_area.toString());
+							$item.attr("class", 'area ui-resizable');
+						} else if (type == "card") {
+							num_card = num_card + 1
+							identifier = 'card' + num_area.toString()
+							$item.empty()
+							$item.attr("id", 'card' + num_area.toString());
+							$item.attr("class", 'card ui-resizable area-accept')
+							$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
+								10))
+							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
+						} else if (type == "picture") {
+							num_picture = num_picture + 1
+							identifier = 'picture' + num_area.toString()
+							$item.empty()
+							$item.attr("id", 'picture' + num_area.toString());
+							$item.attr("class", 'picture ui-resizable area-accept')
+							$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
+								10))
+							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
+						} else if (type == "objetive") {
+							num_objetive = num_objetive + 1
+							identifier = 'objetive' + num_area.toString()
+							$item.empty()
+							$item.attr("id", 'objetive' + num_area.toString());
+							$item.attr("class", 'objetive  area-accept')
+							$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
+								10))
+							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
+						} else if (type == "pairing") {
+							num_pairing = num_pairing + 1
+							identifier = 'pairing' + num_area.toString()
+							$item.empty()
+							$item.attr("id", 'pairing' + num_area.toString());
+							$item.attr("class", 'pairing ui-resizable area-accept')
+							$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
+								10))
+							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
+						} else if (type == "path") {
+							num_path = num_path + 1
+							identifier = 'path' + num_area.toString()
+							$item.empty()
+							$item.attr("id", 'path' + num_area.toString());
+							$item.attr("class", 'path ui-resizable area-accept')
+							$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
+								10))
+							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
+						} else if (type == "math") {
+							num_math = num_math + 1
+							identifier = 'math' + num_area.toString()
+							$item.empty()
+							$item.attr("id", 'math' + num_area.toString());
+							$item.attr("class", 'math ui-resizable area-accept')
+							$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
+								10))
+							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
 						}
+						$(this).append($item);
+						makeDraggable($item);
+					} else {
+						/** Una tarjeta, área o objetivo se está soltando **/
+						var $item = $(ui.draggable[0])
+						if ($item.parent().attr("id") != $(this).attr("id")) {
+							console.log("Cambia de padre");
+							$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
+								10))
+							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
+						}
+						console.log("el padres this es", $(this))
+						console.log("el padre item es", $item)
+						$(this).append($item)
 					}
 				}
+			})
+		}
+		onmousemove = function (e) {
 
-				//		captura();
-				captura()
-				//	ocultarOpciones()
+			const target = e.target;
 
+			// Get the bounding rectangle of target
+			const rect = target.getBoundingClientRect();
 
-			}
-		}).resizable({
-			start: function (e, ui) {
-				console.log('resizing started');
-			},
-			resize: function (e, ui) {
+			// Mouse position
+			posLeft = e.clientX // - rect.left;;
+			posRight = e.clientY //- rect.top; 
+			//dibujar(mouseX,mouseY,posLeft,posRight)
+			// var canv = document.getElementById("canvas2")
+			// var ctx = document.getElementById("canvas2").getContext("2d")
+			// ctx.clearRect(0, 0, canv.width, canv.height);
 
-			},
-			stop: function (e, ui) {
-				console.log('resizing stopped');
-				captura()
-				//	captura()
-			}
-		});
-	}
-
-	function printMousePos(event) {
-		console.log("mouse", "top:", event.clientY, "left:", event.clientX)
-
-		mouseX = event.clientX
-		mouseY = event.clientY
-	}
-
-	document.addEventListener("click", printMousePos);
-
-
-
-
-	$(".tool").draggable({
-		containment: "#editzone",
-		helper: "clone",
-		start: function () { },
-		stop: function () {
-			console.log('stopped 2')
-
-			var isDropzone = document.getElementById(dropzoneIDCrear)
-			console.log("is dropzone", dropzoneIDCrear)
-			dropzoneUpload(dropzoneIDCrear)
-
-			if (itemTemporizador != null) {
-				console.log('Temporizador', itemTemporizador[0].id)
-				var temporizador = document.getElementById(itemTemporizador[0].id)
-				temporizador.style.position = "fixed"
-				temporizador.style.left = "88%"
-				temporizador.style.top = "85%"
-			}
-
-			//	captura();
-			captura();
-
-
-			// var canvas = document.getElementById("editor-canvas")
-
-			// var clone = canvas.cloneNode(true)
-
-			// console.log("El canvas es", canvas)
-			// console.log("El clon es", clone)
-
-
-			// var prueba = 	document.getElementById("prueba")
-			// prueba.innerHTML = '';
-			// console.log("La ´hijos prueba es", prueba)
-
-			// console.log("La prueba es", prueba)
-
-			// var nodes = clone.childNodes;
-			// for(var i=0; i<nodes.length; i++) {
-
-			// 		 nodes[i].style.width = "10%";
-			// 		 nodes[i].style.height = "auto";
-
-			// }
-			// prueba.append(clone)
-			//	$("#prueba").load("/editor/editor #area1");
-
-			// if (lastItem != null ) {
-			// 	console.log("el id es", lastItem[0].id)
-			// 	console.log("el padre del item es", lastItem.parent()[0].id)
-			// }
+			// ctx.beginPath();
+			// ctx.moveTo(mouseX,mouseY)
+			// ctx.lineTo(posLeft, posRight)
+			// ctx.strokeStyle = "black"
+			// ctx.lineWidth = 10;
+			// ctx.stroke()
+			//	console.log("mouse location:", "left", posLeft, "top", posRight)
 
 		}
-	});
-
-	function evalutarTab(idElemento, evt, element, deseleccionar) {
-		if (idElemento == element.id) {
-			document.getElementById(idElemento).style.display = "block";
-			evt.currentTarget.className += " active";
-			console.log("LOOG", evt.currentTarget.className)
-		}
-		for (i = 0; i < deseleccionar.length; i++) {
-			document.getElementById(deseleccionar[i]).style.display = "none";
-			document.getElementById(deseleccionar[i]).className = document.getElementById(idElemento).className.replace(" active", "");
+		function makeDraggable($item) {
+			$item.draggable({
+				containment: "#editzone",
+				helper: "original",
+				appendTo: "body",
+				start: function () { },
+				stop: function () {
+					console.log('stopped 1')
 
 
-		}
-	}
+					var positions = $item.position()
+					//	console.log("pp", positions)
+					var rect = $item[0].getBoundingClientRect();
+					console.log("ELEMENTO:", "top:", rect.top, "left:", rect.left, "bottom:", rect.bottom, "right:", rect.right,);
 
-	function openCity(evt, element) {
-		console.log("Entro en opencity", element)
+					var elementoX = rect.bottom
+					var elementoY = rect.left
+					console.log("punto elemento", elementoX, elementoY)
+					var papelera = document.getElementById("papelera")
 
-		var deseleccionar = []
+					var rect = papelera.getBoundingClientRect();
+					console.log("PAPELERA:", "top:", rect.top, "left:", rect.left, "bottom:", rect.bottom, "right:", rect.right,);
+					var papeleraX = rect.top
+					var papeleraY = rect.right
+					console.log("Papelera", papeleraX, papeleraY)
 
-		var elementID = element.id.split("_")[1];
-		var elementooo = element.id
-
-		var Acciones = "Acciones_" + elementID;
-		var Feedback = "Feedback_" + elementID;
-		var Matematicas = "Matematicas_" + elementID;
-
-		if (element.id.includes(Acciones)) {
-			deseleccionar[0] = Feedback
-			deseleccionar[1] = Matematicas
-		}
-
-		if (element.id.includes(Feedback)) {
-			deseleccionar[0] = Acciones
-			deseleccionar[1] = Matematicas
-		}
-
-		if (element.id.includes(Matematicas)) {
-			deseleccionar[0] = Feedback
-			deseleccionar[1] = Acciones
-		}
-		evalutarTab(Acciones, evt, element, deseleccionar)
-		evalutarTab(Feedback, evt, element, deseleccionar)
-		evalutarTab(Matematicas, evt, element, deseleccionar)
-
-
-
-	}
-
-	function evaluarTabImage(evt, element) {
-		console.log("Entro evaluarTabImage", element)
-
-		var deseleccionar = []
-
-		var elementID = element.id.split("_")[1];
-		var elementooo = element.id
-
-		var Acciones = "AccionesImage_" + elementID;
-		var Feedback = "FeedbackImage_" + elementID;
-		var Matematicas = "MatematicasImage_" + elementID;
-
-		if (element.id.includes(Acciones)) {
-			deseleccionar[0] = Feedback
-			deseleccionar[1] = Matematicas
-		}
-
-		if (element.id.includes(Feedback)) {
-			deseleccionar[0] = Acciones
-			deseleccionar[1] = Matematicas
-		}
-
-		if (element.id.includes(Matematicas)) {
-			deseleccionar[0] = Feedback
-			deseleccionar[1] = Acciones
-		}
-		evalutarTab(Acciones, evt, element, deseleccionar)
-		evalutarTab(Feedback, evt, element, deseleccionar)
-		evalutarTab(Matematicas, evt, element, deseleccionar)
-
-
-
-	}
-
-
-	function fijarTarjeta(input) {
-		console.log("pulsado boton chincheta", input.offsetParent.id)
-		fix = true
-		var parentElement = document.getElementById(input.offsetParent.id)
-		console.log("ParentID", input.offsetParent.id)
-		console.log("input", input.id)
-		document.getElementById(input.id).innerHTML = '<img src="/static/dash/dist/assets/img/pinned.png" width="12px"   />';
-		document.getElementById(input.id).style = " margin-left:4px; margin-right:-2px"
-		if (parentElement.classList.contains("ui-draggable-disabled")) {
-			fix = false
-			document.getElementById(input.id).innerHTML = '<img src="/static/dash/dist/assets/img/pinnedout.png" width="12px"   />';
-			document.getElementById(input.id).style = " margin-left:2px"
-		}
+					if (elementoX - 30 > papeleraX && elementoY + 30 < papeleraY) {
+						console.log("HA ENTRADO")
+						if ($item[0].id.includes("time")) {
+							num_time = 0
+							div = document.getElementById("TemporizadorBueno");
+							div.classList.remove("ocultar");
+							div = document.getElementById("TemporizadorTemp");
+							div.classList.add("ocultar");
+							itemTemporizador = null
+						}
+						if ($item[0].id.includes("area")) {
+							num_area--;
+						}
 
 
 
 
 
-	}
+						$($item).remove()
+					} else {
+						//	lastItem.style ="left:" + posLeft + "; right:"+ posRight;
+						if ($item[0].id.includes("time")) {
+							console.log('Temporizador', $item[0].id)
+							var temporizador = document.getElementById($item[0].id)
+							// temporizador.style.top = "140px"
+							// temporizador.style.left = "5px"
+							temporizador.style.position = "fixed"
+							temporizador.style.left = "88%"
+							temporizador.style.top = "85%"
+						}
 
-	$(document).on("input", "input:file", function (e) {
-		let fileName = e.target.files[0];
-		console.log("el puloadareaid pa cambiar es", uploadAreaID)
-		console.log("el evento es", e.currentTarget.parentNode.id)
-		if (uploadAreaID != "") {
-			if (fileName != undefined) {
-				src1 = URL.createObjectURL(e.target.files[0]);
-				document.getElementById(uploadAreaID).style.backgroundImage = 'url(' + src1 + ')';
-			} else {
-				document.getElementById(uploadAreaID).style.backgroundImage = 'none';
-			}
-		}
-		//     alert('The file name is : "' + fileName);
-	});
+						// Alinear con padre
+						if ($item[0].id.includes("objetive") || $item[0].id.includes("math")) {
+							console.log("el id´dddd es", $item[0].id)
+							console.log("el padre del item es", $item.parent()[0].children[0])
+							if ($item.parent()[0].id.includes(canvas.replace("#", ""))) {
+								if (lastPadreObjetive != null) {
+									console.log("en el remoooveeee", $item.parent()[0].id)
+									lastPadreObjetive.classList.remove("selector")
+									lastPadreObjetive = null
+								}
+								$item.remove()
+							} else {
 
+								// colocar los elementos para que no se muevan
 
-	function changeBackground(input) {
-		console.log("el id del input es", input.id)
-		var idinput = input.id.split("_")
-		id = parseInt(idinput[1]) + 1
-		areaID = "area" + id.toString()
-		var file = $("input[type=file]").get(0).files[0];
+								if ($item.parent()[0].id.includes("card") || $item.parent()[0].id.includes("picture")) {
+									var hijo = document.getElementById($item[0].id)
+									hijo.style = " left: 20px; margin-bottom: -15px"
+									var parent = document.getElementById($item.parent()[0].children[0].id)
 
-	}
+									console.log("el padre total es", $item.parent()[0].id)
+									// Mira si ya tienen un elemento de ese tipo´
 
-	function ocultarOpciones() {
-		console.log("numero areas activas en ocultar", num_areas_creadas)
-		num_areas_creadas = num_areas_creadas - 1;
-		if (num_areas_creadas == 0) {
-			div = document.getElementById("TextoTemp");
-			div.classList.remove("ocultar");
-			div = document.getElementById("TextoBueno");
-			div.classList.add("ocultar");
+									var padreAbsoluto = document.getElementById($item.parent()[0].id)
 
-			div = document.getElementById("FotoTemp");
-			div.classList.remove("ocultar");
-			div = document.getElementById("FotoBueno");
-			div.classList.add("ocultar");
+									var objetiveEncontrado = padreAbsoluto.classList.contains("selector")
+									var padre = document.getElementById($item.parent()[0].id)
 
-			div = document.getElementById("SeleccionTemp");
-			div.classList.remove("ocultar");
-			div = document.getElementById("SeleccionBueno");
-			div.classList.add("ocultar");
-
-			div = document.getElementById("EmparejarTemp");
-			div.classList.remove("ocultar");
-			div = document.getElementById("EmparejarBueno");
-			div.classList.add("ocultar");
-
-			div = document.getElementById("CaminoTemp");
-			div.classList.remove("ocultar");
-			div = document.getElementById("CaminoBueno");
-			div.classList.add("ocultar");
-
-			div = document.getElementById("MatesTemp");
-			div.classList.remove("ocultar");
-			div = document.getElementById("MatesBueno");
-			div.classList.add("ocultar");
-
-			div = document.getElementById("TemporizadorTemp");
-			div.classList.remove("ocultar");
-			div = document.getElementById("TemporizadorBueno");
-			div.classList.add("ocultar");
+									console.log("El padre para chequear es", padre)
+									var hijos = padre.childNodes
+									console.log("Los hijos para chequear son", hijos)
 
 
-		}
-	}
+									console.log("ENCONTRADOO OBJETIVE", objetiveEncontrado)
+									if (!objetiveEncontrado) {
+										padreAbsoluto.classList.add("selector")
+										parent.insertBefore(hijo, parent.children[0]);
+										lastPadreObjetive = padreAbsoluto
+									} else {
+										$item.remove()
+									}
+
+								} else if ($item.parent()[0].id.includes("area")) {
+									console.log("el hijoopadre del item es area ", $item[0].id)
+									var hijo = document.getElementById($item[0].id)
+										//	var rect = hijo.getBoundingClientRect();
+										//	console.log("Las posiciones hijo son",rect.top, rect.right, rect.bottom, rect.left);
+										;// =" position: absolute; left: 60px; top: 35px;"
+									parent = document.getElementById("area1")
+									var rect = parent.getBoundingClientRect();
+									console.log("Las posiciones padre son", rect.top, rect.right, rect.bottom, rect.left);
+									var je = posRight - rect.top - 45
+									var jo = posLeft - rect.left - 10
+									console.log("resta top", je, "resta left", jo)
+									hijo.style = "top:" + je + "px; left:" + jo + "px;"
+									parent.appendChild(document.getElementById($item[0].id))
+								} else {
+									$item.remove();
+								}
 
 
+							}
+						}
 
-	// Crear dropzone
-	function dropzoneUpload(id) {
-		try {
-			
-			var myDropzone = new Dropzone("#" + id, {
-				url: "/editor/editor", // Set the url for your upload script location
-				headers: {'X-CSRFToken': csrftoken},
-				paramName: "file", // The name that will be used to transfer the file
-				maxFiles: 10,
-				acceptedFiles: ".jpeg,.jpg,.png,.gif",
-				maxFilesize: 100, // MB
-				addRemoveLinks: true,
-				dictRemoveFile: "X",
-				
-				accept: function (file, done) {
-					done()
-					
+						if ($item[0].id.includes("picture")) {
+							if ($item.parent()[0].id.includes("card")) {
+
+								console.log("el padre del item es picture ", $item.parent()[0].id)
+								console.log("el padre del item es picture ", $item)
+								var hijo = document.getElementById($item[0].id)
+								hijo.style = "  left: 60px;"
+								var parent = document.getElementById("card1")
+								parent.appendChild(document.getElementById("picture1"))
+							}
+						}
+					}
+
+					//		captura();
+					captura(activity, canvas)
+					//	ocultarOpciones()
+
+
+				}
+			}).resizable({
+				start: function (e, ui) {
+					console.log('resizing started');
+				},
+				resize: function (e, ui) {
+
+				},
+				stop: function (e, ui) {
+					console.log('resizing stopped');
+					captura(activity, canvas)
+					//	captura()
 				}
 			});
-		} catch (error) {
-			console.log("No se crea dropzone")
 		}
-	}
 
-	// function captura() {
-	// 	html2canvas(document.querySelector("#editzone")).then(canvas => {
-	// 		var prueba = document.getElementById("pruebita")
-	// 		prueba.innerHTML = ''; 
-	// 		canvas.style.width = "80%"
-	// 		canvas.style.height = "auto"
-	// 		console.log("la captura es", canvas)
-	// 		prueba.appendChild(canvas)
-	// 	});
-	// }
+		function printMousePos(event) {
+			console.log("mouse", "top:", event.clientY, "left:", event.clientX)
 
-	function captura() {
-		var el = document.querySelector("#editor-canvas")
-		html2canvas(el, {
-			scale: 0.9,
-			useCORS: true,
-			// foreignObjectRendering:true,
-			//    windowWidth: el.scrollWidth,
-			//   windowHeight: el.scrollHeight,
-			onclone: () => {
-				//lert();
+			mouseX = event.clientX
+			mouseY = event.clientY
+		}
+
+		document.addEventListener("click", printMousePos);
+
+
+
+
+		$(".tool").draggable({
+			containment: "#editzone",
+			helper: "clone",
+			start: function () { },
+			stop: function () {
+				console.log('stopped 2')
+
+				var isDropzone = document.getElementById(dropzoneIDCrear)
+				console.log("is dropzone", dropzoneIDCrear)
+				dropzoneUpload(dropzoneIDCrear)
+
+				if (itemTemporizador != null) {
+					console.log('Temporizador', itemTemporizador[0].id)
+					var temporizador = document.getElementById(itemTemporizador[0].id)
+					temporizador.style.position = "fixed"
+					temporizador.style.left = "88%"
+					temporizador.style.top = "85%"
+				}
+
+
+
+				//	captura();
+				captura(activity, canvas);
+
+
+				// var canvas = document.getElementById("editor-canvas")
+
+				// var clone = canvas.cloneNode(true)
+
+				// console.log("El canvas es", canvas)
+				// console.log("El clon es", clone)
+
+
+				// var prueba = 	document.getElementById("prueba")
+				// prueba.innerHTML = '';
+				// console.log("La ´hijos prueba es", prueba)
+
+				// console.log("La prueba es", prueba)
+
+				// var nodes = clone.childNodes;
+				// for(var i=0; i<nodes.length; i++) {
+
+				// 		 nodes[i].style.width = "10%";
+				// 		 nodes[i].style.height = "auto";
+
+				// }
+				// prueba.append(clone)
+				//	$("#prueba").load("/editor/editor #area1");
+
+				// if (lastItem != null ) {
+				// 	console.log("el id es", lastItem[0].id)
+				// 	console.log("el padre del item es", lastItem.parent()[0].id)
+				// }
+
 			}
-		}).then((canvas) => {
-
-			var prueba = document.getElementById("pruebita")
-			prueba.innerHTML = '';
-			canvas.style.width = "100%"
-			canvas.style.height = "auto"
-			console.log("la captura es", canvas)
-			prueba.appendChild(canvas)
 		});
-	}
 
-	 $("#pruebamover_1").draggable(); 
-	 $("#jeje_1").draggable(); 
-	 
+		function evalutarTab(idElemento, evt, element, deseleccionar) {
+			if (idElemento == element.id) {
+				document.getElementById(idElemento).style.display = "block";
+				evt.currentTarget.className += " active";
+				console.log("LOOG", evt.currentTarget.className)
+			}
+			for (i = 0; i < deseleccionar.length; i++) {
+				document.getElementById(deseleccionar[i]).style.display = "none";
+				document.getElementById(deseleccionar[i]).className = document.getElementById(idElemento).className.replace(" active", "");
 
-	 $("#arrastrar").droppable({
-            drop: function(event, ui) {
-                $(this).css('background', 'rgb(0,200,0)');
+
+			}
+		}
+
+		function openCity(evt, element) {
+			console.log("Entro en opencity", element)
+
+			var deseleccionar = []
+
+			var elementID = element.id.split("_")[1];
+			var elementooo = element.id
+
+			var Acciones = "Acciones_" + elementID;
+			var Feedback = "Feedback_" + elementID;
+			var Matematicas = "Matematicas_" + elementID;
+
+			if (element.id.includes(Acciones)) {
+				deseleccionar[0] = Feedback
+				deseleccionar[1] = Matematicas
+			}
+
+			if (element.id.includes(Feedback)) {
+				deseleccionar[0] = Acciones
+				deseleccionar[1] = Matematicas
+			}
+
+			if (element.id.includes(Matematicas)) {
+				deseleccionar[0] = Feedback
+				deseleccionar[1] = Acciones
+			}
+			evalutarTab(Acciones, evt, element, deseleccionar)
+			evalutarTab(Feedback, evt, element, deseleccionar)
+			evalutarTab(Matematicas, evt, element, deseleccionar)
+
+
+
+		}
+
+		function evaluarTabImage(evt, element) {
+			console.log("Entro evaluarTabImage", element)
+
+			var deseleccionar = []
+
+			var elementID = element.id.split("_")[1];
+			var elementooo = element.id
+
+			var Acciones = "AccionesImage_" + elementID;
+			var Feedback = "FeedbackImage_" + elementID;
+			var Matematicas = "MatematicasImage_" + elementID;
+
+			if (element.id.includes(Acciones)) {
+				deseleccionar[0] = Feedback
+				deseleccionar[1] = Matematicas
+			}
+
+			if (element.id.includes(Feedback)) {
+				deseleccionar[0] = Acciones
+				deseleccionar[1] = Matematicas
+			}
+
+			if (element.id.includes(Matematicas)) {
+				deseleccionar[0] = Feedback
+				deseleccionar[1] = Acciones
+			}
+			evalutarTab(Acciones, evt, element, deseleccionar)
+			evalutarTab(Feedback, evt, element, deseleccionar)
+			evalutarTab(Matematicas, evt, element, deseleccionar)
+
+
+
+		}
+
+
+		function fijarTarjeta(input) {
+			console.log("pulsado boton chincheta", input.offsetParent.id)
+			fix = true
+			var parentElement = document.getElementById(input.offsetParent.id)
+			console.log("ParentID", input.offsetParent.id)
+			console.log("input", input.id)
+			document.getElementById(input.id).innerHTML = '<img src="/static/dash/dist/assets/img/pinned.png" width="12px"   />';
+			document.getElementById(input.id).style = " margin-left:4px; margin-right:-2px"
+			if (parentElement.classList.contains("ui-draggable-disabled")) {
+				fix = false
+				document.getElementById(input.id).innerHTML = '<img src="/static/dash/dist/assets/img/pinnedout.png" width="12px"   />';
+				document.getElementById(input.id).style = " margin-left:2px"
+			}
+
+
+
+
+
+		}
+
+		$(document).on("input", "input:file", function (e) {
+			let fileName = e.target.files[0];
+			console.log("el puloadareaid pa cambiar es", uploadAreaID)
+			console.log("el evento es", e.currentTarget.parentNode.id)
+			if (uploadAreaID != "") {
+				if (fileName != undefined) {
+					src1 = URL.createObjectURL(e.target.files[0]);
+					document.getElementById(uploadAreaID).style.backgroundImage = 'url(' + src1 + ')';
+				} else {
+					document.getElementById(uploadAreaID).style.backgroundImage = 'none';
+				}
+			}
+			//     alert('The file name is : "' + fileName);
+		});
+
+
+		function changeBackground(input) {
+			console.log("el id del input es", input.id)
+			var idinput = input.id.split("_")
+			id = parseInt(idinput[1]) + 1
+			areaID = "area" + id.toString()
+			if(isarea){
+			var file = $("input[type=file]").get(0).files[0];
+		}
+		}
+
+		function ocultarOpciones() {
+			console.log("numero areas activas en ocultar", num_areas_creadas)
+			num_areas_creadas = num_areas_creadas - 1;
+			if (num_areas_creadas == 0) {
+				div = document.getElementById("TextoTemp");
+				div.classList.remove("ocultar");
+				div = document.getElementById("TextoBueno");
+				div.classList.add("ocultar");
+
+				div = document.getElementById("FotoTemp");
+				div.classList.remove("ocultar");
+				div = document.getElementById("FotoBueno");
+				div.classList.add("ocultar");
+
+				div = document.getElementById("SeleccionTemp");
+				div.classList.remove("ocultar");
+				div = document.getElementById("SeleccionBueno");
+				div.classList.add("ocultar");
+
+				div = document.getElementById("EmparejarTemp");
+				div.classList.remove("ocultar");
+				div = document.getElementById("EmparejarBueno");
+				div.classList.add("ocultar");
+
+				div = document.getElementById("CaminoTemp");
+				div.classList.remove("ocultar");
+				div = document.getElementById("CaminoBueno");
+				div.classList.add("ocultar");
+
+				div = document.getElementById("MatesTemp");
+				div.classList.remove("ocultar");
+				div = document.getElementById("MatesBueno");
+				div.classList.add("ocultar");
+
+				div = document.getElementById("TemporizadorTemp");
+				div.classList.remove("ocultar");
+				div = document.getElementById("TemporizadorBueno");
+				div.classList.add("ocultar");
+
+
+			}
+		}
+
+
+
+		// Crear dropzone
+		function dropzoneUpload(id) {
+		
+			try {
+
+				var myDropzone = new Dropzone("#" + id, {
+					url: "/editor/editor", // Set the url for your upload script location
+					headers: { 'X-CSRFToken': csrftoken },
+					paramName: "file", // The name that will be used to transfer the file
+					maxFiles: 10,
+					acceptedFiles: ".jpeg,.jpg,.png,.gif",
+					maxFilesize: 100, // MB
+					addRemoveLinks: true,
+					dictRemoveFile: "x",
+
+					accept: function (file, done) {
+						done()
+
+					}
+				});
+			} catch (error) {
+				console.log("No se crea dropzone")
+			}
+		}
+
+		// function captura() {
+		// 	html2canvas(document.querySelector("#editzone")).then(canvas => {
+		// 		var prueba = document.getElementById("pruebita")
+		// 		prueba.innerHTML = ''; 
+		// 		canvas.style.width = "80%"
+		// 		canvas.style.height = "auto"
+		// 		console.log("la captura es", canvas)
+		// 		prueba.appendChild(canvas)
+		// 	});
+		// }
+
+		function captura(name, canvas) {
+			var el = document.querySelector(canvas)
+			html2canvas(el, {
+				scale: 0.9,
+				useCORS: true,
+				// foreignObjectRendering:true,
+				//    windowWidth: el.scrollWidth,
+				//   windowHeight: el.scrollHeight,
+				onclone: () => {
+					//lert();
+				}
+			}).then((canvas) => {
+
+				var prueba = document.getElementById(name)
+				prueba.innerHTML = '';
+				canvas.style.width = "100%"
+				canvas.style.height = "auto"
+				console.log("la captura es", canvas)
+				prueba.appendChild(canvas)
+			});
+		}
+
+		$("#pruebamover_1").draggable();
+		$("#jeje_1").draggable();
+
+
+		$("#arrastrar").droppable({
+			drop: function (event, ui) {
+				$(this).css('background', 'rgb(0,200,0)');
 				console.log("Elemento", ui.draggable[0].id)
 
 				var newDiv = document.createElement("div");
@@ -1261,84 +1314,156 @@
 				newDiv.append(document.getElementById(ui.draggable[0].id))
 
 				document.getElementById("pathidPadre").append(newDiv)
-            },
-            over: function(event, ui) {
-                $(this).css('background', 'orange');
-            },
-            out: function(event, ui) {
-                $(this).css('background', 'cyan');
-            }
-        });
+			},
+			over: function (event, ui) {
+				$(this).css('background', 'orange');
+			},
+			out: function (event, ui) {
+				$(this).css('background', 'cyan');
+			}
+		});
 
 
-		function ocultar(elemento){
+		function ocultar(elemento) {
 			console.log("El ide para borrar", elemento)
 			document.getElementById(elemento.id).classList.add("ocultar")
 		}
 
-		function mostrar(elemento){
+		function mostrar(elemento) {
 			console.log("El ide para borrar", elemento)
 			document.getElementById(elemento.id).classList.remove("ocultar")
 		}
 
-	  
-	  // 
-	  //Canvas
 
-	function dibujar(x1,y1,x2,y2){
-		var canvas=document.getElementById("canvas2");
-        var context=canvas.getContext("2d");
+		// 
+		//Canvas
 
-        function Line(x1,y1,x2,y2){
-            this.x1=x1;
-            this.y1=y1;
-            this.x2=x2;
-            this.y2=y2;
-        }
-        Line.prototype.drawWithArrowheads=function(ctx){
+		function dibujar(x1, y1, x2, y2) {
+			var canvas = document.getElementById("canvas2");
+			var context = canvas.getContext("2d");
 
-            // arbitrary styling
-            ctx.strokeStyle="gray";
-            ctx.fillStyle="red";
-            ctx.lineWidth=10;
-            
-            // draw the line
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-		
-		
-            ctx.beginPath();
-            ctx.moveTo(this.x1,this.y1);
-            ctx.lineTo(this.x2,this.y2);
+			function Line(x1, y1, x2, y2) {
+				this.x1 = x1;
+				this.y1 = y1;
+				this.x2 = x2;
+				this.y2 = y2;
+			}
+			Line.prototype.drawWithArrowheads = function (ctx) {
+
+				// arbitrary styling
+				ctx.strokeStyle = "gray";
+				ctx.fillStyle = "red";
+				ctx.lineWidth = 10;
+
+				// draw the line
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+				ctx.beginPath();
+				ctx.moveTo(this.x1, this.y1);
+				ctx.lineTo(this.x2, this.y2);
+
+				ctx.lineCap = "round";
+				ctx.stroke();
+
+				// draw the starting arrowhead
+
+				// draw the ending arrowhead
+				var endRadians = Math.atan((this.y2 - this.y1) / (this.x2 - this.x1));
+				endRadians += ((this.x2 > this.x1) ? 90 : -90) * Math.PI / 180;
+				this.drawArrowhead(ctx, this.x2, this.y2, endRadians);
+
+			}
+			Line.prototype.drawArrowhead = function (ctx, x, y, radians) {
+				ctx.save();
+				ctx.beginPath();
+				ctx.translate(x, y);
+				ctx.rotate(radians);
+				ctx.moveTo(0, 0);
+				ctx.lineTo(50, 100);
+				ctx.lineTo(-50, 100);
+				ctx.closePath();
+				ctx.restore();
+				ctx.fill();
+			}
+
+			// create a new line object
+			var line = new Line(x1, y1, x2, y2);
+			// draw the line
+			line.drawWithArrowheads(context);
+		}
+		//
+
+		function addActivity() {
+			var original = document.getElementById("activity_1")
+			var li = original.cloneNode(false)
+			li.id = "activity_" + num_activity;
 			
-			ctx.lineCap = "round";
-            ctx.stroke();
+		
 
-            // draw the starting arrowhead
+			document.getElementById("sortable").appendChild(li)
 
-            // draw the ending arrowhead
-            var endRadians=Math.atan((this.y2-this.y1)/(this.x2-this.x1));
-            endRadians+=((this.x2>this.x1)?90:-90)*Math.PI/180;
-            this.drawArrowhead(ctx,this.x2,this.y2,endRadians);
 
-        }
-        Line.prototype.drawArrowhead=function(ctx,x,y,radians){
-            ctx.save();
-            ctx.beginPath();
-            ctx.translate(x,y);
-            ctx.rotate(radians);
-            ctx.moveTo(0,0);
-            ctx.lineTo(50,100);
-            ctx.lineTo(-50,100);
-            ctx.closePath();
-            ctx.restore();
-            ctx.fill();
-        }
+			// Creamos nuevo canvas
+			var theDiv = document.createElement("div")
+			// <div id="editor-canvas" class="editor-canvas dropzone" style=>
+			theDiv.id = "editor-canvas_" + num_activity
+			theDiv.classList.add(canvas.replace("#", ""))
+			theDiv.classList.add("dropzone")
+			theDiv.style = "border:2px;width:100%; height:100%; background-color: lightblue;"
 
-        // create a new line object
-        var line=new Line(x1,y1,x2,y2);
-        // draw the line
-        line.drawWithArrowheads(context);
-	}
-//
-</script>
-{% endblock %}
+
+			document.getElementById("listaCanvas").append(theDiv)
+
+
+
+			theDiv.appendChild(document.createElement("br"));
+			theDiv.appendChild(document.createElement("br"));
+			var tag = document.createElement("h1");
+			tag.classList.add("center");
+			var text = document.createTextNode("Este es el área de edición:");
+			tag.appendChild(text);
+			theDiv.appendChild(tag);
+			theDiv.appendChild(document.createElement("br"));
+
+			var tag2 = document.createElement("h1");
+			tag2.classList.add("center");
+			var text2 = document.createTextNode("Arrastra sobre el área los iconos de la barra de");
+			tag2.appendChild(text2);
+			theDiv.appendChild(tag2);
+
+			var tag3 = document.createElement("h1");
+			tag3.classList.add("center");
+			var text3 = document.createTextNode("herramientas para crear una actividad");
+			tag3.appendChild(text3);
+			theDiv.appendChild(tag3);
+			document.getElementById(canvas.replace("#", "")).classList.remove("dropzone")
+			document.getElementById(canvas.replace("#", "")).classList.add("ocultar")
+			activity = "activity_" + num_activity;
+			canvas = "#editor-canvas_" + num_activity
+			num_activity++;
+			borrar = true
+			lanzar()
+			//	document.getElementById("editor-canvas").classList.add("ocultar")
+		}
+
+		function alerta(e) {
+			console.log("he pulsado la actividad", e.context.id)
+			if(e[0].id != activity){
+				console.log("he pulsado la actividad dentro", e[0].id)
+			var id = e.context.id.split("_")[1]
+			var idCanvas = "editor-canvas_" + id
+			var canv = document.getElementById(idCanvas)
+			canv.classList.remove("ocultar")
+			canv.classList.add("dropzone")
+
+			var lastcanvas = document.getElementById(canvas.replace("#", ""))
+			lastcanvas.classList.remove("dropzone")
+			lastcanvas.classList.add("ocultar")
+
+			activity = "activity_" + id;
+			canvas = "#editor-canvas_" + id;
+		}
+		}
+	</script>
+	{% endblock %}
