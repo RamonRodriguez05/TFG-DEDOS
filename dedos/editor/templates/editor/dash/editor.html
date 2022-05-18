@@ -1191,9 +1191,9 @@
 			var idinput = input.id.split("_")
 			id = parseInt(idinput[1]) + 1
 			areaID = "area" + id.toString()
-			if(isarea){
-			var file = $("input[type=file]").get(0).files[0];
-		}
+			if (isarea) {
+				var file = $("input[type=file]").get(0).files[0];
+			}
 		}
 
 		function ocultarOpciones() {
@@ -1243,7 +1243,7 @@
 
 		// Crear dropzone
 		function dropzoneUpload(id) {
-		
+
 			try {
 
 				var myDropzone = new Dropzone("#" + id, {
@@ -1398,8 +1398,8 @@
 			var original = document.getElementById("activity_1")
 			var li = original.cloneNode(false)
 			li.id = "activity_" + num_activity;
-			
-		
+
+
 
 			document.getElementById("sortable").appendChild(li)
 
@@ -1449,21 +1449,22 @@
 
 		function alerta(e) {
 			console.log("he pulsado la actividad", e.context.id)
-			if(e[0].id != activity){
+			if (e[0].id != activity) {
 				console.log("he pulsado la actividad dentro", e[0].id)
-			var id = e.context.id.split("_")[1]
-			var idCanvas = "editor-canvas_" + id
-			var canv = document.getElementById(idCanvas)
-			canv.classList.remove("ocultar")
-			canv.classList.add("dropzone")
+				var id = e.context.id.split("_")[1]
+				var idCanvas = "editor-canvas_" + id
+				var canv = document.getElementById(idCanvas)
+				canv.classList.remove("ocultar")
+				canv.classList.add("dropzone")
 
-			var lastcanvas = document.getElementById(canvas.replace("#", ""))
-			lastcanvas.classList.remove("dropzone")
-			lastcanvas.classList.add("ocultar")
+				var lastcanvas = document.getElementById(canvas.replace("#", ""))
+				lastcanvas.classList.remove("dropzone")
+				lastcanvas.classList.add("ocultar")
 
-			activity = "activity_" + id;
-			canvas = "#editor-canvas_" + id;
+				activity = "activity_" + id;
+				canvas = "#editor-canvas_" + id;
+			}
 		}
-		}
+		
 	</script>
 	{% endblock %}
