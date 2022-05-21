@@ -33,11 +33,12 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/path.css">
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 
     <script src="{% static 'js/dropzone.js' %}" type="text/javascript"></script>
-   
+
 
     <style>
         #draggable {
@@ -578,43 +579,43 @@
 
         }
 
-        .dz-remove
-{
-    display:inline-block !important;
-    width:1.2em;
-    height:1.2em;
-    
-    position:absolute;
-    top:-5px;
-    right:5px;
-    z-index:1000;
-    
-    font-size:1.2em !important;
-    line-height:1em;
-   
-    text-align:center;
-    font-weight:bold;
-    border:1px solid rgb(255, 0, 0) !important;
-    border-radius:1.2em;
-    color:rgb(255, 0, 0);
-    background-color:rgb(247, 243, 243);
-    
-    
-}
-.dz-remove:hover{
-    width:1.3em;
-    height:1.3em;
-    font-size:1.4em !important;
-    background-color: red;
-    color: white;
-}
+        .dz-remove {
+            display: inline-block !important;
+            width: 1.2em;
+            height: 1.2em;
+
+            position: absolute;
+            top: -5px;
+            right: 5px;
+            z-index: 1000;
+
+            font-size: 1.2em !important;
+            line-height: 1em;
+
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid rgb(255, 0, 0) !important;
+            border-radius: 1.2em;
+            color: rgb(255, 0, 0);
+            background-color: rgb(247, 243, 243);
+
+
+        }
+
+        .dz-remove:hover {
+            width: 1.3em;
+            height: 1.3em;
+            font-size: 1.4em !important;
+            background-color: red;
+            color: white;
+        }
 
         .dz-preview {
             display: flex;
             max-width: 50%;
             max-height: 50%;
             margin-bottom: 5%;
-  
+
 
         }
 
@@ -640,14 +641,13 @@
             background-color: white;
             border: 3px solid rgb(0, 168, 190);
             border-radius: 10px;
-            height: 120px;
+            min-height: 120px;
+            height: auto;
 
             -webkit-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
             -moz-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
             box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
         }
-
-      
     </style>
 
     <script>
@@ -661,7 +661,7 @@
             $("#draggable").draggable();
         });
 
-        
+
 
     </script>
 </head>
@@ -731,7 +731,8 @@
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="text-center">
-                        <button type="button" class="btn btn-light" title="Añadir actividad" onclick="addActivity()">Insertar</button>
+                        <button type="button" class="btn btn-light" title="Añadir actividad"
+                            onclick="addActivity()">Insertar</button>
                     </div>
                     <hr>
                     <div class="small">Logged in as:</div>

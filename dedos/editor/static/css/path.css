@@ -28,6 +28,11 @@
 	display: flex;
 }
 
+.xl:hover {
+	background-color: orange;
+}
+
+
 .xMark {
 	color: red;
 	float: right;

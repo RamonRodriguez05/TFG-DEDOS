@@ -346,3 +346,6 @@ def add_user(request):
 
 def editor(request):
     return render(request, 'editor/dash/editor.html')
+
+def proyectos(request):
+    return render(request, 'editor/dash/proyectos.html')

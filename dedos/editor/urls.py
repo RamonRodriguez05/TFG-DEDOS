@@ -20,5 +20,6 @@ urlpatterns = [
     path('change_password', views.change_password, name='change_password'),
     path('add_group', views.add_group, name='add_group'),
     path('add_user', views.add_user, name='add_user'),
-    path('editor', views.editor, name='editor')
+    path('editor', views.editor, name='editor'),
+     path('proyectos', views.proyectos, name='proyectos')
 ]

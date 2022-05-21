@@ -74,7 +74,6 @@
 		</div>
 
 
-
 		<!-- <section>
 			<div>
 				<i class="squarePath fa-solid fa-square" onclick="mostrar('conf')"></i>
@@ -83,34 +82,65 @@
 				<div class="PathIcono">
 					<i class="fa-solid fa-location-dot fa-2xl"></i>
 				</div>
-				<div id="conf" class="configurarPath">
+				<div id="conf" class="configurarPath ocultar">
 					<div style="height:50px">
 						<i class="PathIcono fa-solid fa-location-dot fa-2xl"></i>
-						<i class=" fa-solid fa-square" ></i>
+						<i class=" fa-solid fa-square"></i>
 						<i class="xMark fa-solid fa-xmark" onclick="ocultar('conf')"></i>
 					</div>
 					<div id="mover" class="insidePath ">
 						<div style="background-color: green;width:40px">Hola</div>
-						<div  id="pathidPadre" style="width:220px">
-							<div id="pathid" class="wrap">
-	
-							</div>
-							
-						</div>	
-						<div style="background-color: green;width:40px;  text-align: center;">
-							<i class="fa-solid fa-eye fa-xl"></i>
-							<input type="color" id="favcolor" name="favcolor" value="#ff0000" >
+						<div id="pathidPadre" style="width:220px">
+							<div id="pathid"></div>
+						</div>
+						<div style="background-color: green;width:40px; text-align: center;">
+							<i class="fa-solid fa-eye fa-xl"></i></br>
+							<input type="color" id="favcolor" name="favcolor" value="#ff0000"></br>
 							<i class="fa-brands fa-connectdevelop fa-xl"></i>
 						</div>
 					</div>
-					<div id="arrastrar" class="insidePath dropzone">
-						<i class="PathIcono fa-solid fa-location-dot fa-2x"></i>
-						Arrastre hasta aquí para crear un nuevo camino
+					<div id="arrastrar" class="insidePath">
+						<i class="PathIcono fa-solid fa-location-dot fa-2x"></i>Arrastre hasta aquí para crear un nuevo camino
 					</div>
 				</div>
 			</div>
-			
-			<canvas id="canvas2" width="1000px" height="500px" ></canvas>
+		</section> -->
+		<!-- <section>
+					<div>
+						<i class="squarePath fa-solid fa-square" onclick="mostrar('conf')"></i>
+					</div>
+					<div>
+						<div class="PathIcono">
+							<i class="fa-solid fa-location-dot fa-2xl"></i>
+						</div>
+						<div id="conf" class="configurarPath">
+							<div style="height:50px">
+								<i class="PathIcono fa-solid fa-location-dot fa-2xl"></i>
+								<i class=" fa-solid fa-square"></i>
+								<i class="xMark fa-solid fa-xmark" onclick="ocultar('conf')"></i>
+							</div>
+							<div id="mover" class="insidePath ">
+								<div style="background-color: green;width:40px">Hola</div>
+								<div id="pathidPadre" style="width:220px">
+									<div id="pathid" class="wrap">
+
+									</div>
+
+								</div>
+								<div style="background-color: green;width:40px;  text-align: center;">
+									<i class="fa-solid fa-eye fa-xl"></i>
+									<input type="color" id="favcolor" name="favcolor" value="#ff0000">
+									<i class="fa-brands fa-connectdevelop fa-xl"></i>
+								</div>
+							</div>
+							<div id="arrastrar" class="insidePath dropzone">
+								<i class="PathIcono fa-solid fa-location-dot fa-2x"></i>
+								Arrastre hasta aquí para crear un nuevo camino
+							</div>
+						</div>
+					</div>
+
+					<canvas id="canvas2" width="1000px" height="500px"></canvas>
 		</section> -->
 
 
@@ -147,7 +177,7 @@
 		lastItem = null
 		posLeft = 0
 		posRight = 0
-		lastPath = null
+
 		num_pathid = 1
 		mouseX = 500
 		mouseY = 500
@@ -155,7 +185,11 @@
 		activity = "activity_1"
 		canvas = "#editor-canvas_1"
 		isarea = true
-
+		pointerElementID = ""
+		listPath = [] // Lista de todos los caminos y elementos
+		lastCamino = null // ultimo path creado
+		listElementoCaminos = []
+		numCaminos = 1
 		const position = {
 			x: 0,
 			y: 0
@@ -217,7 +251,7 @@
 			$(canvas).droppable({
 				drop: function (event, ui) {
 					//this if condition is for avoiding multiple time drop and attachment of same item
-					console.log("Drop en canvas de nuevo ");
+					//	console.log("Drop en canvas de nuevo ");
 					if (borrar) {
 						document.getElementById(canvas.replace("#", "")).innerHTML = "";
 						borrar = false
@@ -261,7 +295,7 @@
 
 
 					if (ui.draggable.hasClass("tool")) {
-						console.log("Tiene clase tool");
+						//	console.log("Tiene clase tool");
 						var $item = $(ui.helper).clone(); //getting the cloned item
 
 						type = $item.attr('type');
@@ -347,34 +381,45 @@
 
 						var uploadArea = $('<div class="image-upload"> <label for="' + idUploadArea + '"> <i class="fa-solid fa-upload image-upload"></i> </label> <input id="' + idUploadArea + '" type="file" accept="image/png, image/gif, image/jpeg" onchange="changeBackground(this);" style="display: none;" /> </div>').click(function () {
 							var parentDiv = $(this).parent();
-							console.log("uploadArea id", parentDiv[0].id)
+							//	console.log("uploadArea id", parentDiv[0].id)
 							parentDiv.appendTo($('#source2'))
 							$('#source2 div').appendTo($('#source2'));
 							uploadAreaID = parentDiv[0].id;
 
-
-
+							var fileupload = $("#" + idUploadArea);
+							fileupload.on('change', function () {
+								let fileName = document.getElementById(idUploadArea).files[0];
+								//	console.log("EL UPLOAD AREA ES", uploadAreaID)
+								if (uploadAreaID != "") {
+									if (fileName != undefined) {
+										src1 = URL.createObjectURL(document.getElementById(idUploadArea).files[0]);
+										document.getElementById(uploadAreaID).style.backgroundImage = 'url(' + src1 + ')';
+									} else {
+										document.getElementById(uploadAreaID).style.backgroundImage = 'none';
+									}
+								}
+							})
 						});
 
 						// Card
 						var idTextoTitle = "idTitle_" + num_card.toString()
 						var idButtonCard = "idbuttonCard_" + num_card.toString()
 						var titleTextoCard = $('<div id="' + idTextoTitle + '" class="tituloTexto"><button id="' + idButtonCard + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span>Texto</span></div>').click(function () {
-							console.log("primero")
+
 							var parentDiv = $(this).parent();
-							console.log("title texto", parentDiv[0].id)
+							//	console.log("title texto", parentDiv[0].id)
 							parentDiv.appendTo($('#source2'))
 							$('#source2 div').appendTo($('#source2'));
 							if (fix) {
 								var $item = $(ui.draggable[0]).parent()
-								console.log("Dragableee", $item.parent().context.id)
+								//	console.log("Dragableee", $item.parent().context.id)
 								var clases = parentDiv.attr("class") + " fixed card"
 								parentDiv.attr("class", clases)
 
 								parentDiv.draggable("disable");
 							} else {
 								var $item = $(ui.draggable[0]).parent()
-								console.log("Dragableee", $item)
+								//	console.log("Dragableee", $item)
 								var clases = parentDiv.attr("class") + " fixed card"
 								parentDiv.attr("class", clases)
 								parentDiv.draggable("enable");
@@ -388,7 +433,7 @@
 						var tabsCard = $('<section id ="' + texto3id + '" class="ocultar"><div class="tab center"><button class="tablinks active" onclick="openCity(event, ' + idAcciones + ')">Acciones</button><button class="tablinks" onclick="openCity(event, ' + idFeedback + ')">Feedback</button><button class="tablinks" onclick="openCity(event, ' + idMatematicas + ')">Matemáticas</button></div><div id="' + idAcciones + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + idFeedback + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
 							idMatematicas + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>').click(function () {
 								var parentDiv = $(this).parent();
-								console.log("pulso", parentDiv)
+								//	console.log("pulso", parentDiv)
 								parentDiv.appendTo($('#source2'))
 								$('#source2 div').appendTo($('#source2'));
 							});
@@ -396,7 +441,7 @@
 						var textAreaid = "textArea_" + num_card.toString()
 						var inputTexto = $('<textarea id="' + textAreaid + '"class="inputText" placeholder="Escriba aquí el texto" name = "description" ></textarea>').click(function () {
 							var parentDiv = $(this).parent();
-							console.log("title texto", parentDiv)
+							//	console.log("title texto", parentDiv)
 							parentDiv.appendTo($('#source2'))
 							$('#source2 div').appendTo($('#source2'));
 
@@ -435,7 +480,7 @@
 						var tabImage = $('<section id ="' + backImageID + '" class="ocultar"><div class="tab center"><button class="tablinks active" onclick="evaluarTabImage(event, ' + AccionesImageID + ')">Acciones</button><button class="tablinks" onclick="evaluarTabImage(event, ' + FeedbackImageID + ')">Feedback</button><button class="tablinks" onclick="evaluarTabImage(event, ' + MatematicasImageID + ')">Matemáticas</button></div><div id="' + AccionesImageID + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + FeedbackImageID + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
 							MatematicasImageID + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>').click(function () {
 								var parentDiv = $(this).parent();
-								console.log("pulso", parentDiv)
+								//	console.log("pulso", parentDiv)
 								parentDiv.appendTo($('#source2'))
 								$('#source2 div').appendTo($('#source2'));
 							});
@@ -445,20 +490,20 @@
 						//				var titleImage = $('<div id="' + titleImageID + '"><header class="tituloImagen">Imagen<div class="image-upload"><label for="file-input"><i class="fa-solid fa-upload"></i></label><input id="file-input" type="file"/></div></header></div>').click(function () {
 						var titleImage = $('<div id="' + titleImageID + '" class="tituloTexto2"><button id="' + idButtonImage + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span>Imagen</span></div>').click(function () {
 							var parentDiv = $(this).parent();
-							console.log("title texto", parentDiv)
+							//	console.log("title texto", parentDiv)
 							parentDiv.appendTo($('#source2'))
 							$('#source2 div').appendTo($('#source2'));
 
 							if (fix) {
 								var $item = $(ui.draggable[0]).parent()
-								console.log("Dragableee", $item.parent().context.id)
+								//	console.log("Dragableee", $item.parent().context.id)
 								var clases = parentDiv.attr("class") + " fixed picture"
 								parentDiv.attr("class", clases)
 
 								parentDiv.draggable("disable");
 							} else {
 								var $item = $(ui.draggable[0]).parent()
-								console.log("Dragableee", $item)
+								//	console.log("Dragableee", $item)
 								var clases = parentDiv.attr("class") + " fixed picture"
 								parentDiv.attr("class", clases)
 								parentDiv.draggable("enable");
@@ -507,7 +552,7 @@
 						var formDropzoneID = "formDropzone_" + num_picture.toString()
 						var dropzoneElement = $('<form id="' + formDropzoneID + '" class="form" action="#" method="post"><div class="fv-row"><div class="dropzone" id="' + dropzoneID + '"><div class="dz-message needsclick"><i class="fa-solid fa-cloud-arrow-up fa-2xl"></i><div class="ms-4"><div >Arrastre hasta aquí los archivos o pulse para seleccionar.</div></div></div></div></div></form>').click(function () {
 							var parentDiv = $(this).parent();
-							console.log("parentdiv essss", parentDiv)
+
 
 
 						});
@@ -518,7 +563,7 @@
 
 						var seleccionIcono = $('<div id="' + idSelecciono + '" class="SeleccionIcono"><i  class="fa-solid fa-circle-dot fa-2xl"></i></div>').click(function () {
 							var parentDiv = $(this).parent();
-							console.log("parentdiv essss", parentDiv)
+
 							parentDiv.resizable("destroy");
 						});
 
@@ -542,7 +587,16 @@
 						var idPath = "Path_" + num_path.toString()
 						var pathIcono = $('<div class="PathIcono"><i id="' + idPath + '"class="fa-solid fa-location-dot fa-2xl"></i></div>').click(function () { });
 
-						var prueba = $('<section><div><i class="squarePath fa-solid fa-square" onclick="mostrar(' + "conf" + ')"></i></div><div><div class="PathIcono"><i class="fa-solid fa-location-dot fa-2xl"></i></div><div id="conf" class="configurarPath ocultar"><div style="height:50px"><i class="PathIcono fa-solid fa-location-dot fa-2xl"></i><i class=" fa-solid fa-square"></i><i class="xMark fa-solid fa-xmark" onclick="ocultar(' + "conf" + ')"></i></div><div id="mover" class="insidePath "><div style="background-color: green;width:40px">Hola</div><div id="pathidPadre" style="width:220px"><div id="pathid" ></div></div><div style="background-color: green;width:40px; text-align: center;"><i class="fa-solid fa-eye fa-xl"></i></br><input type="color" id="favcolor" name="favcolor" value="#ff0000" ></br><i class="fa-brands fa-connectdevelop fa-xl"></i></div></div><div id="arrastrar" class="insidePath"><i class="PathIcono fa-solid fa-location-dot fa-2x"></i>Arrastre hasta aquí para crear un nuevo camino</div></div></div></section>')
+						var idConf = "configuration_" + num_path.toString()
+						var idPadrePath = "pathIdPadre_" + num_path.toString()
+
+						var idHijoPath = "pathIdHijo_" + num_path.toString()
+						var crearCamino = "crearCamino_" + num_path.toString()
+						var prueba = $('<section><div><i class="squarePath fa-solid fa-square" onclick="mostrar(' + idConf + ')"></i></div><div><div class="PathIcono"><i class="fa-solid fa-location-dot fa-2xl"></i></div><div id="' + idConf + '" class="configurarPath ocultar"><div style="height:50px"><i class="PathIcono fa-solid fa-location-dot fa-2xl"></i><i class=" fa-solid fa-square"></i><i class="xMark fa-solid fa-xmark" onclick="ocultar(' + idConf + ')"></i></div><div  class="insidePath "><div style="background-color: green;width:40px">Hola</div><div id="' + idPadrePath + '" style="width:220px"><div id ="' + idHijoPath + '"></div></div><div style="background-color: green;width:40px; text-align: center;"><i class="fa-solid fa-eye fa-xl"></i></br><input type="color" id="favcolor" name="favcolor" value="#ff0000" ></br><i class="fa-brands fa-connectdevelop fa-xl"></i></div></div><div id="' + crearCamino + '"  class="insidePath"><i class="PathIcono fa-solid fa-location-dot fa-2x"></i>Arrastre hasta aquí para crear un nuevo camino</div></div></div></section>')
+
+
+						// Para los clones de los caminos
+						var idClonCamino = "clonCamino_" + num_path.toString()
 						if (type == "area") {
 							num_area = num_area + 1
 							num_areas_creadas = num_areas_creadas + 1
@@ -556,7 +610,7 @@
 
 							makeAreaDroppable($item)
 						} else if (type == "card") {
-							console.log("Se crea card");
+
 							num_card = num_card + 1
 							identifier = 'card' + num_card.toString()
 							$item.empty()
@@ -580,7 +634,7 @@
 							$item.append(configurationButtonImagen)
 							makeAreaDroppable($item)
 						} else if (type == "objetive") {
-							console.log("Entro en objetive", $item.parent())
+
 							num_objetive = num_objetive + 1
 							identifier = 'objetive' + num_objetive.toString()
 							$item.empty()
@@ -599,23 +653,23 @@
 							identifier = 'path' + num_path.toString()
 							$item.empty()
 							$item.attr("id", 'path' + num_path.toString());
-							$item.attr("class", 'path ui-resizable area-accept')
+							$item.attr("class", 'path ui-resizable area-accept originalPath')
 							//	$item.append(pathSqueareIcono)
 							$item.append(prueba)
 							lastPath = $item
-							console.log("el path es", $item[0])
-							var clon = $item[0].cloneNode(true)
-							clon.style = "left: 0px; top: 0px; position: relative"
-							clon.id = "jeje_" + num_path.toString()
-							var newDiv = document.createElement("div");
-							newDiv.id = "pruebamover_" + num_path.toString()
-							newDiv.classList.add("inline")
-							//	newDiv.classList.add("links")
-							newDiv.style = "width: 30px; height: 30px"
-							newDiv.appendChild(clon)
 
-							$(newDiv).draggable();
+							// Comprobar si no hay camino
+							if (listPath.length === 0) {
+								var randomColor = Math.floor(Math.random() * 16777215).toString(16);
+								var camino = new Camino("camino1", idClonCamino, randomColor)
+								listPath.push(camino)
+								lastCamino = "camino1"
+							} else {
+								const resultado = listPath.find(Camino => Camino.caminoID === lastCamino);
+								resultado.elementos += idClonCamino + ";"
+							} 
 
+						
 							// if(num_path <= 5){
 							// 	document.getElementById("pathid").append(newDiv)
 							// }else{
@@ -652,7 +706,7 @@
 						$(this).append($item);
 						makeDraggable($item);
 						var a = document.getElementById("area1").getBoundingClientRect();
-						console.log("a", a.left, a.top, a.bottom, a.right)
+						//	console.log("a", a.left, a.top, a.bottom, a.right)
 						if (type == "objetive" || type == "math" || type == "time" || type == "path") {
 							var content = document.getElementById($item[0].id)
 							content.lastElementChild.remove()
@@ -660,8 +714,72 @@
 							content.lastElementChild.remove()
 						}
 
+						if (type == "card" || type == "picture") {
+							//	console.log("ENTRO A RECOLOCAR")
+							if (pointerElementID != "" && pointerElementID.includes("area")) {
+
+								//	console.log("el hijoopadre del item es area ", $item[0].id)
+								var hijo = document.getElementById($item[0].id)
+									//	var rect = hijo.getBoundingClientRect();
+									//	console.log("Las posiciones hijo son",rect.top, rect.right, rect.bottom, rect.left);
+									;// =" position: absolute; left: 60px; top: 35px;"
+								parent = document.getElementById(pointerElementID)
+								var rect = parent.getBoundingClientRect();
+								//	console.log("Las posiciones padre son", rect.top, rect.right, rect.bottom, rect.left);
+								var je = posRight - rect.top
+								var jo = posLeft - rect.left
+								//	console.log("resta top", je, "resta left", jo)
+								hijo.style = "top:" + je + "px; left:" + jo + "px;"
+								parent.appendChild(document.getElementById($item[0].id))
+
+							}
+						}
+
+						if (type == "path") {
+							getElementPath()
+							var idCamino = "camino_" + numCaminos
+							//	console.log("el path es", $item[0])
+							var clon = $item[0].cloneNode(true)
+							clon.style = "left: 0px; top: 0px; position: relative"
+							clon.id = idClonCamino
+							clon.classList.remove("originalPath")
+							clon.classList.add(idCamino)
+							var newDiv = document.createElement("div");
+							newDiv.id = "pruebamover_" + num_path.toString()
+							newDiv.classList.add("inline")
+							//	newDiv.classList.add("links")
+							newDiv.style = "width: 30px; height: 30px"
+							newDiv.appendChild(clon)
+
+							$(newDiv).draggable();
+
+							listElementoCaminos.push(clon)
+
+							$("#" + crearCamino).droppable({
+								drop: function (event, ui) {
+									$(this).css('background', 'rgb(0,200,0)');
+									console.log("Elemento", ui.draggable[0].id)
+
+									var newDiv = document.createElement("div");
+									newDiv.id = "pathid" + num_pathid.toString()
+									num_pathid++
+									newDiv.append(document.getElementById(ui.draggable[0].id))
+
+									document.getElementById("pathidPadre").append(newDiv)
+								},
+								over: function (event, ui) {
+									$(this).css('background', 'orange');
+								},
+								out: function (event, ui) {
+									$(this).css('background', 'cyan');
+								}
+							});
+							document.getElementById(idHijoPath).append(newDiv)
+
+						}
 					} else {
 						/** Una tarjeta, área o objetivo se está soltando **/
+						//	console.log("recolocooooo 1")
 						var $item = $(ui.draggable[0])
 						if ($item.parent().attr("id") != $(this).attr("id")) {
 							$item.css("left", parseFloat($item.css("left"), 10) + parseFloat($item.parent().css(
@@ -671,7 +789,7 @@
 						}
 						$(this).append($item)
 					}
-					console.log("numero areas activas", numero_areas_activas)
+					//	console.log("numero areas activas", numero_areas_activas)
 					if (numero_areas_activas = !0) {
 						div = document.getElementById("TextoBueno");
 						div.classList.remove("ocultar");
@@ -801,10 +919,12 @@
 								10))
 							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
 						}
+						//	console.log("por el 2")
 						$(this).append($item);
 						makeDraggable($item);
 					} else {
 						/** Una tarjeta, área o objetivo se está soltando **/
+						//	console.log("recolocooooo 2")
 						var $item = $(ui.draggable[0])
 						if ($item.parent().attr("id") != $(this).attr("id")) {
 							console.log("Cambia de padre");
@@ -812,8 +932,8 @@
 								10))
 							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
 						}
-						console.log("el padres this es", $(this))
-						console.log("el padre item es", $item)
+						//	console.log("el padres this es", $(this))
+						//	console.log("el padre item es", $item)
 						$(this).append($item)
 					}
 				}
@@ -853,132 +973,7 @@
 					console.log('stopped 1')
 
 
-					var positions = $item.position()
-					//	console.log("pp", positions)
-					var rect = $item[0].getBoundingClientRect();
-					console.log("ELEMENTO:", "top:", rect.top, "left:", rect.left, "bottom:", rect.bottom, "right:", rect.right,);
-
-					var elementoX = rect.bottom
-					var elementoY = rect.left
-					console.log("punto elemento", elementoX, elementoY)
-					var papelera = document.getElementById("papelera")
-
-					var rect = papelera.getBoundingClientRect();
-					console.log("PAPELERA:", "top:", rect.top, "left:", rect.left, "bottom:", rect.bottom, "right:", rect.right,);
-					var papeleraX = rect.top
-					var papeleraY = rect.right
-					console.log("Papelera", papeleraX, papeleraY)
-
-					if (elementoX - 30 > papeleraX && elementoY + 30 < papeleraY) {
-						console.log("HA ENTRADO")
-						if ($item[0].id.includes("time")) {
-							num_time = 0
-							div = document.getElementById("TemporizadorBueno");
-							div.classList.remove("ocultar");
-							div = document.getElementById("TemporizadorTemp");
-							div.classList.add("ocultar");
-							itemTemporizador = null
-						}
-						if ($item[0].id.includes("area")) {
-							num_area--;
-						}
-
-
-
-
-
-						$($item).remove()
-					} else {
-						//	lastItem.style ="left:" + posLeft + "; right:"+ posRight;
-						if ($item[0].id.includes("time")) {
-							console.log('Temporizador', $item[0].id)
-							var temporizador = document.getElementById($item[0].id)
-							// temporizador.style.top = "140px"
-							// temporizador.style.left = "5px"
-							temporizador.style.position = "fixed"
-							temporizador.style.left = "88%"
-							temporizador.style.top = "85%"
-						}
-
-						// Alinear con padre
-						if ($item[0].id.includes("objetive") || $item[0].id.includes("math")) {
-							console.log("el id´dddd es", $item[0].id)
-							console.log("el padre del item es", $item.parent()[0].children[0])
-							if ($item.parent()[0].id.includes(canvas.replace("#", ""))) {
-								if (lastPadreObjetive != null) {
-									console.log("en el remoooveeee", $item.parent()[0].id)
-									lastPadreObjetive.classList.remove("selector")
-									lastPadreObjetive = null
-								}
-								$item.remove()
-							} else {
-
-								// colocar los elementos para que no se muevan
-
-								if ($item.parent()[0].id.includes("card") || $item.parent()[0].id.includes("picture")) {
-									var hijo = document.getElementById($item[0].id)
-									hijo.style = " left: 20px; margin-bottom: -15px"
-									var parent = document.getElementById($item.parent()[0].children[0].id)
-
-									console.log("el padre total es", $item.parent()[0].id)
-									// Mira si ya tienen un elemento de ese tipo´
-
-									var padreAbsoluto = document.getElementById($item.parent()[0].id)
-
-									var objetiveEncontrado = padreAbsoluto.classList.contains("selector")
-									var padre = document.getElementById($item.parent()[0].id)
-
-									console.log("El padre para chequear es", padre)
-									var hijos = padre.childNodes
-									console.log("Los hijos para chequear son", hijos)
-
-
-									console.log("ENCONTRADOO OBJETIVE", objetiveEncontrado)
-									if (!objetiveEncontrado) {
-										padreAbsoluto.classList.add("selector")
-										parent.insertBefore(hijo, parent.children[0]);
-										lastPadreObjetive = padreAbsoluto
-									} else {
-										$item.remove()
-									}
-
-								} else if ($item.parent()[0].id.includes("area")) {
-									console.log("el hijoopadre del item es area ", $item[0].id)
-									var hijo = document.getElementById($item[0].id)
-										//	var rect = hijo.getBoundingClientRect();
-										//	console.log("Las posiciones hijo son",rect.top, rect.right, rect.bottom, rect.left);
-										;// =" position: absolute; left: 60px; top: 35px;"
-									parent = document.getElementById("area1")
-									var rect = parent.getBoundingClientRect();
-									console.log("Las posiciones padre son", rect.top, rect.right, rect.bottom, rect.left);
-									var je = posRight - rect.top - 45
-									var jo = posLeft - rect.left - 10
-									console.log("resta top", je, "resta left", jo)
-									hijo.style = "top:" + je + "px; left:" + jo + "px;"
-									parent.appendChild(document.getElementById($item[0].id))
-								} else {
-									$item.remove();
-								}
-
-
-							}
-						}
-
-						if ($item[0].id.includes("picture")) {
-							if ($item.parent()[0].id.includes("card")) {
-
-								console.log("el padre del item es picture ", $item.parent()[0].id)
-								console.log("el padre del item es picture ", $item)
-								var hijo = document.getElementById($item[0].id)
-								hijo.style = "  left: 60px;"
-								var parent = document.getElementById("card1")
-								parent.appendChild(document.getElementById("picture1"))
-							}
-						}
-					}
-
-					//		captura();
-					captura(activity, canvas)
+					evaluarPosicion($item)
 					//	ocultarOpciones()
 
 
@@ -1018,11 +1013,11 @@
 				console.log('stopped 2')
 
 				var isDropzone = document.getElementById(dropzoneIDCrear)
-				console.log("is dropzone", dropzoneIDCrear)
+				//	console.log("is dropzone", dropzoneIDCrear)
 				dropzoneUpload(dropzoneIDCrear)
 
 				if (itemTemporizador != null) {
-					console.log('Temporizador', itemTemporizador[0].id)
+					//	console.log('Temporizador', itemTemporizador[0].id)
 					var temporizador = document.getElementById(itemTemporizador[0].id)
 					temporizador.style.position = "fixed"
 					temporizador.style.left = "88%"
@@ -1071,7 +1066,7 @@
 			if (idElemento == element.id) {
 				document.getElementById(idElemento).style.display = "block";
 				evt.currentTarget.className += " active";
-				console.log("LOOG", evt.currentTarget.className)
+				//	console.log("LOOG", evt.currentTarget.className)
 			}
 			for (i = 0; i < deseleccionar.length; i++) {
 				document.getElementById(deseleccionar[i]).style.display = "none";
@@ -1082,7 +1077,7 @@
 		}
 
 		function openCity(evt, element) {
-			console.log("Entro en opencity", element)
+			//	console.log("Entro en opencity", element)
 
 			var deseleccionar = []
 
@@ -1116,7 +1111,7 @@
 		}
 
 		function evaluarTabImage(evt, element) {
-			console.log("Entro evaluarTabImage", element)
+			//	console.log("Entro evaluarTabImage", element)
 
 			var deseleccionar = []
 
@@ -1151,11 +1146,11 @@
 
 
 		function fijarTarjeta(input) {
-			console.log("pulsado boton chincheta", input.offsetParent.id)
+			//	console.log("pulsado boton chincheta", input.offsetParent.id)
 			fix = true
 			var parentElement = document.getElementById(input.offsetParent.id)
-			console.log("ParentID", input.offsetParent.id)
-			console.log("input", input.id)
+			//	console.log("ParentID", input.offsetParent.id)
+			//	console.log("input", input.id)
 			document.getElementById(input.id).innerHTML = '<img src="/static/dash/dist/assets/img/pinned.png" width="12px"   />';
 			document.getElementById(input.id).style = " margin-left:4px; margin-right:-2px"
 			if (parentElement.classList.contains("ui-draggable-disabled")) {
@@ -1169,25 +1164,28 @@
 
 
 		}
+		/*
+				$(document).on("input", "input:file", function (e) {
+					let fileName = e.target.files[0];
+					console.log("EL UPLOAD AREA ES", uploadAreaID)
+					console.log("el evento es", e)
+					if (uploadAreaID != "") {
+						if (fileName != undefined) {
+							src1 = URL.createObjectURL(e.target.files[0]);
+							document.getElementById(uploadAreaID).style.backgroundImage = 'url(' + src1 + ')';
+						} else {
+							document.getElementById(uploadAreaID).style.backgroundImage = 'none';
+						}
+					}
+					
+					//     alert('The file name is : "' + fileName);
+				});
+				*/
 
-		$(document).on("input", "input:file", function (e) {
-			let fileName = e.target.files[0];
-			console.log("el puloadareaid pa cambiar es", uploadAreaID)
-			console.log("el evento es", e.currentTarget.parentNode.id)
-			if (uploadAreaID != "") {
-				if (fileName != undefined) {
-					src1 = URL.createObjectURL(e.target.files[0]);
-					document.getElementById(uploadAreaID).style.backgroundImage = 'url(' + src1 + ')';
-				} else {
-					document.getElementById(uploadAreaID).style.backgroundImage = 'none';
-				}
-			}
-			//     alert('The file name is : "' + fileName);
-		});
 
 
 		function changeBackground(input) {
-			console.log("el id del input es", input.id)
+			//	console.log("el id del input es", input.id)
 			var idinput = input.id.split("_")
 			id = parseInt(idinput[1]) + 1
 			areaID = "area" + id.toString()
@@ -1197,7 +1195,7 @@
 		}
 
 		function ocultarOpciones() {
-			console.log("numero areas activas en ocultar", num_areas_creadas)
+			//	console.log("numero areas activas en ocultar", num_areas_creadas)
 			num_areas_creadas = num_areas_creadas - 1;
 			if (num_areas_creadas == 0) {
 				div = document.getElementById("TextoTemp");
@@ -1262,7 +1260,7 @@
 					}
 				});
 			} catch (error) {
-				console.log("No se crea dropzone")
+				//	console.log("No se crea dropzone")
 			}
 		}
 
@@ -1294,13 +1292,13 @@
 				prueba.innerHTML = '';
 				canvas.style.width = "100%"
 				canvas.style.height = "auto"
-				console.log("la captura es", canvas)
+				//	console.log("la captura es", canvas)
 				prueba.appendChild(canvas)
 			});
 		}
 
-		$("#pruebamover_1").draggable();
-		$("#jeje_1").draggable();
+		// $("#pruebamover_1").draggable();
+		// $("#jeje_1").draggable();
 
 
 		$("#arrastrar").droppable({
@@ -1325,17 +1323,18 @@
 
 
 		function ocultar(elemento) {
-			console.log("El ide para borrar", elemento)
-			document.getElementById(elemento.id).classList.add("ocultar")
+			//	console.log("El id para borrar", elemento)
+			document.getElementById(elemento[0].id).classList.add("ocultar")
 		}
 
 		function mostrar(elemento) {
-			console.log("El ide para borrar", elemento)
-			document.getElementById(elemento.id).classList.remove("ocultar")
+			//	console.log("El id para mostrar", elemento[0].id)
+
+			document.getElementById(elemento[0].id).classList.remove("ocultar")
 		}
 
 
-		// 
+
 		//Canvas
 
 		function dibujar(x1, y1, x2, y2) {
@@ -1448,9 +1447,9 @@
 		}
 
 		function alerta(e) {
-			console.log("he pulsado la actividad", e.context.id)
+			//	console.log("he pulsado la actividad", e.context.id)
 			if (e[0].id != activity) {
-				console.log("he pulsado la actividad dentro", e[0].id)
+				//	console.log("he pulsado la actividad dentro", e[0].id)
 				var id = e.context.id.split("_")[1]
 				var idCanvas = "editor-canvas_" + id
 				var canv = document.getElementById(idCanvas)
@@ -1465,6 +1464,172 @@
 				canvas = "#editor-canvas_" + id;
 			}
 		}
-		
+
+		function evaluarPosicion($item) {
+			var positions = $item.position()
+			//	console.log("pp", positions)
+			var rect = $item[0].getBoundingClientRect();
+			//	console.log("ELEMENTO:", "top:", rect.top, "left:", rect.left, "bottom:", rect.bottom, "right:", rect.right,);
+
+			var elementoX = rect.bottom
+			var elementoY = rect.left
+			//	console.log("punto elemento", elementoX, elementoY)
+			var papelera = document.getElementById("papelera")
+
+			var rect = papelera.getBoundingClientRect();
+			//	console.log("PAPELERA:", "top:", rect.top, "left:", rect.left, "bottom:", rect.bottom, "right:", rect.right,);
+			var papeleraX = rect.top
+			var papeleraY = rect.right
+			//	console.log("Papelera", papeleraX, papeleraY)
+
+			if (elementoX - 30 > papeleraX && elementoY + 30 < papeleraY) {
+				//		console.log("HA ENTRADO")
+				if ($item[0].id.includes("time")) {
+					num_time = 0
+					div = document.getElementById("TemporizadorBueno");
+					div.classList.remove("ocultar");
+					div = document.getElementById("TemporizadorTemp");
+					div.classList.add("ocultar");
+					itemTemporizador = null
+				}
+				if ($item[0].id.includes("area")) {
+					num_area--;
+				}
+
+
+
+
+
+				$($item).remove()
+			} else {
+				//	lastItem.style ="left:" + posLeft + "; right:"+ posRight;
+				if ($item[0].id.includes("time")) {
+					//		console.log('Temporizador', $item[0].id)
+					var temporizador = document.getElementById($item[0].id)
+					// temporizador.style.top = "140px"
+					// temporizador.style.left = "5px"
+					temporizador.style.position = "fixed"
+					temporizador.style.left = "88%"
+					temporizador.style.top = "85%"
+				}
+
+				// Alinear con padre
+				if ($item[0].id.includes("objetive") || $item[0].id.includes("math")) {
+					//		console.log("el id´dddd es", $item[0].id)
+					//		console.log("el padre del item es", $item.parent()[0].children[0])
+					if ($item.parent()[0].id.includes(canvas.replace("#", ""))) {
+						if (lastPadreObjetive != null) {
+							//	console.log("en el remoooveeee", $item.parent()[0].id)
+							lastPadreObjetive.classList.remove("selector")
+							lastPadreObjetive = null
+						}
+						$item.remove()
+					} else {
+
+						// colocar los elementos para que no se muevan
+
+						if ($item.parent()[0].id.includes("card") || $item.parent()[0].id.includes("picture")) {
+							var hijo = document.getElementById($item[0].id)
+							hijo.style = " left: 20px; margin-bottom: -15px"
+							var parent = document.getElementById($item.parent()[0].children[0].id)
+
+							//	console.log("el padre total es", $item.parent()[0].id)
+							// Mira si ya tienen un elemento de ese tipo´
+
+							var padreAbsoluto = document.getElementById($item.parent()[0].id)
+
+							var objetiveEncontrado = padreAbsoluto.classList.contains("selector")
+							var padre = document.getElementById($item.parent()[0].id)
+
+							//	console.log("El padre para chequear es", padre)
+							var hijos = padre.childNodes
+							//	console.log("Los hijos para chequear son", hijos)
+
+
+							//	console.log("ENCONTRADOO OBJETIVE", objetiveEncontrado)
+							if (!objetiveEncontrado) {
+								padreAbsoluto.classList.add("selector")
+								parent.insertBefore(hijo, parent.children[0]);
+								lastPadreObjetive = padreAbsoluto
+							} else {
+								$item.remove()
+							}
+
+						} else if ($item.parent()[0].id.includes("area")) {
+							//	console.log("el hijoopadre del item es area ", $item[0].id)
+							var hijo = document.getElementById($item[0].id)
+								//	var rect = hijo.getBoundingClientRect();
+								//	console.log("Las posiciones hijo son",rect.top, rect.right, rect.bottom, rect.left);
+								;// =" position: absolute; left: 60px; top: 35px;"
+							parent = document.getElementById("area1")
+							var rect = parent.getBoundingClientRect();
+							//	console.log("Las posiciones padre son", rect.top, rect.right, rect.bottom, rect.left);
+							var je = posRight - rect.top - 45
+							var jo = posLeft - rect.left - 10
+							//	console.log("resta top", je, "resta left", jo)
+							hijo.style = "top:" + je + "px; left:" + jo + "px;"
+							parent.appendChild(document.getElementById($item[0].id))
+						} else {
+							$item.remove();
+						}
+
+
+					}
+				}
+
+				if ($item[0].id.includes("picture")) {
+					if ($item.parent()[0].id.includes("card")) {
+
+						//	console.log("el padre del item es picture ", $item.parent()[0].id)
+						//	console.log("el padre del item es picture ", $item)
+						var hijo = document.getElementById($item[0].id)
+						hijo.style = "  left: 60px;"
+						var parent = document.getElementById("card1")
+						parent.appendChild(document.getElementById("picture1"))
+					}
+				}
+			}
+
+			//		captura();
+			captura(activity, canvas)
+		}
+
+		document.addEventListener('mousemove', e => {
+			// console.clear()
+			pointerElementID = document.elementFromPoint(e.clientX, e.clientY).id
+			// console.log(pointerElementID)
+		}, { passive: true })
+
+		// Caminos	
+		function Camino(pathid, elemento, color) {
+			this.caminoID = pathid;
+			this.elementos = elemento + ";"
+			this.color = color
+		}
+
+		function ElementoCamino(id, elemento) {
+			this.ID = id;
+			this.elemento = elemento
+		}
+
+		function getElementPath() {
+			var paths = document.getElementsByClassName("originalPath")
+
+			console.log("Numero de path", paths.length)
+			for (let i = 0; i < paths.length; i++) {
+				console.log("path", paths[i])
+				var lastID = parseInt(paths[i].id.substr(paths[i].id.length - 1)) - 1
+				var padre = document.getElementById("pathIdPadre_" + lastID)
+
+
+				console.log("El padre", padre)
+				console.log("lista de elementos", listElementoCaminos)	
+				for (let j = 0; j <= listPath.length; j++) {
+					console.log("Numero de caminos", listPath[j])
+
+				}
+			}
+		}
+
 	</script>
 	{% endblock %}
