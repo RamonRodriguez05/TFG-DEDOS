@@ -1,10 +1,10 @@
-.inline { 
-	float:left; 
+.inline {
+	float: left;
 	margin-right: 6px;
 	margin-top: 2px;
 	margin-bottom: 5px;
 	margin-left: 4px;
-	
+
 }
 
 .configurarPath {
@@ -61,41 +61,32 @@ input[type="color"]::-webkit-color-swatch {
 	display: flex;
 }
 
-
-/* .borde{
-	 border: 1px solid rgb(0, 162, 255); 
-}
-
-.wrap {
-	text-align: center;
+.deleteActivity{
 	
-	position: relative;
-  }
-  .links {
-	padding: 0 10px;
-	display: flex;
-	justify-content: space-between;
-	position: relative;
-  }
-  .wrap:before {
-	content: '';
-	position: absolute;
-	top: 50%;
-	left: 0;
-	border-top: 1px solid black;
-	background: black;
-	width: 100%;
-	transform: translateY(-50%);
-  }
-  .dot {
 	width: 20px;
 	height: 20px;
-	background: red;
-  } */
+	color: rgba(255, 187, 0, 0.829);
+	float: right;
+	padding-right: -10px;
+	padding-top: -10px;
+	margin-top: -10px;
+	margin-right: -10px;
+	margin-bottom: -2px;
+	
+}
+
+.deleteActivity:hover{
+	
+	color:rgb(255, 0, 0)
 
 
-  #canvas2 {
- 
-    border: 5px solid #000000;
+	
+}
+
+#canvas2 {
+
+	border: 5px solid #000000;
 	background-color: rgb(245, 234, 234);
 }
+
+

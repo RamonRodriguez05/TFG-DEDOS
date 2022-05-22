@@ -26,7 +26,7 @@
 			<div id="SeleccionBueno" class="col-md-1 tool  ocultar" id="tool-4-icon draggable tool" type="objetive"><i
 					id="imagenSeleccion" class="fa-solid fa-circle-dot fa-2xl"></i>
 			</div>
-			<div id="EmparejarBueno" class="col-md-1 tool area-accept  ocultar" id="tool-5-icon draggable tool"
+			<div id="EmparejarBueno" class="col-md-1 tool  ocultar" id="tool-5-icon draggable tool"
 				type="pairing"><i id="imagenEmparejar" class="fa-solid fa-arrows-split-up-and-left fa-2xl"></i>
 			</div>
 			<div id="CaminoBueno" class="col-md-1 tool area-accept ocultar" id="tool-6-icon draggable tool" type="path">
@@ -140,11 +140,11 @@
 						</div>
 					</div>
 
-					<canvas id="canvas2" width="1000px" height="500px"></canvas>
+				<canvas id="canvas2" width="500px" height="250px"></canvas>
 		</section> -->
 
 
-
+		
 
 
 
@@ -182,13 +182,14 @@
 		mouseX = 500
 		mouseY = 500
 		lastPadreObjetive = null
-		activity = "activity_1"
+		activity = "activity_1" 
+		previousCanvas = "#editor-canvas_1"
 		canvas = "#editor-canvas_1"
 		isarea = true
 		pointerElementID = ""
 		listPath = [] // Lista de todos los caminos y elementos
 		lastCamino = null // ultimo path creado
-		listElementoCaminos = []
+		listElementoCaminosClonados = []
 		numCaminos = 1
 		const position = {
 			x: 0,
@@ -198,7 +199,7 @@
 		borrar = true;
 		fix = false;
 		var uploadAreaID = ""
-
+		var original = document.getElementById("activity_1")
 
 		const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
@@ -584,19 +585,25 @@
 
 
 						});
-						var idPath = "Path_" + num_path.toString()
+						var idPath = "Path_" + (num_path + 1)
 						var pathIcono = $('<div class="PathIcono"><i id="' + idPath + '"class="fa-solid fa-location-dot fa-2xl"></i></div>').click(function () { });
 
-						var idConf = "configuration_" + num_path.toString()
-						var idPadrePath = "pathIdPadre_" + num_path.toString()
+						var idConf = "configuration_" + (num_path + 1)
+						var idPadrePath = "pathIdPadre_" + (num_path + 1)
 
-						var idHijoPath = "pathIdHijo_" + num_path.toString()
-						var crearCamino = "crearCamino_" + num_path.toString()
-						var prueba = $('<section><div><i class="squarePath fa-solid fa-square" onclick="mostrar(' + idConf + ')"></i></div><div><div class="PathIcono"><i class="fa-solid fa-location-dot fa-2xl"></i></div><div id="' + idConf + '" class="configurarPath ocultar"><div style="height:50px"><i class="PathIcono fa-solid fa-location-dot fa-2xl"></i><i class=" fa-solid fa-square"></i><i class="xMark fa-solid fa-xmark" onclick="ocultar(' + idConf + ')"></i></div><div  class="insidePath "><div style="background-color: green;width:40px">Hola</div><div id="' + idPadrePath + '" style="width:220px"><div id ="' + idHijoPath + '"></div></div><div style="background-color: green;width:40px; text-align: center;"><i class="fa-solid fa-eye fa-xl"></i></br><input type="color" id="favcolor" name="favcolor" value="#ff0000" ></br><i class="fa-brands fa-connectdevelop fa-xl"></i></div></div><div id="' + crearCamino + '"  class="insidePath"><i class="PathIcono fa-solid fa-location-dot fa-2x"></i>Arrastre hasta aquí para crear un nuevo camino</div></div></div></section>')
+						var idHijoPath = "pathIdHijo_" + (num_path + 1)
+						var crearCamino = "crearCamino_" + (num_path + 1)
+						var prueba = $('<section><div><i class="squarePath fa-solid fa-square" onclick="mostrar(' + idConf + ')"></i></div><div><div class="PathIcono"><i class="fa-solid fa-location-dot fa-2xl"></i></div><div id="' + idConf + '" class="configurarPath ocultar"><div style="height:50px"><i class="PathIcono fa-solid fa-location-dot fa-2xl"></i><i class=" fa-solid fa-square"></i><i class="xMark fa-solid fa-xmark" onclick="ocultar(' + idConf + ')"></i></div><div  class="insidePath "><div style="background-color: green;width:40px">Hola</div><div id="' + idPadrePath + '" class="wrap2" style="width:220px"><div id ="' + idHijoPath + '" class="links"></div></div><div style="background-color: green;width:40px; text-align: center;"><i class="fa-solid fa-eye fa-xl"></i></br><input type="color" id="favcolor" name="favcolor" value="#ff0000" ></br><i class="fa-brands fa-connectdevelop fa-xl"></i></div></div><div id="' + crearCamino + '"  class="insidePath"><i class="PathIcono fa-solid fa-location-dot fa-2x"></i>Arrastre hasta aquí para crear un nuevo camino</div></div></div></section>')
 
 
 						// Para los clones de los caminos
-						var idClonCamino = "clonCamino_" + num_path.toString()
+						var idClonCamino = "clonCamino_" + (num_path + 1) 
+
+						// Unir
+						var idUnir = "Unir_" + num_pairing.toString()
+						var unir = $('<canvas id="' + idUnir + '" class="marginCanvas" width="1500px" height="1250px"></canvas>').click(function () { });
+						
+
 						if (type == "area") {
 							num_area = num_area + 1
 							num_areas_creadas = num_areas_creadas + 1
@@ -648,12 +655,16 @@
 							$item.empty()
 							$item.attr("id", 'pairing' + num_pairing.toString());
 							$item.attr("class", 'pairing ui-resizable area-accept')
+							$item.append(unir)
+
+							
+							
 						} else if (type == "path") {
 							num_path = num_path + 1
 							identifier = 'path' + num_path.toString()
 							$item.empty()
 							$item.attr("id", 'path' + num_path.toString());
-							$item.attr("class", 'path ui-resizable area-accept originalPath')
+							$item.attr("class", 'path ui-resizable area-accept originalPath' + " " + canvas)
 							//	$item.append(pathSqueareIcono)
 							$item.append(prueba)
 							lastPath = $item
@@ -705,7 +716,8 @@
 						}
 						$(this).append($item);
 						makeDraggable($item);
-						var a = document.getElementById("area1").getBoundingClientRect();
+						lastItem = $item
+						//var a = document.getElementById("area1").getBoundingClientRect();
 						//	console.log("a", a.left, a.top, a.bottom, a.right)
 						if (type == "objetive" || type == "math" || type == "time" || type == "path") {
 							var content = document.getElementById($item[0].id)
@@ -736,36 +748,42 @@
 						}
 
 						if (type == "path") {
-							getElementPath()
+							
 							var idCamino = "camino_" + numCaminos
 							//	console.log("el path es", $item[0])
-							var clon = $item[0].cloneNode(true)
+							var clon = document.createElement("div")
+							clon.innerHTML='<i class="fa-solid fa-location-dot fa-2xl"></i>'
 							clon.style = "left: 0px; top: 0px; position: relative"
 							clon.id = idClonCamino
 							clon.classList.remove("originalPath")
-							clon.classList.add(idCamino)
-							var newDiv = document.createElement("div");
-							newDiv.id = "pruebamover_" + num_path.toString()
-							newDiv.classList.add("inline")
+							clon.classList.add(idCamino) 
+							clon.classList.add("dot")
+							
+						//	var newDiv = document.createElement("div");
+						//	newDiv.id = "pruebamover_" + num_path.toString()
+						clon.classList.add("inline")
 							//	newDiv.classList.add("links")
-							newDiv.style = "width: 30px; height: 30px"
-							newDiv.appendChild(clon)
+						//	newDiv.style = "width: 30px; height: 30px"
+						//	newDiv.appendChild(clon)
+						var elementoCaminoNuevo = new ElementoCamino(idClonCamino, clon, canvas)
+							listElementoCaminosClonados.push(elementoCaminoNuevo)
 
-							$(newDiv).draggable();
-
-							listElementoCaminos.push(clon)
+							getElementPath()
+							$(clon).draggable();
+							
 
 							$("#" + crearCamino).droppable({
 								drop: function (event, ui) {
 									$(this).css('background', 'rgb(0,200,0)');
 									console.log("Elemento", ui.draggable[0].id)
-
+									/*
 									var newDiv = document.createElement("div");
 									newDiv.id = "pathid" + num_pathid.toString()
 									num_pathid++
 									newDiv.append(document.getElementById(ui.draggable[0].id))
 
 									document.getElementById("pathidPadre").append(newDiv)
+									*/
 								},
 								over: function (event, ui) {
 									$(this).css('background', 'orange');
@@ -774,8 +792,34 @@
 									$(this).css('background', 'cyan');
 								}
 							});
-							document.getElementById(idHijoPath).append(newDiv)
+						//	document.getElementById(idHijoPath).append(clon)
 
+						}
+
+						if (type == "pairing") {
+							onmousemove = function (e) { 
+								document.onmousemove = function(event) {
+									var item = document.getElementById("pairing1")
+  								item.style.width = -1*event.clientX + 'px';
+								  item.style.height = -1*event.clientY + 'px';
+ 
+  
+}
+
+								const target = e.target;
+
+								// Get the bounding rectangle of target
+								const rect = target.getBoundingClientRect();
+
+								// Mouse position
+								posLeft = e.clientX - rect.left;;
+								posRight = e.clientY - rect.top;
+								dibujar(800, 0, posLeft, posRight, idUnir)
+
+								
+
+							}
+						
 						}
 					} else {
 						/** Una tarjeta, área o objetivo se está soltando **/
@@ -947,9 +991,10 @@
 			const rect = target.getBoundingClientRect();
 
 			// Mouse position
-			posLeft = e.clientX // - rect.left;;
-			posRight = e.clientY //- rect.top; 
-			//dibujar(mouseX,mouseY,posLeft,posRight)
+			posLeft = e.clientX //  - rect.left;;
+			posRight = e.clientY // - rect.top; 
+		//	dibujar(mouseX,mouseY,posLeft,posRight, "canvas2")
+			
 			// var canv = document.getElementById("canvas2")
 			// var ctx = document.getElementById("canvas2").getContext("2d")
 			// ctx.clearRect(0, 0, canv.width, canv.height);
@@ -960,7 +1005,7 @@
 			// ctx.strokeStyle = "black"
 			// ctx.lineWidth = 10;
 			// ctx.stroke()
-			//	console.log("mouse location:", "left", posLeft, "top", posRight)
+			// 	console.log("mouse location:", "left", posLeft, "top", posRight)
 
 		}
 		function makeDraggable($item) {
@@ -1024,7 +1069,7 @@
 					temporizador.style.top = "85%"
 				}
 
-
+				evaluarPosicion(lastItem)
 
 				//	captura();
 				captura(activity, canvas);
@@ -1289,7 +1334,7 @@
 			}).then((canvas) => {
 
 				var prueba = document.getElementById(name)
-				prueba.innerHTML = '';
+				prueba.innerHTML = '<div class="deleteActivity" onclick="eliminarActividad($(this))" >x</div>';
 				canvas.style.width = "100%"
 				canvas.style.height = "auto"
 				//	console.log("la captura es", canvas)
@@ -1324,23 +1369,26 @@
 
 		function ocultar(elemento) {
 			//	console.log("El id para borrar", elemento)
-			document.getElementById(elemento[0].id).classList.add("ocultar")
+			document.getElementById(elemento.id).classList.add("ocultar")
+			captura(activity, canvas)
 		}
 
 		function mostrar(elemento) {
 			//	console.log("El id para mostrar", elemento[0].id)
-
-			document.getElementById(elemento[0].id).classList.remove("ocultar")
+			
+			document.getElementById(elemento.id).classList.remove("ocultar")
+			captura(activity, canvas)
 		}
 
 
 
 		//Canvas
 
-		function dibujar(x1, y1, x2, y2) {
-			var canvas = document.getElementById("canvas2");
+		function dibujar(x1, y1, x2, y2, id) {
+			var canvas = document.getElementById(id);
 			var context = canvas.getContext("2d");
-
+				
+				//console.log("elementos en una posicion dada", document.elementFromPoint(x1, y1))
 			function Line(x1, y1, x2, y2) {
 				this.x1 = x1;
 				this.y1 = y1;
@@ -1352,7 +1400,7 @@
 				// arbitrary styling
 				ctx.strokeStyle = "gray";
 				ctx.fillStyle = "red";
-				ctx.lineWidth = 10;
+				ctx.lineWidth = 5;
 
 				// draw the line
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1393,12 +1441,13 @@
 		}
 		//
 
+
 		function addActivity() {
-			var original = document.getElementById("activity_1")
+			
 			var li = original.cloneNode(false)
 			li.id = "activity_" + num_activity;
 
-
+			li.innerHTML = '<div class="deleteActivity" onclick="eliminarActividad($(this))" >x</div>';
 
 			document.getElementById("sortable").appendChild(li)
 
@@ -1409,7 +1458,7 @@
 			theDiv.id = "editor-canvas_" + num_activity
 			theDiv.classList.add(canvas.replace("#", ""))
 			theDiv.classList.add("dropzone")
-			theDiv.style = "border:2px;width:100%; height:100%; background-color: lightblue;"
+			theDiv.style = "border:2px;width:100%; height:100%;"
 
 
 			document.getElementById("listaCanvas").append(theDiv)
@@ -1436,9 +1485,14 @@
 			var text3 = document.createTextNode("herramientas para crear una actividad");
 			tag3.appendChild(text3);
 			theDiv.appendChild(tag3);
+
+			var canvasElement = document.getElementById(canvas.replace("#", ""))
+			if(canvasElement != null){
 			document.getElementById(canvas.replace("#", "")).classList.remove("dropzone")
 			document.getElementById(canvas.replace("#", "")).classList.add("ocultar")
+		}
 			activity = "activity_" + num_activity;
+			previousCanvas = canvas
 			canvas = "#editor-canvas_" + num_activity
 			num_activity++;
 			borrar = true
@@ -1453,6 +1507,7 @@
 				var id = e.context.id.split("_")[1]
 				var idCanvas = "editor-canvas_" + id
 				var canv = document.getElementById(idCanvas)
+				if(canv != null){
 				canv.classList.remove("ocultar")
 				canv.classList.add("dropzone")
 
@@ -1462,6 +1517,32 @@
 
 				activity = "activity_" + id;
 				canvas = "#editor-canvas_" + id;
+			}
+			}
+		}
+
+		function eliminarActividad(e) {
+				console.log("he pulsado la actividad", e[0].parentNode.id)
+				var splitID =  e[0].parentNode.id.split("_")
+				var idEditor = "editor-canvas_" + splitID[1]
+				document.getElementById(e[0].parentNode.id).remove() 
+			 	document.getElementById(idEditor).remove() 
+
+				var ultimo = $('#sortable li').last()
+				if(ultimo.length !== 0) {
+				var id = ultimo[0].id.split("_")[1] 
+				console.log("El utlimo es", ultimo)
+				var editorMostrar = "editor-canvas_" + id;
+			 	document.getElementById(editorMostrar).classList.add("dropzone")
+			 	document.getElementById(editorMostrar).classList.remove("ocultar")
+				
+				console.log("el ultimo es", id)
+			 	activity = "activity_" + id ;
+				canvas = "#editor-canvas_" + id;
+
+			 	num_activity--;
+			 	borrar = true
+			 	lanzar()
 			}
 		}
 
@@ -1596,8 +1677,11 @@
 
 		document.addEventListener('mousemove', e => {
 			// console.clear()
-			pointerElementID = document.elementFromPoint(e.clientX, e.clientY).id
-			// console.log(pointerElementID)
+			var el = document.elementFromPoint(e.clientX, e.clientY)
+			if (el != null)(
+				pointerElementID = el.id
+			)
+			// console.log("ELEMENTO EN POSICION",pointerElementID)
 		}, { passive: true })
 
 		// Caminos	
@@ -1607,29 +1691,60 @@
 			this.color = color
 		}
 
-		function ElementoCamino(id, elemento) {
-			this.ID = id;
+		function ElementoCamino(id, elemento, canv) {
+			this.identificador = id;
 			this.elemento = elemento
+			this.canvas = canv
 		}
 
 		function getElementPath() {
-			var paths = document.getElementsByClassName("originalPath")
+				var paths = document.getElementsByClassName("originalPath")
+				var unic = 0
+				console.log("Numero de path", paths)
 
-			console.log("Numero de path", paths.length)
-			for (let i = 0; i < paths.length; i++) {
-				console.log("path", paths[i])
-				var lastID = parseInt(paths[i].id.substr(paths[i].id.length - 1)) - 1
-				var padre = document.getElementById("pathIdPadre_" + lastID)
+				// Por cada path
+				for (let i = 0; i < paths.length; i++) {
+					
+					if(paths[i].classList.contains(canvas)){
+					console.log("path", paths[i])
+					var lastID = parseInt(paths[i].id.substr(paths[i].id.length - 1))
 
+					var padre = document.getElementById("pathIdPadre_" + lastID)
+					var hijo = document.getElementById("pathIdHijo_" + lastID)
 
-				console.log("El padre", padre)
-				console.log("lista de elementos", listElementoCaminos)	
-				for (let j = 0; j <= listPath.length; j++) {
-					console.log("Numero de caminos", listPath[j])
+					console.log("El padre", padre.id)
+					console.log("El hijo", hijo.id)
+					hijo.innerHTML = "";
+					console.log("lista de elementos clonados", listElementoCaminosClonados)	
+
+					// Añadir elementos a todos los path
+					for (let j = 0; j < listPath.length; j++) {
+
+						console.log("Numero de caminos", listPath[j])
+						var el = listPath[j].elementos.slice(0, -1)
+
+						var elementos = el.split(";")
+						for (let k = 0; k < elementos.length; k++) {
+							//	console.log("elementos hallados", elementos[k])
+							const resultado = listElementoCaminosClonados.find(ElementoCamino => ElementoCamino.identificador == elementos[k]);
+							//	console.log("el resultado es",resultado.elemento)´
+							var clone = resultado.elemento.cloneNode(true)
+							clone.id += "_" + lastID 
+
+							console.log("ELEMENTO A AÑADIR", clone)
+							$(clone).draggable(); 
+							console.log("El canvas es", canvas)
+							console.log("el canvas elemento es", resultado.canvas)
+							if(resultado.canvas === canvas){
+								hijo.appendChild(clone)
+							}
+							
+						}
+					}
+					}
 
 				}
 			}
-		}
 
 	</script>
 	{% endblock %}

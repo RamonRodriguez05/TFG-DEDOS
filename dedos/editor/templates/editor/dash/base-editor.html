@@ -155,8 +155,8 @@
         }
 
         .pairing {
-            width: 80px;
-            height: 80px;
+            min-width: 160px;
+            min-height: 80px;
             border: 1px solid rgb(247, 0, 255);
         }
 
@@ -481,6 +481,7 @@
         .tab button.active {
             background-color: #ccc;
         }
+        
 
         /* Style the tab content */
         .tabcontent {
@@ -647,7 +648,37 @@
             -webkit-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
             -moz-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
             box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
-        }
+        } 
+
+
+        .wrap2 {
+  text-align: center;
+  margin: 20px;
+  position: relative;
+}
+.links {
+  padding: 0 10px;
+  display: flex;
+ /* // justify-content: space-between; */
+  position: relative;
+}
+.wrap2:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  border-top: 2px solid black;
+  background: black;
+  width: 100%;
+  transform: translateY(-50%);
+}
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 12px;
+  background: green;
+  margin-left: 5px;
+}
     </style>
 
     <script>
@@ -707,7 +738,7 @@
                         <ul id="sortable">
 
                             <li id="activity_1" onclick="alerta($(this))" class="ui-state-default preview">
-
+                                <div class="deleteActivity" onclick="eliminarActividad($(this))" >x</div>	
                             </li>
                             <!--
                             <li class="ui-state-default">2
