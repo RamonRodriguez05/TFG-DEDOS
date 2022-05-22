@@ -2,5 +2,164 @@
 {% load static %}
 <!-- Cargamos los archivos estaticos -->
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4.3.2/css/metro-all.min.css">
+    <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/proyectos.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.css">
+    <script src="{% static 'js/proyectos.js' %}" type="text/javascript"></script>
+</head>
+
+<body>
+
+<div id="tabs">
+
+  <ul data-role="tabs" data-expand="true">
+        <li id="MisProyectosTab" class="azul"><a href="#MisProyectos" class="azul">Mis Proyectos</a></li>
+        <li id="TodosProyectosTab"><a href="#Todos">Todos Proyectos</a></li>
+        
+    </ul>
+           <!-- Contenedor de secciones -->
+           <div class="tab-content clearfix" style="padding: 5px;">
+            <div id="MisProyectos" class="table-responsive-lg tab-pane active">
+                
+                <!-- -->
+
+                <!-- Tabla de campañas -->
+<table id="MisProyectos" class="table table-hover table-bordered" style="overflow-x:auto; width: 100%;">
+    <thead>
+        <tr>
+            <th style="text-align: center; min-width: 50px;"></th>
+            <th style="min-width: 100px">Nombre</th>
+            <th style="min-width: 60px;">Asignatura</th>
+            <th style="min-width: 60px;">Curso</th>
+            <th style="min-width: 60px">Etiquetas</th>
+            <th style="min-width: 100px">Privacidad</th>
+            <th style="min-width: 100px">Descargar</th>
+           
+        </tr>
+    </thead>
+    <tfoot id="footerTablaCampanias">
+        <tr>
+            <th></th>
+            
+            <th id="cabeceraFiltroNombreC">
+                <div class="filtroTabla">
+                    <div class="form-inline" style="flex-flow: inherit;">
+                        <input type="text" placeholder="Nombre proyecto" autocomplete="off" id="filtroInputNombreC" style="width: 90%;" />
+                        <a href='javascript:mostrarOcultarFiltro("filtroNombreC");' style="color:black; text-decoration: none">
+                            <i class="fa-solid fa-filter fa-2xs" style="padding-left: 5px;"></i>
+                        </a>
+                    </div>
+                    <select id="filtroNombreC" style="width: 90%;" hidden>
+                        <option value="0">Contiene</option>
+                        <option value="1">No contiene</option>
+                        <option value="2">Comienza con</option>
+                        <option value="3">Acaba con</option>
+                        <option value="4">Igual</option>
+                        <option value="5">No igual</option>
+                    </select>
+                </div>
+            </th>
+
+            <th id="cabeceraFiltroNombreC">
+                <div class="filtroTabla">
+                    <div class="form-inline" style="flex-flow: inherit;">
+                        <input type="text" placeholder="Asignatura" autocomplete="off" id="filtroInputNombreC" style="width: 90%;" />
+                        <a href='javascript:mostrarOcultarFiltro("filtroNombreC");' style="color:black; text-decoration: none">
+                            <i class="fa-solid fa-filter fa-2xs" style="padding-left: 5px;"></i>
+                        </a>
+                    </div>
+                    <select id="filtroNombreC" style="width: 90%;" hidden>
+                        <option value="0">Contiene</option>
+                        <option value="1">No contiene</option>
+                        <option value="2">Comienza con</option>
+                        <option value="3">Acaba con</option>
+                        <option value="4">Igual</option>
+                        <option value="5">No igual</option>
+                    </select>
+                </div>
+            </th>
+            <th id="cabeceraFiltroDominio">
+                <div class="filtroTabla">
+                    <div class="form-inline" style="flex-flow: inherit;">
+                        <input type="text" placeholder="Curso" autocomplete="off" id="filtroInputDominio" style="width: 90%;" />
+                        <a href='javascript:mostrarOcultarFiltro("filtroDominio");' style="color:black; text-decoration: none">
+                            <i class="fa-solid fa-filter fa-2xs" style="padding-left: 5px;"></i>
+                        </a>
+                    </div>
+                    <select id="filtroDominio" style="width: 90%;" hidden>
+                        <option value="0">Contiene</option>
+                        <option value="1">No contiene</option>
+                        <option value="2">Comienza con</option>
+                        <option value="3">Acaba con</option>
+                        <option value="4">Igual</option>
+                        <option value="5">No igual</option>
+                    </select>
+                </div>
+            </th>
+            <th id="cabeceraFiltroServidor">
+                <div class="filtroTabla">
+                    <div class="form-inline" style="flex-flow: inherit;">
+                        <input type="text" placeholder="Etiquetas" autocomplete="off" id="filtroInputServidor" style="width: 90%;" />
+                        <a href='javascript:mostrarOcultarFiltro("filtroServidor");' style="color:black; text-decoration: none">
+                            <i class="fa-solid fa-filter fa-2xs" style="padding-left: 5px;"></i>
+                        </a>
+                    </div>
+                    <select id="filtroServidor" style="width: 90%;" hidden>
+                        <option value="0">Contiene</option>
+                        <option value="1">No contiene</option>
+                        <option value="2">Comienza con</option>
+                        <option value="3">Acaba con</option>
+                        <option value="4">Igual</option>
+                        <option value="5">No igual</option>
+                    </select>
+                </div>
+            </th>
+            <th id="cabeceraFiltro2">
+                <div class="filtroTabla form-inline" style="flex-flow: inherit;">
+                    <select id="filtroSelect2" style="width: 100%;">
+                        <option value="-1">Todos</option>
+                        <option value="0">Privados</option>
+                        <option value="1">Públicos</option>
+                        
+                    </select>
+                </div>
+            </th>
+            
+           
+            
+        </tr>
+    </tfoot>
+</table>
+<!---->
+
+
+
+
+
+            </div>
+    
+            <div id="Todos" class="tab-pane">
+                <div>Todos</div>
+            </div>
+    
+            <div id="Ranking" class="table-responsive-lg tab-pane">
+               
+            </div>
+    
+        </div>
+</div>
+  
+
+
+</body>
+
+</html>
 
 <h1>Prueba</h1>
+

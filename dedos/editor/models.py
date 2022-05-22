@@ -26,3 +26,12 @@ class User(AbstractUser):
 class Group(models.Model):
     group_name= models.CharField(max_length=50)
     description = models.CharField(max_length=80)
+
+class Projects(models.Model):
+    nombre = models.CharField(max_length=100)
+    asginatura = models.CharField(max_length=100)
+    curso = models.CharField(max_length=50)
+    etiquetas = models.CharField(max_length=200)
+    privado = models.BooleanField
+    usuario = models.CharField(max_length=50)
+    fecha = nombre = models.DateField
