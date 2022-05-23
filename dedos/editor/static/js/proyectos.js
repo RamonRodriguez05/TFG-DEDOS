@@ -18,6 +18,7 @@ $(document).ready(function () {
             { "width": "250px" },
             { "width": "30px" },
             { "orderable": false },
+            { "orderable": false },
             { "orderable": false }
         ],
         columnDefs: [
@@ -55,8 +56,26 @@ $(document).ready(function () {
             { "width": "500px" },
             { "width": "30px" },
             { "orderable": false },
+            { "orderable": false },
             { "orderable": false }
-        ]
+        ],
+        columnDefs: [
+            {
+                // The `data` parameter refers to the data for the cell (defined by the
+                // `data` option, which defaults to the column being worked with, in
+                // this case `data: 0`.
+                render: function (data, type, row) {
+                    if(data == "True"){
+                        return "Privado"
+                    }else{
+                       return "Público" 
+                    }
+                   
+                },
+                targets: 6,
+            }
+        ],
+
     });
 
 

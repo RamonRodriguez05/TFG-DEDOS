@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from allauth.account.views import SignupView, LoginView, PasswordResetView
+from editor import views
 
 class MySignupView(SignupView):
     template_name = 'allauth/socialaccount/signup.html'
@@ -26,6 +27,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('editor/', include('editor.urls')),
     path("", TemplateView.as_view(template_name="editor/index.html")),
-    path('accounts/', include('allauth.urls'))
-
+    path('accounts/', include('allauth.urls')),
+    path('insert/',views.insert, name='insert')
 ]

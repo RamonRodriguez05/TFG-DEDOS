@@ -17,6 +17,9 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required
 import json
 from  editor.models import Projects
+from django.contrib.auth.decorators import login_required
+
+
 
 
 @login_required(login_url='/editor/login/')
@@ -344,12 +347,20 @@ def add_user(request):
                 user.save()
         return render(request, 'editor/dash/add_user.html', {"formset": formset, "form": form})
 
-
+@login_required
 def editor(request):
     return render(request, 'editor/dash/editor.html')
 
+@login_required
 def proyectos(request):
 
-    myProjects = Projects.objects.filter(usuario="rrg")
-    allProjects = Projects.objects.all()
+    myProjects = Projects.objects.filter(usuario=request.user.username)
+    allProjects = Projects.objects.filter(privado= 0).exclude(usuario=request.user.username)
     return render(request, 'editor/dash/proyectos.html', {'myProjects':myProjects, 'allProjects': allProjects})
+
+
+def insert(request):
+    proyecto = Projects(nombre=request.POST['nombre'], asignatura=request.POST['asignatura'], curso=request.POST['curso'], etiquetas=request.POST['etiquetas'], 
+    privado=request.POST['privado'], usuario=request.POST['usuario'], fecha=request.POST['fecha'] )
+    proyecto.save()
+    return redirect('/')
