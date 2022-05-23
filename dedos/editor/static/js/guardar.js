@@ -45,7 +45,7 @@ $('#submit').on('click', function () {
 
         $.ajax({
             type: "POST",
-            url: "insert/",
+            url: "../editor/insert/",
             data: {
                 nombre: nombre,
                 asignatura: asignatura,
@@ -63,7 +63,7 @@ $('#submit').on('click', function () {
                 $('#asignatura').val('');
                 $('#curso').val('');
                 $('#etiquetas').val('');
-
+                console.log("El elemento grande es", document.getElementById("listaCanvas").innerHTML)
                 window.location = "/editor/proyectos";
             }
         });

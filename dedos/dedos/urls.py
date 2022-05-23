@@ -28,5 +28,8 @@ urlpatterns = [
     path('editor/', include('editor.urls')),
     path("", TemplateView.as_view(template_name="editor/index.html")),
     path('accounts/', include('allauth.urls')),
-    path('insert/',views.insert, name='insert')
+    path('insert/',views.insert, name='insert'),
+    path('delete/<int:id>', views.delete, name='delete'), 
+    path('download/', views.download, name='download'), 
+    path('edit/<int:id>', views.edit, name='edit'), 
 ]

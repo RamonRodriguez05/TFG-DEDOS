@@ -1,5 +1,8 @@
+import chunk
+import mimetypes
+from wsgiref.util import FileWrapper
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
+from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import redirect, render
 from django.template import loader
 from django.template.loader import render_to_string
@@ -18,6 +21,7 @@ from django.contrib.auth.decorators import login_required
 import json
 from  editor.models import Projects
 from django.contrib.auth.decorators import login_required
+import os
 
 
 
@@ -359,8 +363,36 @@ def proyectos(request):
     return render(request, 'editor/dash/proyectos.html', {'myProjects':myProjects, 'allProjects': allProjects})
 
 
+
 def insert(request):
     proyecto = Projects(nombre=request.POST['nombre'], asignatura=request.POST['asignatura'], curso=request.POST['curso'], etiquetas=request.POST['etiquetas'], 
-    privado=request.POST['privado'], usuario=request.POST['usuario'], fecha=request.POST['fecha'] )
+    privado=request.POST['privado'], usuario=request.POST['usuario'], fecha=request.POST['fecha'])
     proyecto.save()
     return redirect('/')
+
+
+def delete(request,id):
+    proyecto = Projects.objects.get(id=id)  
+    proyecto.delete()  
+    return redirect('/editor/proyectos') 
+
+def download(request):
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    filename = 'test.txt'
+    filepath = base_dir + '\\Files\\' + filename
+    thefile = filepath
+    filename = os.path.basename(thefile)
+    chunk_size = 8192
+    response = StreamingHttpResponse(FileWrapper(open(thefile,'rb'), chunk_size),
+    content_type=mimetypes.guess_type(thefile)[0])
+    response['Content-Length'] = os.path.getsize(thefile)
+    response['Content-Disposition'] = "Attachment;filename=%s" % filename
+
+    return response
+
+
+def edit(request,id):
+    
+    return render(request, 'editor/dash/editor.html', {'myProjects':id})
+  
+ 
