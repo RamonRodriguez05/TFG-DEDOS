@@ -28,10 +28,11 @@ class Group(models.Model):
     description = models.CharField(max_length=80)
 
 class Projects(models.Model):
-    nombre = models.CharField(max_length=100)
-    asginatura = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100, default="")
+    asignatura = models.CharField(max_length=100, default="")
     curso = models.CharField(max_length=50)
     etiquetas = models.CharField(max_length=200)
-    privado = models.BooleanField
+    privado = models.BooleanField(null=True)
     usuario = models.CharField(max_length=50)
-    fecha = nombre = models.DateField
+    fecha = models.DateField(null=True)
+    contenido = models.BinaryField(null = True)

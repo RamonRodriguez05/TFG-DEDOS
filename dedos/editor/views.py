@@ -16,6 +16,7 @@ from .models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required
 import json
+from  editor.models import Projects
 
 
 @login_required(login_url='/editor/login/')
@@ -348,4 +349,7 @@ def editor(request):
     return render(request, 'editor/dash/editor.html')
 
 def proyectos(request):
-    return render(request, 'editor/dash/proyectos.html')
+
+    myProjects = Projects.objects.filter(usuario="rrg")
+    allProjects = Projects.objects.all()
+    return render(request, 'editor/dash/proyectos.html', {'myProjects':myProjects, 'allProjects': allProjects})
