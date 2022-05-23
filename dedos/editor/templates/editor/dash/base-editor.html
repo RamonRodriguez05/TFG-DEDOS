@@ -679,6 +679,33 @@
   background: green;
   margin-left: 5px;
 }
+
+.modal-title{
+    
+  height: 30px;
+  width: 800px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+}
+.modal-footer{
+    height: 80px;
+  width: 500px;
+
+  display: flex;
+  flex-direction: column;
+ 
+ 
+}
+
+fieldset label {
+  font-weight: bold;
+
+}
+
     </style>
 
     <script>
@@ -699,13 +726,18 @@
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="old.index.html">Start Bootstrap</a>
+        <a class="navbar-brand" href="\editor\proyectos">Ver Proyectos</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
                 class="fas fa-bars"></i></button>
+
+        <button class="btn btn-primary" type="button"  data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-floppy-disk"></i></i> Guardar</button>
+
+  
+
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search"
+                <input class="form-control" type="text" placeholder="Buscar..." aria-label="Search"
                     aria-describedby="basic-addon2" />
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
@@ -731,7 +763,7 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <a class="nav-link" href="/editor/main">
+                        <a class="nav-link" href="/">
                             main menu
                         </a>
 

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Proyectos{% endblock %}</title>
+    
+    {% load static %}
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
+        id="bootstrap-css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+    <!-- Tablas -->
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <!-- <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script> -->
+
+    <!-- Pestañas -->
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4.3.2/css/metro-all.min.css">
+    <script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+
+    <!-- Css y js Proyectos -->
+    <link rel="stylesheet" type="text/css" href="/static/css/proyectos.css">
+    <script src="{% static 'js/proyectos.js' %}" type="text/javascript"></script>
+
+
+</head>
+
+<body>
+
+
+
+    <div id="tabs">
+        <h4>Proyectos</h4> 
+        <div><a href="\editor\editor" class="btn btn-primary">Crear nuevo proyecto</a></div><br>
+        <ul data-role="tabs" data-expand="true">
+            <li id="MisProyectosTab" class="azul"><a href="#MisProyectos">Mis Proyectos</a></li>
+            <li id="TodosProyectosTab"><a href="#Todos">Todos Proyectos</a></li>
+
+        </ul>
+        <!-- Contenedor de secciones -->
+        <div class="tab-content clearfix" style="padding: 5px;">
+            <div id="MisProyectos" class="table-responsive-lg tab-pane active">
+                <!-- Mis proyectos -->
+
+                {% block misProyectos %}{% endblock %}
+            </div>
+
+            <div id="Todos" class="table-responsive-lg tab-pane">
+                <!-- Todos los proyectos -->
+                {% block todosProyectos %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

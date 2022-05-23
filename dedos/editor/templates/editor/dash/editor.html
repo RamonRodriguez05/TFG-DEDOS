@@ -4,6 +4,50 @@
 {% load i18n %}
 <!-- Cargamos el módulo de Internacionalización -->
 {% block content %}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="text-align: center;">
+          <h5 class="modal-title" id="exampleModalLabel" >Datos del proyecto</h5>
+          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button> -->
+        </div>
+        <div class="modal-body">
+			
+
+			<form action="/action_page.html">
+				<fieldset>
+				  <label for="nombre">Nombre:</label>
+				  <input type="text" name="nombre" id="nombre"><br><br>
+				  <label for="asignatura">Asignatura:</label>
+				  <input type="text" name="aseginatura" id="asignatura"><br><br>
+				  <label for="nacimiento">Curso:</label>
+				  <input type="text" name="curso" id="curso"><br><br>
+				  <label for="dni">Etiquetas</label>
+				  <input type="text" name="etiquetas" id="etiquetas"><br><br>
+				  <label for="privacidad">Privacidad:</label>
+     			  <input type="radio" name="privacidad" value="0" id="publico" checked>Público
+      			  <label for="privacidad"></label>
+      			  <input type="radio" name="privacidad" value="1" id="privado">Privado<br><br>
+			
+				</fieldset>
+			  </form>
+
+
+
+
+
+        </div>
+        <div class="modal-footer"  style="text-align: center;">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <div class=" align-content-center" style="background-color: lightgrey">
 	<!--<div class="col-md-12">Proyecto | Actividad | Modo | Idioma</div>-->
 </div>
@@ -26,8 +70,8 @@
 			<div id="SeleccionBueno" class="col-md-1 tool  ocultar" id="tool-4-icon draggable tool" type="objetive"><i
 					id="imagenSeleccion" class="fa-solid fa-circle-dot fa-2xl"></i>
 			</div>
-			<div id="EmparejarBueno" class="col-md-1 tool  ocultar" id="tool-5-icon draggable tool"
-				type="pairing"><i id="imagenEmparejar" class="fa-solid fa-arrows-split-up-and-left fa-2xl"></i>
+			<div id="EmparejarBueno" class="col-md-1 tool  ocultar" id="tool-5-icon draggable tool" type="pairing"><i
+					id="imagenEmparejar" class="fa-solid fa-arrows-split-up-and-left fa-2xl"></i>
 			</div>
 			<div id="CaminoBueno" class="col-md-1 tool area-accept ocultar" id="tool-6-icon draggable tool" type="path">
 				<i id="imagenCamino" class="fa-solid fa-location-dot fa-2xl"></i>
@@ -144,7 +188,7 @@
 		</section> -->
 
 
-		
+
 
 
 
@@ -182,7 +226,7 @@
 		mouseX = 500
 		mouseY = 500
 		lastPadreObjetive = null
-		activity = "activity_1" 
+		activity = "activity_1"
 		previousCanvas = "#editor-canvas_1"
 		canvas = "#editor-canvas_1"
 		isarea = true
@@ -597,12 +641,12 @@
 
 
 						// Para los clones de los caminos
-						var idClonCamino = "clonCamino_" + (num_path + 1) 
+						var idClonCamino = "clonCamino_" + (num_path + 1)
 
 						// Unir
 						var idUnir = "Unir_" + num_pairing.toString()
 						var unir = $('<canvas id="' + idUnir + '" class="marginCanvas" width="1500px" height="1250px"></canvas>').click(function () { });
-						
+
 
 						if (type == "area") {
 							num_area = num_area + 1
@@ -657,8 +701,8 @@
 							$item.attr("class", 'pairing ui-resizable area-accept')
 							$item.append(unir)
 
-							
-							
+
+
 						} else if (type == "path") {
 							num_path = num_path + 1
 							identifier = 'path' + num_path.toString()
@@ -678,9 +722,9 @@
 							} else {
 								const resultado = listPath.find(Camino => Camino.caminoID === lastCamino);
 								resultado.elementos += idClonCamino + ";"
-							} 
+							}
 
-						
+
 							// if(num_path <= 5){
 							// 	document.getElementById("pathid").append(newDiv)
 							// }else{
@@ -748,29 +792,29 @@
 						}
 
 						if (type == "path") {
-							
+
 							var idCamino = "camino_" + numCaminos
 							//	console.log("el path es", $item[0])
 							var clon = document.createElement("div")
-							clon.innerHTML='<i class="fa-solid fa-location-dot fa-2xl"></i>'
+							clon.innerHTML = '<i class="fa-solid fa-location-dot fa-2xl"></i>'
 							clon.style = "left: 0px; top: 0px; position: relative"
 							clon.id = idClonCamino
 							clon.classList.remove("originalPath")
-							clon.classList.add(idCamino) 
+							clon.classList.add(idCamino)
 							clon.classList.add("dot")
-							
-						//	var newDiv = document.createElement("div");
-						//	newDiv.id = "pruebamover_" + num_path.toString()
-						clon.classList.add("inline")
+
+							//	var newDiv = document.createElement("div");
+							//	newDiv.id = "pruebamover_" + num_path.toString()
+							clon.classList.add("inline")
 							//	newDiv.classList.add("links")
-						//	newDiv.style = "width: 30px; height: 30px"
-						//	newDiv.appendChild(clon)
-						var elementoCaminoNuevo = new ElementoCamino(idClonCamino, clon, canvas)
+							//	newDiv.style = "width: 30px; height: 30px"
+							//	newDiv.appendChild(clon)
+							var elementoCaminoNuevo = new ElementoCamino(idClonCamino, clon, canvas)
 							listElementoCaminosClonados.push(elementoCaminoNuevo)
 
 							getElementPath()
 							$(clon).draggable();
-							
+
 
 							$("#" + crearCamino).droppable({
 								drop: function (event, ui) {
@@ -792,19 +836,19 @@
 									$(this).css('background', 'cyan');
 								}
 							});
-						//	document.getElementById(idHijoPath).append(clon)
+							//	document.getElementById(idHijoPath).append(clon)
 
 						}
 
 						if (type == "pairing") {
-							onmousemove = function (e) { 
-								document.onmousemove = function(event) {
+							onmousemove = function (e) {
+								document.onmousemove = function (event) {
 									var item = document.getElementById("pairing1")
-  								item.style.width = -1*event.clientX + 'px';
-								  item.style.height = -1*event.clientY + 'px';
- 
-  
-}
+									item.style.width = -1 * event.clientX + 'px';
+									item.style.height = -1 * event.clientY + 'px';
+
+
+								}
 
 								const target = e.target;
 
@@ -816,10 +860,10 @@
 								posRight = e.clientY - rect.top;
 								dibujar(800, 0, posLeft, posRight, idUnir)
 
-								
+
 
 							}
-						
+
 						}
 					} else {
 						/** Una tarjeta, área o objetivo se está soltando **/
@@ -993,8 +1037,8 @@
 			// Mouse position
 			posLeft = e.clientX //  - rect.left;;
 			posRight = e.clientY // - rect.top; 
-		//	dibujar(mouseX,mouseY,posLeft,posRight, "canvas2")
-			
+			//	dibujar(mouseX,mouseY,posLeft,posRight, "canvas2")
+
 			// var canv = document.getElementById("canvas2")
 			// var ctx = document.getElementById("canvas2").getContext("2d")
 			// ctx.clearRect(0, 0, canv.width, canv.height);
@@ -1069,7 +1113,7 @@
 					temporizador.style.top = "85%"
 				}
 
-		//		evaluarPosicion(lastItem)
+				//		evaluarPosicion(lastItem)
 
 				//	captura();
 				captura(activity, canvas);
@@ -1108,7 +1152,7 @@
 		});
 
 		function evalutarTab(idElemento, evt, element, deseleccionar) {
-			
+
 			if (idElemento == element.id) {
 				document.getElementById(idElemento).style.display = "block";
 				evt.currentTarget.className += " active";
@@ -1376,7 +1420,7 @@
 
 		function mostrar(elemento) {
 			//	console.log("El id para mostrar", elemento[0].id)
-			
+
 			document.getElementById(elemento.id).classList.remove("ocultar")
 			captura(activity, canvas)
 		}
@@ -1388,8 +1432,8 @@
 		function dibujar(x1, y1, x2, y2, id) {
 			var canvas = document.getElementById(id);
 			var context = canvas.getContext("2d");
-				
-				//console.log("elementos en una posicion dada", document.elementFromPoint(x1, y1))
+
+			//console.log("elementos en una posicion dada", document.elementFromPoint(x1, y1))
 			function Line(x1, y1, x2, y2) {
 				this.x1 = x1;
 				this.y1 = y1;
@@ -1444,7 +1488,7 @@
 
 
 		function addActivity() {
-			
+
 			var li = original.cloneNode(false)
 			li.id = "activity_" + num_activity;
 
@@ -1488,10 +1532,10 @@
 			theDiv.appendChild(tag3);
 
 			var canvasElement = document.getElementById(canvas.replace("#", ""))
-			if(canvasElement != null){
-			document.getElementById(canvas.replace("#", "")).classList.remove("dropzone")
-			document.getElementById(canvas.replace("#", "")).classList.add("ocultar")
-		}
+			if (canvasElement != null) {
+				document.getElementById(canvas.replace("#", "")).classList.remove("dropzone")
+				document.getElementById(canvas.replace("#", "")).classList.add("ocultar")
+			}
 			activity = "activity_" + num_activity;
 			previousCanvas = canvas
 			canvas = "#editor-canvas_" + num_activity
@@ -1508,42 +1552,42 @@
 				var id = e.context.id.split("_")[1]
 				var idCanvas = "editor-canvas_" + id
 				var canv = document.getElementById(idCanvas)
-				if(canv != null){
-				canv.classList.remove("ocultar")
-				canv.classList.add("dropzone")
+				if (canv != null) {
+					canv.classList.remove("ocultar")
+					canv.classList.add("dropzone")
 
-				var lastcanvas = document.getElementById(canvas.replace("#", ""))
-				lastcanvas.classList.remove("dropzone")
-				lastcanvas.classList.add("ocultar")
+					var lastcanvas = document.getElementById(canvas.replace("#", ""))
+					lastcanvas.classList.remove("dropzone")
+					lastcanvas.classList.add("ocultar")
 
-				activity = "activity_" + id;
-				canvas = "#editor-canvas_" + id;
-			}
+					activity = "activity_" + id;
+					canvas = "#editor-canvas_" + id;
+				}
 			}
 		}
 
 		function eliminarActividad(e) {
-				console.log("he pulsado la actividad", e[0].parentNode.id)
-				var splitID =  e[0].parentNode.id.split("_")
-				var idEditor = "editor-canvas_" + splitID[1]
-				document.getElementById(e[0].parentNode.id).remove() 
-			 	document.getElementById(idEditor).remove() 
+			console.log("he pulsado la actividad", e[0].parentNode.id)
+			var splitID = e[0].parentNode.id.split("_")
+			var idEditor = "editor-canvas_" + splitID[1]
+			document.getElementById(e[0].parentNode.id).remove()
+			document.getElementById(idEditor).remove()
 
-				var ultimo = $('#sortable li').last()
-				if(ultimo.length !== 0) {
-				var id = ultimo[0].id.split("_")[1] 
+			var ultimo = $('#sortable li').last()
+			if (ultimo.length !== 0) {
+				var id = ultimo[0].id.split("_")[1]
 				console.log("El utlimo es", ultimo)
 				var editorMostrar = "editor-canvas_" + id;
-			 	document.getElementById(editorMostrar).classList.add("dropzone")
-			 	document.getElementById(editorMostrar).classList.remove("ocultar")
-				
+				document.getElementById(editorMostrar).classList.add("dropzone")
+				document.getElementById(editorMostrar).classList.remove("ocultar")
+
 				console.log("el ultimo es", id)
-			 	activity = "activity_" + id ;
+				activity = "activity_" + id;
 				canvas = "#editor-canvas_" + id;
 
-			 	num_activity--;
-			 	borrar = true
-			 	lanzar()
+				num_activity--;
+				borrar = true
+				lanzar()
 			}
 		}
 
@@ -1577,11 +1621,6 @@
 				if ($item[0].id.includes("area")) {
 					num_area--;
 				}
-
-
-
-
-
 				$($item).remove()
 			} else {
 				//	lastItem.style ="left:" + posLeft + "; right:"+ posRight;
@@ -1597,19 +1636,20 @@
 
 				// Alinear con padre
 				if ($item[0].id.includes("objetive") || $item[0].id.includes("math")) {
-					//		console.log("el id´dddd es", $item[0].id)
-					//		console.log("el padre del item es", $item.parent()[0].children[0])
+					console.log("el id´dddd es", $item[0].id)
+					console.log("el item is", $item)
+					console.log("el padre del item es", $item.parent()[0].children[0])
 					if ($item.parent()[0].id.includes(canvas.replace("#", ""))) {
 						if (lastPadreObjetive != null) {
 							//	console.log("en el remoooveeee", $item.parent()[0].id)
 							lastPadreObjetive.classList.remove("selector")
 							lastPadreObjetive = null
 						}
-						$item.remove()
+						//	$item.remove()
 					} else {
 
 						// colocar los elementos para que no se muevan
-
+						
 						if ($item.parent()[0].id.includes("card") || $item.parent()[0].id.includes("picture")) {
 							var hijo = document.getElementById($item[0].id)
 							hijo.style = " left: 20px; margin-bottom: -15px"
@@ -1679,7 +1719,7 @@
 		document.addEventListener('mousemove', e => {
 			// console.clear()
 			var el = document.elementFromPoint(e.clientX, e.clientY)
-			if (el != null)(
+			if (el != null) (
 				pointerElementID = el.id
 			)
 			// console.log("ELEMENTO EN POSICION",pointerElementID)
@@ -1699,14 +1739,14 @@
 		}
 
 		function getElementPath() {
-				var paths = document.getElementsByClassName("originalPath")
-				var unic = 0
-				console.log("Numero de path", paths)
+			var paths = document.getElementsByClassName("originalPath")
+			var unic = 0
+			console.log("Numero de path", paths)
 
-				// Por cada path
-				for (let i = 0; i < paths.length; i++) {
-					
-					if(paths[i].classList.contains(canvas)){
+			// Por cada path
+			for (let i = 0; i < paths.length; i++) {
+
+				if (paths[i].classList.contains(canvas)) {
 					console.log("path", paths[i])
 					var lastID = parseInt(paths[i].id.substr(paths[i].id.length - 1))
 
@@ -1716,7 +1756,7 @@
 					console.log("El padre", padre.id)
 					console.log("El hijo", hijo.id)
 					hijo.innerHTML = "";
-					console.log("lista de elementos clonados", listElementoCaminosClonados)	
+					console.log("lista de elementos clonados", listElementoCaminosClonados)
 
 					// Añadir elementos a todos los path
 					for (let j = 0; j < listPath.length; j++) {
@@ -1730,22 +1770,22 @@
 							const resultado = listElementoCaminosClonados.find(ElementoCamino => ElementoCamino.identificador == elementos[k]);
 							//	console.log("el resultado es",resultado.elemento)´
 							var clone = resultado.elemento.cloneNode(true)
-							clone.id += "_" + lastID 
+							clone.id += "_" + lastID
 
 							console.log("ELEMENTO A AÑADIR", clone)
-							$(clone).draggable(); 
+							$(clone).draggable();
 							console.log("El canvas es", canvas)
 							console.log("el canvas elemento es", resultado.canvas)
-							if(resultado.canvas === canvas){
+							if (resultado.canvas === canvas) {
 								hijo.appendChild(clone)
 							}
-							
+
 						}
 					}
-					}
-
 				}
+
 			}
+		}
 
 	</script>
 	{% endblock %}
