@@ -110,14 +110,14 @@
 		<hr>
 	</section>
 
-
-
+	<input type="hidden" id="myVar" name="variable" value="{{ data }}">
+	<input type="hidden" id="prueba"></input>
 	<div id="listaCanvas">
 		<div id="editor-canvas_1" class="editor-canvas dropzone" style="border:2px;width:100%; height:100%">
 
 		</div>
 
-
+			<div id="linea"></div>
 		<!-- <section>
 			<div>
 				<i class="squarePath fa-solid fa-square" onclick="mostrar('conf')"></i>
@@ -247,9 +247,19 @@
 
 		const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
+
+
+		//Borrar 
+		or = null
 		$(document).ready(function () {
 			$("#groupMenu").collapse("toggle");
 			$("#editor").addClass("active");
+
+			console.log("docuemnt ready")
+			//	$("#prueba").load("/editor/editor #editor-canvas");´
+
+			let url = window.location.href;
+   
 			var theDiv = document.getElementById(canvas.replace("#", ""));
 
 			theDiv.appendChild(document.createElement("br"));
@@ -273,10 +283,41 @@
 			tag3.appendChild(text3);
 			theDiv.appendChild(tag3);
 
-			console.log("docuemnt ready")
-			//	$("#prueba").load("/editor/editor #editor-canvas");´
+			 // Editar
+    if (url.includes("/edit/")){
+       
+		borrar = true
+		lanzar() 
+		
 
+		console.log("Editar proyecto", or)
+        var myVar = document.getElementById("myVar").value;
+        var procesado = myVar.split("QuerySet")
+        var cargar = procesado[1]
+       
+        cargar = cargar.replace(/\\t/g," ");
+        cargar = cargar.replace(/\\n/g," ");
+        cargar = cargar.replace(/[']/g, "");
+        cargar = cargar.replace("[(","")
+        cargar = cargar.replace(",)]>","")
+        console.log("El valor valee", cargar)
+        document.getElementById("listaCanvas").innerHTML = ""
+        document.getElementById("listaCanvas").innerHTML = cargar
+        console.log("El valor valee",  cargar) 
+		console.log("areaaa", document.getElementById("editor-canvas_1"))
+		document.getElementById("editor-canvas_1").appendChild(document.getElementById("area1"))
+		
+		var it = $(document.getElementById("area1"))
+		it.draggable()
+		makeDraggable(it);
+		makeAreaDroppable(it)
+		num_area++
+		borrar = false
+		lanzar() 
 
+    } 
+	//editar
+		
 
 		})
 
@@ -296,7 +337,8 @@
 			$(canvas).droppable({
 				drop: function (event, ui) {
 					//this if condition is for avoiding multiple time drop and attachment of same item
-					//	console.log("Drop en canvas de nuevo ");
+					//	console.log("Drop en canvas de nuevo "); 
+					
 					if (borrar) {
 						document.getElementById(canvas.replace("#", "")).innerHTML = "";
 						borrar = false
@@ -402,49 +444,12 @@
 						// Area
 						var imageUsuarioID = "usuario_" + num_area.toString()
 						var botonUsuarioID = "botonUsuario_" + num_area.toString()
-						var addUser = $('<a id="' + botonUsuarioID + '" class="btn user-image" title="Cambiar a zona de juego"><i id="' + imageUsuarioID + '" class="fa-solid fa-user margenIzquierdo"></i></a>').click(function () {
-							var parentDiv = $(this).parent();
-							var elemento = document.getElementById(parentDiv.context.children[0].id);
-							var areaPadre = document.getElementById(parentDiv[0].id);
-							var botonUsuario = document.getElementById(parentDiv.context.id)
-
-							if (elemento.classList.contains("fa-user")) {
-								elemento.classList.remove("fa-user")
-								elemento.classList.add("fa-users")
-								areaPadre.style.backgroundColor = "#F0FFB4";
-								botonUsuario.title = "Cambiar a zona de jugador"
-							} else {
-								elemento.classList.remove("fa-users")
-								elemento.classList.add("fa-user")
-								areaPadre.style.backgroundColor = "#DBF5FF";
-								botonUsuario.title = "Cambiar a zona de juego"
-							}
-						});
+						var addUser = $('<a id="' + botonUsuarioID + '" class="btn user-image" title="Cambiar a zona de juego" onclick=addUserButton(this)><i id="' + imageUsuarioID + '" class="fa-solid fa-user margenIzquierdo"></i></a>')
 
 						var idUploadArea = "uploadArea_" + num_area.toString();
 
 
-						var uploadArea = $('<div class="image-upload"> <label for="' + idUploadArea + '"> <i class="fa-solid fa-upload image-upload"></i> </label> <input id="' + idUploadArea + '" type="file" accept="image/png, image/gif, image/jpeg" onchange="changeBackground(this);" style="display: none;" /> </div>').click(function () {
-							var parentDiv = $(this).parent();
-							//	console.log("uploadArea id", parentDiv[0].id)
-							parentDiv.appendTo($('#source2'))
-							$('#source2 div').appendTo($('#source2'));
-							uploadAreaID = parentDiv[0].id;
-
-							var fileupload = $("#" + idUploadArea);
-							fileupload.on('change', function () {
-								let fileName = document.getElementById(idUploadArea).files[0];
-								//	console.log("EL UPLOAD AREA ES", uploadAreaID)
-								if (uploadAreaID != "") {
-									if (fileName != undefined) {
-										src1 = URL.createObjectURL(document.getElementById(idUploadArea).files[0]);
-										document.getElementById(uploadAreaID).style.backgroundImage = 'url(' + src1 + ')';
-									} else {
-										document.getElementById(uploadAreaID).style.backgroundImage = 'none';
-									}
-								}
-							})
-						});
+						var uploadArea = $('<div class="image-upload" onclick=uploadAreaButton(this,"uploadArea_0") > <label for="' + idUploadArea + '"> <i class="fa-solid fa-upload image-upload"></i> </label> <input id="' + idUploadArea + '" type="file"  accept="image/png, image/gif, image/jpeg"  style="display: none;" /> </div>')
 
 						// Card
 						var idTextoTitle = "idTitle_" + num_card.toString()
@@ -759,7 +764,7 @@
 
 						}
 						$(this).append($item);
-						makeDraggable($item);
+						makeDraggable($item); 
 						lastItem = $item
 						//var a = document.getElementById("area1").getBoundingClientRect();
 						//	console.log("a", a.left, a.top, a.bottom, a.right)
@@ -1036,7 +1041,7 @@
 
 			// Mouse position
 			posLeft = e.clientX //  - rect.left;;
-			posRight = e.clientY // - rect.top; 
+			posRight = e.clientY -48 // - rect.top; 
 			//	dibujar(mouseX,mouseY,posLeft,posRight, "canvas2")
 
 			// var canv = document.getElementById("canvas2")
@@ -1050,8 +1055,13 @@
 			// ctx.lineWidth = 10;
 			// ctx.stroke()
 			// 	console.log("mouse location:", "left", posLeft, "top", posRight)
+//
+				
 
 		}
+
+		
+	
 		function makeDraggable($item) {
 			$item.draggable({
 				containment: "#editzone",
@@ -1787,6 +1797,49 @@
 			}
 		}
 
+		function addUserButton (click){
+							var parentDiv = $(click).parent();
+							var elemento = document.getElementById(parentDiv.context.children[0].id);
+							var areaPadre = document.getElementById(parentDiv[0].id);
+							var botonUsuario = document.getElementById(parentDiv.context.id)
+
+							if (elemento.classList.contains("fa-user")) {
+								elemento.classList.remove("fa-user")
+								elemento.classList.add("fa-users")
+								areaPadre.style.backgroundColor = "#F0FFB4";
+								botonUsuario.title = "Cambiar a zona de jugador"
+							} else {
+								elemento.classList.remove("fa-users")
+								elemento.classList.add("fa-user")
+								areaPadre.style.backgroundColor = "#DBF5FF";
+								botonUsuario.title = "Cambiar a zona de juego"
+							}
+						}
+
+			function uploadAreaButton(input, id){
+				var parentDiv = $(input).parent();
+							//	console.log("uploadArea id", parentDiv[0].id)
+							parentDiv.appendTo($('#source2'))
+							$('#source2 div').appendTo($('#source2'));
+							uploadAreaID = parentDiv[0].id;
+
+							var fileupload = $("#" + id);
+							fileupload.on('change', function () {
+								let fileName = document.getElementById(id).files[0];
+									console.log("EL UPLOAD AREA ES", uploadAreaID)
+								if (uploadAreaID != "") {
+									console.log("entra en el distinto", fileName)
+									if (fileName != undefined) {
+										console.log("entra en el distinto del filename")
+										src1 = URL.createObjectURL(document.getElementById(id).files[0]); 
+										console.log("el src", src1)
+										document.getElementById(uploadAreaID).style.backgroundImage = 'url(' + src1 + ')';
+									} else {
+										document.getElementById(uploadAreaID).style.backgroundImage = 'none';
+									}
+								}
+							})
+			}
 		
 	</script>
 	{% endblock %}

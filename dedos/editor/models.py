@@ -36,3 +36,4 @@ class Projects(models.Model):
     usuario = models.CharField(max_length=50)
     fecha = models.DateField(null=True)
     contenido = models.BinaryField(null = True)
+    canvas = models.TextField(default="")
