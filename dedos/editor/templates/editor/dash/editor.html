@@ -6,48 +6,49 @@
 {% block content %}
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header" style="text-align: center;">
-          <h5 class="modal-title" id="exampleModalLabel" >Datos del proyecto</h5>
-          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header" style="text-align: center;">
+				<h5 class="modal-title" id="exampleModalLabel">Datos del proyecto</h5>
+				<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button> -->
-        </div>
-        <div class="modal-body">
-			
-
-			<form action="/action_page.html">
-				<fieldset>
-				  <label for="nombre">Nombre:</label>
-				  <input type="text" name="nombre" id="nombre"><br><br>
-				  <label for="asignatura">Asignatura:</label>
-				  <input type="text" name="aseginatura" id="asignatura"><br><br>
-				  <label for="nacimiento">Curso:</label>
-				  <input type="text" name="curso" id="curso"><br><br>
-				  <label for="dni">Etiquetas</label>
-				  <input type="text" name="etiquetas" id="etiquetas"><br><br>
-				  <label for="privacidad">Privacidad:</label>
-     			  <input type="radio" name="privacidad" value="0" id="publico" checked>Público
-      			  <label for="privacidad"></label>
-      			  <input type="radio" name="privacidad" value="1" id="privado">Privado<br><br>
-			
-				</fieldset>
-			  </form>
+			</div>
+			<div class="modal-body">
 
 
+				<form action="/action_page.html">
+					<fieldset>
+						<label for="nombre">Nombre:</label>
+						<input type="text" name="nombre" id="nombre"><br><br>
+						<label for="asignatura">Asignatura:</label>
+						<input type="text" name="aseginatura" id="asignatura"><br><br>
+						<label for="nacimiento">Curso:</label>
+						<input type="text" name="curso" id="curso"><br><br>
+						<label for="dni">Etiquetas</label>
+						<input type="text" name="etiquetas" id="etiquetas"><br><br>
+						<label for="privacidad">Privacidad:</label>
+						<input type="radio" name="privacidad" value="0" id="publico" checked>Público
+						<label for="privacidad"></label>
+						<input type="radio" name="privacidad" value="1" id="privado">Privado<br><br>
+
+					</fieldset>
+				</form>
 
 
 
-        </div>
-        <div class="modal-footer"  style="text-align: center;">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button id="submit" type="button" class="btn btn-primary">Guardar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
+
+			</div>
+			<div class="modal-footer" style="text-align: center;">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				<button id="submit" type="button" class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+	</div>
+</div>
 <div class=" align-content-center" style="background-color: lightgrey">
 	<!--<div class="col-md-12">Proyecto | Actividad | Modo | Idioma</div>-->
 </div>
@@ -111,13 +112,14 @@
 	</section>
 
 	<input type="hidden" id="myVar" name="variable" value="{{ data }}">
-	<input type="hidden" id="prueba"></input>
+
 	<div id="listaCanvas">
 		<div id="editor-canvas_1" class="editor-canvas dropzone" style="border:2px;width:100%; height:100%">
-
 		</div>
 
-			<div id="linea"></div>
+
+
+
 		<!-- <section>
 			<div>
 				<i class="squarePath fa-solid fa-square" onclick="mostrar('conf')"></i>
@@ -256,10 +258,10 @@
 			$("#editor").addClass("active");
 
 			console.log("docuemnt ready")
-			//	$("#prueba").load("/editor/editor #editor-canvas");´
+		
 
 			let url = window.location.href;
-   
+
 			var theDiv = document.getElementById(canvas.replace("#", ""));
 
 			theDiv.appendChild(document.createElement("br"));
@@ -283,41 +285,90 @@
 			tag3.appendChild(text3);
 			theDiv.appendChild(tag3);
 
-			 // Editar
-    if (url.includes("/edit/")){
-       
-		borrar = true
-		lanzar() 
-		
+			// Editar
+			if (url.includes("/edit/")) {
 
-		console.log("Editar proyecto", or)
-        var myVar = document.getElementById("myVar").value;
-        var procesado = myVar.split("QuerySet")
-        var cargar = procesado[1]
-       
-        cargar = cargar.replace(/\\t/g," ");
-        cargar = cargar.replace(/\\n/g," ");
-        cargar = cargar.replace(/[']/g, "");
-        cargar = cargar.replace("[(","")
-        cargar = cargar.replace(",)]>","")
-        console.log("El valor valee", cargar)
-        document.getElementById("listaCanvas").innerHTML = ""
-        document.getElementById("listaCanvas").innerHTML = cargar
-        console.log("El valor valee",  cargar) 
-		console.log("areaaa", document.getElementById("editor-canvas_1"))
-		document.getElementById("editor-canvas_1").appendChild(document.getElementById("area1"))
-		
-		var it = $(document.getElementById("area1"))
-		it.draggable()
-		makeDraggable(it);
-		makeAreaDroppable(it)
-		num_area++
-		borrar = false
-		lanzar() 
+				borrar = true
+				lanzar()
 
-    } 
-	//editar
-		
+
+				console.log("Editar proyecto", or)
+				var myVar = document.getElementById("myVar").value;
+				var procesado = myVar.split("QuerySet")
+				var cargar = procesado[1]
+
+				cargar = cargar.replace(/\\t/g, " ");
+				cargar = cargar.replace(/\\n/g, " ");
+				cargar = cargar.replace(/[']/g, "");
+				cargar = cargar.replace("[(", "")
+				cargar = cargar.replace(",)]>", "")
+				cargar = cargar.replace('<div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div>','')
+				cargar = cargar.replace('<div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div>', '')
+				cargar = cargar.replace('<div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div>', '')
+				                        
+				console.log("El valor valee", cargar)
+				document.getElementById("listaCanvas").innerHTML = ""
+				document.getElementById("listaCanvas").innerHTML = cargar
+				console.log("El valor valee", cargar)
+				console.log("areaaa", document.getElementById("editor-canvas_1"))
+				document.getElementById("editor-canvas_1").appendChild(document.getElementById("area1"))
+
+
+				// Lanzar elementos
+				var area1 = $(document.getElementById("area1"))
+				area1.draggable()
+				makeAreaDroppable(area1)
+				makeDraggable(area1);
+
+				$(document.getElementById("area1")).resizable()
+				num_area++
+
+				var card1 = $(document.getElementById("card1"))
+				card1.draggable()
+				makeDraggable(card1);
+				makeAreaDroppable(card1)
+				
+				num_card++ 
+
+				var picture1 = $(document.getElementById("picture1"))
+				picture1.draggable()
+				makeDraggable(picture1);
+				makeAreaDroppable(picture1) 
+				dropzoneUpload("dropzone_1")
+				num_picture++ 
+
+				var time1 = $(document.getElementById("time1"))
+				time1.draggable()
+				makeDraggable(time1); 
+
+				var objetive1 = $(document.getElementById("objetive1"))
+				objetive1.draggable()
+				makeDraggable(objetive1);
+
+				var math1 = $(document.getElementById("math1"))
+				math1.draggable()
+				makeDraggable(math1);
+				// Fin elementos 
+
+				// var elems = document.querySelectorAll(".ui-resizable-handle");
+
+				// [].forEach.call(elems, function (el) {
+				// 	console.log("elementos antes", el)
+				// 	el.style = ""
+				// 	$(el).resizable()
+				// 	console.log("elementos despues", el)
+
+
+				// });
+
+
+
+				borrar = false
+				lanzar()
+
+			}
+			//editar
+
 
 		})
 
@@ -338,7 +389,7 @@
 				drop: function (event, ui) {
 					//this if condition is for avoiding multiple time drop and attachment of same item
 					//	console.log("Drop en canvas de nuevo "); 
-					
+
 					if (borrar) {
 						document.getElementById(canvas.replace("#", "")).innerHTML = "";
 						borrar = false
@@ -390,239 +441,59 @@
 						$item.removeClass("tool");
 
 						// Area
-
-						// Viejo
-						// var removeButton = $("<span onclick=ocultarOpciones() class='margenIzquierdo'>X</span>").click(function () {
-						// 	var parentDiv = $(this).parent();
-						// 	$($item).remove()
-						// });
-
-						// var addImageBackground = $('<input type="button" value="+" class="margenDerecho">').click(function () {
-						// 	var parentDiv = $(this).parent();
-						// 	//  alert("Le he dado al mas")´
-						// 	var atributo = $(this).attr("value")
-						// 	var ancho = $(this).attr("width")
-						// 	var largo = $(this).attr("height")
-						// 	console.log("Ancho", ancho)
-						// 	console.log("largo", largo)
-
-						// 	if (ancho == undefined) {
-						// 		ancho = "400px"
-						// 	}
-						// 	if (largo == undefined) {
-						// 		largo = "200px"
-						// 	}
-						// 	if (atributo == "-") {
-						// 		$(this).attr("value", "+")
-
-						// 		var clasesAntiguas = ($item).attr("class")
-						// 		clasesAntiguas = clasesAntiguas.replace("imagenPrueba", "")
-						// 		$($item).attr("class", clasesAntiguas)
-						// 	} else {
-						// 		$(this).attr("value", "-")
-
-						// 		var clasesAntiguas = ($item).attr("class") + " imagenPrueba"
-						// 		$($item).attr("class", clasesAntiguas)
-						// 	}
-						// 	console.log("Ancho", ancho)
-						// 	console.log("largo", largo)
-						// 	$($item).attr("width", ancho)
-						// 	$($item).attr("height", largo)
-
-						// 	parentDiv.appendTo($('#source'))
-						// 	$('#source div').appendTo($('#source'));
-
-						// });
-
-						// var addImage = $('<img src="https://people.sc.fsu.edu/~jburkardt/data/png/voronoi_sphere2.png" width="200" height="121" alt="Italian Trulli">').click(function () {
-						// 	var parentDiv = $(this).parent();
-						// 	parentDiv.appendTo($('#source'))
-						// 	$('#source div').appendTo($('#source'));
-
-						// });
-
-						// Area
-						var imageUsuarioID = "usuario_" + num_area.toString()
-						var botonUsuarioID = "botonUsuario_" + num_area.toString()
+						var imageUsuarioID = "usuario_" + (num_area + 1)
+						var botonUsuarioID = "botonUsuario_" + (num_area + 1)
 						var addUser = $('<a id="' + botonUsuarioID + '" class="btn user-image" title="Cambiar a zona de juego" onclick=addUserButton(this)><i id="' + imageUsuarioID + '" class="fa-solid fa-user margenIzquierdo"></i></a>')
 
-						var idUploadArea = "uploadArea_" + num_area.toString();
-
-
-						var uploadArea = $('<div class="image-upload" onclick=uploadAreaButton(this,"uploadArea_0") > <label for="' + idUploadArea + '"> <i class="fa-solid fa-upload image-upload"></i> </label> <input id="' + idUploadArea + '" type="file"  accept="image/png, image/gif, image/jpeg"  style="display: none;" /> </div>')
+						var idUploadArea = "uploadArea_" + (num_area + 1)
+						var uploadArea = $('<div class="image-upload" onclick=uploadAreaButton(this,"' + idUploadArea + '") > <label for="' + idUploadArea + '"> <i class="fa-solid fa-upload image-upload"></i> </label> <input id="' + idUploadArea + '" type="file"  accept="image/png, image/gif, image/jpeg"  style="display: none;" /> </div>')
 
 						// Card
-						var idTextoTitle = "idTitle_" + num_card.toString()
-						var idButtonCard = "idbuttonCard_" + num_card.toString()
-						var titleTextoCard = $('<div id="' + idTextoTitle + '" class="tituloTexto"><button id="' + idButtonCard + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span>Texto</span></div>').click(function () {
+						var idTextoTitle = "idTitle_" + (num_card + 1)
+						var idButtonCard = "idbuttonCard_" + (num_card + 1)
+						var titleTextoCard = $('<div id="' + idTextoTitle + '" class="tituloTexto" onclick=fijarCard(this)><button id="' + idButtonCard + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span>Texto</span></div>')
 
-							var parentDiv = $(this).parent();
-							//	console.log("title texto", parentDiv[0].id)
-							parentDiv.appendTo($('#source2'))
-							$('#source2 div').appendTo($('#source2'));
-							if (fix) {
-								var $item = $(ui.draggable[0]).parent()
-								//	console.log("Dragableee", $item.parent().context.id)
-								var clases = parentDiv.attr("class") + " fixed card"
-								parentDiv.attr("class", clases)
-
-								parentDiv.draggable("disable");
-							} else {
-								var $item = $(ui.draggable[0]).parent()
-								//	console.log("Dragableee", $item)
-								var clases = parentDiv.attr("class") + " fixed card"
-								parentDiv.attr("class", clases)
-								parentDiv.draggable("enable");
-							}
-						});
-
-						var texto3id = "back_" + num_card.toString()
-						var idAcciones = "Acciones_" + num_card.toString()
-						var idFeedback = "Feedback_" + num_card.toString()
-						var idMatematicas = "Matematicas_" + num_card.toString()
+						var texto3id = "back_" + (num_card + 1)
+						var idAcciones = "Acciones_" + (num_card + 1)
+						var idFeedback = "Feedback_" + (num_card + 1)
+						var idMatematicas = "Matematicas_" + (num_card + 1)
 						var tabsCard = $('<section id ="' + texto3id + '" class="ocultar"><div class="tab center"><button class="tablinks active" onclick="openCity(event, ' + idAcciones + ')">Acciones</button><button class="tablinks" onclick="openCity(event, ' + idFeedback + ')">Feedback</button><button class="tablinks" onclick="openCity(event, ' + idMatematicas + ')">Matemáticas</button></div><div id="' + idAcciones + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + idFeedback + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
-							idMatematicas + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>').click(function () {
-								var parentDiv = $(this).parent();
-								//	console.log("pulso", parentDiv)
-								parentDiv.appendTo($('#source2'))
-								$('#source2 div').appendTo($('#source2'));
-							});
-
-						var textAreaid = "textArea_" + num_card.toString()
-						var inputTexto = $('<textarea id="' + textAreaid + '"class="inputText" placeholder="Escriba aquí el texto" name = "description" ></textarea>').click(function () {
-							var parentDiv = $(this).parent();
-							//	console.log("title texto", parentDiv)
-							parentDiv.appendTo($('#source2'))
-							$('#source2 div').appendTo($('#source2'));
-
-						});
-
-						var configid = "config_card_" + num_card.toString()
-						var configurationButton = $("<div id='" + configid + "' class='config'><i class='fa-solid fa-gear'></i></div>").click(function () {
-							var parentDiv = $(this).parent();
-							var hijo = parentDiv.children(0).children(7).context.id
-
-							var splitData = hijo.split('_')
-							var idd = "back_" + splitData[2].toString();
-							var idd2 = "textArea_" + splitData[2].toString();
-							var idd3 = "idTitle_" + splitData[2].toString();
-							let menu = document.getElementById(idd);
-							let menu2 = document.getElementById(idd2);
-							let menu3 = document.getElementById(idd3)
-
-							if (menu.classList.contains("ocultar")) {
-								menu.classList.remove("ocultar")
-								menu2.classList.add("ocultar")
-								menu3.classList.add("ocultar")
-								menu.classList.add("inputTextRetroalimentacion")
-							} else {
-								menu.classList.add("ocultar")
-								menu2.classList.remove("ocultar")
-								menu3.classList.remove("ocultar")
-							}
-						});
-
+							idMatematicas + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>')
+							
+						var textAreaid = "textArea_" + (num_card + 1)
+						var inputTexto = $('<textarea id="' + textAreaid + '"class="inputText" placeholder="Escriba aquí el texto" name = "description" ></textarea>')
+							
+						var configid = "config_card_" + (num_card + 1)
+						var configurationButton = $("<div id='" + configid + "' class='config' onclick=mostrarConfigCard(this)><i class='fa-solid fa-gear'></i></div>")
+							
 						// Image
-						var backImageID = "backImage_" + num_picture.toString()
-						var AccionesImageID = "AccionesImage_" + num_picture.toString()
-						var FeedbackImageID = "FeedbackImage_" + num_picture.toString()
-						var MatematicasImageID = "MatematicasImage_" + num_picture.toString()
+						var backImageID = "backImage_" + (num_picture + 1)
+						var AccionesImageID = "AccionesImage_" + (num_picture + 1)
+						var FeedbackImageID = "FeedbackImage_" + (num_picture + 1)
+						var MatematicasImageID = "MatematicasImage_" + (num_picture + 1)
 						var tabImage = $('<section id ="' + backImageID + '" class="ocultar"><div class="tab center"><button class="tablinks active" onclick="evaluarTabImage(event, ' + AccionesImageID + ')">Acciones</button><button class="tablinks" onclick="evaluarTabImage(event, ' + FeedbackImageID + ')">Feedback</button><button class="tablinks" onclick="evaluarTabImage(event, ' + MatematicasImageID + ')">Matemáticas</button></div><div id="' + AccionesImageID + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + FeedbackImageID + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
-							MatematicasImageID + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>').click(function () {
-								var parentDiv = $(this).parent();
-								//	console.log("pulso", parentDiv)
-								parentDiv.appendTo($('#source2'))
-								$('#source2 div').appendTo($('#source2'));
-							});
-
-						var titleImageID = "titleImage_" + num_picture.toString()
-						var idButtonImage = "idbuttonImage_" + num_picture.toString()
-						//				var titleImage = $('<div id="' + titleImageID + '"><header class="tituloImagen">Imagen<div class="image-upload"><label for="file-input"><i class="fa-solid fa-upload"></i></label><input id="file-input" type="file"/></div></header></div>').click(function () {
-						var titleImage = $('<div id="' + titleImageID + '" class="tituloTexto2"><button id="' + idButtonImage + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span>Imagen</span></div>').click(function () {
-							var parentDiv = $(this).parent();
-							//	console.log("title texto", parentDiv)
-							parentDiv.appendTo($('#source2'))
-							$('#source2 div').appendTo($('#source2'));
-
-							if (fix) {
-								var $item = $(ui.draggable[0]).parent()
-								//	console.log("Dragableee", $item.parent().context.id)
-								var clases = parentDiv.attr("class") + " fixed picture"
-								parentDiv.attr("class", clases)
-
-								parentDiv.draggable("disable");
-							} else {
-								var $item = $(ui.draggable[0]).parent()
-								//	console.log("Dragableee", $item)
-								var clases = parentDiv.attr("class") + " fixed picture"
-								parentDiv.attr("class", clases)
-								parentDiv.draggable("enable");
-							}
-						});
-
-
-
-
-
-						// var titleTexto2 = $('<section class="container"><div id="card" class="girar"><figure class="front"><header class="tituloTexto">Texto</header><textarea class="inputText" placeholder="Escriba aquí el texto" name = "description" ></textarea><button id="flip" onclick="myFunction()">Flip Card</button></figure><figure class="back"><button id="flip">Flip Card</button></figure></div></section>').click(function () {
-						// 	var parentDiv = $(this).parent();
-						// 	console.log("title texto", parentDiv)
-						// 	parentDiv.appendTo($('#source2'))
-						// 	$('#source2 div').appendTo($('#source2'));
-						// });
-
-
-
-						var configidImagen = "config_picture_" + num_picture.toString()
-						var configurationButtonImagen = $("<div id='" + configidImagen + "' class='config'><i class='fa-solid fa-gear'></i></div>").click(function () {
-							var parentDiv = $(this).parent();
-							var hijo = parentDiv.children(0).children(7).context.id
-							var splitData = hijo.split('_')
-							var idd = "backImage_" + splitData[2].toString();
-							var idd2 = "formDropzone_" + splitData[2].toString();
-							var idd3 = "titleImage_" + splitData[2].toString();
-							let menu = document.getElementById(idd);
-							let menu2 = document.getElementById(idd2);
-							let menu3 = document.getElementById(idd3);
-
-							if (menu.classList.contains("ocultar")) {
-								menu.classList.remove("ocultar")
-								menu2.classList.add("ocultar")
-								menu3.classList.add("ocultar")
-								menu.classList.add("inputTextRetroalimentacion")
-							} else {
-								menu.classList.add("ocultar")
-								menu2.classList.remove("ocultar")
-								menu3.classList.remove("ocultar")
-							}
-						});
-
-						var dropzoneID = "dropzone_" + num_picture.toString()
+							MatematicasImageID + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>')
+								
+						var titleImageID = "titleImage_" + (num_picture + 1)
+						var idButtonImage = "idbuttonImage_" + (num_picture + 1)
+						var titleImage = $('<div id="' + titleImageID + '" class="tituloTexto2" onclick=fijarPicture(this)><button id="' + idButtonImage + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span>Imagen</span></div>')
+							
+						var configidImagen = "config_picture_" + (num_picture + 1)
+						var configurationButtonImagen = $("<div id='" + configidImagen + "' class='config' onclick=mostrarConfigPicture(this)><i class='fa-solid fa-gear'></i></div>")
+							
+						var dropzoneID = "dropzone_" + (num_picture + 1)
 						dropzoneIDCrear = dropzoneID
-						var formDropzoneID = "formDropzone_" + num_picture.toString()
-						var dropzoneElement = $('<form id="' + formDropzoneID + '" class="form" action="#" method="post"><div class="fv-row"><div class="dropzone" id="' + dropzoneID + '"><div class="dz-message needsclick"><i class="fa-solid fa-cloud-arrow-up fa-2xl"></i><div class="ms-4"><div >Arrastre hasta aquí los archivos o pulse para seleccionar.</div></div></div></div></div></form>').click(function () {
-							var parentDiv = $(this).parent();
-
-
-
-						});
-
-
+						var formDropzoneID = "formDropzone_" + (num_picture + 1) 
+						var dropzoneElement = $('<form id="' + formDropzoneID + '" class="form" action="#" method="post"><div class="fv-row"><div class="dropzone" id="' + dropzoneID + '"><div class="dz-message needsclick"><i class="fa-solid fa-cloud-arrow-up fa-2xl"></i><div class="ms-4"><div >Arrastre hasta aquí los archivos o pulse para seleccionar.</div></div></div></div></div></form>')
+							
 						// Seleccion
 						var idSelecciono = "Seleccion_" + num_objetive.toString()
-
-						var seleccionIcono = $('<div id="' + idSelecciono + '" class="SeleccionIcono"><i  class="fa-solid fa-circle-dot fa-2xl"></i></div>').click(function () {
-							var parentDiv = $(this).parent();
-
-							parentDiv.resizable("destroy");
-						});
-
+						var seleccionIcono = $('<div id="' + idSelecciono + '" class="SeleccionIcono"><i  class="fa-solid fa-circle-dot fa-2xl"></i></div>')
+							
 						//Matematicas
 						var idMates = "Matematicas_" + num_math.toString()
-						var MatesIcono = $('<div class="MatesIcono"><i id="' + idMates + '" class="fa-solid fa-calculator fa-2xl"></i></div>').click(function () {
-
-						});
-
+						var MatesIcono = $('<div class="MatesIcono"><i id="idMates" class="fa-solid fa-calculator fa-2xl"></i><input class="numberMath" type="number" value="1" /></div>')
+						
 						// Temporizador
 						var idTemporizador = "Temporizador_" + num_time.toString()
 						var TemporizadorIcono = $('<section  id="' + idTemporizador + '"><div style="margin-bottom:8px;">La actividad finaliza en:</div> <div><i class="TempIcono fa-solid fa-stopwatch fa-2xl"></i><input id="temporizadorMinutos" type="number" value="1" step="any" /> seg.</div></div></section>')
@@ -642,7 +513,7 @@
 
 						var idHijoPath = "pathIdHijo_" + (num_path + 1)
 						var crearCamino = "crearCamino_" + (num_path + 1)
-						var prueba = $('<section><div><i class="squarePath fa-solid fa-square" onclick="mostrar(' + idConf + ')"></i></div><div><div class="PathIcono"><i class="fa-solid fa-location-dot fa-2xl"></i></div><div id="' + idConf + '" class="configurarPath ocultar"><div style="height:50px"><i class="PathIcono fa-solid fa-location-dot fa-2xl"></i><i class=" fa-solid fa-square"></i><i class="xMark fa-solid fa-xmark" onclick="ocultar(' + idConf + ')"></i></div><div  class="insidePath "><div style="background-color: green;width:40px">Hola</div><div id="' + idPadrePath + '" class="wrap2" style="width:220px"><div id ="' + idHijoPath + '" class="links"></div></div><div style="background-color: green;width:40px; text-align: center;"><i class="fa-solid fa-eye fa-xl"></i></br><input type="color" id="favcolor" name="favcolor" value="#ff0000" ></br><i class="fa-brands fa-connectdevelop fa-xl"></i></div></div><div id="' + crearCamino + '"  class="insidePath"><i class="PathIcono fa-solid fa-location-dot fa-2x"></i>Arrastre hasta aquí para crear un nuevo camino</div></div></div></section>')
+						var pathElemento = $('<section><div><i class="squarePath fa-solid fa-square" onclick="mostrar(' + idConf + ')"></i></div><div><div class="PathIcono"><i class="fa-solid fa-location-dot fa-2xl"></i></div><div id="' + idConf + '" class="configurarPath ocultar"><div style="height:50px"><i class="PathIcono fa-solid fa-location-dot fa-2xl"></i><i class=" fa-solid fa-square"></i><i class="xMark fa-solid fa-xmark" onclick="ocultar(' + idConf + ')"></i></div><div  class="insidePath "><div style="background-color: green;width:40px">Hola</div><div id="' + idPadrePath + '" class="wrap2" style="width:220px"><div id ="' + idHijoPath + '" class="links"></div></div><div style="background-color: green;width:40px; text-align: center;"><i class="fa-solid fa-eye fa-xl"></i></br><input type="color" id="favcolor" name="favcolor" value="#ff0000" ></br><i class="fa-brands fa-connectdevelop fa-xl"></i></div></div><div id="' + crearCamino + '"  class="insidePath"><i class="PathIcono fa-solid fa-location-dot fa-2x"></i>Arrastre hasta aquí para crear un nuevo camino</div></div></div></section>')
 
 
 						// Para los clones de los caminos
@@ -715,7 +586,7 @@
 							$item.attr("id", 'path' + num_path.toString());
 							$item.attr("class", 'path ui-resizable area-accept originalPath' + " " + canvas)
 							//	$item.append(pathSqueareIcono)
-							$item.append(prueba)
+							$item.append(pathElemento)
 							lastPath = $item
 
 							// Comprobar si no hay camino
@@ -764,7 +635,7 @@
 
 						}
 						$(this).append($item);
-						makeDraggable($item); 
+						makeDraggable($item);
 						lastItem = $item
 						//var a = document.getElementById("area1").getBoundingClientRect();
 						//	console.log("a", a.left, a.top, a.bottom, a.right)
@@ -1041,7 +912,7 @@
 
 			// Mouse position
 			posLeft = e.clientX //  - rect.left;;
-			posRight = e.clientY -48 // - rect.top; 
+			posRight = e.clientY - 48 // - rect.top; 
 			//	dibujar(mouseX,mouseY,posLeft,posRight, "canvas2")
 
 			// var canv = document.getElementById("canvas2")
@@ -1055,13 +926,13 @@
 			// ctx.lineWidth = 10;
 			// ctx.stroke()
 			// 	console.log("mouse location:", "left", posLeft, "top", posRight)
-//
-				
+			//
+
 
 		}
 
-		
-	
+
+
 		function makeDraggable($item) {
 			$item.draggable({
 				containment: "#editzone",
@@ -1119,7 +990,7 @@
 					//	console.log('Temporizador', itemTemporizador[0].id)
 					var temporizador = document.getElementById(itemTemporizador[0].id)
 					temporizador.style.position = "fixed"
-					temporizador.style.left = "88%"
+					temporizador.style.left = "87%"
 					temporizador.style.top = "85%"
 				}
 
@@ -1245,25 +1116,7 @@
 		}
 
 
-		function fijarTarjeta(input) {
-			//	console.log("pulsado boton chincheta", input.offsetParent.id)
-			fix = true
-			var parentElement = document.getElementById(input.offsetParent.id)
-			//	console.log("ParentID", input.offsetParent.id)
-			//	console.log("input", input.id)
-			document.getElementById(input.id).innerHTML = '<img src="/static/dash/dist/assets/img/pinned.png" width="12px"   />';
-			document.getElementById(input.id).style = " margin-left:4px; margin-right:-2px"
-			if (parentElement.classList.contains("ui-draggable-disabled")) {
-				fix = false
-				document.getElementById(input.id).innerHTML = '<img src="/static/dash/dist/assets/img/pinnedout.png" width="12px"   />';
-				document.getElementById(input.id).style = " margin-left:2px"
-			}
 
-
-
-
-
-		}
 		/*
 				$(document).on("input", "input:file", function (e) {
 					let fileName = e.target.files[0];
@@ -1640,7 +1493,7 @@
 					// temporizador.style.top = "140px"
 					// temporizador.style.left = "5px"
 					temporizador.style.position = "fixed"
-					temporizador.style.left = "88%"
+					temporizador.style.left = "87%"
 					temporizador.style.top = "85%"
 				}
 
@@ -1659,7 +1512,7 @@
 					} else {
 
 						// colocar los elementos para que no se muevan
-						
+
 						if ($item.parent()[0].id.includes("card") || $item.parent()[0].id.includes("picture")) {
 							var hijo = document.getElementById($item[0].id)
 							hijo.style = " left: 20px; margin-bottom: -15px"
@@ -1797,49 +1650,9 @@
 			}
 		}
 
-		function addUserButton (click){
-							var parentDiv = $(click).parent();
-							var elemento = document.getElementById(parentDiv.context.children[0].id);
-							var areaPadre = document.getElementById(parentDiv[0].id);
-							var botonUsuario = document.getElementById(parentDiv.context.id)
 
-							if (elemento.classList.contains("fa-user")) {
-								elemento.classList.remove("fa-user")
-								elemento.classList.add("fa-users")
-								areaPadre.style.backgroundColor = "#F0FFB4";
-								botonUsuario.title = "Cambiar a zona de jugador"
-							} else {
-								elemento.classList.remove("fa-users")
-								elemento.classList.add("fa-user")
-								areaPadre.style.backgroundColor = "#DBF5FF";
-								botonUsuario.title = "Cambiar a zona de juego"
-							}
-						}
 
-			function uploadAreaButton(input, id){
-				var parentDiv = $(input).parent();
-							//	console.log("uploadArea id", parentDiv[0].id)
-							parentDiv.appendTo($('#source2'))
-							$('#source2 div').appendTo($('#source2'));
-							uploadAreaID = parentDiv[0].id;
 
-							var fileupload = $("#" + id);
-							fileupload.on('change', function () {
-								let fileName = document.getElementById(id).files[0];
-									console.log("EL UPLOAD AREA ES", uploadAreaID)
-								if (uploadAreaID != "") {
-									console.log("entra en el distinto", fileName)
-									if (fileName != undefined) {
-										console.log("entra en el distinto del filename")
-										src1 = URL.createObjectURL(document.getElementById(id).files[0]); 
-										console.log("el src", src1)
-										document.getElementById(uploadAreaID).style.backgroundImage = 'url(' + src1 + ')';
-									} else {
-										document.getElementById(uploadAreaID).style.backgroundImage = 'none';
-									}
-								}
-							})
-			}
-		
+
 	</script>
 	{% endblock %}
