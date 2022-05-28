@@ -1,0 +1,60 @@
+.area {
+    min-width: 85px;
+    min-height: 60px;
+    width: 350px;
+    height: 200px;
+    border: 3px solid rgb(0, 168, 190);
+    border-radius: 10px;
+    background-color: rgb(219, 245, 255);
+    -webkit-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
+    box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
+    border-style: ridge;
+    -webkit-background-size: 50%;
+    -moz-background-size: 50%;
+    -o-background-size: 50%;
+    background-size: 60%;
+    background-origin: content-box;
+    background-repeat: no-repeat;
+    background-position: center;
+} 
+
+.user-image {
+    size: 100%;
+} 
+
+.margenIzquierdo {
+    padding-left: 5px;
+    padding-top: 5px;
+
+}
+
+.margenDerecho {
+    margin-right: 5px;
+    float: right;
+    padding-right: 5px;
+
+} 
+
+.image-upload:hover {
+    color: rgb(34, 5, 194);
+    font-size: 15px;
+    float: right;
+    margin-right: 0;
+
+}
+
+.image-upload>input {
+    display: none;
+    float: right;
+    margin-right: 0;
+
+}
+
+.image-upload {
+
+    float: right;
+    margin-right: 0;
+    padding-right: 5px;
+    padding-top: 3px;
+}

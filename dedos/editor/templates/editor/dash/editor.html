@@ -302,9 +302,7 @@
 				cargar = cargar.replace(/[']/g, "");
 				cargar = cargar.replace("[(", "")
 				cargar = cargar.replace(",)]>", "")
-				cargar = cargar.replace('<div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div>','')
-				cargar = cargar.replace('<div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div>', '')
-				cargar = cargar.replace('<div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div>', '')
+				
 				                        
 				console.log("El valor valee", cargar)
 				document.getElementById("listaCanvas").innerHTML = ""
@@ -319,6 +317,9 @@
 				area1.draggable()
 				makeAreaDroppable(area1)
 				makeDraggable(area1);
+				area1.resizable("destroy")
+				area1.resizable()
+				area1.resizable("enable")
 
 				$(document.getElementById("area1")).resizable()
 				num_area++
@@ -327,6 +328,9 @@
 				card1.draggable()
 				makeDraggable(card1);
 				makeAreaDroppable(card1)
+				card1.resizable("destroy")
+				card1.resizable()
+				card1.resizable("enable")
 				
 				num_card++ 
 
@@ -334,20 +338,26 @@
 				picture1.draggable()
 				makeDraggable(picture1);
 				makeAreaDroppable(picture1) 
-				dropzoneUpload("dropzone_1")
+				dropzoneUpload("dropzone_1") 
+				picture1.resizable("destroy")
+				picture1.resizable()
+				picture1.resizable("enable")
 				num_picture++ 
 
 				var time1 = $(document.getElementById("time1"))
 				time1.draggable()
 				makeDraggable(time1); 
+				time1.resizable("destroy") 
 
 				var objetive1 = $(document.getElementById("objetive1"))
 				objetive1.draggable()
-				makeDraggable(objetive1);
+				makeDraggable(objetive1); 
+				objetive1.resizable("destroy")
 
 				var math1 = $(document.getElementById("math1"))
 				math1.draggable()
 				makeDraggable(math1);
+				math1.resizable("destroy")
 				// Fin elementos 
 
 				// var elems = document.querySelectorAll(".ui-resizable-handle");
@@ -451,7 +461,7 @@
 						// Card
 						var idTextoTitle = "idTitle_" + (num_card + 1)
 						var idButtonCard = "idbuttonCard_" + (num_card + 1)
-						var titleTextoCard = $('<div id="' + idTextoTitle + '" class="tituloTexto" onclick=fijarCard(this)><button id="' + idButtonCard + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span>Texto</span></div>')
+						var titleTextoCard = $('<div id="' + idTextoTitle + '" class="tituloTexto" onclick=fijarCard(this)><button id="' + idButtonCard + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span style="font-weight: bold;">Texto</span></div>')
 
 						var texto3id = "back_" + (num_card + 1)
 						var idAcciones = "Acciones_" + (num_card + 1)
@@ -476,7 +486,7 @@
 								
 						var titleImageID = "titleImage_" + (num_picture + 1)
 						var idButtonImage = "idbuttonImage_" + (num_picture + 1)
-						var titleImage = $('<div id="' + titleImageID + '" class="tituloTexto2" onclick=fijarPicture(this)><button id="' + idButtonImage + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span>Imagen</span></div>')
+						var titleImage = $('<div id="' + titleImageID + '" class="tituloTexto2" onclick=fijarPicture(this)><button id="' + idButtonImage + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span style = "font-weight: bold;">Imagen</span></div>')
 							
 						var configidImagen = "config_picture_" + (num_picture + 1)
 						var configurationButtonImagen = $("<div id='" + configidImagen + "' class='config' onclick=mostrarConfigPicture(this)><i class='fa-solid fa-gear'></i></div>")
