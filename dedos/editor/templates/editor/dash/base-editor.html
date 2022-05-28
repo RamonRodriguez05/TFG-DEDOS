@@ -32,7 +32,10 @@
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/css/path.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/path.css"> 
+    <link rel="stylesheet" type="text/css" href="/static/css/area.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/card.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/picture.css">
 
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
@@ -43,7 +46,7 @@
     <script src="{% static 'js/picture.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/guardar.js' %}" type="text/javascript"></script>
     <script src="{% static 'js/utilities.js' %}" type="text/javascript"></script>
-    <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+ 
 
 
     <style>
@@ -99,59 +102,11 @@
             position: relative;
         }
 
-        .area {
-            min-width: 85px;
-            min-height: 60px;
-            width: 400px;
-            height: 200px;
-            border: 3px solid rgb(0, 168, 190);
-            border-radius: 10px;
-            background-color: rgb(219, 245, 255);
-            -webkit-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
-            -moz-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
-            box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
-            border-style: ridge;
-            -webkit-background-size: 50%;
-            -moz-background-size: 50%;
-            -o-background-size: 50%;
-            background-size: 80%;
-            background-origin: content-box;
-            background-repeat: no-repeat;
+      
 
-            background-position: center
-        }
+        
 
-        .card {
-            width: 300px;
-            height: 150px;
-            min-width: 170px;
-            min-height: 105px;
-            border: 3px solid rgb(0, 168, 190);
-            border-radius: 10px;
-
-            -webkit-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
-            -moz-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
-            box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
-            border-style: ridge;
-            border: 1px solid rgb(21, 138, 17);
-
-        }
-
-        .picture {
-            width: 380px;
-            height: 225px;
-            border: 1px solid rgb(9, 255, 0);
-            min-width: 185px;
-            min-height: 130px;
-            border: 3px solid rgb(0, 168, 190);
-            border-radius: 10px;
-            background-color: rgb(253, 253, 234);
-            -webkit-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
-            -moz-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
-            box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.7 5);
-            border-style: ridge;
-            border: 1px solid rgb(21, 138, 17);
-        }
+        
 
         .objetive {
             width: 20px;
@@ -198,23 +153,9 @@
         }
 
 
-        .margenIzquierdo {
-            padding-left: 5px;
-            padding-top: 5px;
+       
 
-        }
-
-        .margenDerecho {
-            margin-right: 5px;
-            float: right;
-            padding-right: 5px;
-
-        }
-
-        .imagenPrueba {
-            /* Background pattern from Toptal Subtle Patterns */
-            background-image: url("https://amymhaddad.s3.amazonaws.com/morocco-blue.png");
-        }
+      
 
         #TextoBueno,
         #FotoBueno,
@@ -318,19 +259,9 @@
             display: none;
         }
 
-        .user-image {
-            size: 100%;
-        }
+       
 
-        .tituloTexto {
-            background-color: aquamarine;
-            border-bottom: 1px solid rgb(0, 0, 0);
-            text-align: center;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            height: 30px;
-
-        }
+        
 
         .tituloTexto2 {
 
@@ -374,80 +305,7 @@
             border-top-right-radius: 10px;
         }
 
-        .noBackground {
-
-
-
-            float: right;
-            margin-right: 0;
-
-        }
-
-        .image-upload:hover {
-
-
-
-            color: rgb(34, 5, 194);
-            font-size: 15px;
-
-            float: right;
-            margin-right: 0;
-
-        }
-
-        .image-upload>input {
-            display: none;
-            float: right;
-            margin-right: 0;
-
-        }
-
-        .image-upload {
-
-            float: right;
-            margin-right: 0;
-            padding-right: 5px;
-            padding-top: 3px;
-        }
-
-        /* PRUEBAS GIRAR TARJETA*/
-
-
-        #card {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            transform-style: preserve-3d;
-            transition: transform 1s;
-        }
-
-        #card figure {
-            margin-left: 0;
-            display: block;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-        }
-
-        #card .front {
-            background: red;
-            margin-left: -24px;
-        }
-
-        #card .back {
-            background: blue;
-            margin-left: 24px;
-            transform: rotateY(180deg);
-        }
-
-        #card.flipped,
-        .girar.flipped {
-            transform: rotateY(180deg);
-
-            /* FIN PRUEBAS GIRAR TARJETA*/
-        }
-
+      
         textarea {
             resize: none;
         }
@@ -463,12 +321,14 @@
             background-color: #f1f1f1;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
+           
         }
 
         /* Style the buttons inside the tab */
         .tab button {
             background-color: inherit;
-
+            width: 50%;
+            height: 50%;
             border: none;
             outline: none;
             cursor: pointer;
@@ -483,6 +343,12 @@
             margin-top: 3%;
             margin-left: 3%;
 
+        } 
+
+        .tablinks {
+            font-size:xx-small !important;
+            width: 100px !important ;
+            height: 30px !important;
         }
 
 
@@ -501,10 +367,11 @@
         .tabcontent {
             display: none;
             padding: 6px 12px;
-
+            font-size: x-small !important;
             border-top: none;
         }
-
+        	
+       
         .config {
             position: absolute;
             bottom: 2px;
@@ -520,16 +387,7 @@
         }
 
 
-        .transparente {
-            background-color: transparent;
-            padding: 0;
-            border: none;
-            background: none;
-            outline: 0 !important;
-            width: 15px;
-            height: 15px;
-            float: left;
-        }
+        
 
         #editzone {
             overflow: auto;
@@ -558,86 +416,10 @@
 
         /* Dropzone */
 
-        .dropzone {
+       
 
 
-            max-width: 100%;
-            max-height: 100%;
-            display: block;
-            border: dashed 3px rgb(92, 152, 180);
-            border-radius: 35px;
-            margin: 1%;
-            margin-bottom: 3%;
-
-        }
-
-
-        img,
-        .dz-preview,
-        .dz-processing,
-        .dz-error,
-        .dz-complete,
-        .dz-image-preview,
-        .dz-image,
-        .dz-details,
-        .dz-progress,
-        .dz-success-mark,
-        .dz-remove,
-        .dz-error-mark {
-            max-width: 100%;
-            max-height: 100%;
-            display: block;
-            /* remove extra space below image */
-
-            margin-bottom: 3%;
-            border-radius: 0;
-
-        }
-
-        .dz-remove {
-            display: inline-block !important;
-            width: 1.2em;
-            height: 1.2em;
-
-            position: absolute;
-            top: -5px;
-            right: 5px;
-            z-index: 1000;
-
-            font-size: 1.2em !important;
-            line-height: 1em;
-
-            text-align: center;
-            font-weight: bold;
-            border: 1px solid rgb(255, 0, 0) !important;
-            border-radius: 1.2em;
-            color: rgb(255, 0, 0);
-            background-color: rgb(247, 243, 243);
-
-
-        }
-
-        .dz-remove:hover {
-            width: 1.3em;
-            height: 1.3em;
-            font-size: 1.4em !important;
-            background-color: red;
-            color: white;
-        }
-
-        .dz-preview {
-            display: flex;
-            max-width: 50%;
-            max-height: 50%;
-            margin-bottom: 5%;
-
-
-        }
-
-        .dz-error-message {
-            display: none;
-        }
-
+       
         .form {
             max-width: 100%;
             max-height: 100%;
