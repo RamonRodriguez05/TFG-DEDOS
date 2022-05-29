@@ -81,7 +81,7 @@ $(document).ready(function () {
                     privado: privado,
                     usuario: JSON.parse(document.getElementById('user_id').textContent),
                     fecha: fecha,
-                    canvas: prueba,
+                    canvas: document.getElementById("listaCanvas").innerHTML,
                     csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
                 },
                 success: function () {

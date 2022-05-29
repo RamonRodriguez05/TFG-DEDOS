@@ -17,7 +17,7 @@
 
 .dz-clickable{
   
-    height: 40%;
+    height: 90% !important;
 }
 
 .ms-4{
@@ -70,7 +70,7 @@ img,
     display: inline-block !important;
     width: 1.2em;
     height: 1.2em;
-
+    left: 30px !important;
     position: absolute;
     top: -5px;
     right: 5px;
@@ -111,4 +111,14 @@ img,
 
 .dz-error-message {
     display: none;
+}
+
+.dropzone.dz-clickable .dz-message, .dropzone.dz-clickable .dz-message * {
+    margin: 4%;
+    text-align: center !important;
+    cursor: pointer;
+}
+
+.dz-details{
+    width: 50% !important;
 }

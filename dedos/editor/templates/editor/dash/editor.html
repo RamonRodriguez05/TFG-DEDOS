@@ -23,11 +23,38 @@
 					<fieldset>
 						<label for="nombre">Nombre:</label>
 						<input type="text" name="nombre" id="nombre"><br><br>
+						
+						<label for="descripcion">Descripción:</label>
+						<input type="text" name="descripcion" id="descripcion"><br><br>
+
+						<label for="curso">Nivel educativo:</label> 
+						<select name="curso" id="curso">
+							<option value="Infantil">Infantil</option>
+							<option value="Primaria">Primaria</option>
+							<option value="Necsidades especiales">Necsidades especiales</option>
+						</select><br><br>
+
 						<label for="asignatura">Asignatura:</label>
-						<input type="text" name="aseginatura" id="asignatura"><br><br>
-						<label for="nacimiento">Curso:</label>
-						<input type="text" name="curso" id="curso"><br><br>
-						<label for="dni">Etiquetas</label>
+						<select name="asignatura" id="asignatura">
+							<option value="Matemáticas">Matemáticas</option>
+							<option value="Ciencias Naturales">Ciencias Naturales</option>
+							<option value="Lengua Castellana y Literatura">Lengua Castellana y Literatura</option>
+							<option value="Inglés">Inglés</option>
+							<option value="Conocimiento corporal y construcción de la propia identidad">Conocimiento corporal y construcción de la propia identidad</option>
+							<option value="Conocimiento y participación en el medio físico y social">Conocimiento y participación en el medio físico y social</option>
+							<option value="Comunicación y lenguaje">Comunicación y lenguaje</option>
+						</select><br><br>
+						
+						
+						
+						
+						
+					
+						
+
+
+						
+						<label for="etiquetas">Etiquetas</label>
 						<input type="text" name="etiquetas" id="etiquetas"><br><br>
 						<label for="privacidad">Privacidad:</label>
 						<input type="radio" name="privacidad" value="0" id="publico" checked>Público
@@ -77,7 +104,7 @@
 			<div id="CaminoBueno" class="col-md-1 tool area-accept ocultar" id="tool-6-icon draggable tool" type="path">
 				<i id="imagenCamino" class="fa-solid fa-location-dot fa-2xl"></i>
 			</div>
-			<div id="MatesBueno" class="col-md-1 tool   ocultar" id="tool-7-icon draggable tool" type="math">
+			<div id="MatesBueno" class="col-md-1 tool ocultar" id="tool-7-icon draggable tool" type="math">
 				<i id="imagenMates" class="fa-solid fa-calculator fa-2xl"></i>
 			</div>
 			<div id="TemporizadorBueno" class="col-md-1 tool  area-accept ocultar" id="tool-8-icon draggable tool"
@@ -263,7 +290,7 @@
 			console.log("docuemnt ready")
 		
 
-			let url = window.location.href;
+			
 
 			var theDiv = document.getElementById(canvas.replace("#", ""));
 
@@ -288,98 +315,7 @@
 			tag3.appendChild(text3);
 			theDiv.appendChild(tag3);
 
-			// Editar
-			if (url.includes("/edit/")) {
-
-				borrar = true
-				lanzar()
-
-
-				console.log("Editar proyecto", or)
-				var myVar = document.getElementById("myVar").value;
-				var procesado = myVar.split("QuerySet")
-				var cargar = procesado[1]
-
-				cargar = cargar.replace(/\\t/g, " ");
-				cargar = cargar.replace(/\\n/g, " ");
-				cargar = cargar.replace(/[']/g, "");
-				cargar = cargar.replace("[(", "")
-				cargar = cargar.replace(",)]>", "")
-				
-				                        
-				console.log("El valor valee", cargar)
-				document.getElementById("listaCanvas").innerHTML = ""
-				document.getElementById("listaCanvas").innerHTML = cargar
-				console.log("El valor valee", cargar)
-				console.log("areaaa", document.getElementById("editor-canvas_1"))
-				document.getElementById("editor-canvas_1").appendChild(document.getElementById("area1"))
-
-
-				// Lanzar elementos
-				var area1 = $(document.getElementById("area1"))
-				area1.draggable()
-				makeAreaDroppable(area1)
-				makeDraggable(area1);
-				area1.resizable("destroy")
-				area1.resizable()
-				area1.resizable("enable")
-
-				$(document.getElementById("area1")).resizable()
-				num_area++
-
-				var card1 = $(document.getElementById("card1"))
-				card1.draggable()
-				makeDraggable(card1);
-				makeAreaDroppable(card1)
-				card1.resizable("destroy")
-				card1.resizable()
-				card1.resizable("enable")
-				
-				num_card++ 
-
-				var picture1 = $(document.getElementById("picture1"))
-				picture1.draggable()
-				makeDraggable(picture1);
-				makeAreaDroppable(picture1) 
-				dropzoneUpload("dropzone_1") 
-				picture1.resizable("destroy")
-				picture1.resizable()
-				picture1.resizable("enable")
-				num_picture++ 
-
-				var time1 = $(document.getElementById("time1"))
-				time1.draggable()
-				makeDraggable(time1); 
-				time1.resizable("destroy") 
-
-				var objetive1 = $(document.getElementById("objetive1"))
-				objetive1.draggable()
-				makeDraggable(objetive1); 
-				objetive1.resizable("destroy")
-
-				var math1 = $(document.getElementById("math1"))
-				math1.draggable()
-				makeDraggable(math1);
-				math1.resizable("destroy")
-				// Fin elementos 
-
-				// var elems = document.querySelectorAll(".ui-resizable-handle");
-
-				// [].forEach.call(elems, function (el) {
-				// 	console.log("elementos antes", el)
-				// 	el.style = ""
-				// 	$(el).resizable()
-				// 	console.log("elementos despues", el)
-
-
-				// });
-
-
-
-				borrar = false
-				lanzar()
-
-			}
+			iniciarEditar()
 			//editar
 
 
@@ -956,7 +892,10 @@
 					console.log('stopped 1')
 
 
-					evaluarPosicion($item)
+
+					evaluarPosicion($item) 
+					actualizarTarjetas("card")
+					actualizarTarjetas("picture")
 					//	ocultarOpciones()
 
 
@@ -971,7 +910,8 @@
 				stop: function (e, ui) {
 					console.log('resizing stopped');
 					captura(activity, canvas)
-					//	captura()
+					console.log("El act de captura", activity)
+					console.log("el canvas de captura", canvas)
 				}
 			});
 		}
@@ -1013,7 +953,8 @@
 				//	captura();
 				captura(activity, canvas);
 
-
+				actualizarTarjetas("card")
+				actualizarTarjetas("picture")
 				// var canvas = document.getElementById("editor-canvas")
 
 				// var clone = canvas.cloneNode(true)
@@ -1378,7 +1319,7 @@
 			var theDiv = document.createElement("div")
 			// <div id="editor-canvas" class="editor-canvas dropzone" style=>
 			theDiv.id = "editor-canvas_" + num_activity
-			theDiv.classList.add(canvas.replace("#", ""))
+			theDiv.classList.add("editor-canvas")
 			theDiv.classList.add("dropzone")
 			theDiv.style = "border:2px;width:100%; height:100%;"
 
@@ -1589,7 +1530,7 @@
 				}
 			}
 
-			//		captura();
+	
 			captura(activity, canvas)
 		}
 
@@ -1823,12 +1764,38 @@
 				}
 			}
 
-			//		captura();
-			captura(activity, canvas)
+		
+	//		captura(activity, canvas)
 		}
 
 
-
+		
+		function actualizarTarjetas(id){
+			var title = "idTitle"
+			if(id.includes("picture")){
+				title = "titleImage"
+			}
+			var cards = document.getElementsByClassName(id)
+			for (i = 0; i < cards.length; i++) {
+				var hijos = cards[i].children
+				var hasSelector = false
+				for(j=0; j < hijos.length;j++){
+					if(hijos[j].id.includes(title)){
+						var subhijos = hijos[j].children
+						for (k = 0; k < subhijos.length; k++){
+							if (subhijos[k].id.includes("objetive") || subhijos[k].id.includes("math")){
+								hasSelector = true
+								break
+							}
+						}	
+					}
+				}
+				cards[i].classList.remove("selector")
+				if (hasSelector){
+					cards[i].classList.add("selector")
+				}
+			}
+		}
 
 
 
