@@ -23,6 +23,7 @@ function uploadAreaButton(input, id) {
             } else {
                 document.getElementById(uploadAreaID).style.backgroundImage = 'none';
             }
+            captura(activity, canvas)
         }
     })
 }
@@ -38,12 +39,14 @@ function addUserButton(click) {
         elemento.classList.remove("fa-user")
         elemento.classList.add("fa-users")
         areaPadre.style.backgroundColor = "#F0FFB4";
-        botonUsuario.title = "Cambiar a zona de jugador"
+        botonUsuario.title = "Cambiar a zona de jugador" 
+        
     } else {
         elemento.classList.remove("fa-users")
         elemento.classList.add("fa-user")
         areaPadre.style.backgroundColor = "#DBF5FF";
         botonUsuario.title = "Cambiar a zona de juego"
     }
+    captura(activity, canvas)
 }
 
