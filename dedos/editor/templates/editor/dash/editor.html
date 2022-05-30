@@ -406,7 +406,7 @@
 						var idAcciones = "Acciones_" + (num_card + 1)
 						var idFeedback = "Feedback_" + (num_card + 1)
 						var idMatematicas = "Matematicas_" + (num_card + 1)
-						var tabsCard = $('<section id ="' + texto3id + '" class="ocultar"><div class="tab center"><button class="tablinks active" onclick="openCity(event, ' + idAcciones + ')">Acciones</button><button class="tablinks" onclick="openCity(event, ' + idFeedback + ')">Feedback</button><button class="tablinks" onclick="openCity(event, ' + idMatematicas + ')">Matemáticas</button></div><div id="' + idAcciones + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + idFeedback + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
+						var tabsCard = $('<section id ="' + texto3id + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + idAcciones+ '" onclick="evaluarTabPicture(event, ' + idAcciones + ')">Acciones</button><button class="tablinks ' + idFeedback+ '" onclick="evaluarTabPicture(event, ' + idFeedback + ')">Feedback</button><button class="tablinks ' + idMatematicas+ '" style="margin-right:5px;" onclick="evaluarTabPicture(event, ' + idMatematicas + ')">Matemáticas</button></div><div id="' + idAcciones + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + idFeedback + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
 							idMatematicas + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>')
 							
 						var textAreaid = "textArea_" + (num_card + 1)
@@ -420,7 +420,7 @@
 						var AccionesImageID = "AccionesImage_" + (num_picture + 1)
 						var FeedbackImageID = "FeedbackImage_" + (num_picture + 1)
 						var MatematicasImageID = "MatematicasImage_" + (num_picture + 1)
-						var tabImage = $('<section id ="' + backImageID + '" class="ocultar"><div class="tab center"><button class="tablinks active" onclick="evaluarTabImage(event, ' + AccionesImageID + ')">Acciones</button><button class="tablinks" onclick="evaluarTabImage(event, ' + FeedbackImageID + ')">Feedback</button><button class="tablinks" onclick="evaluarTabImage(event, ' + MatematicasImageID + ')">Matemáticas</button></div><div id="' + AccionesImageID + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + FeedbackImageID + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
+						var tabImage = $('<section id ="' + backImageID + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + AccionesImageID +'" onclick="evaluarTabImage(event, ' + AccionesImageID + ')">Acciones</button><button class="tablinks ' + FeedbackImageID +'" onclick="evaluarTabImage(event, ' + FeedbackImageID + ')">Feedback</button><button class="tablinks ' + MatematicasImageID +'" style="margin-right:5px;" onclick="evaluarTabImage(event, ' + MatematicasImageID + ')">Matemáticas</button></div><div id="' + AccionesImageID + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + FeedbackImageID + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
 							MatematicasImageID + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>')
 								
 						var titleImageID = "titleImage_" + (num_picture + 1)
@@ -988,22 +988,22 @@
 		});
 
 		function evalutarTab(idElemento, evt, element, deseleccionar) {
-
+			console.log("el evento",evt)
 			if (idElemento == element.id) {
 				document.getElementById(idElemento).style.display = "block";
 				evt.currentTarget.className += " active";
-				//	console.log("LOOG", evt.currentTarget.className)
 			}
+
 			for (i = 0; i < deseleccionar.length; i++) {
+				var el = document.getElementsByClassName(deseleccionar[i])
+				el[0].classList.remove("active")
 				document.getElementById(deseleccionar[i]).style.display = "none";
-				document.getElementById(deseleccionar[i]).className = document.getElementById(idElemento).className.replace(" active", "");
-
-
+				document.getElementById(deseleccionar[i]).classList.remove("active") //= document.getElementById(idElemento).className.replace(" active", "");
 			}
 		}
 
-		function openCity(evt, element) {
-			//	console.log("Entro en opencity", element)
+		function evaluarTabPicture(evt, element) {
+			//	console.log("Entro en evaluarTabPicture", element)
 
 			var deseleccionar = []
 
@@ -1017,21 +1017,24 @@
 			if (element.id.includes(Acciones)) {
 				deseleccionar[0] = Feedback
 				deseleccionar[1] = Matematicas
+				
 			}
 
 			if (element.id.includes(Feedback)) {
 				deseleccionar[0] = Acciones
 				deseleccionar[1] = Matematicas
+				
 			}
 
 			if (element.id.includes(Matematicas)) {
 				deseleccionar[0] = Feedback
 				deseleccionar[1] = Acciones
+				
 			}
+			
 			evalutarTab(Acciones, evt, element, deseleccionar)
-			evalutarTab(Feedback, evt, element, deseleccionar)
+			evalutarTab(Feedback, evt, element, deseleccionar)	
 			evalutarTab(Matematicas, evt, element, deseleccionar)
-
 
 
 		}
