@@ -42,14 +42,20 @@ function iniciarEditar() {
 			makeDraggable(el);
 			makeAreaDroppable(el)
 			el.resizable("destroy")
-
+	borrar = false
+		lanzar()
 		generarListadoActividades()
+		
+		
+
+		html2canvas(document.querySelector("#editor-canvas_2")).then(canvas => { 
+			var prueba = document.getElementById("activity_2")
+				prueba.appendChild(canvas)});
 
 		//  captura("activity_" + 1, "#editor-canvas_" + 1);
 		//  captura("activity_" + 2, "#editor-canvas_" + 2);
 		//  captura("activity_" + 3, "#editor-canvas_" + 3);
-		borrar = false
-		lanzar()
+	
 
 
 
@@ -69,11 +75,15 @@ function generarListadoActividades() {
 		} else {
 			AddActivityEdit(actividades[i].id.slice(-1))
 			canvas = "#editor-canvas_" + (i + 1)
+			activity = "activity_" + (i + 1);
 			var canvas3 = $(document.getElementById(canvas.replace("#", "")))
 			canvas3.droppable()
 			borrar = false
 			lanzar()
+			
 		}
+		captura(activity, canvas)
+
 
 	}
 	activity = "activity_" + 1;

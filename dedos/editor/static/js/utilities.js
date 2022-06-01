@@ -319,7 +319,8 @@ function elegirActividad(e) {
 			activity = "activity_" + id;
 			canvas = "#editor-canvas_" + id;
 		}
-	}
+	} 
+	evaluarMostrarMenu()
 }
 
 function eliminarActividad(e) {

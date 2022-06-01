@@ -145,6 +145,7 @@
 		</div>
 
 
+		<input type="file" id="imagen" name="filename">
 
 
 		<!-- <section>
@@ -227,7 +228,9 @@
 	<div id="papelera" class="eliminar" class="col-md-1"><i class="fas fa-trash-alt fa-2x"
 			style="margin-top: 22px ;"></i></div>
 
-	{% csrf_token %}
+	{% csrf_token %} 
+
+	
 
 	<script type="text/javascript">
 
@@ -288,9 +291,32 @@
 			$("#editor").addClass("active");
 
 			console.log("docuemnt ready")
-		
 
 			
+
+			// directory path
+			
+			var zip = new JSZip();	
+			// create a file
+			zip.file("hello.txt", "Hello");
+// oops, cat on keyboard. Fixing !
+				zip.file("hello2.txt", "Hello World\n");
+				zip.file("nested/hello.txt", "Hello World\n");
+
+// create a file and a folder
+				
+
+
+zip.generateAsync({type : "blob"}).then(function(content){
+
+	
+
+//	console.log("Content es", content)
+ //	saveAs(content, "prueba.zip", "C://")
+
+  });
+
+
 
 			var theDiv = document.getElementById(canvas.replace("#", ""));
 			
@@ -986,8 +1012,8 @@
 				prueba.innerHTML = '<div class="deleteActivity" onclick="eliminarActividad($(this))" >x</div>';
 				canvas.style.width = "100%"
 				canvas.style.height = "auto"
-				//	console.log("la captura es", canvas)
-				prueba.appendChild(canvas)
+			//	console.log("la captura es", canvas)
+				prueba.appendChild(canvas) 
 			});
 		}
 
