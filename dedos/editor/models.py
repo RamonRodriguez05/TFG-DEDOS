@@ -37,3 +37,4 @@ class Projects(models.Model):
     fecha = models.DateField(null=True)
     contenido = models.BinaryField(null = True)
     canvas = models.TextField(default="")
+    contenido2 = models.TextField(null= True)

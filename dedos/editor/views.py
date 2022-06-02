@@ -1,3 +1,4 @@
+import base64
 import chunk
 import mimetypes
 from wsgiref.util import FileWrapper
@@ -367,7 +368,7 @@ def proyectos(request):
 def insert(request):    
     
     proyecto = Projects(nombre=request.POST['nombre'], asignatura=request.POST['asignatura'], curso=request.POST['curso'], etiquetas=request.POST['etiquetas'], 
-    privado=request.POST['privado'], usuario=request.POST['usuario'], fecha=request.POST['fecha'], canvas=request.POST['canvas'])
+    privado=request.POST['privado'], usuario=request.POST['usuario'], fecha=request.POST['fecha'], canvas=request.POST['canvas'], contenido2=request.POST['contenido2'])
     proyecto.save()
     return redirect('/')
 
@@ -397,3 +398,7 @@ def edit(request,id):
     return render(request, 'editor/dash/editor.html', {'myProjects':id, 'data':data})
   
  
+def download2(request, id):
+    dataBase64 = Projects.objects.filter(id=id).values_list("contenido2")
+    return render(request, 'editor/dash/proyectos.html', {'zip':dataBase64})
+    

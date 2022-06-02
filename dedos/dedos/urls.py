@@ -32,4 +32,5 @@ urlpatterns = [
     path('delete/<int:id>', views.delete, name='delete'), 
     path('download/', views.download, name='download'), 
     path('edit/<int:id>', views.edit, name='edit'), 
+    path('download2/<int:id>', views.download2, name='proyectos'), 
 ]
