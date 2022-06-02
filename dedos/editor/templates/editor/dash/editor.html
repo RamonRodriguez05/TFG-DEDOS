@@ -145,85 +145,10 @@
 		</div>
 
 
-		<input type="file" id="imagen" name="filename">
+		
 
 
-		<!-- <section>
-			<div>
-				<i class="squarePath fa-solid fa-square" onclick="mostrar('conf')"></i>
-			</div>
-			<div>
-				<div class="PathIcono">
-					<i class="fa-solid fa-location-dot fa-2xl"></i>
-				</div>
-				<div id="conf" class="configurarPath ocultar">
-					<div style="height:50px">
-						<i class="PathIcono fa-solid fa-location-dot fa-2xl"></i>
-						<i class=" fa-solid fa-square"></i>
-						<i class="xMark fa-solid fa-xmark" onclick="ocultar('conf')"></i>
-					</div>
-					<div id="mover" class="insidePath ">
-						<div style="background-color: green;width:40px">Hola</div>
-						<div id="pathidPadre" style="width:220px">
-							<div id="pathid"></div>
-						</div>
-						<div style="background-color: green;width:40px; text-align: center;">
-							<i class="fa-solid fa-eye fa-xl"></i></br>
-							<input type="color" id="favcolor" name="favcolor" value="#ff0000"></br>
-							<i class="fa-brands fa-connectdevelop fa-xl"></i>
-						</div>
-					</div>
-					<div id="arrastrar" class="insidePath">
-						<i class="PathIcono fa-solid fa-location-dot fa-2x"></i>Arrastre hasta aquí para crear un nuevo camino
-					</div>
-				</div>
-			</div>
-		</section> -->
-		<!-- <section>
-					<div>
-						<i class="squarePath fa-solid fa-square" onclick="mostrar('conf')"></i>
-					</div>
-					<div>
-						<div class="PathIcono">
-							<i class="fa-solid fa-location-dot fa-2xl"></i>
-						</div>
-						<div id="conf" class="configurarPath">
-							<div style="height:50px">
-								<i class="PathIcono fa-solid fa-location-dot fa-2xl"></i>
-								<i class=" fa-solid fa-square"></i>
-								<i class="xMark fa-solid fa-xmark" onclick="ocultar('conf')"></i>
-							</div>
-							<div id="mover" class="insidePath ">
-								<div style="background-color: green;width:40px">Hola</div>
-								<div id="pathidPadre" style="width:220px">
-									<div id="pathid" class="wrap">
-
-									</div>
-
-								</div>
-								<div style="background-color: green;width:40px;  text-align: center;">
-									<i class="fa-solid fa-eye fa-xl"></i>
-									<input type="color" id="favcolor" name="favcolor" value="#ff0000">
-									<i class="fa-brands fa-connectdevelop fa-xl"></i>
-								</div>
-							</div>
-							<div id="arrastrar" class="insidePath dropzone">
-								<i class="PathIcono fa-solid fa-location-dot fa-2x"></i>
-								Arrastre hasta aquí para crear un nuevo camino
-							</div>
-						</div>
-					</div>
-
-				<canvas id="canvas2" width="500px" height="250px"></canvas>
-		</section> -->
-
-
-
-
-
-
-
-		<!-- 	<button id="btn_add" onclick="addCanvas()">Add a Div</button> -->
+	
 	</div>
 	<div id="papelera" class="eliminar" class="col-md-1"><i class="fas fa-trash-alt fa-2x"
 			style="margin-top: 22px ;"></i></div>
@@ -582,9 +507,16 @@ zip.generateAsync({type : "blob"}).then(function(content){
 						//	console.log("a", a.left, a.top, a.bottom, a.right)
 						if (type == "objetive" || type == "math" || type == "time" || type == "path") {
 							var content = document.getElementById($item[0].id)
-							content.lastElementChild.remove()
-							content.lastElementChild.remove()
-							content.lastElementChild.remove()
+							if(content.lastElementChild != null){
+								content.lastElementChild.remove()
+							}
+								
+							if(content.lastElementChild != null){
+								content.lastElementChild.remove()
+							}
+							if(content.lastElementChild != null){
+								content.lastElementChild.remove()
+							}
 						}
 
 						if (type == "card" || type == "picture") {

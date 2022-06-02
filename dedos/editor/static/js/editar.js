@@ -82,7 +82,7 @@ function generarListadoActividades() {
 			lanzar()
 			
 		}
-		captura(activity, canvas)
+	//	captura(activity, canvas)
 
 
 	}
