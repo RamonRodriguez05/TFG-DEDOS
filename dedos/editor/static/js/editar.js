@@ -34,9 +34,9 @@ function iniciarEditar() {
 		lanzarElementos("picture")
 		lanzarElementos("time")
 		lanzarElementos("objetive")
-	//	lanzarElementos("math") 
+		lanzarElementos("math") 
 
-		var el = $(document.getElementById("math3"))
+		var el = $(document.getElementById("math1"))
 			
 			el.draggable()
 			makeDraggable(el);
