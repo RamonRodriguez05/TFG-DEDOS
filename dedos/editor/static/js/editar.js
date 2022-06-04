@@ -19,6 +19,9 @@ function iniciarEditar() {
 		cargar = cargar.replace(",)]>", "")
 		cargar = cargar.replace('<div id="listaCanvas">', "")
 		cargar = cargar.substring(0, cargar.length - 6);
+		cargar = cargar.replace('left: 20px; bottom: -15px; margin-bottom: -15px; position: relative;', 'left: 20px; bottom:-2px; margin-bottom: -15px;')
+		cargar = cargar.replace('left: 20px; bottom: -5px; margin-bottom: -15px; position: relative;', 'left: 20px; bottom:-2px; margin-bottom: -15px; position: relative;')
+
 
 		//	console.log("El valor valee", cargar)
 		document.getElementById("myVar").remove()
@@ -36,21 +39,21 @@ function iniciarEditar() {
 		lanzarElementos("objetive")
 		lanzarElementos("math") 
 
-		var el = $(document.getElementById("math1"))
+		// var el = $(document.getElementById("math1"))
 			
-			el.draggable()
-			makeDraggable(el);
-			makeAreaDroppable(el)
-			el.resizable("destroy")
-	borrar = false
+		// 	el.draggable()
+		// 	makeDraggable(el);
+		// 	makeAreaDroppable(el)
+		// 	el.resizable("destroy")
+		borrar = false
 		lanzar()
 		generarListadoActividades()
 		
 		
 
-		html2canvas(document.querySelector("#editor-canvas_2")).then(canvas => { 
-			var prueba = document.getElementById("activity_2")
-				prueba.appendChild(canvas)});
+		// html2canvas(document.querySelector("#editor-canvas_2")).then(canvas => { 
+		// 	var prueba = document.getElementById("activity_2")
+		// 		prueba.appendChild(canvas)});
 
 		//  captura("activity_" + 1, "#editor-canvas_" + 1);
 		//  captura("activity_" + 2, "#editor-canvas_" + 2);
@@ -73,7 +76,7 @@ function generarListadoActividades() {
 			previousCanvas = canvas
 			actividades[i].classList.remove("ocultar")
 		} else {
-			AddActivityEdit(actividades[i].id.slice(-1))
+			AddActivityEdit(actividades[i].id.split("_")[1])
 			canvas = "#editor-canvas_" + (i + 1)
 			activity = "activity_" + (i + 1);
 			var canvas3 = $(document.getElementById(canvas.replace("#", "")))
@@ -119,7 +122,7 @@ function lanzarElementos(nombreClase) {
 		for (var i = 0; i < elementos.length; i++) {
 			var el = $(document.getElementById(elementos[i].id))
 
-			var id = parseInt(elementos[i].id.slice(-1));
+			var id = parseInt(elementos[i].id.split("_")[1]);
 			makeAreaDroppable(el)
 
 			makeDraggable(el);
@@ -148,11 +151,14 @@ function lanzarElementos(nombreClase) {
 	} else {
 		for (var i = 0; i < elementos.length; i++) {
 			var el = $(document.getElementById(elementos[i].id))
-			var id = parseInt(elementos[i].id.slice(-1));
+			var idSplit = elementos[i].id.split("_")
+			var id = parseInt(idSplit[1]);
+			console.log("id al lanzar es", elementos[i].id)
+			console.log("el padre al lanzar", elementos[i].parentNode.parentNode.id)
 			el.draggable()
 			makeDraggable(el);
 			el.resizable("destroy")
-
+			var elementoLista = new elementoSelectores(elementos[i].parentNode.parentNode.id, elementos[i].id)
 			if (nombreClase.includes("time")) {
 				if (id > num_time) {
 					num_time = id
@@ -161,10 +167,13 @@ function lanzarElementos(nombreClase) {
 				if (id > num_objetive) {
 					num_objetive = id
 				}
+				
+				listaSelectores.push(elementoLista)
 			} else if (nombreClase.includes("math")) {
 				if (id > num_math) {
 					num_math = id
 				}
+				listaSelectores.push(elementoLista)
 			}
 		}
 

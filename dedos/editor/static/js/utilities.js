@@ -14,206 +14,83 @@ function fijarTarjeta(input) {
 }
 
 function evaluarPosicion($item) {
-	var positions = $item.position()
-	//	console.log("pp", positions)
-	var rect = $item[0].getBoundingClientRect();
-	//	console.log("ELEMENTO:", "top:", rect.top, "left:", rect.left, "bottom:", rect.bottom, "right:", rect.right,);
+	if ($item != null) {
+		var positions = $item.position()
+		//	console.log("pp", positions)
+		var rect = $item[0].getBoundingClientRect();
+		//	console.log("ELEMENTO:", "top:", rect.top, "left:", rect.left, "bottom:", rect.bottom, "right:", rect.right,);
 
-	var elementoX = rect.bottom
-	var elementoY = rect.left
-	//	console.log("punto elemento", elementoX, elementoY)
-	var papelera = document.getElementById("papelera")
+		var elementoX = rect.bottom
+		var elementoY = rect.left
+		//	console.log("punto elemento", elementoX, elementoY)
+		var papelera = document.getElementById("papelera")
 
-	var rect = papelera.getBoundingClientRect();
-	//	console.log("PAPELERA:", "top:", rect.top, "left:", rect.left, "bottom:", rect.bottom, "right:", rect.right,);
-	var papeleraX = rect.top
-	var papeleraY = rect.right
-	//	console.log("Papelera", papeleraX, papeleraY)
+		var rect = papelera.getBoundingClientRect();
+		//	console.log("PAPELERA:", "top:", rect.top, "left:", rect.left, "bottom:", rect.bottom, "right:", rect.right,);
+		var papeleraX = rect.top
+		var papeleraY = rect.right
+		//	console.log("Papelera", papeleraX, papeleraY)
 
-	if (elementoX - 30 > papeleraX && elementoY + 30 < papeleraY) {
-		console.log("HA ENTRADO PAPELERA")
-		if ($item[0].id.includes("time")) {
-			num_time = 0
-			div = document.getElementById("TemporizadorBueno");
-			div.classList.remove("ocultar");
-			div = document.getElementById("TemporizadorTemp");
-			div.classList.add("ocultar");
-			itemTemporizador = null
-			evaluarMostrarMenu()
-		}
-		if ($item[0].id.includes("area")) {
-			num_area--;
-		}
-		$($item).remove()
-	} else {
-		//	lastItem.style ="left:" + posLeft + "; right:"+ posRight;
-		if ($item[0].id.includes("time")) {
-			//		console.log('Temporizador', $item[0].id)
-			var temporizador = document.getElementById($item[0].id)
-			// temporizador.style.top = "140px"
-			// temporizador.style.left = "5px"
-			temporizador.style.position = "fixed"
-			temporizador.style.left = "87%"
-			temporizador.style.top = "85%"
-		}
-
-		// Alinear con padre
-		if ($item[0].id.includes("objetive") || $item[0].id.includes("math")) {
-			console.log("el id´dddd es", $item[0].id)
-			console.log("el item is", $item)
-			console.log("el padre del item es", $item.parent()[0].children[0])
-			if ($item.parent()[0].id.includes(canvas.replace("#", ""))) {
-				if (lastPadreObjetive != null) {
-					//	console.log("en el remoooveeee", $item.parent()[0].id)
-					lastPadreObjetive.classList.remove("selector")
-					lastPadreObjetive = null
-				}
-				//	$item.remove()
-			} else {
-
-				// colocar los elementos para que no se muevan
-
-				if ($item.parent()[0].id.includes("card") || $item.parent()[0].id.includes("picture")) {
-					var hijo = document.getElementById($item[0].id)
-					hijo.style = " left: 20px; margin-bottom: -15px"
-					var parent = document.getElementById($item.parent()[0].children[0].id)
-
-					//	console.log("el padre total es", $item.parent()[0].id)
-					// Mira si ya tienen un elemento de ese tipo´
-
-					var padreAbsoluto = document.getElementById($item.parent()[0].id)
-
-					var objetiveEncontrado = padreAbsoluto.classList.contains("selector")
-					var padre = document.getElementById($item.parent()[0].id)
-
-					//	console.log("El padre para chequear es", padre)
-					var hijos = padre.childNodes
-					//	console.log("Los hijos para chequear son", hijos)
-
-
-					//	console.log("ENCONTRADOO OBJETIVE", objetiveEncontrado)
-					if (!objetiveEncontrado) {
-						padreAbsoluto.classList.add("selector")
-						parent.insertBefore(hijo, parent.children[0]);
-						lastPadreObjetive = padreAbsoluto
-					} else {
-						$item.remove()
-					}
-
-				} else if ($item.parent()[0].id.includes("area")) {
-					//	console.log("el hijoopadre del item es area ", $item[0].id)
-					var hijo = document.getElementById($item[0].id)
-						//	var rect = hijo.getBoundingClientRect();
-						//	console.log("Las posiciones hijo son",rect.top, rect.right, rect.bottom, rect.left);
-						;// =" position: absolute; left: 60px; top: 35px;"
-					parent = document.getElementById("area1")
-					var rect = parent.getBoundingClientRect();
-					//	console.log("Las posiciones padre son", rect.top, rect.right, rect.bottom, rect.left);
-					var je = posRight - rect.top - 45
-					var jo = posLeft - rect.left - 10
-					//	console.log("resta top", je, "resta left", jo)
-					hijo.style = "top:" + je + "px; left:" + jo + "px;"
-					parent.appendChild(document.getElementById($item[0].id))
-				} else {
-					$item.remove();
-				}
-
-
+		if (elementoX - 30 > papeleraX && elementoY + 30 < papeleraY) {
+			console.log("HA ENTRADO PAPELERA")
+			if ($item[0].id.includes("time")) {
+				num_time = 0
+				div = document.getElementById("TemporizadorBueno");
+				div.classList.remove("ocultar");
+				div = document.getElementById("TemporizadorTemp");
+				div.classList.add("ocultar");
+				itemTemporizador = null
+				evaluarMostrarMenu()
 			}
-		}
-
-		if ($item[0].id.includes("picture")) {
-			if ($item.parent()[0].id.includes("card")) {
-
-				//	console.log("el padre del item es picture ", $item.parent()[0].id)
-				//	console.log("el padre del item es picture ", $item)
-				var hijo = document.getElementById($item[0].id)
-				hijo.style = "  left: 60px;"
-				var parent = document.getElementById("card1")
-				parent.appendChild(document.getElementById("picture1"))
+			if ($item[0].id.includes("area")) {
+				num_area--;
 			}
-		}
-	}
-
-
-	captura(activity, canvas)
-}
-
-// Evaluar posicion al iniciar
-function evaluarPosicionInicio($item) {
-	var positions = $item.position()
-	var rect = $item[0].getBoundingClientRect();
-	var elementoX = rect.bottom
-	var elementoY = rect.left
-	var papelera = document.getElementById("papelera")
-	var rect = papelera.getBoundingClientRect();
-	var papeleraX = rect.top
-	var papeleraY = rect.right
-
-	if (elementoX > papeleraX && elementoY < papeleraY) {
-		console.log("HA ENTRADO PAPELERA")
-		if ($item[0].id.includes("time")) {
-			num_time = 0
-			div = document.getElementById("TemporizadorBueno");
-			div.classList.remove("ocultar");
-			div = document.getElementById("TemporizadorTemp");
-			div.classList.add("ocultar");
-			itemTemporizador = null
-		}
-		if ($item[0].id.includes("area")) {
-			num_area--;
-		}
-		evaluarMostrarMenu()
-		$($item).remove()
-	} else {
-		// Alinear con padre 
-		var borrado = false
-		if ($item[0].id.includes("objetive") || $item[0].id.includes("math")) {
-			console.log("el elemento arrastrado es", $item[0].id)
-			var padre = null
-
-			//		console.log("ELEMENTO EN POSICION",pointerElementID)
-			if (isPicture) {
-				padre = document.getElementById(padrePicture)
-			} else if (isCard) {
-				padre = document.getElementById(padreCard)
-			}
-			else {
-				$item.remove()
-				borrado = true
+			$($item).remove()
+		} else {
+			//	lastItem.style ="left:" + posLeft + "; right:"+ posRight;
+			if ($item[0].id.includes("time")) {
+				//		console.log('Temporizador', $item[0].id)
+				var temporizador = document.getElementById($item[0].id)
+				// temporizador.style.top = "140px"
+				// temporizador.style.left = "5px"
+				temporizador.style.position = "fixed"
+				temporizador.style.left = "87%"
+				temporizador.style.top = "85%"
 			}
 
-			if (!borrado) {
-				console.log("El padre es", padre.id)
-				console.log("el item is", $item.id)
+			// Alinear con padre
+			if ($item[0].id.includes("objetive") || $item[0].id.includes("math")) {
+				//	console.log("el iddddd es", $item[0].id)
+				//	console.log("el item is", $item)
+				//	console.log("el padre del item es", $item.parent()[0].children[0])
+				if ($item.parent()[0].id.includes(canvas.replace("#", ""))) {
+					// if (lastPadreObjetive != null) {
+					// 	//	console.log("en el remoooveeee", $item.parent()[0].id)
+					// 	lastPadreObjetive.classList.remove("selector")
+					// 	lastPadreObjetive = null
+					// }else{
 
-				if (padre.classList.contains("selector")) {
-					lastPadreObjetive = null
-					console.log("Se ha borrado porque ya tiene un elemento")
+					// }´
+					console.log("Elemento borrado")
 					$item.remove()
-
 				} else {
 
 					// colocar los elementos para que no se muevan
 
-					if (padre != null && (padre.id.includes("card") || padre.id.includes("picture"))) {
+					if ($item.parent()[0].id.includes("card") || $item.parent()[0].id.includes("picture")) {
 						var hijo = document.getElementById($item[0].id)
-						hijo.style = " left: 20px; margin-bottom: -15px"
-						var padreAbsoluto = null
-						if (padre.id.includes("card")) {
-							padreAbsoluto = document.getElementById(padreCard)
+						if (hijo.id.includes("objetive")) {
+							hijo.style = " left: 20px; bottom:-15px; margin-bottom: -15px; position:relative"
 						} else {
-							padreAbsoluto = document.getElementById(padrePicture)
+							hijo.style = " left: 20px; bottom:-5px; margin-bottom: -15px; position:relative"
 						}
 
-
-						console.log("El hijo", hijo)
-						console.log("El padreabsoluto", padreAbsoluto)
+						var parent = document.getElementById($item.parent()[0].children[0].id)
 
 						//	console.log("el padre total es", $item.parent()[0].id)
 						// Mira si ya tienen un elemento de ese tipo´
 
-
+						var padreAbsoluto = document.getElementById($item.parent()[0].id)
 
 						var objetiveEncontrado = padreAbsoluto.classList.contains("selector")
 						var padre = document.getElementById($item.parent()[0].id)
@@ -223,15 +100,36 @@ function evaluarPosicionInicio($item) {
 						//	console.log("Los hijos para chequear son", hijos)
 
 
-						//	console.log("ENCONTRADOO OBJETIVE", objetiveEncontrado)
+						//	console.log("ENCONTRADOO OBJETIVEe", objetiveEncontrado)
 						if (!objetiveEncontrado) {
 							padreAbsoluto.classList.add("selector")
-							console.log("El padreabsoluto", padreAbsoluto)
-							padreAbsoluto.children[0].insertBefore(hijo, padreAbsoluto.children[0].children[0]);
+							parent.insertBefore(hijo, parent.children[0]);
 							lastPadreObjetive = padreAbsoluto
 						} else {
-							$item.remove()
+							for (var i = 0; i < listaSelectores.length; i++) {
+								if (listaSelectores[i].hijo == hijo.id) {
+									if (listaSelectores[i].padre != padreAbsoluto.id) {
+										$item.remove()
+										console.log("Elemento borrado porque ya existe otro")
+										listaSelectores = listaSelectores.filter(item => !(item.hijo == hijo.id));
+									} else {
+										if (hijo.id.includes("objetive")) {
+											hijo.style = " left: 20px; bottom:-15px; margin-bottom: -15px; position:relative"
+										} else {
+											hijo.style = " left: 20px; bottom:-5px; margin-bottom: -15px; position:relative"
+										}
+										var padreAbsoluto = null
+										if (padre.id.includes("card")) {
+											padreAbsoluto = document.getElementById(padreCard)
+										} else {
+											padreAbsoluto = document.getElementById(padrePicture)
+										}
+										padreAbsoluto.children[0].insertBefore(hijo, padreAbsoluto.children[0].children[0]);
+									}
+								}
+							}
 						}
+						console.log("lista selec", listaSelectores)
 
 					} else if ($item.parent()[0].id.includes("area")) {
 						//	console.log("el hijoopadre del item es area ", $item[0].id)
@@ -249,31 +147,195 @@ function evaluarPosicionInicio($item) {
 						parent.appendChild(document.getElementById($item[0].id))
 					} else {
 						$item.remove();
+						console.log("Elemento borrado")
 					}
 
 
 				}
 			}
-		}
 
-		if ($item[0].id.includes("picture")) {
-			if ($item.parent()[0].id.includes("card")) {
+			if ($item[0].id.includes("picture")) {
+				if ($item.parent()[0].id.includes("card")) {
 
-				//	console.log("el padre del item es picture ", $item.parent()[0].id)
-				//	console.log("el padre del item es picture ", $item)
-				var hijo = document.getElementById($item[0].id)
-				hijo.style = "  left: 60px;"
-				var parent = document.getElementById("card1")
-				parent.appendChild(document.getElementById("picture1"))
+					//	console.log("el padre del item es picture ", $item.parent()[0].id)
+					//	console.log("el padre del item es picture ", $item)
+					var hijo = document.getElementById($item[0].id)
+					hijo.style = "  left: 60px;"
+					var parent = document.getElementById("card1")
+					parent.appendChild(document.getElementById("picture1"))
+				}
 			}
 		}
 	}
 
 
+	captura(activity, canvas)
+}
+
+// Evaluar posicion al iniciar
+function evaluarPosicionInicio($item) {
+	if ($item != null) {
+		var positions = $item.position()
+		var rect = $item[0].getBoundingClientRect();
+		var elementoX = rect.bottom
+		var elementoY = rect.left
+		var papelera = document.getElementById("papelera")
+		var rect = papelera.getBoundingClientRect();
+		var papeleraX = rect.top
+		var papeleraY = rect.right
+
+		if (elementoX > papeleraX && elementoY < papeleraY) {
+			console.log("HA ENTRADO PAPELERA")
+			if ($item[0].id.includes("time")) {
+				num_time = 0
+				div = document.getElementById("TemporizadorBueno");
+				div.classList.remove("ocultar");
+				div = document.getElementById("TemporizadorTemp");
+				div.classList.add("ocultar");
+				itemTemporizador = null
+			}
+			if ($item[0].id.includes("area")) {
+				num_area--;
+			}
+			evaluarMostrarMenu()
+			$($item).remove()
+		} else {
+			// Alinear con padre 
+			var borrado = false
+			if ($item[0].id.includes("objetive") || $item[0].id.includes("math")) {
+				//console.log("el elemento arrastrado es", $item[0].id)
+				var padre = null
+
+				//		console.log("ELEMENTO EN POSICION",pointerElementID)
+				if (isPicture) {
+					padre = document.getElementById(padrePicture)
+				} else if (isCard) {
+					padre = document.getElementById(padreCard)
+				} else {
+					$item.remove()
+					borrado = true
+					console.log("Elemento borrado")
+				}
+
+				if (!borrado) {
+					//	console.log("El padre es", padre.id)
+					//	console.log("el item is", $item.id)
+
+					if (padre.classList.contains("selector")) {
+						lastPadreObjetive = null
+						console.log("Se ha borrado porque ya tiene un elemento")
+						$item.remove()
+
+					} else {
+
+						// colocar los elementos para que no se muevan
+
+						if (padre != null && (padre.id.includes("card") || padre.id.includes("picture"))) {
+							var hijo = document.getElementById($item[0].id)
+							if (hijo.id.includes("objetive")) {
+								hijo.style = " left: 20px; bottom:-15px; margin-bottom: -15px; position:relative"
+							} else {
+								hijo.style = " left: 20px; bottom:-5px; margin-bottom: -15px; position:relative"
+							}
+							var padreAbsoluto = null
+							if (padre.id.includes("card")) {
+								padreAbsoluto = document.getElementById(padreCard)
+							} else {
+								padreAbsoluto = document.getElementById(padrePicture)
+							}
+
+
+							//	console.log("El hijo", hijo)
+							//	console.log("El padreabsoluto", padreAbsoluto)
+
+							//	console.log("el padre total es", $item.parent()[0].id)
+							// Mira si ya tienen un elemento de ese tipo´
+
+
+
+							var objetiveEncontrado = padreAbsoluto.classList.contains("selector")
+							var padre = document.getElementById($item.parent()[0].id)
+
+							//	console.log("El padre para chequear es", padre)
+							var hijos = padre.childNodes
+							//	console.log("Los hijos para chequear son", hijos)
+
+
+							//	console.log("ENCONTRADOO OBJETIVEe", objetiveEncontrado)
+							if (!objetiveEncontrado) {
+								padreAbsoluto.classList.add("selector")
+								//	console.log("El padreabsoluto", padreAbsoluto)
+								padreAbsoluto.children[0].insertBefore(hijo, padreAbsoluto.children[0].children[0]);
+								lastPadreObjetive = padreAbsoluto
+								var elSelectores = new elementoSelectores(padreAbsoluto.id, hijo.id)
+								listaSelectores.push(elSelectores)
+
+							} else {
+								for (var i = 0; i < listaSelectores.length; i++) {
+									if (listaSelectores[i].hijo == hijo.id) {
+										if (listaSelectores[i].padre != padreAbsoluto.id) {
+											$item.remove()
+											console.log("Elemento borrado porque ya existe otro")
+											listaSelectores = listaSelectores.filter(item => !(item.hijo == hijo.id));
+										} else {
+											if (hijo.id.includes("objetive")) {
+												hijo.style = " left: 20px; bottom:-15px; margin-bottom: -15px; position:relative"
+											} else {
+												hijo.style = " left: 20px; bottom:-5px; margin-bottom: -15px; position:relative"
+											}
+											var padreAbsoluto = null
+											if (padre.id.includes("card")) {
+												padreAbsoluto = document.getElementById(padreCard)
+											} else {
+												padreAbsoluto = document.getElementById(padrePicture)
+											}
+											padreAbsoluto.children[0].insertBefore(hijo, padreAbsoluto.children[0].children[0]);
+										}
+									}
+								}
+							}
+							console.log("lista selec", listaSelectores)
+						} else if ($item.parent()[0].id.includes("area")) {
+							//	console.log("el hijoopadre del item es area ", $item[0].id)
+							var hijo = document.getElementById($item[0].id)
+								//	var rect = hijo.getBoundingClientRect();
+								//	console.log("Las posiciones hijo son",rect.top, rect.right, rect.bottom, rect.left);
+								;// =" position: absolute; left: 60px; top: 35px;"
+							parent = document.getElementById("area1")
+							var rect = parent.getBoundingClientRect();
+							//	console.log("Las posiciones padre son", rect.top, rect.right, rect.bottom, rect.left);
+							var je = posRight - rect.top - 45
+							var jo = posLeft - rect.left - 10
+							//	console.log("resta top", je, "resta left", jo)
+							hijo.style = "top:" + je + "px; left:" + jo + "px;"
+							parent.appendChild(document.getElementById($item[0].id))
+						} else {
+							$item.remove();
+						}
+
+
+					}
+				}
+			}
+
+			if ($item[0].id.includes("picture")) {
+				if ($item.parent()[0].id.includes("card")) {
+
+					//	console.log("el padre del item es picture ", $item.parent()[0].id)
+					//	console.log("el padre del item es picture ", $item)
+					var hijo = document.getElementById($item[0].id)
+					hijo.style = "  left: 60px;"
+					var parent = document.getElementById("card1")
+					parent.appendChild(document.getElementById("picture1"))
+				}
+			}
+		}
+	}
+
 	//		captura(activity, canvas)
 }
 
-// Evalua si una tarjeta tiene ya un objetive o math
+// Evalua si una tarjeta tiene ya un objetivee o math
 function actualizarTarjetas(id) {
 	var title = "idTitle"
 	if (id.includes("picture")) {
@@ -319,7 +381,7 @@ function elegirActividad(e) {
 			activity = "activity_" + id;
 			canvas = "#editor-canvas_" + id;
 		}
-	} 
+	}
 	evaluarMostrarMenu()
 }
 
@@ -381,8 +443,8 @@ function addActivity() {
 
 	theDiv.appendChild(document.createElement("br"));
 	theDiv.appendChild(document.createElement("br"));
-	var tag = document.createElement("h1"); 
-	tag.id = "MensajeInicial_" + canvas.replace("#","")
+	var tag = document.createElement("h1");
+	tag.id = "MensajeInicial_" + canvas.replace("#", "")
 	tag.classList.add("center");
 	var text = document.createTextNode("Este es el área de edición:");
 	tag.appendChild(text);
@@ -401,8 +463,8 @@ function addActivity() {
 	tag3.appendChild(text3);
 	theDiv.appendChild(tag3);
 
-	
-	
+
+
 	num_activity++;
 	borrar = true
 	lanzar()
@@ -416,8 +478,8 @@ function evaluarMostrarMenu() {
 	var mostrarMenu = false
 	var tieneReloj = false
 	var hijos = document.getElementById(canvas.replace("#", "")).children
-//	console.log("El canvas es", canvas)
-//	console.log("los hijos del canvas", hijos)
+	//	console.log("El canvas es", canvas)
+	//	console.log("los hijos del canvas", hijos)
 
 	for (var i = 0; i < hijos.length; i++) {
 		//console.log("hijo id", hijos[i].id)
@@ -429,8 +491,8 @@ function evaluarMostrarMenu() {
 			tieneReloj = true
 		}
 	}
-//	console.log("Tiene algun area", mostrarMenu)
-//	console.log("Tiene reloj", tieneReloj)
+	//	console.log("Tiene algun area", mostrarMenu)
+	//	console.log("Tiene reloj", tieneReloj)
 
 	if (mostrarMenu) {
 		mostrarOpciones(tieneReloj)
@@ -521,21 +583,21 @@ function mostrarOpciones(tieneReloj) {
 		div = document.getElementById("TemporizadorBueno");
 		div.classList.add("ocultar");
 	}
-} 
+}
 
 
 function limpiarCanvas() {
 
-//	
+	//	
 
 
-	var mensajeInicial = document.getElementById("MensajeInicial_" + canvas.replace("#",""))
-	
-	
-	console.log("Mensaje inicial es", mensajeInicial) 
+	var mensajeInicial = document.getElementById("MensajeInicial_" + canvas.replace("#", ""))
 
-	if(mensajeInicial != null){
+
+	//console.log("Mensaje inicial es", mensajeInicial) 
+
+	if (mensajeInicial != null) {
 		document.getElementById(canvas.replace("#", "")).innerHTML = "";
 	}
-	
+
 }

@@ -23,11 +23,11 @@
 					<fieldset>
 						<label for="nombre">Nombre:</label>
 						<input type="text" name="nombre" id="nombre"><br><br>
-						
+
 						<label for="descripcion">Descripción:</label>
 						<input type="text" name="descripcion" id="descripcion"><br><br>
 
-						<label for="curso">Nivel educativo:</label> 
+						<label for="curso">Nivel educativo:</label>
 						<select name="curso" id="curso">
 							<option value="Infantil">Infantil</option>
 							<option value="Primaria">Primaria</option>
@@ -40,20 +40,22 @@
 							<option value="Ciencias Naturales">Ciencias Naturales</option>
 							<option value="Lengua Castellana y Literatura">Lengua Castellana y Literatura</option>
 							<option value="Inglés">Inglés</option>
-							<option value="Conocimiento corporal y construcción de la propia identidad">Conocimiento corporal y construcción de la propia identidad</option>
-							<option value="Conocimiento y participación en el medio físico y social">Conocimiento y participación en el medio físico y social</option>
+							<option value="Conocimiento corporal y construcción de la propia identidad">Conocimiento
+								corporal y construcción de la propia identidad</option>
+							<option value="Conocimiento y participación en el medio físico y social">Conocimiento y
+								participación en el medio físico y social</option>
 							<option value="Comunicación y lenguaje">Comunicación y lenguaje</option>
 						</select><br><br>
-						
-						
-						
-						
-						
-					
-						
 
 
-						
+
+
+
+
+
+
+
+
 						<label for="etiquetas">Etiquetas</label>
 						<input type="text" name="etiquetas" id="etiquetas"><br><br>
 						<label for="privacidad">Privacidad:</label>
@@ -88,11 +90,11 @@
 				<i id="imagenArea" class="fa-solid fa-square fa-2x"></i>
 			</div>
 
-			<!-- Buenos ´area-accept-->
+			<!-- Buenos area-accept-->
 			<div id="TextoBueno" class="col-md-1 tool   ocultar" id="tool-2-icon draggable tool" type="card">
 				<i id="imagenTexto" class="fa-solid fa-pen fa-2xl"></i>
 			</div>
-			<div id="FotoBueno" class="col-md-1 tool   ocultar" id="tool-3-icon draggable tool" type="picture">
+			<div id="FotoBueno" class="col-md-1 tool  ocultar" id="tool-3-icon draggable tool" type="picture">
 				<i id="imagenFoto" class="fa-solid fa-image fa-2xl "></i>
 			</div>
 			<div id="SeleccionBueno" class="col-md-1 tool  ocultar" id="tool-4-icon draggable tool" type="objetive"><i
@@ -142,20 +144,27 @@
 
 	<div id="listaCanvas">
 		<div id="editor-canvas_1" class="editor-canvas dropzone" style="border:2px;width:100%; height:100%">
+			 
+			
+				<label for="myfile">Select files:</label>
+				<input type="file" id="myfile" name="myfile" multiple><br><br>
+				<input type="submit" onclick="probarsubir()">
+			 
+	
 		</div>
 
 
-		
 
 
-	
+
+
 	</div>
 	<div id="papelera" class="eliminar" class="col-md-1"><i class="fas fa-trash-alt fa-2x"
 			style="margin-top: 22px ;"></i></div>
 
-	{% csrf_token %} 
+	{% csrf_token %}
 
-	
+
 
 	<script type="text/javascript">
 
@@ -205,50 +214,49 @@
 		const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
 		isPicture = false
-			isCard = false
-			padrePicture = null
-			padreCard = null
+		isCard = false
+		padrePicture = null
+		padreCard = null
 
-		//Borrar 
-		or = null
+		listaSelectores = []
 		$(document).ready(function () {
 			$("#groupMenu").collapse("toggle");
 			$("#editor").addClass("active");
 
 			console.log("docuemnt ready")
 
-			
+
 
 			// directory path
-			
-			var zip = new JSZip();	
+
+			var zip = new JSZip();
 			// create a file
 			zip.file("hello.txt", "Hello");
-// oops, cat on keyboard. Fixing !
-				zip.file("hello2.txt", "Hello World\n");
-				zip.file("nested/hello.txt", "Hello World\n");
+			// oops, cat on keyboard. Fixing !
+			zip.file("hello2.txt", "Hello World\n");
+			zip.file("nested/hello.txt", "Hello World\n");
 
-// create a file and a folder
-				
+			// create a file and a folder
 
 
-zip.generateAsync({type : "blob"}).then(function(content){
 
-	
+			zip.generateAsync({ type: "blob" }).then(function (content) {
 
-//	console.log("Content es", content)
- //	saveAs(content, "prueba.zip", "C://")
 
-  });
+
+				//	console.log("Content es", content)
+				//	saveAs(content, "prueba.zip", "C://")
+
+			});
 
 
 
 			var theDiv = document.getElementById(canvas.replace("#", ""));
-			
+
 			theDiv.appendChild(document.createElement("br"));
 			theDiv.appendChild(document.createElement("br"));
 			var tag = document.createElement("h1");
-			tag.id = "MensajeInicial_" + canvas.replace("#","")
+			tag.id = "MensajeInicial_" + canvas.replace("#", "")
 			tag.classList.add("center");
 			var text = document.createTextNode("Este es el área de edición:");
 			tag.appendChild(text);
@@ -267,9 +275,27 @@ zip.generateAsync({type : "blob"}).then(function(content){
 			tag3.appendChild(text3);
 			theDiv.appendChild(tag3);
 
-			iniciarEditar() 
+			iniciarEditar()
 			captura(activity, canvas)
 			//editar
+			// rpueba
+			//var canvasprueba = document.getElementById("previewactivity_1");
+			
+			// canvasprueba.toBlob(function (blob) {
+			// 	var newImg = document.createElement('img'),
+			// 		url = URL.createObjectURL(blob);
+
+			// 	newImg.onload = function () {
+			// 		// no longer need to read the blob so it's revoked
+			// 		URL.revokeObjectURL(url);
+			// 	};
+
+			// 	newImg.src = url;
+			// 	document.body.appendChild(newImg);
+			// });
+
+
+			//fin prueba
 
 
 		})
@@ -293,7 +319,7 @@ zip.generateAsync({type : "blob"}).then(function(content){
 					//	console.log("Drop en canvas de nuevo "); 
 
 					limpiarCanvas()
-					
+
 
 
 
@@ -323,49 +349,49 @@ zip.generateAsync({type : "blob"}).then(function(content){
 						var idAcciones = "Acciones_" + (num_card + 1)
 						var idFeedback = "Feedback_" + (num_card + 1)
 						var idMatematicas = "Matematicas_" + (num_card + 1)
-						var tabsCard = $('<section id ="' + texto3id + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + idAcciones+ '" onclick="evaluarTabCard(event, ' + idAcciones + ')">Acciones</button><button class="tablinks ' + idFeedback+ '" onclick="evaluarTabCard(event, ' + idFeedback + ')">Feedback</button><button class="tablinks ' + idMatematicas+ '" style="margin-right:5px;" onclick="evaluarTabCard(event, ' + idMatematicas + ')">Matemáticas</button></div><div id="' + idAcciones + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + idFeedback + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
+						var tabsCard = $('<section id ="' + texto3id + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + idAcciones + '" onclick="evaluarTabCard(event, ' + idAcciones + ')">Acciones</button><button class="tablinks ' + idFeedback + '" onclick="evaluarTabCard(event, ' + idFeedback + ')">Feedback</button><button class="tablinks ' + idMatematicas + '" style="margin-right:5px;" onclick="evaluarTabCard(event, ' + idMatematicas + ')">Matemáticas</button></div><div id="' + idAcciones + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + idFeedback + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
 							idMatematicas + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>')
-							
+
 						var textAreaid = "textArea_" + (num_card + 1)
 						var inputTexto = $('<textarea id="' + textAreaid + '"class="inputText" placeholder="Escriba aquí el texto" name = "description" ></textarea>')
-							
+
 						var configid = "config_card_" + (num_card + 1)
 						var configurationButton = $("<div id='" + configid + "' class='config' onclick=mostrarConfigCard(this)><i class='fa-solid fa-gear'></i></div>")
-							
+
 						// Image
 						var backImageID = "backImage_" + (num_picture + 1)
 						var AccionesImageID = "AccionesImage_" + (num_picture + 1)
 						var FeedbackImageID = "FeedbackImage_" + (num_picture + 1)
 						var MatematicasImageID = "MatematicasImage_" + (num_picture + 1)
-						var tabImage = $('<section id ="' + backImageID + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + AccionesImageID +'" onclick="evaluarTabImage(event, ' + AccionesImageID + ')">Acciones</button><button class="tablinks ' + FeedbackImageID +'" onclick="evaluarTabImage(event, ' + FeedbackImageID + ')">Feedback</button><button class="tablinks ' + MatematicasImageID +'" style="margin-right:5px;" onclick="evaluarTabImage(event, ' + MatematicasImageID + ')">Matemáticas</button></div><div id="' + AccionesImageID + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + FeedbackImageID + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
+						var tabImage = $('<section id ="' + backImageID + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + AccionesImageID + '" onclick="evaluarTabImage(event, ' + AccionesImageID + ')">Acciones</button><button class="tablinks ' + FeedbackImageID + '" onclick="evaluarTabImage(event, ' + FeedbackImageID + ')">Feedback</button><button class="tablinks ' + MatematicasImageID + '" style="margin-right:5px;" onclick="evaluarTabImage(event, ' + MatematicasImageID + ')">Matemáticas</button></div><div id="' + AccionesImageID + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + FeedbackImageID + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
 							MatematicasImageID + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>')
-								
+
 						var titleImageID = "titleImage_" + (num_picture + 1)
 						var idButtonImage = "idbuttonImage_" + (num_picture + 1)
 						var titleImage = $('<div id="' + titleImageID + '" class="tituloTexto2" onclick=fijarPicture(this)><button id="' + idButtonImage + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span style = "font-weight: bold;">Imagen</span></div>')
-							
+
 						var configidImagen = "config_picture_" + (num_picture + 1)
 						var configurationButtonImagen = $("<div id='" + configidImagen + "' class='config' onclick=mostrarConfigPicture(this)><i class='fa-solid fa-gear'></i></div>")
-							
+
 						var dropzoneID = "dropzone_" + (num_picture + 1)
 						dropzoneIDCrear = dropzoneID
-						var formDropzoneID = "formDropzone_" + (num_picture + 1) 
+						var formDropzoneID = "formDropzone_" + (num_picture + 1)
 						var dropzoneElement = $('<form id="' + formDropzoneID + '" class="form" action="#" method="post"><div class="fv-row"><div class="dropzone" id="' + dropzoneID + '"><div class="dz-message needsclick"><i class="fa-solid fa-cloud-arrow-up fa-2xl"></i><div class="ms-4"><div >Arrastre hasta aquí los archivos o pulse para seleccionar.</div></div></div></div></div></form>')
-							
+
 						// Seleccion
-						var idSelecciono = "Seleccion_" + num_objetive.toString()
-						var seleccionIcono = $('<div id="' + idSelecciono + '" class="SeleccionIcono"><i  class="fa-solid fa-circle-dot fa-2xl"></i></div>')
-							
+						var idSelecciono = "Seleccion_" + (num_objetive + 1)
+						var seleccionIcono = $('<div id="' + idSelecciono + '" class="SeleccionIcono"><i class="fa-solid fa-circle-dot fa-2xl"></i></div>')
+
 						//Matematicas
-						var idMates = "Matematicas_" + num_math.toString()
-						var MatesIcono = $('<div class="MatesIcono"><i id="idMates" class="fa-solid fa-calculator fa-2xl"></i><input class="numberMath" type="number" value="1" /></div>')
-						
+						var idMates = "Matematicas_" + (num_math + 1)
+						var MatesIcono = $('<div id="' + idMates + '"  class="MatesIcono"><i id="idMates" class="fa-solid fa-calculator fa-2xl"></i><input class="numberMath" type="number" value="1" /></div>')
+
 						// Temporizador
-						var idTemporizador = "Temporizador_" + num_time.toString()
+						var idTemporizador = "Temporizador_" + (num_time + 1)
 						var TemporizadorIcono = $('<section  id="' + idTemporizador + '"><div style="margin-bottom:8px;">La actividad finaliza en:</div> <div><i class="TempIcono fa-solid fa-stopwatch fa-2xl"></i><input id="temporizadorMinutos" type="number" value="1" step="any" /> seg.</div></div></section>')
 
 						// Path 
-						var idSquarePath = "SquearePath_" + num_path.toString()
+						var idSquarePath = "SquearePath_" + (num_path + 1)
 						var pathSqueareIcono = $('<div class="squarePath"><div><i id="' + idSquarePath + '" class="squarePath fa-solid fa-square"></i></div></i></div>').click(function () {
 
 
@@ -386,7 +412,7 @@ zip.generateAsync({type : "blob"}).then(function(content){
 						var idClonCamino = "clonCamino_" + (num_path + 1)
 
 						// Unir
-						var idUnir = "Unir_" + num_pairing.toString()
+						var idUnir = "Unir_" + (num_pairing + 1)
 						var unir = $('<canvas id="' + idUnir + '" class="marginCanvas" width="1500px" height="1250px"></canvas>').click(function () { });
 
 
@@ -394,9 +420,9 @@ zip.generateAsync({type : "blob"}).then(function(content){
 							num_area = num_area + 1
 							num_areas_creadas = num_areas_creadas + 1
 							numero_areas_activas = numero_areas_activas + 1;
-							identifier = 'area' + num_area.toString()
+							identifier = 'area_' + num_area.toString()
 							$item.empty()
-							$item.attr("id", 'area' + num_area.toString());
+							$item.attr("id", 'area_' + num_area.toString());
 							$item.attr("class", 'area ui-resizable');
 							$item.append(addUser)
 							$item.append(uploadArea)
@@ -405,9 +431,9 @@ zip.generateAsync({type : "blob"}).then(function(content){
 						} else if (type == "card") {
 
 							num_card = num_card + 1
-							identifier = 'card' + num_card.toString()
+							identifier = 'card_' + num_card.toString()
 							$item.empty()
-							$item.attr("id", 'card' + num_card.toString());
+							$item.attr("id", 'card_' + num_card.toString());
 							$item.attr("class", 'card ui-resizable area-accept')
 							$item.append(titleTextoCard)
 							$item.append(inputTexto)
@@ -417,9 +443,9 @@ zip.generateAsync({type : "blob"}).then(function(content){
 							makeAreaDroppable($item)
 						} else if (type == "picture") {
 							num_picture = num_picture + 1
-							identifier = 'picture' + num_picture.toString()
+							identifier = 'picture_' + num_picture.toString()
 							$item.empty()
-							$item.attr("id", 'picture' + num_picture.toString());
+							$item.attr("id", 'picture_' + num_picture.toString());
 							$item.attr("class", 'picture ui-resizable area-accept')
 							$item.append(titleImage)
 							$item.append(dropzoneElement)
@@ -427,29 +453,33 @@ zip.generateAsync({type : "blob"}).then(function(content){
 							$item.append(configurationButtonImagen)
 							makeAreaDroppable($item)
 						} else if (type == "objetive") {
-
 							num_objetive = num_objetive + 1
-							identifier = 'objetive' + num_objetive.toString()
+							identifier = 'objetive_' + num_objetive.toString()
 							$item.empty()
-							$item.attr("id", 'objetive' + num_objetive.toString());
+							$item.attr("id", 'objetive_' + num_objetive.toString());
 							$item.attr("class", 'objetive area-accept')
 							$item.append(seleccionIcono)
 							lastItem = $item
+						} else if (type == "math") {
+							num_math = num_math + 1
+							identifier = 'math_' + num_math.toString()
+							$item.empty()
+							$item.attr("id", 'math_' + num_math.toString());
+							$item.attr("class", 'math  area-accept')
+							$item.append(MatesIcono)
+							lastItem = $item
 						} else if (type == "pairing") {
 							num_pairing = num_pairing + 1
-							identifier = 'pairing' + num_pairing.toString()
+							identifier = 'pairing_' + num_pairing.toString()
 							$item.empty()
-							$item.attr("id", 'pairing' + num_pairing.toString());
+							$item.attr("id", 'pairing_' + num_pairing.toString());
 							$item.attr("class", 'pairing ui-resizable area-accept')
 							$item.append(unir)
-
-
-
 						} else if (type == "path") {
 							num_path = num_path + 1
-							identifier = 'path' + num_path.toString()
+							identifier = 'path_' + num_path.toString()
 							$item.empty()
-							$item.attr("id", 'path' + num_path.toString());
+							$item.attr("id", 'path_' + num_path.toString());
 							$item.attr("class", 'path ui-resizable area-accept originalPath' + " " + canvas)
 							//	$item.append(pathSqueareIcono)
 							$item.append(pathElemento)
@@ -483,18 +513,12 @@ zip.generateAsync({type : "blob"}).then(function(content){
 							// }
 
 							//makeAreaDroppable(document.getElementById("arrastrar"))
-						} else if (type == "math") {
-							num_math = num_math + 1
-							identifier = 'math' + num_math.toString()
-							$item.empty()
-							$item.attr("id", 'math' + num_math.toString());
-							$item.attr("class", 'math  area-accept')
-							$item.append(MatesIcono)
+
 						} else if (type == "time") {
 							num_time = num_time + 1
-							identifier = 'time' + num_time.toString()
+							identifier = 'time_' + num_time.toString()
 							$item.empty()
-							$item.attr("id", 'time' + num_time.toString());
+							$item.attr("id", 'time_' + num_time.toString());
 							$item.attr("class", 'time ui-resizable ')
 							$item.append(TemporizadorIcono)
 							itemTemporizador = $item
@@ -507,14 +531,14 @@ zip.generateAsync({type : "blob"}).then(function(content){
 						//	console.log("a", a.left, a.top, a.bottom, a.right)
 						if (type == "objetive" || type == "math" || type == "time" || type == "path") {
 							var content = document.getElementById($item[0].id)
-							if(content.lastElementChild != null){
+							if (content.lastElementChild != null) {
 								content.lastElementChild.remove()
 							}
-								
-							if(content.lastElementChild != null){
+
+							if (content.lastElementChild != null) {
 								content.lastElementChild.remove()
 							}
-							if(content.lastElementChild != null){
+							if (content.lastElementChild != null) {
 								content.lastElementChild.remove()
 							}
 						}
@@ -568,7 +592,7 @@ zip.generateAsync({type : "blob"}).then(function(content){
 							$("#" + crearCamino).droppable({
 								drop: function (event, ui) {
 									$(this).css('background', 'rgb(0,200,0)');
-									console.log("Elemento", ui.draggable[0].id)
+								//	console.log("Elemento", ui.draggable[0].id)
 									/*
 									var newDiv = document.createElement("div");
 									newDiv.id = "pathid" + num_pathid.toString()
@@ -627,20 +651,13 @@ zip.generateAsync({type : "blob"}).then(function(content){
 						$(this).append($item)
 					}
 					//	console.log("numero areas activas", numero_areas_activas)
-					
+
 
 				}
 			})
 		}
 		lanzar()
 
-		// PRUEBA CANVAS2
-
-
-
-
-
-		// FIN PRUEBA CANVAS 2
 		function makeAreaDroppable($item) {
 			$item.droppable({
 				accept: ".area-accept",
@@ -655,60 +672,60 @@ zip.generateAsync({type : "blob"}).then(function(content){
 						$item.removeClass("tool");
 						if (type == "area") {
 							num_area = num_area + 1
-							identifier = 'area' + num_area.toString()
+							identifier = 'area_' + num_area.toString()
 							$item.empty()
-							$item.attr("id", 'area' + num_area.toString());
+							$item.attr("id", 'area_' + num_area.toString());
 							$item.attr("class", 'area ui-resizable');
 						} else if (type == "card") {
 							num_card = num_card + 1
-							identifier = 'card' + num_area.toString()
+							identifier = 'card_' + num_card.toString()
 							$item.empty()
-							$item.attr("id", 'card' + num_area.toString());
+							$item.attr("id", 'card_' + num_card.toString());
 							$item.attr("class", 'card ui-resizable area-accept')
 							$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
 								10))
 							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
 						} else if (type == "picture") {
 							num_picture = num_picture + 1
-							identifier = 'picture' + num_area.toString()
+							identifier = 'picture_' + num_picture.toString()
 							$item.empty()
-							$item.attr("id", 'picture' + num_area.toString());
+							$item.attr("id", 'picture_' + num_picture.toString());
 							$item.attr("class", 'picture ui-resizable area-accept')
 							$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
 								10))
 							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
 						} else if (type == "objetive") {
 							num_objetive = num_objetive + 1
-							identifier = 'objetive' + num_area.toString()
+							identifier = 'objetive_' + num_objetive.toString()
 							$item.empty()
-							$item.attr("id", 'objetive' + num_area.toString());
+							$item.attr("id", 'objetive_' + num_objetive.toString());
 							$item.attr("class", 'objetive  area-accept')
 							$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
 								10))
 							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
 						} else if (type == "pairing") {
 							num_pairing = num_pairing + 1
-							identifier = 'pairing' + num_area.toString()
+							identifier = 'pairing_' + num_pairing.toString()
 							$item.empty()
-							$item.attr("id", 'pairing' + num_area.toString());
+							$item.attr("id", 'pairing_' + num_pairing.toString());
 							$item.attr("class", 'pairing ui-resizable area-accept')
 							$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
 								10))
 							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
 						} else if (type == "path") {
 							num_path = num_path + 1
-							identifier = 'path' + num_area.toString()
+							identifier = 'path_' + num_path.toString()
 							$item.empty()
-							$item.attr("id", 'path' + num_area.toString());
+							$item.attr("id", 'path_' + num_path.toString());
 							$item.attr("class", 'path ui-resizable area-accept')
 							$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
 								10))
 							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
 						} else if (type == "math") {
 							num_math = num_math + 1
-							identifier = 'math' + num_area.toString()
+							identifier = 'math_' + num_math.toString()
 							$item.empty()
-							$item.attr("id", 'math' + num_area.toString());
+							$item.attr("id", 'math_' + num_math.toString());
 							$item.attr("class", 'math ui-resizable area-accept')
 							$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
 								10))
@@ -775,10 +792,10 @@ zip.generateAsync({type : "blob"}).then(function(content){
 
 
 
-					evaluarPosicion($item) 
+					evaluarPosicion($item)
 					actualizarTarjetas("card")
-					actualizarTarjetas("picture") 
-					evaluarMostrarMenu() 
+					actualizarTarjetas("picture")
+					evaluarMostrarMenu()
 					limpiarCanvas()
 					//	ocultarOpciones()
 
@@ -838,8 +855,8 @@ zip.generateAsync({type : "blob"}).then(function(content){
 				captura(activity, canvas);
 
 				actualizarTarjetas("card")
-				actualizarTarjetas("picture") 
-				evaluarMostrarMenu() 
+				actualizarTarjetas("picture")
+				evaluarMostrarMenu()
 				limpiarCanvas()
 				// var canvas = document.getElementById("editor-canvas")
 
@@ -873,9 +890,9 @@ zip.generateAsync({type : "blob"}).then(function(content){
 			}
 		});
 
-		
 
-		
+
+
 
 
 
@@ -908,13 +925,13 @@ zip.generateAsync({type : "blob"}).then(function(content){
 		// 		var file = $("input[type=file]").get(0).files[0];
 		// 	}
 		// }
-		
-
-		
 
 
 
-		
+
+
+
+
 
 		// function captura() {
 		// 	html2canvas(document.querySelector("#editzone")).then(canvas => {
@@ -944,8 +961,42 @@ zip.generateAsync({type : "blob"}).then(function(content){
 				prueba.innerHTML = '<div class="deleteActivity" onclick="eliminarActividad($(this))" >x</div>';
 				canvas.style.width = "100%"
 				canvas.style.height = "auto"
-			//	console.log("la captura es", canvas)
-				prueba.appendChild(canvas) 
+				canvas.id = "preview" + name
+				//	console.log("la captura es", canvas)
+				prueba.appendChild(canvas)
+				var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+			//	image.src = "jjjeje.png"
+			//	console.log("Canvas...", canvas.toDataURL("image/png"))
+
+				// var image = new Image();
+				// image.src = canvas.toDataURL("image/png")
+				// console.log("Canvas imagen...", image)
+				// document.getElementById("meterImagen").appendChild(image);
+
+				// var img = document.getElementById("meterImagen");
+
+				//
+				var dataURL = canvas.toDataURL("image/png");
+				$.ajax({
+      				type: "POST",
+      				url: "/static/upload.php",
+      			data: { 
+         			imgBase64: dataURL
+      				}
+    			}).done(function(o) {
+     				 console.log('saved',o); 
+     				 // If you want the file to be visible in the browser 
+     				 // - please modify the callback in javascript. All you
+     				// need is to return the url to the file, you just saved 
+      				// and than put the image in your browser.
+   			 });
+
+
+
+
+				//
+				//		window.location.href=image;
+				//	console.log("La imagen captura es",canvas.toDataURL('image/png'))
 			});
 		}
 
@@ -1046,7 +1097,7 @@ zip.generateAsync({type : "blob"}).then(function(content){
 			// draw the line
 			line.drawWithArrowheads(context);
 		}
-		
+
 		document.addEventListener('mousemove', e => {
 			isPicture = false
 			isCard = false
@@ -1065,7 +1116,7 @@ zip.generateAsync({type : "blob"}).then(function(content){
 					isCard = false
 					padreCard = null
 				}
-				
+
 				if (elems[i].id.includes("idTitle_") || elems[i].id.includes("card")) {
 					isCard = true
 					if (elems[i].id.includes("card")) {
@@ -1082,21 +1133,52 @@ zip.generateAsync({type : "blob"}).then(function(content){
 			// console.log("ELEMENTO EN POSICION",el)
 		}, { passive: true })
 
-		
-
-		
-		
-
-
-		
-
-		
-		
 
 
 
 
-		
+		function elementoSelectores(padre, hijo) {
+			this.padre = padre;
+			this.hijo = hijo;
+
+		}
+
+
+
+
+
+			function probarsubir(){
+				console.log("pulso")
+					
+
+
+
+				let imgData = new FormData()
+
+			 var image =	document.getElementById("myfile").files[0]
+				imgData.append('file', image)
+				var dataURL = canvas.toDataURL();
+				$.ajax({
+      				type: "POST",
+      				url: "/static/upload.php",
+      			data: { 
+         			imgBase64: dataURL
+      				}
+    			}).done(function(o) {
+     				 console.log('saved'); 
+     				 // If you want the file to be visible in the browser 
+     				 // - please modify the callback in javascript. All you
+     				// need is to return the url to the file, you just saved 
+      				// and than put the image in your browser.
+   			 });
+
+	
+			}
+
+
+
+
+
 
 	</script>
 	{% endblock %}
