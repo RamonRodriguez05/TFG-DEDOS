@@ -39,17 +39,21 @@ function addUserButton(click) {
     var areaPadre = document.getElementById(parentDiv[0].id);
     var botonUsuario = document.getElementById(parentDiv.context.id)
 
-    if (elemento.classList.contains("fa-user")) {
-        elemento.classList.remove("fa-user")
-        elemento.classList.add("fa-users")
+    if (elemento.classList.contains("user")) {
+        elemento.classList.remove("user")
+        elemento.classList.add("users")
         areaPadre.style.backgroundColor = "#F0FFB4";
         botonUsuario.title = "Cambiar a zona de jugador" 
+        elemento.src = "/static/dash/dist/assets/img/users.png"
+      //  elemento.width = "40px"
         
     } else {
-        elemento.classList.remove("fa-users")
-        elemento.classList.add("fa-user")
+        elemento.classList.remove("users")
+        elemento.classList.add("user")
         areaPadre.style.backgroundColor = "#DBF5FF";
-        botonUsuario.title = "Cambiar a zona de juego"
+        botonUsuario.title = "Cambiar a zona de juego" 
+        elemento.src = "/static/dash/dist/assets/img/user.png"
+      //  elemento.width = "40px"
     }
     captura(activity, canvas)
 }

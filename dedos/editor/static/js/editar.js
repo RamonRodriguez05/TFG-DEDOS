@@ -135,7 +135,8 @@ function lanzarElementos(nombreClase) {
 				if (id > num_area) {
 					num_area = id
 				}
-
+				
+			
 			} else if (nombreClase.includes("card")) {
 				if (id > num_card) {
 					num_card = id

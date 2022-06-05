@@ -386,7 +386,10 @@ function elegirActividad(e) {
 }
 
 function eliminarActividad(e) {
+	console.log("mirar quien borrar",e)
 	console.log("he pulsado la actividad", e[0].parentNode.id)
+	listaCapturas = listaCapturas.filter(item => !(item.canvas == ("preview" + e[0].parentNode.id )));
+	console.log("El listado de las capturas es", listaCapturas)
 	var splitID = e[0].parentNode.id.split("_")
 	var idEditor = "editor-canvas_" + splitID[1]
 	document.getElementById(e[0].parentNode.id).remove()

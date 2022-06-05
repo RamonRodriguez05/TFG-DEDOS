@@ -58,3 +58,21 @@
     padding-right: 5px;
     padding-top: 3px;
 }
+
+.user{
+    width: 32px;
+}
+
+.user:hover{
+    width: 30px;
+   
+}
+
+.users{
+    width: 42px;
+} 
+
+.users:hover{
+    width: 40px;
+   
+}

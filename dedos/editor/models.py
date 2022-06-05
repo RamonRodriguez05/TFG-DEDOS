@@ -35,6 +35,5 @@ class Projects(models.Model):
     privado = models.BooleanField(null=True)
     usuario = models.CharField(max_length=50)
     fecha = models.DateField(null=True)
-    contenido = models.BinaryField(null = True)
+    contenido = models.TextField(null = True)
     canvas = models.TextField(default="")
-    contenido2 = models.TextField(null= True)

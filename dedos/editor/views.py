@@ -368,7 +368,7 @@ def proyectos(request):
 def insert(request):    
     
     proyecto = Projects(nombre=request.POST['nombre'], asignatura=request.POST['asignatura'], curso=request.POST['curso'], etiquetas=request.POST['etiquetas'], 
-    privado=request.POST['privado'], usuario=request.POST['usuario'], fecha=request.POST['fecha'], canvas=request.POST['canvas'], contenido2=request.POST['contenido2'])
+    privado=request.POST['privado'], usuario=request.POST['usuario'], fecha=request.POST['fecha'], canvas=request.POST['canvas'], contenido=request.POST['contenido2'])
     proyecto.save()
     return redirect('/')
 
@@ -399,6 +399,7 @@ def edit(request,id):
   
  
 def download2(request, id):
-    dataBase64 = Projects.objects.filter(id=id).values_list("contenido2")
-    return render(request, 'editor/dash/proyectos.html', {'zip':dataBase64})
+    dataBase64 = Projects.objects.filter(id=id).values_list("contenido")
+    nombre = Projects.objects.filter(id=id).values_list("nombre")
+    return render(request, 'editor/dash/proyectos.html', {'zip':dataBase64, 'nombre':nombre})
     

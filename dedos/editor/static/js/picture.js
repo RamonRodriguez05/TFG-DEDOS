@@ -94,7 +94,8 @@ function dropzoneUpload(id) {
 			accept: function (file, done) {
 				console.log("el file en el dropzone a subir es", file)
 				done()
-
+				listaImagenesDropzone.push(file) 
+				console.log("lista files dropzone", listaImagenesDropzone)
 				var zip = new JSZip(); 
 				zip.file("contents/" + file.name , file);
 	
@@ -103,11 +104,18 @@ function dropzoneUpload(id) {
 	
 	
 					//	console.log("Content es", content)
-						saveAs(content, "prueba.zip")
+					//	saveAs(content, "prueba.zip")
 	
 				});
 			//	generarZIP()
-				//captura(activity, canvas)
+				captura(activity, canvas)
+			}, 
+			removedfile: function(file) {
+				console.log("Borrar fichero", file.name)
+				listaImagenesDropzone = listaImagenesDropzone.filter(item => !(item.name == file.name));
+				console.log("lista files dropzone", listaImagenesDropzone)	
+				var _ref;
+    			return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
 			}
 		});
 	} catch (error) {

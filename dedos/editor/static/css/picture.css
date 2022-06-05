@@ -70,8 +70,6 @@ img,
     max-width: 60% !important;
     max-height: 60% !important;
     display: block;
-    /* remove extra space below image */
-
     margin-bottom: 3%;
     border-radius: 0;
 
@@ -111,13 +109,24 @@ img,
 
 .dz-preview {
     display: flex;
-    max-width: 40% !important;
-    max-height: 20% !important;
-    margin-bottom: 2%;
+    max-width: 60% !important;
+    max-height: 50% !important;
+    margin-bottom: 2%; 
+    margin-top: 2% !important;
+    margin-left: 10px !important;
     font-size: x-small !important;
     background-color: transparent !important;
 
 
+} 
+
+.dropzone .dz-preview {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 5px;
+    min-height: 10px;
+    width: 65px;
 }
 
 .dz-error-message {
@@ -132,4 +141,14 @@ img,
 
 .dz-details{
     width: 50% !important;
+}
+
+.dropzone .dz-preview .dz-image {
+    border-radius: 5px;
+    overflow: hidden;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    display: block;
+    z-index: 10;
 }
