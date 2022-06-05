@@ -19,7 +19,7 @@ function iniciarEditar() {
 		cargar = cargar.replace(",)]>", "")
 		cargar = cargar.replace('<div id="listaCanvas">', "")
 		cargar = cargar.substring(0, cargar.length - 6);
-		cargar = cargar.replace('left: 20px; bottom: -15px; margin-bottom: -15px; position: relative;', 'left: 20px; bottom:-2px; margin-bottom: -15px;')
+		cargar = cargar.replace('left: 20px; bottom: -15px; margin-bottom: -15px; position: relative;', 'left: 20px; bottom:-2px; margin-bottom: -15px; position:relative')
 		cargar = cargar.replace('left: 20px; bottom: -5px; margin-bottom: -15px; position: relative;', 'left: 20px; bottom:-2px; margin-bottom: -15px; position: relative;')
 
 

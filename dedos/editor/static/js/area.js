@@ -16,11 +16,15 @@ function uploadAreaButton(input, id) {
         if (uploadAreaID != "") {
             console.log("entra en el distinto", fileName)
             if (fileName != undefined) {
-                console.log("entra en el distinto del filename")
-                var src1 = URL.createObjectURL(document.getElementById(id).files[0]);
+                console.log("entra en el distinto del filename",id)
+                var file = document.getElementById(id).files[0]
+                var nameFile = file.name
+                document.getElementById(id).classList.add(nameFile)
+                var src1 = URL.createObjectURL(file);
                 console.log("el src", src1)
                 document.getElementById(uploadAreaID).style.backgroundImage = 'url(' + src1 + ')';
             } else {
+                document.getElementById(id).classList = ""
                 document.getElementById(uploadAreaID).style.backgroundImage = 'none';
             }
             captura(activity, canvas)

@@ -80,9 +80,9 @@ function evaluarPosicion($item) {
 					if ($item.parent()[0].id.includes("card") || $item.parent()[0].id.includes("picture")) {
 						var hijo = document.getElementById($item[0].id)
 						if (hijo.id.includes("objetive")) {
-							hijo.style = " left: 20px; bottom:-15px; margin-bottom: -15px; position:relative"
+							hijo.style = " left: 20px; bottom:-2px; margin-bottom: -15px; position:relative"
 						} else {
-							hijo.style = " left: 20px; bottom:-5px; margin-bottom: -15px; position:relative"
+							hijo.style = " left: 20px; bottom:-2px; margin-bottom: -15px; position:relative"
 						}
 
 						var parent = document.getElementById($item.parent()[0].children[0].id)
@@ -114,9 +114,9 @@ function evaluarPosicion($item) {
 										listaSelectores = listaSelectores.filter(item => !(item.hijo == hijo.id));
 									} else {
 										if (hijo.id.includes("objetive")) {
-											hijo.style = " left: 20px; bottom:-15px; margin-bottom: -15px; position:relative"
+											hijo.style = " left: 20px; bottom:-2px; margin-bottom: -15px; position:relative"
 										} else {
-											hijo.style = " left: 20px; bottom:-5px; margin-bottom: -15px; position:relative"
+											hijo.style = " left: 20px; bottom:-2px; margin-bottom: -15px; position:relative"
 										}
 										var padreAbsoluto = null
 										if (padre.id.includes("card")) {
@@ -233,9 +233,9 @@ function evaluarPosicionInicio($item) {
 						if (padre != null && (padre.id.includes("card") || padre.id.includes("picture"))) {
 							var hijo = document.getElementById($item[0].id)
 							if (hijo.id.includes("objetive")) {
-								hijo.style = " left: 20px; bottom:-15px; margin-bottom: -15px; position:relative"
+								hijo.style = " left: 20px; bottom:-2px; margin-bottom: -15px; position:relative"
 							} else {
-								hijo.style = " left: 20px; bottom:-5px; margin-bottom: -15px; position:relative"
+								hijo.style = " left: 20px; bottom:-2px; margin-bottom: -15px; position:relative"
 							}
 							var padreAbsoluto = null
 							if (padre.id.includes("card")) {
@@ -279,9 +279,9 @@ function evaluarPosicionInicio($item) {
 											listaSelectores = listaSelectores.filter(item => !(item.hijo == hijo.id));
 										} else {
 											if (hijo.id.includes("objetive")) {
-												hijo.style = " left: 20px; bottom:-15px; margin-bottom: -15px; position:relative"
+												hijo.style = " left: 20px; bottom:-2px; margin-bottom: -15px; position:relative"
 											} else {
-												hijo.style = " left: 20px; bottom:-5px; margin-bottom: -15px; position:relative"
+												hijo.style = " left: 20px; bottom:-2px; margin-bottom: -15px; position:relative"
 											}
 											var padreAbsoluto = null
 											if (padre.id.includes("card")) {
@@ -587,17 +587,8 @@ function mostrarOpciones(tieneReloj) {
 
 
 function limpiarCanvas() {
-
-	//	
-
-
 	var mensajeInicial = document.getElementById("MensajeInicial_" + canvas.replace("#", ""))
-
-
-	//console.log("Mensaje inicial es", mensajeInicial) 
-
 	if (mensajeInicial != null) {
 		document.getElementById(canvas.replace("#", "")).innerHTML = "";
 	}
-
 }

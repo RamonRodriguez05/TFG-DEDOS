@@ -92,8 +92,22 @@ function dropzoneUpload(id) {
 			dictRemoveFile: "x",
 
 			accept: function (file, done) {
+				console.log("el file en el dropzone a subir es", file)
 				done()
-				captura(activity, canvas)
+
+				var zip = new JSZip(); 
+				zip.file("contents/" + file.name , file);
+	
+				zip.generateAsync({ type: "blob" }).then(function (content) {
+	
+	
+	
+					//	console.log("Content es", content)
+						saveAs(content, "prueba.zip")
+	
+				});
+			//	generarZIP()
+				//captura(activity, canvas)
 			}
 		});
 	} catch (error) {
