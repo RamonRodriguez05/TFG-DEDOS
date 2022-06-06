@@ -36,7 +36,7 @@ $(document).ready(function () {
         var asignatura = $('#asignatura').val();
         var curso = $('#curso').val();
         var etiquetas = $('#etiquetas').val();
-
+        var descripcion = $('#descripcion').val();
 
         //
         var today = new Date();
@@ -108,6 +108,7 @@ $(document).ready(function () {
                             fecha: fecha,
                             canvas: document.getElementById("listaCanvas").innerHTML,
                             contenido2: contenido2,
+                            descripcion: descripcion,
                             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
                         },
                         success: function () {

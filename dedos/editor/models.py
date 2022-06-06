@@ -37,3 +37,4 @@ class Projects(models.Model):
     fecha = models.DateField(null=True)
     contenido = models.TextField(null = True)
     canvas = models.TextField(default="")
+    descripcion = models.TextField(max_length=500, null=True)

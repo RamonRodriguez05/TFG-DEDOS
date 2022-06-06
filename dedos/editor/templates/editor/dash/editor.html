@@ -11,31 +11,51 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header" style="text-align: center;">
-				<h5 class="modal-title" id="exampleModalLabel">Datos del proyecto</h5>
+				<h4 class="modal-title" id="exampleModalLabel">Datos del proyecto</h4>
 				<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button> -->
 			</div>
-			<div class="modal-body">
+			<div class="modal-body" style="margin: 35px;">
 
 
-				<form action="/action_page.html">
-					<fieldset>
-						<label for="nombre">Nombre:</label>
-						<input type="text" name="nombre" id="nombre"><br><br>
+				<div class="row">
+					<div class="column" style="width: 25%;">
+						<label for="nombre" style="font-weight: bold;">Nombre:</label>
+					</div>
+					<div class="column" style="width: 75%;">
+						<input type="text" style="width: 375px;" name="nombre" id="nombre" maxlength="100">
+					</div>
+				</div></br>
+			
+				<div class="row">
+					<div class="column" style="width: 25%;">
+						<label style="font-weight: bold;" for="descripcion">Descripción:</label>	
+					</div>
+					<div class="column" style="width: 75%;">
+						<textarea id="descripcion" name="descripcion" rows="4" cols="50" maxlength="500"></textarea>	
+					</div>
+				</div> </br>
 
-						<label for="descripcion">Descripción:</label>
-						<input type="text" name="descripcion" id="descripcion"><br><br>
-
-						<label for="curso">Nivel educativo:</label>
-						<select name="curso" id="curso">
+				<div class="row">
+					<div class="column" style="width: 25%;">
+						<label style="font-weight: bold;" for="curso">Nivel educativo:</label>
+					</div>
+					<div class="column" style="width: 75%;">
+						<select name="curso" id="curso" style="width: 375px;">
 							<option value="Infantil">Infantil</option>
 							<option value="Primaria">Primaria</option>
-							<option value="Necsidades especiales">Necsidades especiales</option>
-						</select><br><br>
+							<option value="Necesidades especiales">Necesidades especiales</option>
+						</select>
+					</div>
+				</div></br>
 
-						<label for="asignatura">Asignatura:</label>
-						<select name="asignatura" id="asignatura">
+				<div class="row">
+					<div class="column" style="width: 25%;">
+						<label style="font-weight: bold;" for="asignatura">Asignatura:</label>
+					</div>
+					<div class="column" style="width: 75%;">
+						<select name="asignatura" style="width: 375px;" id="asignatura">
 							<option value="Matemáticas">Matemáticas</option>
 							<option value="Ciencias Naturales">Ciencias Naturales</option>
 							<option value="Lengua Castellana y Literatura">Lengua Castellana y Literatura</option>
@@ -45,17 +65,44 @@
 							<option value="Conocimiento y participación en el medio físico y social">Conocimiento y
 								participación en el medio físico y social</option>
 							<option value="Comunicación y lenguaje">Comunicación y lenguaje</option>
-						</select><br><br>
+						</select>
+					</div>
+				</div></br>
 
-						<label for="etiquetas">Etiquetas</label>
-						<input type="text" name="etiquetas" id="etiquetas"><br><br>
-						<label for="privacidad">Privacidad:</label>
-						<input type="radio" name="privacidad" value="0" id="publico" checked>Público
+				<div class="row">
+					<div class="column" style="width: 25%;">
+						<label style="font-weight: bold;" for="etiquetas">Etiquetas</label>
+					</div>
+					<div class="column" style="width: 75%;">
+						<input type="text" style="width: 375px;" name="etiquetas" id="etiquetas" maxlength="200">
+					</div>
+				</div></br>
+				<div class="row">
+					<div class="column" style="width: 25%;">
+						<label style="font-weight: bold;" for="privacidad">Privacidad:</label>
+					</div>
+					<div class="column" style="width: 75%;">
+						<input type="radio" name="privacidad" value="0" id="publico" checked> Público
 						<label for="privacidad"></label>
-						<input type="radio" name="privacidad" value="1" id="privado">Privado<br><br>
+						<input type="radio" name="privacidad" value="1" id="privado"> Privado
+					</div>
+				</div>
+						
 
-					</fieldset>
-				</form>
+
+
+						
+						
+
+
+						
+						
+
+						
+						
+
+				
+			
 
 
 
@@ -63,8 +110,8 @@
 
 			</div>
 			<div class="modal-footer" style="text-align: center;">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				<button id="submit" type="button" class="btn btn-primary">Guardar</button>
+				<button type="button" style="width: 100px;" class="btn btn-secondary" style="margin-left: 250px;" data-dismiss="modal">Cerrar</button>
+				<button id="submit" style="width: 100px;" type="button" style="margin-right: 450px;" class="btn btn-primary">Guardar</button>
 			</div>
 		</div>
 	</div>
@@ -314,7 +361,7 @@
 
 					limpiarCanvas()
 
-
+			//		konvas2()
 
 
 
@@ -1202,9 +1249,111 @@
 			// }
 
 
+	// Prueba konva
+	function konvas() {
+		const stage = new Konva.Stage({
+			container: 'editor-canvas_1',
+			width: window.innerWidth,
+			height: window.innerHeight
+		});
+
+		const layer = new Konva.Layer();
+		stage.add(layer);
+
+		const shape = new Konva.Text({
+			text: 'Try to draw an arrow'
+		});
+		layer.add(shape);
+
+		let arrow;
+		stage.on('mousedown', () => {
+			const pos = stage.getPointerPosition();
+			arrow = new Konva.Arrow({
+				points: [pos.x, pos.y],
+				stroke: 'black',
+				fill: 'black'
+			});
+			layer.add(arrow);
+			layer.batchDraw();
+		});
+
+		stage.on('mousemove', () => {
+			if (arrow) {
+				const pos = stage.getPointerPosition();
+				const points = [arrow.points()[0], arrow.points()[1], pos.x, pos.y];
+				arrow.points(points);
+				layer.batchDraw();
+			}
+		});
+
+		stage.on('mouseup', () => {
+			arrow = null;
+		});
 
 
+		layer.draw();
+	}
 
+	function konvas2(){
+		var width = window.innerWidth;
+    var height = window.innerHeight;
+
+    var stage = new Konva.Stage({
+      container: 'editor-canvas_1',
+      width: width,
+      height: height,
+	  
+    });
+
+    var layer = new Konva.Layer();
+
+    var circle = new Konva.Circle({
+      x: stage.getWidth() / 2,
+      y: stage.getHeight() / 2,
+      radius: 40,
+      fill: 'green',
+      stroke: 'black',
+      strokeWidth: 2,
+      draggable: true
+    });
+
+    var circleA = new Konva.Circle({
+      x: stage.getWidth() / 5,
+      y: stage.getHeight() / 5,
+      radius: 30,
+      fill: 'red',
+      stroke: 'black',
+      strokeWidth: 2,
+      draggable: true
+    });
+
+    var arrow = new Konva.Arrow({
+      points: [circle.getX(), circle.getY(), circleA.getX(), circleA.getY()],
+      pointerLength: 10,
+      pointerWidth: 10,
+      fill: 'black',
+      stroke: 'black',
+      strokeWidth: 4
+    });
+    
+    function adjustPoint(e){
+      var p=[circle.getX(), circle.getY(), circleA.getX(), circleA.getY()];
+      arrow.setPoints(p);
+      layer.draw();
+    }
+    
+    circle.on('dragmove', adjustPoint);
+    
+    circleA.on('dragmove', adjustPoint);
+
+    layer.add(circleA);
+    // add the shape to the layer
+    layer.add(circle);
+    layer.add(arrow);
+
+    // add the layer to the stage
+    stage.add(layer);
+	}
 
 	</script>
 	{% endblock %}
