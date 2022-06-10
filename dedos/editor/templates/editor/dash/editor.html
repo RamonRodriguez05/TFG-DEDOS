@@ -182,7 +182,8 @@
 
 	<div id="listaCanvas">
 		<div id="editor-canvas_1" class="editor-canvas dropzone" style="border:2px;width:100%; height:100%">
-			 
+			
+			<!-- <canvas onl id="prueba" onclick="dibujarFlecha(this)" class="marginCanvas" width="1000px" height="400px"></canvas>' -->
 			
 				<!-- <label for="myfile">Select files:</label>
 				<input type="file" id="myfile" name="myfile" multiple accept="image/png, image/gif, image/jpeg"><br><br>
@@ -434,9 +435,6 @@
 						// Path 
 						var idSquarePath = "SquearePath_" + (num_path + 1)
 						var pathSqueareIcono = $('<div class="squarePath"><div><i id="' + idSquarePath + '" class="squarePath fa-solid fa-square"></i></div></i></div>').click(function () {
-
-
-
 						});
 						var idPath = "Path_" + (num_path + 1)
 						var pathIcono = $('<div class="PathIcono"><i id="' + idPath + '"class="fa-solid fa-location-dot fa-2xl"></i></div>').click(function () { });
@@ -454,7 +452,7 @@
 
 						// Unir
 						var idUnir = "Unir_" + (num_pairing + 1)
-						var unir = $('<canvas id="' + idUnir + '" class="marginCanvas" width="1500px" height="1250px"></canvas>').click(function () { });
+						var unir = $('<canvas id="' + idUnir + '" class="marginCanvas" width="1000px" height="400px"></canvas>').click(function () { });
 
 
 						if (type == "area") {
@@ -514,7 +512,7 @@
 							identifier = 'pairing_' + num_pairing.toString()
 							$item.empty()
 							$item.attr("id", 'pairing_' + num_pairing.toString());
-							$item.attr("class", 'pairing ui-resizable area-accept')
+							$item.attr("class", 'pairing ui-resizable area-accept marginCanvas')
 							$item.append(unir)
 						} else if (type == "path") {
 							num_path = num_path + 1
@@ -655,29 +653,83 @@
 						}
 
 						if (type == "pairing") {
-							onmousemove = function (e) {
-								document.onmousemove = function (event) {
-									var item = document.getElementById("pairing1")
-									item.style.width = -1 * event.clientX + 'px';
-									item.style.height = -1 * event.clientY + 'px';
+							let elem = null
+							let dibujo = true;
+							
+							document.getElementById("pairing_" + num_pairing).addEventListener("mousemove", function move(e) {
+								var elems = document.elementsFromPoint(e.clientX, e.clientY)
+								if (elem == null){
+								 for (let i = 0; i < elems.length; i++) {
 
+								 	if (elems[i].id.includes("area_")) {
+								 		console.log("POSICION AREA", elems[i].id)
+								 		elem = document.getElementById(elems[i].id);
+										break;
+							 	}
+								 }
+								}else {
+									let rect2 = elem.getBoundingClientRect();
+									console.log("el x", elem.offsetLeft)
+									var item = document.getElementById("pairing_" + num_pairing)
+									// item.style.width = -1 * event.clientX + 'px';
+									// item.style.height = -1 * event.clientY + 'px';
+									item.style = "position: absolute; left: 0px; top: 55px;"
+								//	flecha("pairing_" + num_pairing)
+									const target = e.target;
+
+									// Get the bounding rectangle of target
+									const rect = target.getBoundingClientRect();
+									console.log("")
+									console.log("right: "+ rect2.right,"bottom:", rect2.bottom);
+					 				console.log("left: "+ rect2.left,"top: " +  rect2.top);
+									// Mouse position
+									posLeft = e.clientX - rect.left;;
+									posRight = e.clientY - rect.top;
+
+									
+
+									var x1 = (elem.offsetLeft)  + (elem.offsetWidth / 2)
+									var y1 = elem.offsetTop * 0.59
+
+									console.log(x1, y1)
+									var x2 = elem.offsetLeft
+									var y2 = elem.offsetTop * 1.45
+
+									var x3 = (elem.offsetLeft)  + (elem.offsetWidth / 2)
+									var y3 = elem.offsetTop * 1.9
+
+									var x4 = (elem.offsetLeft)  + (elem.offsetWidth)
+									var y4 = elem.offsetTop * 1.45
+
+									// Calcular distancias
+
+									var modulo1 = Math.sqrt(Math.pow(x1 - posLeft,2) + Math.pow(y1 - posRight, 2))
+									var modulo2 = Math.sqrt(Math.pow(x2 - posLeft,2) + Math.pow(y2 - posRight, 2))
+									var modulo3 = Math.sqrt(Math.pow(x3 - posLeft,2) + Math.pow(y3 - posRight, 2))
+									var modulo4 = Math.sqrt(Math.pow(x4 - posLeft,2) + Math.pow(y4 - posRight, 2))
+									console.log("Modulo 1", modulo1)
+									console.log("Modulo 2", modulo2)
+									var elementoFinal = new elementoModulo("nombre", x1, y1)
+									if(modulo2 < modulo1){
+										elementoFinal = new elementoModulo("nombre", x2, y2)	
+									}
+									if(dibujo){
+										dibujar(elementoFinal.x, elementoFinal.y, posLeft, posRight, idUnir)	
+									}
+									
 
 								}
+							});
+							
 
-								const target = e.target;
-
-								// Get the bounding rectangle of target
-								const rect = target.getBoundingClientRect();
-
-								// Mouse position
-								posLeft = e.clientX - rect.left;;
-								posRight = e.clientY - rect.top;
-								dibujar(800, 0, posLeft, posRight, idUnir)
-
-
-
-							}
-
+							document.getElementById("pairing_" + num_pairing).addEventListener("mouseup", function stop(e) {
+								console.log("lo paroo")
+								dibujo = !dibujo
+								console.log("Dibujar es", dibujo)
+								//document.getElementById("pairing_1").removeEventListener("mousemove", function move(e) {});
+								
+							});
+							
 						}
 					} else {
 						/** Una tarjeta, área o objetivo se está soltando **/
@@ -1217,7 +1269,11 @@
 			this.file = file;
 		}
 
-
+		function elementoModulo(nombre, x, y) {
+			this.nombre = nombre;
+			this.x = x;
+			this.y = y;
+		}
 
 
 			// function probarsubir(){
