@@ -595,3 +595,20 @@ function limpiarCanvas() {
 		document.getElementById(canvas.replace("#", "")).innerHTML = "";
 	}
 }
+
+
+$(document).ready(function () {
+
+	$('#etiquetas').select2({
+		tags: true,
+		tokenSeparators: [',', ' ']
+
+	})
+
+	var selects = document.getElementsByClassName("select2-dropdown")
+	for (var i = 0; i < selects.length; i++) {
+		console.log("borro")
+		selects[i].remove()
+	}
+
+})

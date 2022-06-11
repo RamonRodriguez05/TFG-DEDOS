@@ -38,3 +38,4 @@ class Projects(models.Model):
     contenido = models.TextField(null = True)
     canvas = models.TextField(default="")
     descripcion = models.TextField(max_length=500, null=True)
+    version = models.TextField(max_length=3, default=1)

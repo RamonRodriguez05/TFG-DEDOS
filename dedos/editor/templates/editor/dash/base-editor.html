@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - SB Admin</title>
+    <title>Dashboard - SB Admin</title> 
+
+    
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -20,6 +22,7 @@
         crossorigin="anonymous" />
     <link href="{% static 'dash/dist/css/styles.css' %}" type="text/css" rel="stylesheet" />
 
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -37,7 +40,11 @@
     <link rel="stylesheet" type="text/css" href="/static/css/card.css">
     <link rel="stylesheet" type="text/css" href="/static/css/picture.css"> 
     <link rel="stylesheet" type="text/css" href="/static/css/pairing.css">
-
+    	
+    <!-- Etiquetas-->
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 
@@ -531,8 +538,8 @@ fieldset label {
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <a class="navbar-brand" href="\editor\proyectos">Ver Proyectos</a>
-        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
-                class="fas fa-bars"></i></button>
+        <!-- <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
+                class="fas fa-bars"></i></button> -->
 
         <button class="btn btn-primary" type="button"  data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-floppy-disk"></i></i> Guardar</button>
 
@@ -541,11 +548,11 @@ fieldset label {
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <div class="input-group">
-                <input class="form-control" type="text" placeholder="Buscar..." aria-label="Search"
+                <!-- <input class="form-control" type="text" placeholder="Buscar..." aria-label="Search"
                     aria-describedby="basic-addon2" />
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
-                </div>
+                </div> -->
             </div>
         </form>
         <!-- Navbar-->
@@ -568,7 +575,7 @@ fieldset label {
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <a class="nav-link" href="/">
-                            main menu
+                            <!-- main menu -->
                         </a>
 
                         <ul id="sortable">

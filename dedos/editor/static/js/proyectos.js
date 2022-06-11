@@ -1,6 +1,6 @@
 'use strict'
 
-$(document).ready(function () {
+$(document).ready(function () {    
     $('#tablaMisProyectos').DataTable({
         "aLengthMenu": [[2, 5, 10, 20, 30, 40, 50, 100, -1], [2, 5, 10, 20, 30, 40, 50, 100, "Todos"]],
         "iDisplayLength": -1,
@@ -10,6 +10,7 @@ $(document).ready(function () {
         "columns": [
             { "width": "5px", "visible": false },
             { "width": "5px", "visible": false },
+            { "width": "750px" },
             { "width": "750px" },
             { "width": "500px" },
             { "width": "300px" },
@@ -34,7 +35,7 @@ $(document).ready(function () {
                     }
 
                 },
-                targets: 6,
+                targets: 7,
             }
         ],
     });

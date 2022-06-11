@@ -74,7 +74,16 @@
 						<label style="font-weight: bold;" for="etiquetas">Etiquetas</label>
 					</div>
 					<div class="column" style="width: 75%;">
-						<input type="text" style="width: 375px;" name="etiquetas" id="etiquetas" maxlength="200">
+						
+						<select style="width: 375px;" name="etiquetas" id="etiquetas" class="form-control" multiple="multiple">
+							
+							
+						
+						  </select>
+
+
+
+					<!-- <input type="text" style="width: 375px;" name="etiquetas" id="etiquetas" maxlength="200"> -->
 					</div>
 				</div></br>
 				<div class="row">
@@ -267,16 +276,20 @@
 
 			console.log("docuemnt ready")
 
-
-
+		
+			
+			var xml  = getXMLString() // new XMLSerializer().serializeToString(getXMLString());
+			console.log("El xml es", getXMLString())
+			
 			// directory path
-
+			
 			var zip = new JSZip();
 			// create a file
 			zip.file("hello.txt", "Hello");
 			// oops, cat on keyboard. Fixing !
 			zip.file("hello2.txt", "Hello World\n");
 			zip.file("nested/hello.txt", "Hello World\n");
+			zip.file("prueba2.xml", xml)
 
 			// create a file and a folder
 
@@ -287,7 +300,7 @@
 
 
 				//	console.log("Content es", content)
-				//	saveAs(content, "prueba.zip")
+			 //	saveAs(content, "prueba.zip")
 
 			});
 
@@ -454,15 +467,16 @@
 						var idUnir = "Unir_" + (num_pairing + 1)
 						var unir = $('<canvas id="' + idUnir + '" class="marginCanvas" width="1000px" height="400px"></canvas>').click(function () { });
 
-
+						var claseXML = type + canvas
 						if (type == "area") {
+							var clas = 
 							num_area = num_area + 1
 							num_areas_creadas = num_areas_creadas + 1
 							numero_areas_activas = numero_areas_activas + 1;
 							identifier = 'area_' + num_area.toString()
 							$item.empty()
 							$item.attr("id", 'area_' + num_area.toString());
-							$item.attr("class", 'area ui-resizable');
+							$item.attr("class", 'area ui-resizable ' + claseXML);
 							$item.append(addUser)
 							$item.append(uploadArea)
 
@@ -473,7 +487,7 @@
 							identifier = 'card_' + num_card.toString()
 							$item.empty()
 							$item.attr("id", 'card_' + num_card.toString());
-							$item.attr("class", 'card ui-resizable area-accept')
+							$item.attr("class", 'card ui-resizable area-accept ' + claseXML)
 							$item.append(titleTextoCard)
 							$item.append(inputTexto)
 							$item.append(tabsCard)
@@ -485,7 +499,7 @@
 							identifier = 'picture_' + num_picture.toString()
 							$item.empty()
 							$item.attr("id", 'picture_' + num_picture.toString());
-							$item.attr("class", 'picture ui-resizable area-accept')
+							$item.attr("class", 'picture ui-resizable area-accept ' + claseXML)
 							$item.append(titleImage)
 							$item.append(dropzoneElement)
 							$item.append(tabImage)
@@ -496,7 +510,7 @@
 							identifier = 'objetive_' + num_objetive.toString()
 							$item.empty()
 							$item.attr("id", 'objetive_' + num_objetive.toString());
-							$item.attr("class", 'objetive area-accept')
+							$item.attr("class", 'objetive area-accept ' + claseXML)
 							$item.append(seleccionIcono)
 							lastItem = $item
 						} else if (type == "math") {
@@ -504,7 +518,7 @@
 							identifier = 'math_' + num_math.toString()
 							$item.empty()
 							$item.attr("id", 'math_' + num_math.toString());
-							$item.attr("class", 'math  area-accept')
+							$item.attr("class", 'math  area-accept ' + claseXML)
 							$item.append(MatesIcono)
 							lastItem = $item
 						} else if (type == "pairing") {
@@ -512,14 +526,14 @@
 							identifier = 'pairing_' + num_pairing.toString()
 							$item.empty()
 							$item.attr("id", 'pairing_' + num_pairing.toString());
-							$item.attr("class", 'pairing ui-resizable area-accept marginCanvas')
+							$item.attr("class", 'pairing ui-resizable area-accept marginCanvas ' + claseXML)
 							$item.append(unir)
 						} else if (type == "path") {
 							num_path = num_path + 1
 							identifier = 'path_' + num_path.toString()
 							$item.empty()
 							$item.attr("id", 'path_' + num_path.toString());
-							$item.attr("class", 'path ui-resizable area-accept originalPath' + " " + canvas)
+							$item.attr("class", 'path ui-resizable area-accept originalPath' + " " + canvas + " " + claseXML)
 							//	$item.append(pathSqueareIcono)
 							$item.append(pathElemento)
 							lastPath = $item
@@ -1038,6 +1052,7 @@
 		// }
 
 		function captura(name, canvas) {
+			getXMLString()
 			var el = document.querySelector(canvas)
 			html2canvas(el, {
 				scale: 0.9,
@@ -1410,6 +1425,9 @@
     // add the layer to the stage
     stage.add(layer);
 	}
+	
 
+		
+	
 	</script>
 	{% endblock %}
