@@ -89,7 +89,7 @@ $(document).ready(function () {
                     for (var j = 0; j < listaImagenesDropzone.length; j++) {
 
                         var _ref;
-                        (_ref = listaImagenesDropzone[j].previewElement) != null ? _ref.parentNode.removeChild(listaImagenesDropzone[j].previewElement) : void 0;
+                        (_ref = listaImagenesDropzone[j].file.previewElement) != null ? _ref.parentNode.removeChild(listaImagenesDropzone[j].file.previewElement) : void 0;
                     }
 
                     //Eliminar clases areas para botones
@@ -215,7 +215,7 @@ function generarZIP2(nombre) {
 
     //Obtener imagenes dropzone
     for (var j = 0; j < listaImagenesDropzone.length; j++) {
-        zip.file(nombre + "/contents/" + listaImagenesDropzone[j].name, listaImagenesDropzone[j]);
+        zip.file(nombre + "/contents/" + listaImagenesDropzone[j].file.name, listaImagenesDropzone[j].file);
     }
 
     //Obtener imagenes de las capturas
@@ -243,12 +243,67 @@ function generarZIP2(nombre) {
 function getXMLString() {
     var parser = new DOMParser();
     var xml = '<Project version="2">'
-    
-    	
-    xml += '<resolution x="' + window.screen.availWidth + '" y="' + window.screen.availHeight +  '"/>'
+
+
+    xml += '<resolution x="' + window.screen.availWidth + '" y="' + window.screen.availHeight + '"/>'
     xml += '<language code="es"/>'
     xml += '<Activity>'
-    xml += '<Objectives/>'
+
+    var tieneSelectores = false
+    var select = ""
+    // Listado con selectores
+    var selectores = document.getElementsByClassName("selector")
+    for (var l = 0; l < selectores.length; l++) {
+        //Card
+        if (selectores[l].id.includes("card_")) {
+            var hijos = document.getElementById("idTitle_" + selectores[l].id.split("_")[1]).children
+            for (var m = 0; m < hijos.length; m++) {
+                if (hijos[m].id.includes("objetive")) {
+                    tieneSelectores = true
+                    select += '<obj type="sel" obj="' + selectores[l].id + '"/>'
+                }
+
+                if (hijos[m].id.includes("math")) {
+                    //InputNumber_1
+                    tieneSelectores = true
+                    var valueNumber = document.getElementById("InputNumber_" + selectores[l].id.split("_")[1]).value
+                    select += '<obj type="tokenMeter" id="' + selectores[l].id + '" numValue="' + valueNumber + '">'
+                    select += '<OriginTokens/><OriginZones/></obj>'
+                }
+            }
+        }
+
+        //Picture
+        if (selectores[l].id.includes("picture_")) {
+            var hijos = document.getElementById("titleImage_" + selectores[l].id.split("_")[1]).children
+            for (var m = 0; m < hijos.length; m++) {
+                if (hijos[m].id.includes("objetive")) {
+                    tieneSelectores = true
+                    select += '<obj type="sel" obj="' + selectores[l].id + '"/>'
+                }
+
+                if (hijos[m].id.includes("math")) {
+                    //InputNumber_1
+                    tieneSelectores = true
+                    var valueNumber = document.getElementById("InputNumber_" + selectores[l].id.split("_")[1]).value
+                    select += '<obj type="tokenMeter" id="' + selectores[l].id + '" numValue="' + valueNumber + '">'
+                    select += '<OriginTokens/><OriginZones/></obj>'
+                }
+            }
+        }
+    }
+
+
+
+
+    if (tieneSelectores) {
+        xml += '<Objectives>'
+        xml += select
+        xml += '</Objectives>'
+    } else {
+        xml += '<Objectives/>'
+    }
+
     xml += '<Tokenlist/>'
 
 
@@ -299,6 +354,7 @@ function getXMLString() {
                 } else {
                     xml += '<Tokenlist>'
                     for (var k = 0; k < hijosAreas.length; k++) {
+                        // Card
                         if (hijosAreas[k].id.includes("card_")) {
                             var card = document.getElementById(hijosAreas[k].id)
                             var textArea = document.getElementById("textArea_" + card.id.split("_")[1])
@@ -321,7 +377,7 @@ function getXMLString() {
                             }
 
 
-                        
+
                             xml += '<Token id="' + hijosAreas[k].id + '" type="txt" numValue="' + valorNumerico + '">'
                             xml += '<pos x="' + (parseFloat(card.getBoundingClientRect().left) - (parseFloat(area.getBoundingClientRect().left))) + '" y="' + (parseFloat(card.getBoundingClientRect().top) - (parseFloat(area.getBoundingClientRect().top))) + '"/>'
                             xml += '<size height="' + card.offsetHeight + '" width="' + card.offsetWidth + '"/>'
@@ -340,9 +396,70 @@ function getXMLString() {
 
                             xml += '</content>'
                             xml += '</Token>'
-                           
+
 
                             console.log("Card", hijosAreas[k].id)
+                        }
+
+                    
+                        // Picture
+                        if (hijosAreas[k].id.includes("picture_")) {
+                            var picture = document.getElementById(hijosAreas[k].id)
+
+
+                            var clickable = document.getElementById("SeleccionableImage_" + picture.id.split("_")[1]).checked
+                            var rotatable = document.getElementById("GirableImage_" + picture.id.split("_")[1]).checked
+                            var resizable = document.getElementById("RedimensionableImage_" + picture.id.split("_")[1]).checked
+                            var movable = true
+                            var feedback = "Escriba aquí el texto"
+                            var valorNumerico = document.getElementById("ValorNumericoImage_" + picture.id.split("_")[1]).value
+                            if (document.getElementById("RetroalimentacionImage_" + picture.id.split("_")[1]).value != "") {
+                                feedback = document.getElementById("RetroalimentacionImage_" + picture.id.split("_")[1]).value
+                            }
+                            if (picture.classList.contains("ui-draggable-disabled")) {
+                                movable = false
+                            }
+
+
+
+                            xml += '<Token id="' + hijosAreas[k].id + '" type="img" numValue="' + valorNumerico + '">'
+                            xml += '<pos x="' + (parseFloat(picture.getBoundingClientRect().left) - (parseFloat(area.getBoundingClientRect().left))) + '" y="' + (parseFloat(picture.getBoundingClientRect().top) - (parseFloat(area.getBoundingClientRect().top))) + '"/>'
+                            xml += '<size height="' + picture.offsetHeight + '" width="' + picture.offsetWidth + '"/>'
+                            xml += '<rotation value="0"/>'
+                            xml += '<clickable>' + clickable + '</clickable>'
+                            xml += '<rotatable>' + rotatable + '</rotatable>'
+                            xml += '<resizable>' + resizable + '</resizable>'
+                            xml += '<movable>' + movable + '</movable>'
+                            xml += '<content>'
+
+                            var tieneimagenes = false
+                            var urlDropzone = ""
+                            for (var p = 0; p < listaImagenesDropzone.length; p++) {
+
+                                if (listaImagenesDropzone[p].id.includes("dropzone_" + picture.id.split("_")[1])) {
+                                    tieneimagenes = true
+                                    urlDropzone += '<url>' + listaImagenesDropzone[p].file.name + '</url>'
+                                }
+                            }
+                            if (tieneimagenes) {
+                                xml += '<urlList>'
+                                xml += urlDropzone
+                                xml += '</urlList>'
+                            } else {
+                                xml += '<urlList/>'
+                            }
+
+                            if (feedback == "Escriba aquí el texto") {
+                                xml += '<feedback/>'
+                            } else {
+                                xml += '<feedback>' + feedback + '</feedback>'
+                            }
+
+                            xml += '</content>'
+                            xml += '</Token>'
+
+
+                            //  console.log("Picture", hijosAreas[k].id)
                         }
                     }
                     xml += '</Tokenlist>'

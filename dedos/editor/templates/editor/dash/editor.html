@@ -423,8 +423,14 @@
 						var AccionesImageID = "AccionesImage_" + (num_picture + 1)
 						var FeedbackImageID = "FeedbackImage_" + (num_picture + 1)
 						var MatematicasImageID = "MatematicasImage_" + (num_picture + 1)
-						var tabImage = $('<section id ="' + backImageID + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + AccionesImageID + '" onclick="evaluarTabImage(event, ' + AccionesImageID + ')">Acciones</button><button class="tablinks ' + FeedbackImageID + '" onclick="evaluarTabImage(event, ' + FeedbackImageID + ')">Feedback</button><button class="tablinks ' + MatematicasImageID + '" style="margin-right:5px;" onclick="evaluarTabImage(event, ' + MatematicasImageID + ')">Matemáticas</button></div><div id="' + AccionesImageID + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + FeedbackImageID + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
-							MatematicasImageID + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>')
+						var idSeleccionableImage = "SeleccionableImage_" + (num_picture + 1)
+						var idGirableImage = "GirableImage_" + (num_picture + 1) 
+						var idRedimensionableImage = "RedimensionableImage_" + (num_picture + 1)
+						var idRetroalimentacionImage = "RetroalimentacionImage_" + (num_picture + 1)
+						var idValorNumericoImage = "ValorNumericoImage_" + (num_picture + 1)
+
+						var tabImage = $('<section id ="' + backImageID + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + AccionesImageID + '" onclick="evaluarTabImage(event, ' + AccionesImageID + ')">Acciones</button><button class="tablinks ' + FeedbackImageID + '" onclick="evaluarTabImage(event, ' + FeedbackImageID + ')">Feedback</button><button class="tablinks ' + MatematicasImageID + '" style="margin-right:5px;" onclick="evaluarTabImage(event, ' + MatematicasImageID + ')">Matemáticas</button></div><div id="' + AccionesImageID + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="' + idSeleccionableImage+ '" value="firest_checkbox"> <label for="' + idSeleccionableImage+ '">Seleccionable</label><br><input type="checkbox" checked="true" id="' + idGirableImage + '" value="second_checkbox"> <label for="' + idGirableImage + '">Girable</label><br><input type="checkbox" checked="true" id="' + idRedimensionableImage + '" value="firest_checkbox"> <label for="' + idRedimensionableImage + '">Redimensionable</label></div><div id="' + FeedbackImageID + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea id="' + idRetroalimentacionImage + '" class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
+							MatematicasImageID + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input id="' + idValorNumericoImage + '" type="number" step="any" value="1" /></div></div> </section>')
 
 						var titleImageID = "titleImage_" + (num_picture + 1)
 						var idButtonImage = "idbuttonImage_" + (num_picture + 1)
@@ -444,7 +450,8 @@
 
 						//Matematicas
 						var idMates = "Matematicas_" + (num_math + 1)
-						var MatesIcono = $('<div id="' + idMates + '"  class="MatesIcono"><i id="idMates" class="fa-solid fa-calculator fa-2xl"></i><input class="numberMath" type="number" value="1" /></div>')
+						var idInputNumber = "InputNumber_" + (num_math + 1)
+						var MatesIcono = $('<div id="' + idMates + '"  class="MatesIcono"><i id="idMates" class="fa-solid fa-calculator fa-2xl"></i><input id="' + idInputNumber + '" class="numberMath" type="number" value="1" /></div>')
 
 						// Temporizador
 						var idTemporizador = "Temporizador_" + (num_time + 1)
@@ -1311,7 +1318,11 @@
 			this.x = x;
 			this.y = y;
 		}
-
+		
+		function elementoFileDropzone(id, file) {
+			this.id = id;
+			this.file = file;
+		}
 
 			// function probarsubir(){
 			// 	console.log("pulso")

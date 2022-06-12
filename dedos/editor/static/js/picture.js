@@ -94,7 +94,9 @@ function dropzoneUpload(id) {
 			accept: function (file, done) {
 				console.log("el file en el dropzone a subir es", file)
 				done()
-				listaImagenesDropzone.push(file) 
+				var elFile = new elementoFileDropzone(id, file)
+				listaImagenesDropzone.push(elFile) 
+				
 				console.log("lista files dropzone", listaImagenesDropzone)
 				var zip = new JSZip(); 
 				zip.file("contents/" + file.name , file);
@@ -112,7 +114,7 @@ function dropzoneUpload(id) {
 			}, 
 			removedfile: function(file) {
 				console.log("Borrar fichero", file.name)
-				listaImagenesDropzone = listaImagenesDropzone.filter(item => !(item.name == file.name));
+				listaImagenesDropzone = listaImagenesDropzone.filter(item => !(item.file.name == file.file.name));
 				console.log("lista files dropzone", listaImagenesDropzone)	
 				var _ref;
     			return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
