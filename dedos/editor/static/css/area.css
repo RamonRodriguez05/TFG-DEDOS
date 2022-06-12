@@ -17,7 +17,12 @@
     background-origin: content-box;
     background-repeat: no-repeat;
     background-position: center;
+    z-index: 3;
 } 
+
+.areaBack{
+    z-index: 1 !important;
+}
 
 .user-image {
     size: 100%;

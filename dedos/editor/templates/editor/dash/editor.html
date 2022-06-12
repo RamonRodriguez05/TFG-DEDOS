@@ -27,13 +27,13 @@
 						<input type="text" style="width: 375px;" name="nombre" id="nombre" maxlength="100">
 					</div>
 				</div></br>
-			
+
 				<div class="row">
 					<div class="column" style="width: 25%;">
-						<label style="font-weight: bold;" for="descripcion">Descripción:</label>	
+						<label style="font-weight: bold;" for="descripcion">Descripción:</label>
 					</div>
 					<div class="column" style="width: 75%;">
-						<textarea id="descripcion" name="descripcion" rows="4" cols="50" maxlength="500"></textarea>	
+						<textarea id="descripcion" name="descripcion" rows="4" cols="50" maxlength="500"></textarea>
 					</div>
 				</div> </br>
 
@@ -74,16 +74,17 @@
 						<label style="font-weight: bold;" for="etiquetas">Etiquetas</label>
 					</div>
 					<div class="column" style="width: 75%;">
-						
-						<select style="width: 375px;" name="etiquetas" id="etiquetas" class="form-control" multiple="multiple">
-							
-							
-						
-						  </select>
+
+						<select style="width: 375px;" name="etiquetas" id="etiquetas" class="form-control"
+							multiple="multiple">
 
 
 
-					<!-- <input type="text" style="width: 375px;" name="etiquetas" id="etiquetas" maxlength="200"> -->
+						</select>
+
+
+
+						<!-- <input type="text" style="width: 375px;" name="etiquetas" id="etiquetas" maxlength="200"> -->
 					</div>
 				</div></br>
 				<div class="row">
@@ -96,22 +97,22 @@
 						<input type="radio" name="privacidad" value="1" id="privado"> Privado
 					</div>
 				</div>
-						
 
 
 
-						
-						
 
 
-						
-						
 
-						
-						
 
-				
-			
+
+
+
+
+
+
+
+
+
 
 
 
@@ -119,8 +120,10 @@
 
 			</div>
 			<div class="modal-footer" style="text-align: center;">
-				<button type="button" style="width: 100px;" class="btn btn-secondary" style="margin-left: 250px;" data-dismiss="modal">Cerrar</button>
-				<button id="submit" style="width: 100px;" type="button" style="margin-right: 450px;" class="btn btn-primary">Guardar</button>
+				<button type="button" style="width: 100px;" class="btn btn-secondary" style="margin-left: 250px;"
+					data-dismiss="modal">Cerrar</button>
+				<button id="submit" style="width: 100px;" type="button" style="margin-right: 450px;"
+					class="btn btn-primary">Guardar</button>
 			</div>
 		</div>
 	</div>
@@ -191,14 +194,14 @@
 
 	<div id="listaCanvas">
 		<div id="editor-canvas_1" class="editor-canvas dropzone" style="border:2px;width:100%; height:100%">
-			
+
 			<!-- <canvas onl id="prueba" onclick="dibujarFlecha(this)" class="marginCanvas" width="1000px" height="400px"></canvas>' -->
-			
-				<!-- <label for="myfile">Select files:</label>
+
+			<!-- <label for="myfile">Select files:</label>
 				<input type="file" id="myfile" name="myfile" multiple accept="image/png, image/gif, image/jpeg"><br><br>
 				<input type="submit" onclick="generarZIP()">  -->
-			 
-	
+
+
 		</div>
 
 
@@ -268,7 +271,7 @@
 
 		listaSelectores = []
 		listaImagenesDropzone = []
-		listaCapturas = [] 
+		listaCapturas = []
 
 		$(document).ready(function () {
 			$("#groupMenu").collapse("toggle");
@@ -276,13 +279,13 @@
 
 			console.log("docuemnt ready")
 
-		
-			
-			var xml  = getXMLString() // new XMLSerializer().serializeToString(getXMLString());
+
+
+			var xml = getXMLString() // new XMLSerializer().serializeToString(getXMLString());
 			console.log("El xml es", getXMLString())
-			
+
 			// directory path
-			
+
 			var zip = new JSZip();
 			// create a file
 			zip.file("hello.txt", "Hello");
@@ -300,7 +303,7 @@
 
 
 				//	console.log("Content es", content)
-			 //	saveAs(content, "prueba.zip")
+				//	saveAs(content, "prueba.zip")
 
 			});
 
@@ -335,7 +338,7 @@
 			//editar
 			// rpueba
 			//var canvasprueba = document.getElementById("previewactivity_1");
-			
+
 			// canvasprueba.toBlob(function (blob) {
 			// 	var newImg = document.createElement('img'),
 			// 		url = URL.createObjectURL(blob);
@@ -375,7 +378,7 @@
 
 					limpiarCanvas()
 
-			//		konvas2()
+					//		konvas2()
 
 
 
@@ -405,12 +408,12 @@
 						var idFeedback = "Feedback_" + (num_card + 1)
 						var idMatematicas = "Matematicas_" + (num_card + 1)
 						var idSeleccionable = "Seleccionable_" + (num_card + 1)
-						var idGirable = "Girable_" + (num_card + 1) 
+						var idGirable = "Girable_" + (num_card + 1)
 						var idRedimensionable = "Redimensionable_" + (num_card + 1)
 						var idRetroalimentacion = "Retroalimentacion_" + (num_card + 1)
 						var idValorNumerico = "ValorNumerico_" + (num_card + 1)
-						var tabsCard = $('<section id ="' + texto3id + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + idAcciones + '" onclick="evaluarTabCard(event, ' + idAcciones + ')">Acciones</button><button class="tablinks ' + idFeedback + '" onclick="evaluarTabCard(event, ' + idFeedback + ')">Feedback</button><button class="tablinks ' + idMatematicas + '" style="margin-right:5px;" onclick="evaluarTabCard(event, ' + idMatematicas + ')">Matemáticas</button></div><div id="' + idAcciones + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="' + idSeleccionable +'" value="firest_checkbox"> <label for="' + idSeleccionable +'">Seleccionable</label><br><input type="checkbox" checked="true" id="' + idGirable +'" value="second_checkbox"> <label for="' + idGirable +'">Girable</label><br><input type="checkbox" checked="true" id="' + idRedimensionable +'" value="firest_checkbox"> <label for="' + idRedimensionable +'">Redimensionable</label></div><div id="' + idFeedback + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea id="' + idRetroalimentacion +'" class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
-							idMatematicas + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input id="' + idValorNumerico +'" type="number" step="any" value="1" /></div></div> </section>')
+						var tabsCard = $('<section id ="' + texto3id + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + idAcciones + '" onclick="evaluarTabCard(event, ' + idAcciones + ')">Acciones</button><button class="tablinks ' + idFeedback + '" onclick="evaluarTabCard(event, ' + idFeedback + ')">Feedback</button><button class="tablinks ' + idMatematicas + '" style="margin-right:5px;" onclick="evaluarTabCard(event, ' + idMatematicas + ')">Matemáticas</button></div><div id="' + idAcciones + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="' + idSeleccionable + '" value="firest_checkbox"> <label for="' + idSeleccionable + '">Seleccionable</label><br><input type="checkbox" checked="true" id="' + idGirable + '" value="second_checkbox"> <label for="' + idGirable + '">Girable</label><br><input type="checkbox" checked="true" id="' + idRedimensionable + '" value="firest_checkbox"> <label for="' + idRedimensionable + '">Redimensionable</label></div><div id="' + idFeedback + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea id="' + idRetroalimentacion + '" class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
+							idMatematicas + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input id="' + idValorNumerico + '" type="number" step="any" value="1" /></div></div> </section>')
 
 						var textAreaid = "textArea_" + (num_card + 1)
 						var inputTexto = $('<textarea id="' + textAreaid + '"class="inputText" placeholder="Escriba aquí el texto" name = "description" ></textarea>')
@@ -424,12 +427,12 @@
 						var FeedbackImageID = "FeedbackImage_" + (num_picture + 1)
 						var MatematicasImageID = "MatematicasImage_" + (num_picture + 1)
 						var idSeleccionableImage = "SeleccionableImage_" + (num_picture + 1)
-						var idGirableImage = "GirableImage_" + (num_picture + 1) 
+						var idGirableImage = "GirableImage_" + (num_picture + 1)
 						var idRedimensionableImage = "RedimensionableImage_" + (num_picture + 1)
 						var idRetroalimentacionImage = "RetroalimentacionImage_" + (num_picture + 1)
 						var idValorNumericoImage = "ValorNumericoImage_" + (num_picture + 1)
 
-						var tabImage = $('<section id ="' + backImageID + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + AccionesImageID + '" onclick="evaluarTabImage(event, ' + AccionesImageID + ')">Acciones</button><button class="tablinks ' + FeedbackImageID + '" onclick="evaluarTabImage(event, ' + FeedbackImageID + ')">Feedback</button><button class="tablinks ' + MatematicasImageID + '" style="margin-right:5px;" onclick="evaluarTabImage(event, ' + MatematicasImageID + ')">Matemáticas</button></div><div id="' + AccionesImageID + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="' + idSeleccionableImage+ '" value="firest_checkbox"> <label for="' + idSeleccionableImage+ '">Seleccionable</label><br><input type="checkbox" checked="true" id="' + idGirableImage + '" value="second_checkbox"> <label for="' + idGirableImage + '">Girable</label><br><input type="checkbox" checked="true" id="' + idRedimensionableImage + '" value="firest_checkbox"> <label for="' + idRedimensionableImage + '">Redimensionable</label></div><div id="' + FeedbackImageID + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea id="' + idRetroalimentacionImage + '" class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
+						var tabImage = $('<section id ="' + backImageID + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + AccionesImageID + '" onclick="evaluarTabImage(event, ' + AccionesImageID + ')">Acciones</button><button class="tablinks ' + FeedbackImageID + '" onclick="evaluarTabImage(event, ' + FeedbackImageID + ')">Feedback</button><button class="tablinks ' + MatematicasImageID + '" style="margin-right:5px;" onclick="evaluarTabImage(event, ' + MatematicasImageID + ')">Matemáticas</button></div><div id="' + AccionesImageID + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="' + idSeleccionableImage + '" value="firest_checkbox"> <label for="' + idSeleccionableImage + '">Seleccionable</label><br><input type="checkbox" checked="true" id="' + idGirableImage + '" value="second_checkbox"> <label for="' + idGirableImage + '">Girable</label><br><input type="checkbox" checked="true" id="' + idRedimensionableImage + '" value="firest_checkbox"> <label for="' + idRedimensionableImage + '">Redimensionable</label></div><div id="' + FeedbackImageID + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea id="' + idRetroalimentacionImage + '" class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
 							MatematicasImageID + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input id="' + idValorNumericoImage + '" type="number" step="any" value="1" /></div></div> </section>')
 
 						var titleImageID = "titleImage_" + (num_picture + 1)
@@ -481,8 +484,8 @@
 
 						var claseXML = type + canvas
 						if (type == "area") {
-							var clas = 
-							num_area = num_area + 1
+							var clas =
+								num_area = num_area + 1
 							num_areas_creadas = num_areas_creadas + 1
 							numero_areas_activas = numero_areas_activas + 1;
 							identifier = 'area_' + num_area.toString()
@@ -657,7 +660,7 @@
 							$("#" + crearCamino).droppable({
 								drop: function (event, ui) {
 									$(this).css('background', 'rgb(0,200,0)');
-								//	console.log("Elemento", ui.draggable[0].id)
+									//	console.log("Elemento", ui.draggable[0].id)
 									/*
 									var newDiv = document.createElement("div");
 									newDiv.id = "pathid" + num_pathid.toString()
@@ -681,81 +684,93 @@
 						if (type == "pairing") {
 							let elem = null
 							let dibujo = true;
+							if(dibujo){
+								activarPairing("pairing_" + num_pairing)
+							}
 							
 							document.getElementById("pairing_" + num_pairing).addEventListener("mousemove", function move(e) {
 								var elems = document.elementsFromPoint(e.clientX, e.clientY)
-								if (elem == null){
-								 for (let i = 0; i < elems.length; i++) {
 
-								 	if (elems[i].id.includes("area_")) {
-								 		console.log("POSICION AREA", elems[i].id)
-								 		elem = document.getElementById(elems[i].id);
-										break;
-							 	}
-								 }
-								}else {
+								if (elem == null) {
+									for (let i = 0; i < elems.length; i++) {
+										console.log("eleentossss", elems[i].id)
+										if (elems[i].id.includes("area_")) {
+											console.log("POSICION AREA", elems[i].id)
+											elem = document.getElementById(elems[i].id);
+											break;
+										}
+									}
+								} else {
+									//activarPairing("pairing_" + num_pairing)
 									let rect2 = elem.getBoundingClientRect();
 									console.log("el x", elem.offsetLeft)
 									var item = document.getElementById("pairing_" + num_pairing)
 									// item.style.width = -1 * event.clientX + 'px';
 									// item.style.height = -1 * event.clientY + 'px';
 									item.style = "position: absolute; left: 0px; top: 55px;"
-								//	flecha("pairing_" + num_pairing)
+									//	flecha("pairing_" + num_pairing)
 									const target = e.target;
 
 									// Get the bounding rectangle of target
 									const rect = target.getBoundingClientRect();
 									console.log("")
-									console.log("right: "+ rect2.right,"bottom:", rect2.bottom);
-					 				console.log("left: "+ rect2.left,"top: " +  rect2.top);
+									console.log("right: " + rect2.right, "bottom:", rect2.bottom);
+									console.log("left: " + rect2.left, "top: " + rect2.top);
 									// Mouse position
 									posLeft = e.clientX - rect.left;;
 									posRight = e.clientY - rect.top;
 
-									
 
-									var x1 = (elem.offsetLeft)  + (elem.offsetWidth / 2)
+
+									var x1 = (elem.offsetLeft) + (elem.offsetWidth / 2)
 									var y1 = elem.offsetTop * 0.59
 
 									console.log(x1, y1)
 									var x2 = elem.offsetLeft
 									var y2 = elem.offsetTop * 1.45
 
-									var x3 = (elem.offsetLeft)  + (elem.offsetWidth / 2)
+									var x3 = (elem.offsetLeft) + (elem.offsetWidth / 2)
 									var y3 = elem.offsetTop * 1.9
 
-									var x4 = (elem.offsetLeft)  + (elem.offsetWidth)
+									var x4 = (elem.offsetLeft) + (elem.offsetWidth)
 									var y4 = elem.offsetTop * 1.45
 
 									// Calcular distancias
 
-									var modulo1 = Math.sqrt(Math.pow(x1 - posLeft,2) + Math.pow(y1 - posRight, 2))
-									var modulo2 = Math.sqrt(Math.pow(x2 - posLeft,2) + Math.pow(y2 - posRight, 2))
-									var modulo3 = Math.sqrt(Math.pow(x3 - posLeft,2) + Math.pow(y3 - posRight, 2))
-									var modulo4 = Math.sqrt(Math.pow(x4 - posLeft,2) + Math.pow(y4 - posRight, 2))
+									var modulo1 = Math.sqrt(Math.pow(x1 - posLeft, 2) + Math.pow(y1 - posRight, 2))
+									var modulo2 = Math.sqrt(Math.pow(x2 - posLeft, 2) + Math.pow(y2 - posRight, 2))
+									var modulo3 = Math.sqrt(Math.pow(x3 - posLeft, 2) + Math.pow(y3 - posRight, 2))
+									var modulo4 = Math.sqrt(Math.pow(x4 - posLeft, 2) + Math.pow(y4 - posRight, 2))
 									console.log("Modulo 1", modulo1)
 									console.log("Modulo 2", modulo2)
 									var elementoFinal = new elementoModulo("nombre", x1, y1)
-									if(modulo2 < modulo1){
-										elementoFinal = new elementoModulo("nombre", x2, y2)	
+									if (modulo2 < modulo1) {
+										elementoFinal = new elementoModulo("nombre", x2, y2)
 									}
-									if(dibujo){
-										dibujar(elementoFinal.x, elementoFinal.y, posLeft, posRight, idUnir)	
+									if (dibujo) {
+										activarPairing("pairing_" + num_pairing)
+										dibujar(elementoFinal.x, elementoFinal.y, posLeft, posRight, idUnir)
 									}
-									
+
 
 								}
 							});
-							
+
 
 							document.getElementById("pairing_" + num_pairing).addEventListener("mouseup", function stop(e) {
+								
+								
 								console.log("lo paroo")
 								dibujo = !dibujo
+								if(!dibujo){
+									moverHijo("id")
+									desactivarPairing()
+								}
 								console.log("Dibujar es", dibujo)
 								//document.getElementById("pairing_1").removeEventListener("mousemove", function move(e) {});
-								
+
 							});
-							
+
 						}
 					} else {
 						/** Una tarjeta, área o objetivo se está soltando **/
@@ -864,17 +879,17 @@
 							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
 
 							var clasesElemento = document.getElementById($item[0].id).classList
-							for(var i= 0; i < clasesElemento.length; i++){
-							//	console.log("el type", $item.attr("type"))
-								if(clasesElemento[i].includes("hijode")){
+							for (var i = 0; i < clasesElemento.length; i++) {
+								//	console.log("el type", $item.attr("type"))
+								if (clasesElemento[i].includes("hijode")) {
 									document.getElementById($item[0].id).classList.remove(clasesElemento[i])
 								}
 							}
 							document.getElementById($item[0].id).classList.add("hijode" + $(this)[0].id)
 						}
-							console.log("el padres this es", $(this)[0].id)
-							console.log("el padre item es", $item[0].id)
-							
+						console.log("el padres this es", $(this)[0].id)
+						console.log("el padre item es", $item[0].id)
+
 						$(this).append($item)
 					}
 				}
@@ -1101,32 +1116,32 @@
 				canvas.id = "preview" + name
 				//	console.log("la captura es", canvas)
 				prueba.appendChild(canvas)
-				
-				var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); 
-				
-			//	const url = 'data:image/png;base6....';
+
+				var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+
+				//	const url = 'data:image/png;base6....';
 				fetch(image)
-  				.then(res => res.blob())
- 				 .then(blob => {
-   				 const file = new File([blob], canvas.id + ".png",{ type: "image/png" })
-				//	console.log("file generate", file)
+					.then(res => res.blob())
+					.then(blob => {
+						const file = new File([blob], canvas.id + ".png", { type: "image/png" })
+						//	console.log("file generate", file)
 
-				// Añadir captura
-			//	console.log("el canvas es", canvas)
-				listaCapturas = listaCapturas.filter(item => !(item.canvas == canvas.id));
-				var elCaptura = new elementoCaptura(canvas.id, file)	
-				listaCapturas.push(elCaptura)	
-				console.log("El listado de las capturas es", listaCapturas)
-		// 		listaCapturas = [] 
-		// elementoCaptura
+						// Añadir captura
+						//	console.log("el canvas es", canvas)
+						listaCapturas = listaCapturas.filter(item => !(item.canvas == canvas.id));
+						var elCaptura = new elementoCaptura(canvas.id, file)
+						listaCapturas.push(elCaptura)
+						console.log("El listado de las capturas es", listaCapturas)
+						// 		listaCapturas = [] 
+						// elementoCaptura
 
 
- 			 })
-			//	console.log("Image capture", image)
-				
+					})
+				//	console.log("Image capture", image)
+
 				// here is the most important part because if you dont replace you will get a DOM 18 exception.
-			//	image.src = "jjjeje.png"
-			//	console.log("Canvas...", canvas.toDataURL("image/png"))
+				//	image.src = "jjjeje.png"
+				//	console.log("Canvas...", canvas.toDataURL("image/png"))
 
 				// var image = new Image();
 				// image.src = canvas.toDataURL("image/png")
@@ -1136,20 +1151,20 @@
 				// var img = document.getElementById("meterImagen");
 
 				//
-			// 	var dataURL = canvas.toDataURL("image/png");
-			// 	$.ajax({
-      		// 		type: "POST",
-      		// 		url: "/static/upload.php",
-      		// 	data: { 
-         	// 		imgBase64: dataURL
-      		// 		}
-    		// 	}).done(function(o) {
-     		// 		 console.log('saved',o); 
-     		// 		 // If you want the file to be visible in the browser 
-     		// 		 // - please modify the callback in javascript. All you
-     		// 		// need is to return the url to the file, you just saved 
-      		// 		// and than put the image in your browser.
-   			//  });
+				// 	var dataURL = canvas.toDataURL("image/png");
+				// 	$.ajax({
+				// 		type: "POST",
+				// 		url: "/static/upload.php",
+				// 	data: { 
+				// 		imgBase64: dataURL
+				// 		}
+				// 	}).done(function(o) {
+				// 		 console.log('saved',o); 
+				// 		 // If you want the file to be visible in the browser 
+				// 		 // - please modify the callback in javascript. All you
+				// 		// need is to return the url to the file, you just saved 
+				// 		// and than put the image in your browser.
+				//  });
 
 
 
@@ -1161,7 +1176,7 @@
 
 
 				generarZIP2()
-				
+
 			});
 		}
 
@@ -1318,149 +1333,149 @@
 			this.x = x;
 			this.y = y;
 		}
-		
+
 		function elementoFileDropzone(id, file) {
 			this.id = id;
 			this.file = file;
 		}
 
-			// function probarsubir(){
-			// 	console.log("pulso")
-					
+		// function probarsubir(){
+		// 	console.log("pulso")
 
 
 
-			// 	let imgData = new FormData()
 
-			//  var image =	document.getElementById("myfile").files[0]
-			// 	imgData.append('file', image)
-			// 	var dataURL = canvas.toDataURL();
-			// 	$.ajax({
-      		// 		type: "POST",
-      		// 		url: "/static/upload.php",
-      		// 	data: { 
-         	// 		imgBase64: dataURL
-      		// 		}
-    		// 	}).done(function(o) {
-     		// 		 console.log('saved'); 
-     		// 		 // If you want the file to be visible in the browser 
-     		// 		 // - please modify the callback in javascript. All you
-     		// 		// need is to return the url to the file, you just saved 
-      		// 		// and than put the image in your browser.
-   			//  });
+		// 	let imgData = new FormData()
 
-	
-			// }
+		//  var image =	document.getElementById("myfile").files[0]
+		// 	imgData.append('file', image)
+		// 	var dataURL = canvas.toDataURL();
+		// 	$.ajax({
+		// 		type: "POST",
+		// 		url: "/static/upload.php",
+		// 	data: { 
+		// 		imgBase64: dataURL
+		// 		}
+		// 	}).done(function(o) {
+		// 		 console.log('saved'); 
+		// 		 // If you want the file to be visible in the browser 
+		// 		 // - please modify the callback in javascript. All you
+		// 		// need is to return the url to the file, you just saved 
+		// 		// and than put the image in your browser.
+		//  });
 
 
-	// Prueba konva
-	function konvas() {
-		const stage = new Konva.Stage({
-			container: 'editor-canvas_1',
-			width: window.innerWidth,
-			height: window.innerHeight
-		});
+		// }
 
-		const layer = new Konva.Layer();
-		stage.add(layer);
 
-		const shape = new Konva.Text({
-			text: 'Try to draw an arrow'
-		});
-		layer.add(shape);
-
-		let arrow;
-		stage.on('mousedown', () => {
-			const pos = stage.getPointerPosition();
-			arrow = new Konva.Arrow({
-				points: [pos.x, pos.y],
-				stroke: 'black',
-				fill: 'black'
+		// Prueba konva
+		function konvas() {
+			const stage = new Konva.Stage({
+				container: 'editor-canvas_1',
+				width: window.innerWidth,
+				height: window.innerHeight
 			});
-			layer.add(arrow);
-			layer.batchDraw();
-		});
 
-		stage.on('mousemove', () => {
-			if (arrow) {
+			const layer = new Konva.Layer();
+			stage.add(layer);
+
+			const shape = new Konva.Text({
+				text: 'Try to draw an arrow'
+			});
+			layer.add(shape);
+
+			let arrow;
+			stage.on('mousedown', () => {
 				const pos = stage.getPointerPosition();
-				const points = [arrow.points()[0], arrow.points()[1], pos.x, pos.y];
-				arrow.points(points);
+				arrow = new Konva.Arrow({
+					points: [pos.x, pos.y],
+					stroke: 'black',
+					fill: 'black'
+				});
+				layer.add(arrow);
 				layer.batchDraw();
+			});
+
+			stage.on('mousemove', () => {
+				if (arrow) {
+					const pos = stage.getPointerPosition();
+					const points = [arrow.points()[0], arrow.points()[1], pos.x, pos.y];
+					arrow.points(points);
+					layer.batchDraw();
+				}
+			});
+
+			stage.on('mouseup', () => {
+				arrow = null;
+			});
+
+
+			layer.draw();
+		}
+
+		function konvas2() {
+			var width = window.innerWidth;
+			var height = window.innerHeight;
+
+			var stage = new Konva.Stage({
+				container: 'editor-canvas_1',
+				width: width,
+				height: height,
+
+			});
+
+			var layer = new Konva.Layer();
+
+			var circle = new Konva.Circle({
+				x: stage.getWidth() / 2,
+				y: stage.getHeight() / 2,
+				radius: 40,
+				fill: 'green',
+				stroke: 'black',
+				strokeWidth: 2,
+				draggable: true
+			});
+
+			var circleA = new Konva.Circle({
+				x: stage.getWidth() / 5,
+				y: stage.getHeight() / 5,
+				radius: 30,
+				fill: 'red',
+				stroke: 'black',
+				strokeWidth: 2,
+				draggable: true
+			});
+
+			var arrow = new Konva.Arrow({
+				points: [circle.getX(), circle.getY(), circleA.getX(), circleA.getY()],
+				pointerLength: 10,
+				pointerWidth: 10,
+				fill: 'black',
+				stroke: 'black',
+				strokeWidth: 4
+			});
+
+			function adjustPoint(e) {
+				var p = [circle.getX(), circle.getY(), circleA.getX(), circleA.getY()];
+				arrow.setPoints(p);
+				layer.draw();
 			}
-		});
 
-		stage.on('mouseup', () => {
-			arrow = null;
-		});
+			circle.on('dragmove', adjustPoint);
+
+			circleA.on('dragmove', adjustPoint);
+
+			layer.add(circleA);
+			// add the shape to the layer
+			layer.add(circle);
+			layer.add(arrow);
+
+			// add the layer to the stage
+			stage.add(layer);
+		}
 
 
-		layer.draw();
-	}
 
-	function konvas2(){
-		var width = window.innerWidth;
-    var height = window.innerHeight;
 
-    var stage = new Konva.Stage({
-      container: 'editor-canvas_1',
-      width: width,
-      height: height,
-	  
-    });
-
-    var layer = new Konva.Layer();
-
-    var circle = new Konva.Circle({
-      x: stage.getWidth() / 2,
-      y: stage.getHeight() / 2,
-      radius: 40,
-      fill: 'green',
-      stroke: 'black',
-      strokeWidth: 2,
-      draggable: true
-    });
-
-    var circleA = new Konva.Circle({
-      x: stage.getWidth() / 5,
-      y: stage.getHeight() / 5,
-      radius: 30,
-      fill: 'red',
-      stroke: 'black',
-      strokeWidth: 2,
-      draggable: true
-    });
-
-    var arrow = new Konva.Arrow({
-      points: [circle.getX(), circle.getY(), circleA.getX(), circleA.getY()],
-      pointerLength: 10,
-      pointerWidth: 10,
-      fill: 'black',
-      stroke: 'black',
-      strokeWidth: 4
-    });
-    
-    function adjustPoint(e){
-      var p=[circle.getX(), circle.getY(), circleA.getX(), circleA.getY()];
-      arrow.setPoints(p);
-      layer.draw();
-    }
-    
-    circle.on('dragmove', adjustPoint);
-    
-    circleA.on('dragmove', adjustPoint);
-
-    layer.add(circleA);
-    // add the shape to the layer
-    layer.add(circle);
-    layer.add(arrow);
-
-    // add the layer to the stage
-    stage.add(layer);
-	}
-	
-
-		
-	
 	</script>
 	{% endblock %}

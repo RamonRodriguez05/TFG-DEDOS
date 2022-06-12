@@ -11,8 +11,15 @@
     -moz-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
     box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.7 5);
     border-style: ridge;
-    border: 1px solid rgb(21, 138, 17);
+    border: 1px solid rgb(21, 138, 17); 
+     z-index: 3 ;
 } 
+
+.pictureBack{
+    z-index: 1 !important;
+}
+
+
 
 .tituloTexto2 {
 

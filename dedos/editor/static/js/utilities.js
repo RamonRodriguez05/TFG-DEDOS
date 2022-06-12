@@ -612,3 +612,69 @@ $(document).ready(function () {
 	}
 
 })
+
+
+function activarPairing(id){
+	console.log("Activo pairing")
+	//Areas
+	var areas = document.getElementsByClassName("area")
+	for(var i = 0; i< areas.length; i++){
+		areas[i].classList.add("areaBack")
+	}
+
+	//Picture
+	var pictures = document.getElementsByClassName("picture")
+	for(var j = 0; j< pictures.length; j++){
+		pictures[j].classList.add("pictureBack")
+	}
+
+	//Card
+	var cards = document.getElementsByClassName("card")
+	for(var k = 0; k< cards.length; k++){
+		cards[k].classList.add("cardBack")
+	} 
+
+	//Pairing
+	var pairings = document.getElementsByClassName("pairing")
+	for(var l = 0; l< pairings.length; l++){
+		pairings[l].classList.add("pairingBack")
+	} 
+
+	document.getElementById(id).classList.add("pairingFront")
+}
+
+function desactivarPairing(){
+	console.log("Desactivo pairing")
+	//Areas
+	var areas = document.getElementsByClassName("area")
+	for(var i = 0; i< areas.length; i++){
+		areas[i].classList.remove("areaBack")
+	}
+
+	//Picture
+	var pictures = document.getElementsByClassName("picture")
+	for(var j = 0; j< pictures.length; j++){
+		pictures[j].classList.remove("pictureBack")
+	}
+
+	//Card
+	var cards = document.getElementsByClassName("card")
+	for(var k = 0; k< cards.length; k++){
+		cards[k].classList.remove("cardBack")
+	} 
+
+	//Pairing
+	var pairings = document.getElementsByClassName("pairing")
+	for(var l = 0; l< pairings.length; l++){
+		pairings[l].classList.add("pairingBack")
+	} 
+
+}
+
+function moverHijo(id){
+	var hijoCanvas = document.getElementById("editor-canvas_1").children
+	const node = document.getElementById("pairing_1");
+	const list = document.getElementById("editor-canvas_1");
+	list.insertBefore(node, list.children[2]);
+	console.log("hijos", document.getElementById("editor-canvas_1").children)
+}
