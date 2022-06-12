@@ -29,7 +29,7 @@ $(document).ready(function () {
 
     function replaceAll(string, search, replace) {
         return string.split(search).join(replace);
-      }
+    }
 
     //
     $('#submit').on('click', function () {
@@ -37,10 +37,10 @@ $(document).ready(function () {
         var nombre = $('#nombre').val();
         var asignatura = $('#asignatura').val();
         var curso = $('#curso').val();
-        var etiquetas = ''+ $("#etiquetas").val() + '';
+        var etiquetas = '' + $("#etiquetas").val() + '';
         var descripcion = $('#descripcion').val();
         etiquetas = replaceAll(etiquetas, ",", ", ")
-        
+
         //
         var today = new Date();
 
@@ -60,11 +60,11 @@ $(document).ready(function () {
 
         //
         var zip = generarZIP2(nombre)
-    //    zip.file("screenshots/prueba.txt", "hola que tal 222222");
-   //     zip.file("prueba.xml", '<Project version="2"> <resolution x="1024" y="596.05"/> <language code="es"/> <Activity> <Objectives> <obj type="pair" origen="instance16928" tokenMeter="false"> <Targets> <target name="instance17385"/> </Targets> </obj> </Objectives> <Tokenlist> <Token id="instance17385" type="img" numValue="1"> <pos x="623.8" y="60.15"/> <size height="264.9" width="322"/> <rotation value="0"/> <clickable>true</clickable> <rotatable>true</rotatable> <resizable>true</resizable> <movable>true</movable> <content> <urlList> <url>pinnedout.png</url> <url>fondo_alas.png</url> </urlList> <feedback/> </content> </Token> </Tokenlist> <Arealist> <Area id="instance16928" type="Jugador"> <pos x="28.7" y="31.65"/> <rotation value="0"/> <posfondo x="0" y="0"/> <size height="273.75" width="558.05"/> <bg url=""/> <Tokenlist> <Token id="instance17085" type="txt" numValue="1"> <pos x="36.15" y="22.7"/> <size height="107.14999999999999" width="273.2"/> <rotation value="0"/> <clickable>false</clickable> <rotatable>true</rotatable> <resizable>true</resizable> <movable>true</movable> <content> <text>Holaque tal estas??</text> <feedback/> </content> </Token> </Tokenlist> <Tokenlist>null</Tokenlist> </Area> </Arealist> <Arrows> <arrow origin="instance16928" dest="instance17385"/> </Arrows> </Activity></Project>');
+        //    zip.file("screenshots/prueba.txt", "hola que tal 222222");
+        //     zip.file("prueba.xml", '<Project version="2"> <resolution x="1024" y="596.05"/> <language code="es"/> <Activity> <Objectives> <obj type="pair" origen="instance16928" tokenMeter="false"> <Targets> <target name="instance17385"/> </Targets> </obj> </Objectives> <Tokenlist> <Token id="instance17385" type="img" numValue="1"> <pos x="623.8" y="60.15"/> <size height="264.9" width="322"/> <rotation value="0"/> <clickable>true</clickable> <rotatable>true</rotatable> <resizable>true</resizable> <movable>true</movable> <content> <urlList> <url>pinnedout.png</url> <url>fondo_alas.png</url> </urlList> <feedback/> </content> </Token> </Tokenlist> <Arealist> <Area id="instance16928" type="Jugador"> <pos x="28.7" y="31.65"/> <rotation value="0"/> <posfondo x="0" y="0"/> <size height="273.75" width="558.05"/> <bg url=""/> <Tokenlist> <Token id="instance17085" type="txt" numValue="1"> <pos x="36.15" y="22.7"/> <size height="107.14999999999999" width="273.2"/> <rotation value="0"/> <clickable>false</clickable> <rotatable>true</rotatable> <resizable>true</resizable> <movable>true</movable> <content> <text>Holaque tal estas??</text> <feedback/> </content> </Token> </Tokenlist> <Tokenlist>null</Tokenlist> </Area> </Arealist> <Arrows> <arrow origin="instance16928" dest="instance17385"/> </Arrows> </Activity></Project>');
 
-        zip.generateAsync({ type: "blob" }).then(function (content) { 
-        //	saveAs(content, "prueba.zip")
+        zip.generateAsync({ type: "blob" }).then(function (content) {
+            //	saveAs(content, "prueba.zip")
             console.log("El contenido es", content)
             var reader = new FileReader();
             reader.readAsDataURL(content);
@@ -86,18 +86,18 @@ $(document).ready(function () {
                     alert("Por favor, rellene todos los datos");
                 } else {
                     // Elimina las imagenes para luego editar
-                    for(var j=0; j< listaImagenesDropzone.length; j++){
-                      
+                    for (var j = 0; j < listaImagenesDropzone.length; j++) {
+
                         var _ref;
-                         (_ref = listaImagenesDropzone[j].previewElement) != null ? _ref.parentNode.removeChild(listaImagenesDropzone[j].previewElement) : void 0;
+                        (_ref = listaImagenesDropzone[j].previewElement) != null ? _ref.parentNode.removeChild(listaImagenesDropzone[j].previewElement) : void 0;
                     }
-                    
+
                     //Eliminar clases areas para botones
                     var elementos = document.getElementsByClassName("area")
 
-	
 
-		           
+
+
                     $.ajax({
                         type: "POST",
                         url: "/editor/insert/",
@@ -133,7 +133,7 @@ $(document).ready(function () {
 
 
     });
-}); 
+});
 
 
 // function generarZIP() { 
@@ -198,36 +198,36 @@ $(document).ready(function () {
 //     }
 // }
 
-function generarZIP2(nombre) { 
+function generarZIP2(nombre) {
     var zip = new JSZip();
 
     //Obtener imagenes areas
     var areas = document.getElementsByClassName("area")
-    for(var i = 0; i < areas.length; i++){
+    for (var i = 0; i < areas.length; i++) {
         var id = areas[i].id.split("_")[1]
         var upload = document.getElementById("uploadArea_" + id)
         var image = upload.files[0]
-       // console.log("las url son ", image)
+        // console.log("las url son ", image)
         if (image != undefined) {
-            zip.file(nombre +"/contents/" + image.name, image);
+            zip.file(nombre + "/contents/" + image.name, image);
         }
     }
 
     //Obtener imagenes dropzone
-    for(var j=0; j< listaImagenesDropzone.length; j++){
-        zip.file(nombre+"/contents/" + listaImagenesDropzone[j].name, listaImagenesDropzone[j]);
+    for (var j = 0; j < listaImagenesDropzone.length; j++) {
+        zip.file(nombre + "/contents/" + listaImagenesDropzone[j].name, listaImagenesDropzone[j]);
     }
 
     //Obtener imagenes de las capturas
-    for(var k=0; k< listaCapturas.length; k++){
-        zip.file(nombre +"/screenshots/" + listaCapturas[k].file.name, listaCapturas[k].file);
+    for (var k = 0; k < listaCapturas.length; k++) {
+        zip.file(nombre + "/screenshots/" + listaCapturas[k].file.name, listaCapturas[k].file);
     }
-    
-   // var xml  = new XMLSerializer().serializeToString(getXMLString());
-    zip.file(nombre + "/" +nombre + ".xml", getXMLString());
+
+    // var xml  = new XMLSerializer().serializeToString(getXMLString());
+    zip.file(nombre + "/" + nombre + ".xml", getXMLString());
 
     return zip
-} 
+}
 
 
 // function dataURLtoFile(dataurl, filename) {
@@ -242,62 +242,121 @@ function generarZIP2(nombre) {
 
 function getXMLString() {
     var parser = new DOMParser();
-    var xml = '<Project version="2">' 
+    var xml = '<Project version="2">'
     
-    xml += '<resolution x="1076.8" y="655.25"/>'
+    	
+    xml += '<resolution x="' + window.screen.availWidth + '" y="' + window.screen.availHeight +  '"/>'
     xml += '<language code="es"/>'
     xml += '<Activity>'
     xml += '<Objectives/>'
     xml += '<Tokenlist/>'
-   
-           
-    
+
+
+
     // Obtener actividades
     var activities = document.getElementsByClassName("editor-canvas")
-    for (var i= 0; i <activities.length; i++){
-        console.log("Activity",activities[i].id)
+    for (var i = 0; i < activities.length; i++) {
+        //   console.log("Activity",activities[i].id)
 
         //Areas
         var areas = document.getElementsByClassName("area#" + activities[i].id)
-        console.log("numero de areas es", areas.length)
-        if(areas.length == 0){
+        //      console.log("numero de areas es", areas.length)
+        if (areas.length == 0) {
             xml += '<Arealist/>'
-        }else{
+        } else {
             xml += '<Arealist>'
-        }
-        for (var j = 0; j< areas.length; j++){
+            for (var j = 0; j < areas.length; j++) {
                 console.log(areas[j])
-           
+
                 var tipo = 'Jugador'
                 var botonUsuario = document.getElementById("botonUsuario_" + areas[j].id.split("_")[1])
-                if(botonUsuario.title =="Cambiar a zona de jugador"){
+                if (botonUsuario.title == "Cambiar a zona de jugador") {
                     tipo = 'Juego'
                 }
 
                 var urlImageArea = '""'
-                var id = areas[j].id.split("_")[1]
-                var upload = document.getElementById("uploadArea_" + id)
+                var idArea = areas[j].id
+                var upload = document.getElementById("uploadArea_" + idArea.split("_")[1])
                 var image = upload.files[0]
-       
+
                 if (image != undefined) {
-                    urlImageArea = '"'+ image.name +'"'
+                    urlImageArea = '"' + image.name + '"'
                 }
-                var area = document.getElementById(areas[j].id)
-                xml += '<Area id="' + areas[j].id + '" type="' + tipo + '">'
-                xml += '<pos x="' + (parseFloat(area.getBoundingClientRect().left) - 250 )  + '" y="' + (parseFloat(area.getBoundingClientRect().top) - 220)  + '"/>'
+                var area = document.getElementById(idArea)
+                xml += '<Area id="' + idArea + '" type="' + tipo + '">'
+                xml += '<pos x="' + (parseFloat(area.getBoundingClientRect().left)) + '" y="' + (parseFloat(area.getBoundingClientRect().top)) + '"/>'
                 xml += '<rotation value="0"/>'
                 xml += '<posfondo x="0" y="0"/>'
-                xml += '<size height="' + area.offsetHeight + '" width="' + area.offsetWidth +'"/>'
-                xml += '<bg url='+ urlImageArea + '/>'
-                xml += '<Tokenlist/>'
-                xml += '<Tokenlist>null</Tokenlist>' 
+                xml += '<size height="' + area.offsetHeight + '" width="' + area.offsetWidth + '"/>'
+                xml += '<bg url=' + urlImageArea + '/>'
+
+
+
+                // Obtener hijos areas
+                var hijosAreas = document.getElementsByClassName("hijode" + idArea)
+                if (hijosAreas.length == 0) {
+                    xml += '<Tokenlist/>'
+                } else {
+                    xml += '<Tokenlist>'
+                    for (var k = 0; k < hijosAreas.length; k++) {
+                        if (hijosAreas[k].id.includes("card_")) {
+                            var card = document.getElementById(hijosAreas[k].id)
+                            var textArea = document.getElementById("textArea_" + card.id.split("_")[1])
+                            var texto = "Escriba aquí el texto"
+                            if (textArea.value != "") {
+                                texto = textArea.value
+                            }
+
+                            var clickable = document.getElementById("Seleccionable_" + card.id.split("_")[1]).checked
+                            var rotatable = document.getElementById("Girable_" + card.id.split("_")[1]).checked
+                            var resizable = document.getElementById("Redimensionable_" + card.id.split("_")[1]).checked
+                            var movable = true
+                            var feedback = "Escriba aquí el texto"
+                            var valorNumerico = document.getElementById("ValorNumerico_" + card.id.split("_")[1]).value
+                            if (document.getElementById("Retroalimentacion_" + card.id.split("_")[1]).value != "") {
+                                feedback = document.getElementById("Retroalimentacion_" + card.id.split("_")[1]).value
+                            }
+                            if (card.classList.contains("ui-draggable-disabled")) {
+                                movable = false
+                            }
+
+
+                        
+                            xml += '<Token id="' + hijosAreas[k].id + '" type="txt" numValue="' + valorNumerico + '">'
+                            xml += '<pos x="' + (parseFloat(card.getBoundingClientRect().left) - (parseFloat(area.getBoundingClientRect().left))) + '" y="' + (parseFloat(card.getBoundingClientRect().top) - (parseFloat(area.getBoundingClientRect().top))) + '"/>'
+                            xml += '<size height="' + card.offsetHeight + '" width="' + card.offsetWidth + '"/>'
+                            xml += '<rotation value="0"/>'
+                            xml += '<clickable>' + clickable + '</clickable>'
+                            xml += '<rotatable>' + rotatable + '</rotatable>'
+                            xml += '<resizable>' + resizable + '</resizable>'
+                            xml += '<movable>' + movable + '</movable>'
+                            xml += '<content>'
+                            xml += '<text>' + texto + '</text>'
+                            if (feedback == "Escriba aquí el texto") {
+                                xml += '<feedback/>'
+                            } else {
+                                xml += '<feedback>' + feedback + '</feedback>'
+                            }
+
+                            xml += '</content>'
+                            xml += '</Token>'
+                           
+
+                            console.log("Card", hijosAreas[k].id)
+                        }
+                    }
+                    xml += '</Tokenlist>'
+                }
+
+
+                xml += '<Tokenlist>null</Tokenlist>'
                 xml += '</Area>'
             }
-            
-        
-      //  console.log("La activitie",activities[i].children)
-    }
+        }
 
+        //  console.log("La activitie",activities[i].children)
+    }
+    xml += '</Arealist>'
     xml += '<Arrows/>'
     xml += '</Activity>'
     xml += '</Project>'
@@ -310,7 +369,7 @@ function getXMLString() {
     //     xml = xml + "<Plan ID=\"" +  "\" />";
     // }
     // xml = xml + "</Plans></PlanInfo>";
-    
+
     var xmlDoc = parser.parseFromString(xml, "application/xml");
     console.log("el xml es", xml)
     return xml;

@@ -404,8 +404,13 @@
 						var idAcciones = "Acciones_" + (num_card + 1)
 						var idFeedback = "Feedback_" + (num_card + 1)
 						var idMatematicas = "Matematicas_" + (num_card + 1)
-						var tabsCard = $('<section id ="' + texto3id + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + idAcciones + '" onclick="evaluarTabCard(event, ' + idAcciones + ')">Acciones</button><button class="tablinks ' + idFeedback + '" onclick="evaluarTabCard(event, ' + idFeedback + ')">Feedback</button><button class="tablinks ' + idMatematicas + '" style="margin-right:5px;" onclick="evaluarTabCard(event, ' + idMatematicas + ')">Matemáticas</button></div><div id="' + idAcciones + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="cbox1" value="firest_checkbox"> <label for="cbox1">Seleccionable</label><br><input type="checkbox" checked="true" id="cbox2" value="second_checkbox"> <label for="cbox2">Girable</label><br><input type="checkbox" checked="true" id="cbox3" value="firest_checkbox"> <label for="cbox3">Redimensionable</label></div><div id="' + idFeedback + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea  class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
-							idMatematicas + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input  type="number" step="any" value="1" /></div></div> </section>')
+						var idSeleccionable = "Seleccionable_" + (num_card + 1)
+						var idGirable = "Girable_" + (num_card + 1) 
+						var idRedimensionable = "Redimensionable_" + (num_card + 1)
+						var idRetroalimentacion = "Retroalimentacion_" + (num_card + 1)
+						var idValorNumerico = "ValorNumerico_" + (num_card + 1)
+						var tabsCard = $('<section id ="' + texto3id + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + idAcciones + '" onclick="evaluarTabCard(event, ' + idAcciones + ')">Acciones</button><button class="tablinks ' + idFeedback + '" onclick="evaluarTabCard(event, ' + idFeedback + ')">Feedback</button><button class="tablinks ' + idMatematicas + '" style="margin-right:5px;" onclick="evaluarTabCard(event, ' + idMatematicas + ')">Matemáticas</button></div><div id="' + idAcciones + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="' + idSeleccionable +'" value="firest_checkbox"> <label for="' + idSeleccionable +'">Seleccionable</label><br><input type="checkbox" checked="true" id="' + idGirable +'" value="second_checkbox"> <label for="' + idGirable +'">Girable</label><br><input type="checkbox" checked="true" id="' + idRedimensionable +'" value="firest_checkbox"> <label for="' + idRedimensionable +'">Redimensionable</label></div><div id="' + idFeedback + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea id="' + idRetroalimentacion +'" class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
+							idMatematicas + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input id="' + idValorNumerico +'" type="number" step="any" value="1" /></div></div> </section>')
 
 						var textAreaid = "textArea_" + (num_card + 1)
 						var inputTexto = $('<textarea id="' + textAreaid + '"class="inputText" placeholder="Escriba aquí el texto" name = "description" ></textarea>')
@@ -850,9 +855,19 @@
 							$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
 								10))
 							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
+
+							var clasesElemento = document.getElementById($item[0].id).classList
+							for(var i= 0; i < clasesElemento.length; i++){
+							//	console.log("el type", $item.attr("type"))
+								if(clasesElemento[i].includes("hijode")){
+									document.getElementById($item[0].id).classList.remove(clasesElemento[i])
+								}
+							}
+							document.getElementById($item[0].id).classList.add("hijode" + $(this)[0].id)
 						}
-						//	console.log("el padres this es", $(this))
-						//	console.log("el padre item es", $item)
+							console.log("el padres this es", $(this)[0].id)
+							console.log("el padre item es", $item[0].id)
+							
 						$(this).append($item)
 					}
 				}
@@ -897,8 +912,15 @@
 				stop: function () {
 					console.log('stopped 1')
 
-
-
+					console.log($item[0].parentElement.id)
+					if ($item[0].parentElement.id.includes("editor-canvas")) {
+						var clasesElemento = document.getElementById($item[0].id).classList
+						for (var i = 0; i < clasesElemento.length; i++) {
+							if (clasesElemento[i].includes("hijode")) {
+								document.getElementById($item[0].id).classList.remove(clasesElemento[i])
+							}
+						}
+					}
 					evaluarPosicion($item)
 					actualizarTarjetas("card")
 					actualizarTarjetas("picture")
