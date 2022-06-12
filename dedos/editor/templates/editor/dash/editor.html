@@ -193,6 +193,7 @@
 	<input type="hidden" id="myVar" name="variable" value="{{ data }}">
 
 	<div id="listaCanvas">
+		
 		<div id="editor-canvas_1" class="editor-canvas dropzone" style="border:2px;width:100%; height:100%">
 
 			<!-- <canvas onl id="prueba" onclick="dibujarFlecha(this)" class="marginCanvas" width="1000px" height="400px"></canvas>' -->
@@ -764,7 +765,7 @@
 								dibujo = !dibujo
 								if(!dibujo){
 									moverHijo("id")
-									desactivarPairing()
+								//	desactivarPairing()
 								}
 								console.log("Dibujar es", dibujo)
 								//document.getElementById("pairing_1").removeEventListener("mousemove", function move(e) {});
@@ -1222,7 +1223,9 @@
 
 		//Canvas
 
-		function dibujar(x1, y1, x2, y2, id) {
+		function 
+		
+		dibujar(x1, y1, x2, y2, id) {
 			var canvas = document.getElementById(id);
 			var context = canvas.getContext("2d");
 

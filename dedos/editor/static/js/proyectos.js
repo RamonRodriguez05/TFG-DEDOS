@@ -49,14 +49,14 @@ $(document).ready(function () {
         "columns": [
             { "width": "5px", "visible": false },
             { "width": "5px", "visible": false },
-            { "width": "750px" },
+            { "width": "1050px" },
+            { "width": "650px" },
             { "width": "500px" },
             { "width": "300px" },
             { "width": "100px" },
             { "width": "30px" },
-            { "width": "500px" },
+            { "width": "250px" },
             { "width": "30px" },
-            { "orderable": false },
             { "orderable": false },
             { "orderable": false }
         ],
@@ -73,7 +73,7 @@ $(document).ready(function () {
                     }
 
                 },
-                targets: 6,
+                targets: 7,
             }
         ],
 

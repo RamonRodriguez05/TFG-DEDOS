@@ -1,8 +1,9 @@
 .marginCanvas{
     margin-left: auto; 
     margin-right: 0;
-    
+   
     display: inline-block;
+   
 }
 
 .pairingFront{
@@ -12,3 +13,4 @@
 .pairingBack{
     z-index: 1 !important;
 }
+
