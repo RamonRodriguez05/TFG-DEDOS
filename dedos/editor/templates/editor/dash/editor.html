@@ -196,6 +196,8 @@
 		
 		<div id="editor-canvas_1" class="editor-canvas dropzone" style="border:2px;width:100%; height:100%">
 
+			<div id="d1" style="width: 20px; height:20px; background-color: blue;"></div></br></br></br></br></br></br>
+			<div id="d2" style="width: 20px; height:20px; background-color: blue;"></div>
 			<!-- <canvas onl id="prueba" onclick="dibujarFlecha(this)" class="marginCanvas" width="1000px" height="400px"></canvas>' -->
 
 			<!-- <label for="myfile">Select files:</label>
@@ -275,6 +277,28 @@
 		listaCapturas = []
 
 		$(document).ready(function () {
+			//document.getElementById('d1').droppable´
+			var el = new PlainDraggable(document.getElementById("d1"));
+			
+			var startElement = document.getElementById('d1'),
+  				endElement = document.getElementById('d2'),
+  line = new LeaderLine(startElement, endElement);
+
+
+			//var line2 =	new LeaderLine(document.getElementById('d1'), LeaderLine.pointAnchor(document.getElementById('d2'))); 
+	//		var line = new LeaderLine(
+  	//			document.getElementById('d1'),
+  	//			document.getElementById('d2')
+	//		);
+			//line.end = document.getElementById('d2');
+			//line2.setOptions({startSocket: 'bottom', endSocket: 'auto'});
+			//line2.setOptions({startSocket: 'auto', endSocket: 'auto'});´
+			function fixLine() {
+  line.position();
+}
+
+new PlainDraggable(startElement, {onMove: fixLine});
+new PlainDraggable(endElement, {onMove: fixLine});
 			$("#groupMenu").collapse("toggle");
 			$("#editor").addClass("active");
 
@@ -377,7 +401,7 @@
 					//this if condition is for avoiding multiple time drop and attachment of same item
 					//	console.log("Drop en canvas de nuevo "); 
 
-					limpiarCanvas()
+				//	limpiarCanvas()
 
 					//		konvas2()
 
@@ -948,7 +972,7 @@
 					actualizarTarjetas("card")
 					actualizarTarjetas("picture")
 					evaluarMostrarMenu()
-					limpiarCanvas()
+				//	limpiarCanvas()
 					//	ocultarOpciones()
 
 
@@ -1009,7 +1033,7 @@
 				actualizarTarjetas("card")
 				actualizarTarjetas("picture")
 				evaluarMostrarMenu()
-				limpiarCanvas()
+			//	limpiarCanvas()
 				// var canvas = document.getElementById("editor-canvas")
 
 				// var clone = canvas.cloneNode(true)
