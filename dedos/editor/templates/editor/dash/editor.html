@@ -97,27 +97,6 @@
 						<input type="radio" name="privacidad" value="1" id="privado"> Privado
 					</div>
 				</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			</div>
 			<div class="modal-footer" style="text-align: center;">
 				<button type="button" style="width: 100px;" class="btn btn-secondary" style="margin-left: 250px;"
@@ -196,8 +175,8 @@
 		
 		<div id="editor-canvas_1" class="editor-canvas dropzone" style="border:2px;width:100%; height:100%">
 
-			<div id="d1" style="width: 20px; height:20px; background-color: blue;"></div></br></br></br></br></br></br>
-			<div id="d2" style="width: 20px; height:20px; background-color: blue;"></div>
+			<!-- <div id="d1" style="width: 20px; height:20px; background-color: blue;"></div></br></br></br></br></br></br>
+			<div id="d2" style="width: 20px; height:20px; background-color: blue;"></div> -->
 			<!-- <canvas onl id="prueba" onclick="dibujarFlecha(this)" class="marginCanvas" width="1000px" height="400px"></canvas>' -->
 
 			<!-- <label for="myfile">Select files:</label>
@@ -275,15 +254,12 @@
 		listaSelectores = []
 		listaImagenesDropzone = []
 		listaCapturas = []
+		listaFlechas = []
 
+		lineaFinal = null
 		$(document).ready(function () {
 			//document.getElementById('d1').droppable´
-			var el = new PlainDraggable(document.getElementById("d1"));
 			
-			var startElement = document.getElementById('d1'),
-  				endElement = document.getElementById('d2'),
-  line = new LeaderLine(startElement, endElement);
-
 
 			//var line2 =	new LeaderLine(document.getElementById('d1'), LeaderLine.pointAnchor(document.getElementById('d2'))); 
 	//		var line = new LeaderLine(
@@ -293,21 +269,14 @@
 			//line.end = document.getElementById('d2');
 			//line2.setOptions({startSocket: 'bottom', endSocket: 'auto'});
 			//line2.setOptions({startSocket: 'auto', endSocket: 'auto'});´
-			function fixLine() {
-  line.position();
-}
-
-new PlainDraggable(startElement, {onMove: fixLine});
-new PlainDraggable(endElement, {onMove: fixLine});
-			$("#groupMenu").collapse("toggle");
-			$("#editor").addClass("active");
+		
 
 			console.log("docuemnt ready")
 
 
 
 			var xml = getXMLString() // new XMLSerializer().serializeToString(getXMLString());
-			console.log("El xml es", getXMLString())
+		//	console.log("El xml es", getXMLString())
 
 			// directory path
 
@@ -401,7 +370,7 @@ new PlainDraggable(endElement, {onMove: fixLine});
 					//this if condition is for avoiding multiple time drop and attachment of same item
 					//	console.log("Drop en canvas de nuevo "); 
 
-				//	limpiarCanvas()
+					limpiarCanvas()
 
 					//		konvas2()
 
@@ -505,9 +474,10 @@ new PlainDraggable(endElement, {onMove: fixLine});
 
 						// Unir
 						var idUnir = "Unir_" + (num_pairing + 1)
-						var unir = $('<canvas id="' + idUnir + '" class="marginCanvas" width="1000px" height="400px"></canvas>').click(function () { });
+					//	var unir = $('<canvas id="' + idUnir + '" class="marginCanvas" width="1000px" height="400px"></canvas>').click(function () { });
+						var unir = $('<div id="' + idUnir + '"></div>');
+						var claseXML = type + canvas 
 
-						var claseXML = type + canvas
 						if (type == "area") {
 							var clas =
 								num_area = num_area + 1
@@ -706,97 +676,97 @@ new PlainDraggable(endElement, {onMove: fixLine});
 
 						}
 
-						if (type == "pairing") {
-							let elem = null
-							let dibujo = true;
-							if(dibujo){
-								activarPairing("pairing_" + num_pairing)
-							}
+						// if (type == "pairing") {
+						// 	let elem = null
+						// 	let dibujo = true;
+						// 	// if(dibujo){
+						// 	// 	activarPairing("pairing_" + num_pairing)
+						// 	// }
 							
-							document.getElementById("pairing_" + num_pairing).addEventListener("mousemove", function move(e) {
-								var elems = document.elementsFromPoint(e.clientX, e.clientY)
+						// 	document.getElementById("pairing_" + num_pairing).addEventListener("mousemove", function move(e) {
+						// 		var elems = document.elementsFromPoint(e.clientX, e.clientY)
 
-								if (elem == null) {
-									for (let i = 0; i < elems.length; i++) {
-										console.log("eleentossss", elems[i].id)
-										if (elems[i].id.includes("area_")) {
-											console.log("POSICION AREA", elems[i].id)
-											elem = document.getElementById(elems[i].id);
-											break;
-										}
-									}
-								} else {
-									//activarPairing("pairing_" + num_pairing)
-									let rect2 = elem.getBoundingClientRect();
-									console.log("el x", elem.offsetLeft)
-									var item = document.getElementById("pairing_" + num_pairing)
-									// item.style.width = -1 * event.clientX + 'px';
-									// item.style.height = -1 * event.clientY + 'px';
-									item.style = "position: absolute; left: 0px; top: 55px;"
-									//	flecha("pairing_" + num_pairing)
-									const target = e.target;
+						// 		if (elem == null) {
+						// 			for (let i = 0; i < elems.length; i++) {
+						// 				console.log("eleentossss", elems[i].id)
+						// 				if (elems[i].id.includes("area_")) {
+						// 					console.log("POSICION AREA", elems[i].id)
+						// 					elem = document.getElementById(elems[i].id);
+						// 					break;
+						// 				}
+						// 			}
+						// 		} else {
+						// 			//activarPairing("pairing_" + num_pairing)
+						// 			let rect2 = elem.getBoundingClientRect();
+						// 			console.log("el x", elem.offsetLeft)
+						// 			var item = document.getElementById("pairing_" + num_pairing)
+						// 			// item.style.width = -1 * event.clientX + 'px';
+						// 			// item.style.height = -1 * event.clientY + 'px';
+						// 			item.style = "position: absolute; left: 0px; top: 55px;"
+						// 			//	flecha("pairing_" + num_pairing)
+						// 			const target = e.target;
 
-									// Get the bounding rectangle of target
-									const rect = target.getBoundingClientRect();
-									console.log("")
-									console.log("right: " + rect2.right, "bottom:", rect2.bottom);
-									console.log("left: " + rect2.left, "top: " + rect2.top);
-									// Mouse position
-									posLeft = e.clientX - rect.left;;
-									posRight = e.clientY - rect.top;
-
-
-
-									var x1 = (elem.offsetLeft) + (elem.offsetWidth / 2)
-									var y1 = elem.offsetTop * 0.59
-
-									console.log(x1, y1)
-									var x2 = elem.offsetLeft
-									var y2 = elem.offsetTop * 1.45
-
-									var x3 = (elem.offsetLeft) + (elem.offsetWidth / 2)
-									var y3 = elem.offsetTop * 1.9
-
-									var x4 = (elem.offsetLeft) + (elem.offsetWidth)
-									var y4 = elem.offsetTop * 1.45
-
-									// Calcular distancias
-
-									var modulo1 = Math.sqrt(Math.pow(x1 - posLeft, 2) + Math.pow(y1 - posRight, 2))
-									var modulo2 = Math.sqrt(Math.pow(x2 - posLeft, 2) + Math.pow(y2 - posRight, 2))
-									var modulo3 = Math.sqrt(Math.pow(x3 - posLeft, 2) + Math.pow(y3 - posRight, 2))
-									var modulo4 = Math.sqrt(Math.pow(x4 - posLeft, 2) + Math.pow(y4 - posRight, 2))
-									console.log("Modulo 1", modulo1)
-									console.log("Modulo 2", modulo2)
-									var elementoFinal = new elementoModulo("nombre", x1, y1)
-									if (modulo2 < modulo1) {
-										elementoFinal = new elementoModulo("nombre", x2, y2)
-									}
-									if (dibujo) {
-										activarPairing("pairing_" + num_pairing)
-										dibujar(elementoFinal.x, elementoFinal.y, posLeft, posRight, idUnir)
-									}
+						// 			// Get the bounding rectangle of target
+						// 			const rect = target.getBoundingClientRect();
+						// 			console.log("")
+						// 			console.log("right: " + rect2.right, "bottom:", rect2.bottom);
+						// 			console.log("left: " + rect2.left, "top: " + rect2.top);
+						// 			// Mouse position
+						// 			posLeft = e.clientX - rect.left;;
+						// 			posRight = e.clientY - rect.top;
 
 
-								}
-							});
+
+						// 			var x1 = (elem.offsetLeft) + (elem.offsetWidth / 2)
+						// 			var y1 = elem.offsetTop * 0.59
+
+						// 			console.log(x1, y1)
+						// 			var x2 = elem.offsetLeft
+						// 			var y2 = elem.offsetTop * 1.45
+
+						// 			var x3 = (elem.offsetLeft) + (elem.offsetWidth / 2)
+						// 			var y3 = elem.offsetTop * 1.9
+
+						// 			var x4 = (elem.offsetLeft) + (elem.offsetWidth)
+						// 			var y4 = elem.offsetTop * 1.45
+
+						// 			// Calcular distancias
+
+						// 			var modulo1 = Math.sqrt(Math.pow(x1 - posLeft, 2) + Math.pow(y1 - posRight, 2))
+						// 			var modulo2 = Math.sqrt(Math.pow(x2 - posLeft, 2) + Math.pow(y2 - posRight, 2))
+						// 			var modulo3 = Math.sqrt(Math.pow(x3 - posLeft, 2) + Math.pow(y3 - posRight, 2))
+						// 			var modulo4 = Math.sqrt(Math.pow(x4 - posLeft, 2) + Math.pow(y4 - posRight, 2))
+						// 			console.log("Modulo 1", modulo1)
+						// 			console.log("Modulo 2", modulo2)
+						// 			var elementoFinal = new elementoModulo("nombre", x1, y1)
+						// 			if (modulo2 < modulo1) {
+						// 				elementoFinal = new elementoModulo("nombre", x2, y2)
+						// 			}
+						// 			if (dibujo) {
+						// 				activarPairing("pairing_" + num_pairing)
+						// 				dibujar(elementoFinal.x, elementoFinal.y, posLeft, posRight, idUnir)
+						// 			}
 
 
-							document.getElementById("pairing_" + num_pairing).addEventListener("mouseup", function stop(e) {
+						// 		}
+						// 	});
+
+
+						// 	document.getElementById("pairing_" + num_pairing).addEventListener("mouseup", function stop(e) {
 								
 								
-								console.log("lo paroo")
-								dibujo = !dibujo
-								if(!dibujo){
-									moverHijo("id")
-								//	desactivarPairing()
-								}
-								console.log("Dibujar es", dibujo)
-								//document.getElementById("pairing_1").removeEventListener("mousemove", function move(e) {});
+						// 		console.log("lo paroo")
+						// 		dibujo = !dibujo
+						// 		if(!dibujo){
+						// 			moverHijo("id")
+						// 		//	desactivarPairing()
+						// 		}
+						// 		console.log("Dibujar es", dibujo)
+						// 		//document.getElementById("pairing_1").removeEventListener("mousemove", function move(e) {});
 
-							});
+						// 	});
 
-						}
+						// }
 					} else {
 						/** Una tarjeta, área o objetivo se está soltando **/
 						//	console.log("recolocooooo 1")
@@ -959,7 +929,7 @@ new PlainDraggable(endElement, {onMove: fixLine});
 				stop: function () {
 					console.log('stopped 1')
 
-					console.log($item[0].parentElement.id)
+					//console.log($item[0].parentElement.id)
 					if ($item[0].parentElement.id.includes("editor-canvas")) {
 						var clasesElemento = document.getElementById($item[0].id).classList
 						for (var i = 0; i < clasesElemento.length; i++) {
@@ -972,7 +942,7 @@ new PlainDraggable(endElement, {onMove: fixLine});
 					actualizarTarjetas("card")
 					actualizarTarjetas("picture")
 					evaluarMostrarMenu()
-				//	limpiarCanvas()
+					limpiarCanvas()
 					//	ocultarOpciones()
 
 
@@ -1027,13 +997,14 @@ new PlainDraggable(endElement, {onMove: fixLine});
 				evaluarPosicionInicio(lastItem)
 				//		evaluarPosicion(lastItem)
 
+			
 				//	captura();
 				captura(activity, canvas);
 
 				actualizarTarjetas("card")
 				actualizarTarjetas("picture")
 				evaluarMostrarMenu()
-			//	limpiarCanvas()
+				limpiarCanvas()
 				// var canvas = document.getElementById("editor-canvas")
 
 				// var clone = canvas.cloneNode(true)
@@ -1156,7 +1127,7 @@ new PlainDraggable(endElement, {onMove: fixLine});
 						listaCapturas = listaCapturas.filter(item => !(item.canvas == canvas.id));
 						var elCaptura = new elementoCaptura(canvas.id, file)
 						listaCapturas.push(elCaptura)
-						console.log("El listado de las capturas es", listaCapturas)
+					//	console.log("El listado de las capturas es", listaCapturas)
 						// 		listaCapturas = [] 
 						// elementoCaptura
 
@@ -1364,6 +1335,12 @@ new PlainDraggable(endElement, {onMove: fixLine});
 		function elementoFileDropzone(id, file) {
 			this.id = id;
 			this.file = file;
+		}
+
+		function elementoFlecha(line, elementoInicio, elementoFin){
+			this.line = line;
+			this.elementoInicio = elementoInicio;
+			this.elementoFin = elementoFin;
 		}
 
 		// function probarsubir(){

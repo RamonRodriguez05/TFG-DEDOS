@@ -65,7 +65,7 @@ $(document).ready(function () {
 
         zip.generateAsync({ type: "blob" }).then(function (content) {
             //	saveAs(content, "prueba.zip")
-            console.log("El contenido es", content)
+          //  console.log("El contenido es", content)
             var reader = new FileReader();
             reader.readAsDataURL(content);
             reader.onloadend = function () {
@@ -80,8 +80,8 @@ $(document).ready(function () {
                         var privado = ele[i].value;
                 }
 
-                console.log("privacidad", privado)
-                console.log("fecha", today)
+             //   console.log("privacidad", privado)
+             //   console.log("fecha", today)
                 if (nombre == "" || descripcion == "" || asignatura == "" || curso == "" || etiquetas == "null") {
                     alert("Por favor, rellene todos los datos");
                 } else {
@@ -120,7 +120,7 @@ $(document).ready(function () {
                             $('#asignatura').val('');
                             $('#curso').val('');
                             $('#etiquetas').val('');
-                            console.log("El elemento grande es", document.getElementById("listaCanvas").innerHTML)
+                          //  console.log("El elemento grande es", document.getElementById("listaCanvas").innerHTML)
                             window.location = "/editor/proyectos";
                         }
                     });
@@ -321,7 +321,7 @@ function getXMLString() {
         } else {
             xml += '<Arealist>'
             for (var j = 0; j < areas.length; j++) {
-                console.log(areas[j])
+                //console.log(areas[j])
 
                 var tipo = 'Jugador'
                 var botonUsuario = document.getElementById("botonUsuario_" + areas[j].id.split("_")[1])
@@ -398,7 +398,7 @@ function getXMLString() {
                             xml += '</Token>'
 
 
-                            console.log("Card", hijosAreas[k].id)
+                         //   console.log("Card", hijosAreas[k].id)
                         }
 
                     
@@ -488,6 +488,6 @@ function getXMLString() {
     // xml = xml + "</Plans></PlanInfo>";
 
     var xmlDoc = parser.parseFromString(xml, "application/xml");
-    console.log("el xml es", xml)
+ //   console.log("el xml es", xml)
     return xml;
 }

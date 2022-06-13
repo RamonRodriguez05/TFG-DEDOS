@@ -114,7 +114,7 @@ function dropzoneUpload(id) {
 			}, 
 			removedfile: function(file) {
 				console.log("Borrar fichero", file.name)
-				listaImagenesDropzone = listaImagenesDropzone.filter(item => !(item.file.name == file.file.name));
+				listaImagenesDropzone = listaImagenesDropzone.filter(item => !(item.file.name == file.name));
 				console.log("lista files dropzone", listaImagenesDropzone)	
 				var _ref;
     			return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;

@@ -45,6 +45,17 @@ function evaluarPosicion($item) {
 			if ($item[0].id.includes("area")) {
 				num_area--;
 			}
+		//	lineaFinal.remove()
+			for(var m = 0; m < listaFlechas.length; m++){
+				listaFlechas[m].line.remove()
+
+				if(document.getElementById(listaFlechas[m].elementoFin) != undefined){
+					document.getElementById(listaFlechas[m].elementoFin).remove()
+				}
+				
+
+
+			}
 			$($item).remove()
 		} else {
 			//	lastItem.style ="left:" + posLeft + "; right:"+ posRight;
@@ -183,7 +194,9 @@ function evaluarPosicionInicio($item) {
 		var rect = papelera.getBoundingClientRect();
 		var papeleraX = rect.top
 		var papeleraY = rect.right
-
+		
+		
+		//Eliminar elemento
 		if (elementoX > papeleraX && elementoY < papeleraY) {
 			console.log("HA ENTRADO PAPELERA")
 			if ($item[0].id.includes("time")) {
@@ -328,6 +341,53 @@ function evaluarPosicionInicio($item) {
 					var parent = document.getElementById("card1")
 					parent.appendChild(document.getElementById("picture1"))
 				}
+			}
+
+			// Pairing
+			if ($item[0].id.includes("pairing")) {
+				console.log("Entra en el pairing")
+			//	$item.draggable('destroy')
+
+			
+				
+				$(document.getElementById("area_1")).draggable('destroy')
+				
+				var startElement = document.getElementById('area_1'),
+  				endElement = document.getElementById($item[0].id),
+  				lineaFinal = new LeaderLine(startElement, endElement); 
+				  $(document.getElementById("pairing_1")).resizable("destroy")
+				function fixLine() {
+					lineaFinal.position();
+				}
+
+				// document.getElementById("area_1").onmouseover = function(){	
+			    //    lineaFinal.position();
+				// };
+	
+				// document.getElementById("pairing_1").onmouseover = function(){
+				
+				// 	lineaFinal.position();
+				
+				// };
+				var drag1=	new PlainDraggable(startElement, { onMove: fixLine });
+				drag1.onDragEnd = function() {
+					console.log("Drag End")
+					$(document.getElementById("area_1")).draggable()
+					makeDraggable($(document.getElementById("area_1")))
+				}
+				// drag1.onDragStart = function() {
+				// 	console.log("Drag start")
+				// 	$(document.getElementById("area_1")).draggable()
+				 	//$(document.getElementById("pairing_1")).draggable('destroy')
+				// }
+				new PlainDraggable(endElement, { onMove: fixLine });
+				new PlainDraggable(document.getElementById("picture_1"), { onMove: fixLine });
+			//	$("#groupMenu").collapse("toggle");
+			//	$("#editor").addClass("active");
+
+				var elFlecha = new elementoFlecha(lineaFinal, "area_1", "pairing_1")
+				listaFlechas.push(elFlecha)
+
 			}
 		}
 	}
