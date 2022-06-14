@@ -1,6 +1,6 @@
 .picture {
-    width: 254px;
-    height: 145px;
+    width: 270px;
+    height: 150px;
     border: 1px solid rgb(9, 255, 0);
     min-width: 185px;
     min-height: 130px;
@@ -14,6 +14,7 @@
     border: 1px solid rgb(21, 138, 17); 
      z-index: 3 ;
 } 
+
 
 .pictureBack{
     z-index: 1 !important;
@@ -43,7 +44,10 @@
     
 } 
 
-
+.dz-clickable{
+    height: fit-content !important;
+    padding-bottom: 0 !important;
+}
 
 .dropzone {
 
@@ -74,8 +78,8 @@ img,
 .dz-success-mark,
 .dz-remove,
 .dz-error-mark {
-    max-width: 60% !important;
-    max-height: 60% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
     display: block;
     margin-bottom: 3%;
     border-radius: 0;
@@ -119,7 +123,7 @@ img,
     max-width: 60% !important;
     max-height: 50% !important;
     margin-bottom: 2%; 
-    margin-top: 2% !important;
+    margin-top: 3.5% !important;
     margin-left: 10px !important;
     font-size: x-small !important;
     background-color: transparent !important;

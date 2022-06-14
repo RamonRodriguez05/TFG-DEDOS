@@ -358,6 +358,7 @@ function evaluarPosicionInicio($item) {
 				  $(document.getElementById("pairing_1")).resizable("destroy")
 				function fixLine() {
 					lineaFinal.position();
+					//captura(activity, canvas)
 				}
 
 				// document.getElementById("area_1").onmouseover = function(){	
