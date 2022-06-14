@@ -266,7 +266,8 @@ function getXMLString() {
                 if (hijos[m].id.includes("math")) {
                     //InputNumber_1
                     tieneSelectores = true
-                    var valueNumber = document.getElementById("InputNumber_" + selectores[l].id.split("_")[1]).value
+                    var valueNumber = document.getElementById("InputNumber_" + hijos[m].id.split("_")[1]).value
+                    document.getElementById("InputNumber_" + hijos[m].id.split("_")[1]).setAttribute("value", valueNumber)//.value = valueNumber
                     select += '<obj type="tokenMeter" id="' + selectores[l].id + '" numValue="' + valueNumber + '">'
                     select += '<OriginTokens/><OriginZones/></obj>'
                 }
@@ -285,7 +286,8 @@ function getXMLString() {
                 if (hijos[m].id.includes("math")) {
                     //InputNumber_1
                     tieneSelectores = true
-                    var valueNumber = document.getElementById("InputNumber_" + selectores[l].id.split("_")[1]).value
+                    var valueNumber = document.getElementById("InputNumber_" + hijos[m].id.split("_")[1]).value
+                    document.getElementById("InputNumber_" + hijos[m].id.split("_")[1]).setAttribute("value", valueNumber) //  value = valueNumber
                     select += '<obj type="tokenMeter" id="' + selectores[l].id + '" numValue="' + valueNumber + '">'
                     select += '<OriginTokens/><OriginZones/></obj>'
                 }
@@ -361,6 +363,7 @@ function getXMLString() {
                             var texto = "Escriba aquí el texto"
                             if (textArea.value != "") {
                                 texto = textArea.value
+                                textArea.innerHTML = texto
                             }
 
                             var clickable = document.getElementById("Seleccionable_" + card.id.split("_")[1]).checked
@@ -369,8 +372,10 @@ function getXMLString() {
                             var movable = true
                             var feedback = "Escriba aquí el texto"
                             var valorNumerico = document.getElementById("ValorNumerico_" + card.id.split("_")[1]).value
+                            document.getElementById("ValorNumerico_" + card.id.split("_")[1]).setAttribute("value", valorNumerico)
                             if (document.getElementById("Retroalimentacion_" + card.id.split("_")[1]).value != "") {
                                 feedback = document.getElementById("Retroalimentacion_" + card.id.split("_")[1]).value
+                                document.getElementById("Retroalimentacion_" + card.id.split("_")[1]).innerHTML = feedback
                             }
                             if (card.classList.contains("ui-draggable-disabled")) {
                                 movable = false
@@ -413,8 +418,10 @@ function getXMLString() {
                             var movable = true
                             var feedback = "Escriba aquí el texto"
                             var valorNumerico = document.getElementById("ValorNumericoImage_" + picture.id.split("_")[1]).value
+                            document.getElementById("ValorNumericoImage_" + picture.id.split("_")[1]).setAttribute("value", valorNumerico)
                             if (document.getElementById("RetroalimentacionImage_" + picture.id.split("_")[1]).value != "") {
                                 feedback = document.getElementById("RetroalimentacionImage_" + picture.id.split("_")[1]).value
+                                document.getElementById("RetroalimentacionImage_" + picture.id.split("_")[1]).innerHTML = feedback
                             }
                             if (picture.classList.contains("ui-draggable-disabled")) {
                                 movable = false

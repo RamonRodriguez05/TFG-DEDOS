@@ -65,19 +65,19 @@
 }
 
 .user{
-    width: 32px;
+    width: 22px;
 }
 
 .user:hover{
-    width: 30px;
-   
+    width: 20px;
+   color: blue;
 }
 
 .users{
-    width: 42px;
+    width: 28px;
 } 
 
 .users:hover{
-    width: 40px;
+    width: 26px;
    
 }

@@ -5,6 +5,7 @@ function iniciarEditar() {
 	console.log("Cargando proyecto a editar")
 	let url = window.location.href;
 	if (url.includes("/edit/")) {
+		document.getElementById("botonGuardar").innerHTML = '<i class="fa-solid fa-floppy-disk"></i></i> Actualizar'
 		borrar = true
 		lanzar()
 		var myVar = document.getElementById("myVar").value;
@@ -49,7 +50,7 @@ function iniciarEditar() {
 		lanzar()
 		generarListadoActividades()
 		
-		
+		evaluarMostrarMenu()
 
 		// html2canvas(document.querySelector("#editor-canvas_2")).then(canvas => { 
 		// 	var prueba = document.getElementById("activity_2")
