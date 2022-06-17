@@ -396,11 +396,36 @@ def download(request):
 
 def edit(request,id):
     data = Projects.objects.filter(id=id).values_list("canvas")
-    return render(request, 'editor/dash/editor.html', {'myProjects':id, 'data':data})
+    nombre = Projects.objects.filter(id=id).values_list("nombre") 
+    descripcion = Projects.objects.filter(id=id).values_list("descripcion")
+    curso = Projects.objects.filter(id=id).values_list("curso")
+    asignatura = Projects.objects.filter(id=id).values_list("asignatura")
+    etiquetas = Projects.objects.filter(id=id).values_list("etiquetas")
+    privacidad = Projects.objects.filter(id=id).values_list("privado")
+
+    return render(request, 'editor/dash/editor.html', {'myProjects':id, 'data':data, 'nombre':nombre, 'descripcion':descripcion, 'curso':curso
+    , 'asignatura':asignatura, 'etiquetas':etiquetas, 'privacidad':privacidad})
   
  
 def download2(request, id):
     dataBase64 = Projects.objects.filter(id=id).values_list("contenido")
     nombre = Projects.objects.filter(id=id).values_list("nombre")
     return render(request, 'editor/dash/proyectos.html', {'zip':dataBase64, 'nombre':nombre})
-    
+
+
+def update(request):    
+    proyecto = Projects.objects.get(id=request.POST['idProyecto'])
+
+    proyecto.nombre=request.POST['nombre']
+    proyecto.asignatura=request.POST['asignatura']
+    proyecto.curso=request.POST['curso']
+    proyecto.etiquetas=request.POST['etiquetas']
+    proyecto.privado=request.POST['privado']
+    proyecto.canvas=request.POST['canvas']
+    proyecto.contenido=request.POST['contenido2']
+    proyecto.descripcion=request.POST['descripcion']
+
+    proyecto.save()
+    return redirect('/')
+
+     

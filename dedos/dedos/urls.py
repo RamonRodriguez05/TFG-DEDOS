@@ -33,4 +33,5 @@ urlpatterns = [
     path('download/', views.download, name='download'), 
     path('edit/<int:id>', views.edit, name='edit'), 
     path('download2/<int:id>', views.download2, name='download2'), 
+     path('update/',views.update, name='update'),
 ]

@@ -95,8 +95,41 @@ $(document).ready(function () {
                     //Eliminar clases areas para botones
                     var elementos = document.getElementsByClassName("area")
 
+                    var listaCanvas = document.getElementById("listaCanvas").innerHTML
+                    let url = window.location.href;
+	    	        if (url.includes("/edit/")) {
+                        var urlSplit = url.split("/")
+                        var idProyecto = urlSplit[urlSplit.length-1]
+                        console.log("el id proyecto es",idProyecto)
 
-
+                        $.ajax({
+                            type: "POST",
+                            url: "/editor/update/",
+                            data: {
+                                idProyecto: idProyecto,
+                                nombre: nombre,
+                                asignatura: asignatura,
+                                curso: curso,
+                                etiquetas: etiquetas,
+                                privado: privado,
+                                
+                                
+                                canvas: listaCanvas,
+                                contenido2: contenido2,
+                                descripcion: descripcion,
+                                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                            },
+                            success: function () {
+                                alert('Proyecto creado correctamente');
+                                $('#nombre').val('');
+                                $('#asignatura').val('');
+                                $('#curso').val('');
+                                $('#etiquetas').val('');
+                              //  console.log("El elemento grande es", document.getElementById("listaCanvas").innerHTML)
+                                window.location = "/editor/proyectos";
+                            }
+                        });
+                    }else{
 
                     $.ajax({
                         type: "POST",
@@ -109,7 +142,7 @@ $(document).ready(function () {
                             privado: privado,
                             usuario: JSON.parse(document.getElementById('user_id').textContent),
                             fecha: fecha,
-                            canvas: document.getElementById("listaCanvas").innerHTML,
+                            canvas: listaCanvas,
                             contenido2: contenido2,
                             descripcion: descripcion,
                             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
@@ -124,6 +157,7 @@ $(document).ready(function () {
                             window.location = "/editor/proyectos";
                         }
                     });
+                }
                 }
             }
             //	console.log("Content es", content)

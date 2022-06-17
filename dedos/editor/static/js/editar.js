@@ -5,10 +5,43 @@ function iniciarEditar() {
 	console.log("Cargando proyecto a editar")
 	let url = window.location.href;
 	if (url.includes("/edit/")) {
+		// Obtener valores e inicializarlo
+		var nombre = elminarCarateres(document.getElementById("nombreEditar").value)
+		document.getElementById("nombre").value = nombre.trim()
+
+		var descripcion = elminarCarateres(document.getElementById("descripcionEditar").value)
+		document.getElementById("descripcion").value = descripcion.trim()
+
+		var curso = elminarCarateres(document.getElementById("cursoEditar").value)
+		document.getElementById("curso").value = curso.trim()
+
+		var asignatura = elminarCarateres(document.getElementById("asignaturaEditar").value) 
+		document.getElementById("asignatura").value = asignatura.trim()
+
+		var etiquetas = elminarCarateres(document.getElementById("etiquetasEditar").value)
+		var etiquetasSplit = etiquetas.split(",")
+		for(var et = 0; et < etiquetasSplit.length; et++){
+			var data = {
+				id: etiquetasSplit[et],
+				text: etiquetasSplit[et]
+			}; 
+			var newOption = new Option(data.text, data.id, true, true);
+			$('#etiquetas').append(newOption).trigger('change');
+		}
+
+		var privacidad = elminarCarateres(document.getElementById("privacidadEditar").value)
+		if(privacidad == "True"){
+			document.getElementById("privado").checked = true
+			document.getElementById("publico").checked = false
+		}else{
+			document.getElementById("privado").checked = false
+			document.getElementById("publico").checked = true
+		}
+
 		document.getElementById("botonGuardar").innerHTML = '<i class="fa-solid fa-floppy-disk"></i></i> Actualizar'
 		borrar = true
 		lanzar()
-		var myVar = document.getElementById("myVar").value;
+		var myVar = document.getElementById("myVar").value; 
 		var procesado = myVar.split("QuerySet")
 		var cargar = procesado[1]
 
@@ -23,7 +56,7 @@ function iniciarEditar() {
 		cargar = cargar.replace('left: 20px; bottom: -15px; margin-bottom: -15px; position: relative;', 'left: 20px; bottom:-2px; margin-bottom: -15px; position:relative')
 		cargar = cargar.replace('left: 20px; bottom: -5px; margin-bottom: -15px; position: relative;', 'left: 20px; bottom:-2px; margin-bottom: -15px; position: relative;')
 
-
+		console.log("El cargar es", cargar)
 		//	console.log("El valor valee", cargar)
 		document.getElementById("myVar").remove()
 		document.getElementById("listaCanvas").innerHTML = ""
@@ -64,6 +97,20 @@ function iniciarEditar() {
 
 
 	}
+}
+
+function replaceAll(string, search, replace) {
+	return string.split(search).join(replace);
+}
+
+function elminarCarateres(dato){
+	var procesado = dato.split("QuerySet")
+	var cargar = procesado[1]
+	cargar = cargar.replace("[(", "")
+	cargar = cargar.replace(",)]>", "")
+	cargar = replaceAll(cargar,"'","")
+
+	return cargar.trim();
 }
 
 function generarListadoActividades() {
