@@ -76,3 +76,7 @@ table {
     border-radius: 0 0 6px 0;
 } 
 
+.fondoCabecera{
+    background-color: #343c44 !important;
+    border-radius: 0 !important;
+}

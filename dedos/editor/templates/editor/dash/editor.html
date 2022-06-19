@@ -176,10 +176,10 @@
 	<input type="hidden" id="asignaturaEditar" name="variable" value="{{ asignatura }}">
 	<input type="hidden" id="etiquetasEditar" name="variable" value="{{ etiquetas }}">
 	<input type="hidden" id="privacidadEditar" name="variable" value="{{ privacidad }}">
-	
+
 
 	<div id="listaCanvas">
-		
+
 		<div id="editor-canvas_1" class="editor-canvas dropzone" style="border:2px;width:100%; height:100%">
 
 			<!-- <div id="d1" style="width: 20px; height:20px; background-color: blue;"></div></br></br></br></br></br></br>
@@ -266,24 +266,24 @@
 		lineaFinal = null
 		$(document).ready(function () {
 			//document.getElementById('d1').droppable´
-			
+
 
 			//var line2 =	new LeaderLine(document.getElementById('d1'), LeaderLine.pointAnchor(document.getElementById('d2'))); 
-	//		var line = new LeaderLine(
-  	//			document.getElementById('d1'),
-  	//			document.getElementById('d2')
-	//		);
+			//		var line = new LeaderLine(
+			//			document.getElementById('d1'),
+			//			document.getElementById('d2')
+			//		);
 			//line.end = document.getElementById('d2');
 			//line2.setOptions({startSocket: 'bottom', endSocket: 'auto'});
 			//line2.setOptions({startSocket: 'auto', endSocket: 'auto'});´
-		
+
 
 			console.log("Docuemnt ready")
 
 
 
 			var xml = getXMLString() // new XMLSerializer().serializeToString(getXMLString());
-		//	console.log("El xml es", getXMLString())
+			//	console.log("El xml es", getXMLString())
 
 			// directory path
 
@@ -481,9 +481,9 @@
 
 						// Unir
 						var idUnir = "Unir_" + (num_pairing + 1)
-					//	var unir = $('<canvas id="' + idUnir + '" class="marginCanvas" width="1000px" height="400px"></canvas>').click(function () { });
+						//	var unir = $('<canvas id="' + idUnir + '" class="marginCanvas" width="1000px" height="400px"></canvas>').click(function () { });
 						var unir = $('<div id="' + idUnir + '"></div>');
-						var claseXML = type + canvas 
+						var claseXML = type + canvas
 
 						if (type == "area") {
 							var clas =
@@ -689,7 +689,7 @@
 						// 	// if(dibujo){
 						// 	// 	activarPairing("pairing_" + num_pairing)
 						// 	// }
-							
+
 						// 	document.getElementById("pairing_" + num_pairing).addEventListener("mousemove", function move(e) {
 						// 		var elems = document.elementsFromPoint(e.clientX, e.clientY)
 
@@ -760,8 +760,8 @@
 
 
 						// 	document.getElementById("pairing_" + num_pairing).addEventListener("mouseup", function stop(e) {
-								
-								
+
+
 						// 		console.log("lo paroo")
 						// 		dibujo = !dibujo
 						// 		if(!dibujo){
@@ -971,7 +971,7 @@
 		}
 
 		function printMousePos(event) {
-			console.log("mouse", "top:", event.clientY, "left:", event.clientX)
+			console.log("mouseee", "top:", event.clientY, "left:", event.clientX)
 
 			mouseX = event.clientX
 			mouseY = event.clientY
@@ -1004,7 +1004,7 @@
 				evaluarPosicionInicio(lastItem)
 				//		evaluarPosicion(lastItem)
 
-			
+
 				//	captura();
 				captura(activity, canvas);
 
@@ -1134,7 +1134,7 @@
 						listaCapturas = listaCapturas.filter(item => !(item.canvas == canvas.id));
 						var elCaptura = new elementoCaptura(canvas.id, file)
 						listaCapturas.push(elCaptura)
-					//	console.log("El listado de las capturas es", listaCapturas)
+						//	console.log("El listado de las capturas es", listaCapturas)
 						// 		listaCapturas = [] 
 						// elementoCaptura
 
@@ -1225,64 +1225,63 @@
 
 		//Canvas
 
-		function 
-		
-		dibujar(x1, y1, x2, y2, id) {
-			var canvas = document.getElementById(id);
-			var context = canvas.getContext("2d");
+		// function dibujar(x1, y1, x2, y2, id) {
+		// 	var canvas = document.getElementById(id);
+		// 	var context = canvas.getContext("2d");
 
-			//console.log("elementos en una posicion dada", document.elementFromPoint(x1, y1))
-			function Line(x1, y1, x2, y2) {
-				this.x1 = x1;
-				this.y1 = y1;
-				this.x2 = x2;
-				this.y2 = y2;
-			}
-			Line.prototype.drawWithArrowheads = function (ctx) {
+		// 	//console.log("elementos en una posicion dada", document.elementFromPoint(x1, y1))
+		// 	function Line(x1, y1, x2, y2) {
+		// 		this.x1 = x1;
+		// 		this.y1 = y1;
+		// 		this.x2 = x2;
+		// 		this.y2 = y2;
+		// 	}
+		// 	Line.prototype.drawWithArrowheads = function (ctx) {
 
-				// arbitrary styling
-				ctx.strokeStyle = "gray";
-				ctx.fillStyle = "red";
-				ctx.lineWidth = 5;
+		// 		// arbitrary styling
+		// 		ctx.strokeStyle = "gray";
+		// 		ctx.fillStyle = "red";
+		// 		ctx.lineWidth = 5;
 
-				// draw the line
-				ctx.clearRect(0, 0, canvas.width, canvas.height);
+		// 		// draw the line
+		// 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 
-				ctx.beginPath();
-				ctx.moveTo(this.x1, this.y1);
-				ctx.lineTo(this.x2, this.y2);
+		// 		ctx.beginPath();
+		// 		ctx.moveTo(this.x1, this.y1);
+		// 		ctx.lineTo(this.x2, this.y2);
 
-				ctx.lineCap = "round";
-				ctx.stroke();
+		// 		ctx.lineCap = "round";
+		// 		ctx.stroke();
 
-				// draw the starting arrowhead
+		// 		// draw the starting arrowhead
 
-				// draw the ending arrowhead
-				var endRadians = Math.atan((this.y2 - this.y1) / (this.x2 - this.x1));
-				endRadians += ((this.x2 > this.x1) ? 90 : -90) * Math.PI / 180;
-				this.drawArrowhead(ctx, this.x2, this.y2, endRadians);
+		// 		// draw the ending arrowhead
+		// 		var endRadians = Math.atan((this.y2 - this.y1) / (this.x2 - this.x1));
+		// 		endRadians += ((this.x2 > this.x1) ? 90 : -90) * Math.PI / 180;
+		// 		this.drawArrowhead(ctx, this.x2, this.y2, endRadians);
 
-			}
-			Line.prototype.drawArrowhead = function (ctx, x, y, radians) {
-				ctx.save();
-				ctx.beginPath();
-				ctx.translate(x, y);
-				ctx.rotate(radians);
-				ctx.moveTo(0, 0);
-				ctx.lineTo(50, 100);
-				ctx.lineTo(-50, 100);
-				ctx.closePath();
-				ctx.restore();
-				ctx.fill();
-			}
+		// 	}
+		// 	Line.prototype.drawArrowhead = function (ctx, x, y, radians) {
+		// 		ctx.save();
+		// 		ctx.beginPath();
+		// 		ctx.translate(x, y);
+		// 		ctx.rotate(radians);
+		// 		ctx.moveTo(0, 0);
+		// 		ctx.lineTo(50, 100);
+		// 		ctx.lineTo(-50, 100);
+		// 		ctx.closePath();
+		// 		ctx.restore();
+		// 		ctx.fill();
+		// 	}
 
-			// create a new line object
-			var line = new Line(x1, y1, x2, y2);
-			// draw the line
-			line.drawWithArrowheads(context);
-		}
+		// 	// create a new line object
+		// 	var line = new Line(x1, y1, x2, y2);
+		// 	// draw the line
+		// 	line.drawWithArrowheads(context);
+		// }
 
+		//Evaluar elementos que hay en la posicion que se encuentra el ratón
 		document.addEventListener('mousemove', e => {
 			isPicture = false
 			isCard = false
@@ -1315,7 +1314,34 @@
 			if (elems != null) (
 				pointerElementID = elems[0].id
 			)
-			// console.log("ELEMENTO EN POSICION",el)
+			
+
+			// Evaluar elementos emparejados
+			var elementosEmparejados = document.getElementsByClassName("emparejado")
+			var papelera = document.getElementById("papelera")
+
+			const rect = papelera.getBoundingClientRect();
+			//console.log("Posicion papelera:", "left:", rect.left, "top:", rect.top,"ancho:", papelera.offsetWidth, "alto:" ,papelera.offsetHeight)
+  
+			if(elementosEmparejados.length > 0){
+				//console.log("ELEMENTO EMPAREJADOS",elementosEmparejados)
+				for(var emp = 0; emp < elementosEmparejados.length;emp++){
+					var elemento = document.getElementById(elementosEmparejados[emp].id)
+					//console.log("elemento buscado emp", elemento)
+					var posicion = elemento.getBoundingClientRect();
+				//	console.log("Posicion elemento:", "left:", posicion.left, "top:", posicion.top,"ancho:", elemento.offsetWidth, "alto:" ,elemento.offsetHeight)
+					if (posicion.bottom - 30 > rect.top && posicion.left + 30 < rect.right) {
+						eliminarElementoEmparejado(elementosEmparejados[emp].id)
+						
+						
+						
+					}
+
+				}
+			}
+
+			//Fin evaluar elemento emparejados
+			
 		}, { passive: true })
 
 
@@ -1344,7 +1370,7 @@
 			this.file = file;
 		}
 
-		function elementoFlecha(line, elementoInicio, elementoFin){
+		function elementoFlecha(line, elementoInicio, elementoFin) {
 			this.line = line;
 			this.elementoInicio = elementoInicio;
 			this.elementoFin = elementoFin;
@@ -1364,14 +1390,14 @@
 		// 	$.ajax({
 		// 		type: "POST",
 		// 		url: "/static/upload.php",
-		// 	data: { 
+		// 	data: {
 		// 		imgBase64: dataURL
 		// 		}
 		// 	}).done(function(o) {
-		// 		 console.log('saved'); 
-		// 		 // If you want the file to be visible in the browser 
+		// 		 console.log('saved');
+		// 		 // If you want the file to be visible in the browser
 		// 		 // - please modify the callback in javascript. All you
-		// 		// need is to return the url to the file, you just saved 
+		// 		// need is to return the url to the file, you just saved
 		// 		// and than put the image in your browser.
 		//  });
 
@@ -1379,114 +1405,114 @@
 		// }
 
 
-		// Prueba konva
-		function konvas() {
-			const stage = new Konva.Stage({
-				container: 'editor-canvas_1',
-				width: window.innerWidth,
-				height: window.innerHeight
-			});
+		// // Prueba konva
+		// function konvas() {
+		// 	const stage = new Konva.Stage({
+		// 		container: 'editor-canvas_1',
+		// 		width: window.innerWidth,
+		// 		height: window.innerHeight
+		// 	});
 
-			const layer = new Konva.Layer();
-			stage.add(layer);
+		// 	const layer = new Konva.Layer();
+		// 	stage.add(layer);
 
-			const shape = new Konva.Text({
-				text: 'Try to draw an arrow'
-			});
-			layer.add(shape);
+		// 	const shape = new Konva.Text({
+		// 		text: 'Try to draw an arrow'
+		// 	});
+		// 	layer.add(shape);
 
-			let arrow;
-			stage.on('mousedown', () => {
-				const pos = stage.getPointerPosition();
-				arrow = new Konva.Arrow({
-					points: [pos.x, pos.y],
-					stroke: 'black',
-					fill: 'black'
-				});
-				layer.add(arrow);
-				layer.batchDraw();
-			});
+		// 	let arrow;
+		// 	stage.on('mousedown', () => {
+		// 		const pos = stage.getPointerPosition();
+		// 		arrow = new Konva.Arrow({
+		// 			points: [pos.x, pos.y],
+		// 			stroke: 'black',
+		// 			fill: 'black'
+		// 		});
+		// 		layer.add(arrow);
+		// 		layer.batchDraw();
+		// 	});
 
-			stage.on('mousemove', () => {
-				if (arrow) {
-					const pos = stage.getPointerPosition();
-					const points = [arrow.points()[0], arrow.points()[1], pos.x, pos.y];
-					arrow.points(points);
-					layer.batchDraw();
-				}
-			});
+		// 	stage.on('mousemove', () => {
+		// 		if (arrow) {
+		// 			const pos = stage.getPointerPosition();
+		// 			const points = [arrow.points()[0], arrow.points()[1], pos.x, pos.y];
+		// 			arrow.points(points);
+		// 			layer.batchDraw();
+		// 		}
+		// 	});
 
-			stage.on('mouseup', () => {
-				arrow = null;
-			});
+		// 	stage.on('mouseup', () => {
+		// 		arrow = null;
+		// 	});
 
 
-			layer.draw();
-		}
+		// 	layer.draw();
+		// }
 
-		function konvas2() {
-			var width = window.innerWidth;
-			var height = window.innerHeight;
+		// function konvas2() {
+		// 	var width = window.innerWidth;
+		// 	var height = window.innerHeight;
 
-			var stage = new Konva.Stage({
-				container: 'editor-canvas_1',
-				width: width,
-				height: height,
+		// 	var stage = new Konva.Stage({
+		// 		container: 'editor-canvas_1',
+		// 		width: width,
+		// 		height: height,
 
-			});
+		// 	});
 
-			var layer = new Konva.Layer();
+		// 	var layer = new Konva.Layer();
 
-			var circle = new Konva.Circle({
-				x: stage.getWidth() / 2,
-				y: stage.getHeight() / 2,
-				radius: 40,
-				fill: 'green',
-				stroke: 'black',
-				strokeWidth: 2,
-				draggable: true
-			});
+		// 	var circle = new Konva.Circle({
+		// 		x: stage.getWidth() / 2,
+		// 		y: stage.getHeight() / 2,
+		// 		radius: 40,
+		// 		fill: 'green',
+		// 		stroke: 'black',
+		// 		strokeWidth: 2,
+		// 		draggable: true
+		// 	});
 
-			var circleA = new Konva.Circle({
-				x: stage.getWidth() / 5,
-				y: stage.getHeight() / 5,
-				radius: 30,
-				fill: 'red',
-				stroke: 'black',
-				strokeWidth: 2,
-				draggable: true
-			});
+		// 	var circleA = new Konva.Circle({
+		// 		x: stage.getWidth() / 5,
+		// 		y: stage.getHeight() / 5,
+		// 		radius: 30,
+		// 		fill: 'red',
+		// 		stroke: 'black',
+		// 		strokeWidth: 2,
+		// 		draggable: true
+		// 	});
 
-			var arrow = new Konva.Arrow({
-				points: [circle.getX(), circle.getY(), circleA.getX(), circleA.getY()],
-				pointerLength: 10,
-				pointerWidth: 10,
-				fill: 'black',
-				stroke: 'black',
-				strokeWidth: 4
-			});
+		// 	var arrow = new Konva.Arrow({
+		// 		points: [circle.getX(), circle.getY(), circleA.getX(), circleA.getY()],
+		// 		pointerLength: 10,
+		// 		pointerWidth: 10,
+		// 		fill: 'black',
+		// 		stroke: 'black',
+		// 		strokeWidth: 4
+		// 	});
 
-			function adjustPoint(e) {
-				var p = [circle.getX(), circle.getY(), circleA.getX(), circleA.getY()];
-				arrow.setPoints(p);
-				layer.draw();
-			}
+		// 	function adjustPoint(e) {
+		// 		var p = [circle.getX(), circle.getY(), circleA.getX(), circleA.getY()];
+		// 		arrow.setPoints(p);
+		// 		layer.draw();
+		// 	}
 
-			circle.on('dragmove', adjustPoint);
+		// 	circle.on('dragmove', adjustPoint);
 
-			circleA.on('dragmove', adjustPoint);
+		// 	circleA.on('dragmove', adjustPoint);
 
-			layer.add(circleA);
-			// add the shape to the layer
-			layer.add(circle);
-			layer.add(arrow);
+		// 	layer.add(circleA);
+		// 	// add the shape to the layer
+		// 	layer.add(circle);
+		// 	layer.add(arrow);
 
-			// add the layer to the stage
-			stage.add(layer);
-		}
+		// 	// add the layer to the stage
+		// 	stage.add(layer);
+		// }
 
 
 
 
 	</script>
-	{% endblock %}
+	{% endblock %} 

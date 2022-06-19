@@ -102,7 +102,7 @@ $(document).ready(function () {
         
 
          console.log("Content es", content)
-          	saveAs(content, "prueba.zip")
+         // 	saveAs(content, "prueba.zip")
 
      });
 
@@ -123,18 +123,42 @@ $(document).ready(function () {
 
      var buf =base64ToBuffer(contenido2);
 
-    // here we go !
-    JSZip.loadAsync(contenido2, {base64: true}).then(function (zip) {
-        console.log("el zip", zip.file("d/d.xml")._data.compressedContent.buffer)
-        return zip.file("d/d.xml").ArrayBuffer
-      console.log(zip.file("d/d.xml"))
-    }).then(function (text) {
-      console.log(text);
-    });
+    // // here we go !
+    // JSZip.loadAsync(contenido2, {base64: true}).then(function (zip) {
+    //     console.log("el zip", zip.file("d/d.xml")._data.compressedContent.buffer)
+    //     return zip.file("d/d.xml").ArrayBuffer
+    //   console.log(zip.file("d/d.xml"))
+    // }).then(function (text) {
+    //   console.log(text);
+    // });
 
 
+     // here we go !
+    //  JSZip.loadAsync(contenido2, {base64: true}).then(function (zip) {
+    //     console.log("el zip", zip.files)
+    //     return zip.file("d/d.xml").ArrayBuffer
+    //   console.log(zip.file("d/d.xml"))
+    // }).then(function (text) {
+    //   console.log(text);
+    // });
 
+     //Bueno
+    zip.loadAsync(contenido2, {base64: true}) .then(function(zip) {
+        zip.file('d/screenshots/previewactivity_1.png')
+         .async("base64")
+         .then(function (content) {
+            var image = new Image();
+    	    image.src = 'data:image/png;base64,' + content;
 
+            //Descomentar
+          //  document.getElementById("pruebaImagen").appendChild(image);
+            
+            console.log(content);
+        
+        });
+      
+      }, function (e) {
+           console.log("Error reading " + file.name + " : " + e.message); });
 
 
 

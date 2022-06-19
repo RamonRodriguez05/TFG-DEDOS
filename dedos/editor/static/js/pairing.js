@@ -58,4 +58,32 @@
 
 
 // 	}
-// }
+// }´
+
+
+function getPositionElement(elementoID){
+    console.log("Entro en el getpositionElement con el elemento", elementoID)
+
+    document.getElementById(elementoID).classList.add("emparejado")
+
+    // document.getElementById("pairing_1").addEventListener('mousemove', e => {
+    //       var x = e.offsetX;
+    //       var y = e.offsetY;
+    //       console.log("Offset X:", x, "offset Y:", y)
+        
+    //   });
+    //   document.getElementById("pairing_1").addEventListener('mousedown', e => {
+    //     console.log("entro en el mousedown")
+    //       var x = e.offsetX;
+    //       var y = e.offsetY;
+    //       console.log("Offset X:", x, "offset Y:", y)
+        
+    //   });
+     
+}
+
+function eliminarElementoEmparejado(idEliminar){
+    console.log("BORROOOOOO ELEMENTOOOOO")
+    document.getElementById(idEliminar).remove()
+    captura(activity, canvas)
+}
