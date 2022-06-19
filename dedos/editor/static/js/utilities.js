@@ -351,7 +351,8 @@ function evaluarPosicionInicio($item) {
 
 			// Pairing
 			if ($item[0].id.includes("pairing")) {
-
+				$(document.getElementById($item[0].id)).resizable("destroy")
+				
 				var mover = true;
 				var elementoEmparejar = ""
 				var borrarPairing = true;
@@ -364,7 +365,9 @@ function evaluarPosicionInicio($item) {
 				for (var el = 0; el < elems.length; el++) {
 					if (elems[el].id.includes("area_")) {
 						elementoEmparejar = elems[el].id
-						borrarPairing = false;
+						borrarPairing = false; 
+						$(document.getElementById(elementoEmparejar)).draggable()
+						$(document.getElementById(elementoEmparejar)).draggable('destroy')
 					}
 				}
 
@@ -372,18 +375,18 @@ function evaluarPosicionInicio($item) {
 					console.log("Borrar Pairing")
 					$item[0].remove()
 				} else {
-
+				//	document.getElementById("picture_1").append(document.getElementById("pairing_1"))
 					document.addEventListener('mousemove', e => {
 						if(mover){
-						var x = e.clientX;
-						var y = e.clientY;
-						console.log("Offset X:", x, "offset Y:", y)
+							var x = e.clientX;
+							var y = e.clientY;
+							console.log("Offset X:", x, "offset Y:", y)
 
-						$item[0].style.left = x - 245
-						$item[0].style.top = y - 60
+							$item[0].style.left = x - 245
+							$item[0].style.top = y - 60
 
-						console.log("moviendome")
-						fixLine()
+							console.log("moviendome")
+							fixLine()
 						}
 
 					});
@@ -403,16 +406,29 @@ function evaluarPosicionInicio($item) {
 					//$(document.getElementById("area_1")).draggable()
 				//	$(document.getElementById("area_1")).draggable('destroy')
 
-					new PlainDraggable(document.getElementById(elementoEmparejar), { onMove: fixLine });
+					var drag1 = new PlainDraggable(document.getElementById(elementoEmparejar), { onMove: fixLine });
 					function fixLine() {
-						lineaFinal.position();
+						for(var flechas = 0; flechas < listaFlechas.length; flechas++){
+							lineaFinal = listaFlechas[flechas].line
+							lineaFinal.position();
+							console.log("entra en fixline")	
+							// Como borrar
+							// drag1.remove() 
+							// $(document.getElementById(elementoEmparejar)).draggable()
+					 		// makeDraggable($(document.getElementById(elementoEmparejar)))
+						}
+						
 						// 		//captura(activity, canvas)
 						// 	´
 					}
-				
+					document.getElementById(elementoEmparejar).classList.add("emparejadoCon-" + $item[0].id)
 				var startElement = document.getElementById(elementoEmparejar),
-					endElement = document.getElementById("picture_1"),
+					endElement = document.getElementById($item[0].id),
 					lineaFinal = new LeaderLine(startElement, endElement);
+				//	lineaFinal = new LeaderLine(startElement, LeaderLine.pointAnchor(endElement));
+
+
+
 					// lineaFinal = new LeaderLine(startElement, endElement);
 				//	endElement.pointAnchor({element: endElement, x: 16, y: 32});
 				// 	  $(document.getElementById("pairing_1")).resizable("destroy")
@@ -430,17 +446,26 @@ function evaluarPosicionInicio($item) {
 				// 	// 	lineaFinal.position();
 
 				// 	// };
-				// 	var drag1=	new PlainDraggable(startElement, { onMove: fixLine });
+				// 	var drag1=	new PlainDraggable(endElement, { onMove: fixLine });
 				// 	drag1.onDragEnd = function() {
 				// 		console.log("Drag End")
 				// 		$(document.getElementById("area_1")).draggable()
 				// 		makeDraggable($(document.getElementById("area_1")))
 				// 	}
-				// 	// drag1.onDragStart = function() {
-				// 	// 	console.log("Drag start")
-				// 	// 	$(document.getElementById("area_1")).draggable()
-				// 	 	//$(document.getElementById("pairing_1")).draggable('destroy')
-				// 	// }
+				//  drag1.onDragStart = function() {
+				// 	for(var flechas = 0; flechas < listaFlechas.length; flechas++){
+				// 		if (flechas === 0){
+				// 			lineaFinal = new LeaderLine(document.getElementById("area_1"), document.getElementById("pairing_1"));
+				// 		}
+				// 		if (flechas === 1){
+				// 			lineaFinal = new LeaderLine(document.getElementById("area_1"), document.getElementById("pairing_2"));
+				// 		}
+				// 	//	lineaFinal = listaFlechas[flechas].line 
+				// 		console.log("muevo flecha", flechas, lineaFinal)
+				// 		fixLine()
+				// 	}
+					
+				//  }
 			//	new PlainDraggable(endElement, { onMove: fixLine });
 			//	new PlainDraggable(document.getElementById("picture_1"), { onMove: fixLine });
 				// //	$("#groupMenu").collapse("toggle");
@@ -448,6 +473,7 @@ function evaluarPosicionInicio($item) {
 
 				var elFlecha = new elementoFlecha(lineaFinal, elementoEmparejar, $item[0].id)
 				listaFlechas.push(elFlecha)
+				console.log("Lista de flechas", listaFlechas)
 
 			}
 		}
