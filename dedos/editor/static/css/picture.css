@@ -16,6 +16,7 @@
 } 
 
 
+
 .pictureBack{
     z-index: 1 !important;
 }
@@ -36,7 +37,8 @@
 
 .dz-clickable{
   
-    height: 90% !important;
+    height: 90% !important; 
+    
 }
 
 .ms-4{
@@ -62,7 +64,8 @@
     min-height: 100px !important;
     border: 2pxsolidrgba(0,0,0,.3);
     background: #fff;
-    padding: 0 !important
+    padding: 0 !important;
+    height: 90% !important;
 
 } 
 

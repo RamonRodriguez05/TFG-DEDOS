@@ -386,28 +386,21 @@ function evaluarPosicionInicio($item) {
 
 							$item[0].style.left = x - 245
 							$item[0].style.top = y - 80
-
+							$item[0].style = "z-index:500; left:" + (x) + ";top:" + (y) + ";"
 							console.log("moviendome")
-
 							var positionPairing2 = document.getElementById($item[0].id).getBoundingClientRect()
-							var elems2 = document.elementsFromPoint(positionPairing2.left, positionPairing2.top)
-				console.log("Elementossssss detectados al dejar el pairing es", elems2)
-			
-				for (var el2 = 0; el2 < elems2.length; el2++) {
-					
-					if ((elems2[el2].id.includes("picture_") || elems2[el2].id.includes("card_")) && elems2[el2].id != $item[0].id ) {
-						console.log("Entro en pairing y debo PARAR")
-						var width = document.getElementById(elems2[el2].id).offsetWidth + 20
-						
-						var height = document.getElementById(elems2[el2].id).offsetHeight + 20
-						console.log("width", width, "height", height)
-						document.getElementById($item[0].id).style = "width:" + width + "px;height:" + height + "px; position: absolute; left: -10px; top: -10px;z-index:-222"
-						
-						document.getElementById(elems2[el2].id).appendChild($item[0])
-						lineaFinal.color = 'rgba(0, 128, 0, 1)';
-						mover = false
-					}
-				}
+						var elems2 = document.elementsFromPoint(positionPairing2.left, positionPairing2.top)
+						console.log("Elementossssss detectados al dejar el pairing es", elems2)
+						mover = true
+						for (var el2 = 0; el2 < elems2.length; el2++) {
+
+							if ((elems2[el2].id.includes("picture_") || elems2[el2].id.includes("card_")) && elems2[el2].id != $item[0].id) {
+								
+								lineaFinal.color = 'rgba(0, 128, 0, 1)';
+								
+							}
+						}
+							
 					
 						}
 							fixLine()
@@ -419,10 +412,38 @@ function evaluarPosicionInicio($item) {
 
 
 					document.getElementById($item[0].id).addEventListener("click", e => {
-						mover = !mover
-						document.getElementById($item[0].id).style = "width:" + 30 + "px;height:" + 30 + "px; position: absolute;"
+						var positionPairing2 = document.getElementById($item[0].id).getBoundingClientRect()
+						var elems2 = document.elementsFromPoint(positionPairing2.left, positionPairing2.top)
+						console.log("Elementossssss detectados al dejar el pairing es", elems2)
+						mover = true
+						for (var el2 = 0; el2 < elems2.length; el2++) {
+
+							if ((elems2[el2].id.includes("picture_") || elems2[el2].id.includes("card_")) && elems2[el2].id != $item[0].id) {
+								console.log("Entro en pairing y debo PARAR")
+								var width = document.getElementById(elems2[el2].id).offsetWidth + 20
+
+								var height = document.getElementById(elems2[el2].id).offsetHeight + 20
+								console.log("width", width, "height", height)
+								document.getElementById($item[0].id).style = "width:" + width + "px;height:" + height + "px; position: absolute; left: -10px; top: -10px;z-index:-222"
+
+								document.getElementById(elems2[el2].id).appendChild($item[0])
+								lineaFinal.color = 'rgba(0, 128, 0, 1)';
+								mover = false
+							}
+						}
+
+
+
+
+
 						
-						document.getElementById(canvas.replace("#","")).appendChild($item[0])
+
+						if(mover){
+							document.getElementById($item[0].id).style = "width:" + 30 + "px;height:" + 30 + "px; position: absolute;"
+						
+							document.getElementById(canvas.replace("#","")).appendChild($item[0])	
+						}
+						
 					});
 
 					
