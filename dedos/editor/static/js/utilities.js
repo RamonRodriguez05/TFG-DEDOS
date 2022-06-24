@@ -35,7 +35,7 @@ function evaluarPosicion($item) {
 			console.log("HA ENTRADO PAPELERA")
 			if ($item[0].id.includes("time")) {
 				num_time = 0
-				div = document.getElementById("TemporizadorBueno");
+				var div = document.getElementById("TemporizadorBueno");
 				div.classList.remove("ocultar");
 				div = document.getElementById("TemporizadorTemp");
 				div.classList.add("ocultar");
@@ -363,12 +363,13 @@ function evaluarPosicionInicio($item) {
 				getPositionElement("area_1")
 				console.log("Entra en el pairing")
 				for (var el = 0; el < elems.length; el++) {
-					if (elems[el].id.includes("area_")) {
+					if (elems[el].id.includes("area_") || elems[el].id.includes("picture_") || elems[el].id.includes("card_")) {
 						elementoEmparejar = elems[el].id
 						borrarPairing = false; 
 						$(document.getElementById(elementoEmparejar)).draggable()
 						$(document.getElementById(elementoEmparejar)).draggable('destroy')
 					}
+					
 				}
 
 				if (borrarPairing) {
@@ -377,25 +378,55 @@ function evaluarPosicionInicio($item) {
 				} else {
 				//	document.getElementById("picture_1").append(document.getElementById("pairing_1"))
 					document.addEventListener('mousemove', e => {
-						if(mover){
+						if(mover){ 
+							lineaFinal.color = 'rgba(255, 153, 0, 1)';
 							var x = e.clientX;
 							var y = e.clientY;
 							console.log("Offset X:", x, "offset Y:", y)
 
 							$item[0].style.left = x - 245
-							$item[0].style.top = y - 60
+							$item[0].style.top = y - 80
 
 							console.log("moviendome")
-							fixLine()
+
+							var positionPairing2 = document.getElementById($item[0].id).getBoundingClientRect()
+							var elems2 = document.elementsFromPoint(positionPairing2.left, positionPairing2.top)
+				console.log("Elementossssss detectados al dejar el pairing es", elems2)
+			
+				for (var el2 = 0; el2 < elems2.length; el2++) {
+					
+					if ((elems2[el2].id.includes("picture_") || elems2[el2].id.includes("card_")) && elems2[el2].id != $item[0].id ) {
+						console.log("Entro en pairing y debo PARAR")
+						var width = document.getElementById(elems2[el2].id).offsetWidth + 20
+						
+						var height = document.getElementById(elems2[el2].id).offsetHeight + 20
+						console.log("width", width, "height", height)
+						document.getElementById($item[0].id).style = "width:" + width + "px;height:" + height + "px; position: absolute; left: -10px; top: -10px;z-index:-222"
+						
+						document.getElementById(elems2[el2].id).appendChild($item[0])
+						lineaFinal.color = 'rgba(0, 128, 0, 1)';
+						mover = false
+					}
+				}
+					
 						}
+							fixLine()
+							
+						
+								
 
 					});
 
 
 					document.getElementById($item[0].id).addEventListener("click", e => {
 						mover = !mover
+						document.getElementById($item[0].id).style = "width:" + 30 + "px;height:" + 30 + "px; position: absolute;"
+						
+						document.getElementById(canvas.replace("#","")).appendChild($item[0])
 					});
 
+					
+					
 
 					
 
@@ -425,7 +456,8 @@ function evaluarPosicionInicio($item) {
 				var startElement = document.getElementById(elementoEmparejar),
 					endElement = document.getElementById($item[0].id),
 					lineaFinal = new LeaderLine(startElement, endElement);
-				//	lineaFinal = new LeaderLine(startElement, LeaderLine.pointAnchor(endElement));
+				//	attachment2 = LeaderLine.pointAnchor({element: endElement, x: 8});
+					//lineaFinal = new LeaderLine(startElement, attachment2);
 
 
 
