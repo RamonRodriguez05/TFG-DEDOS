@@ -49,16 +49,19 @@ def view_login(request):
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            if user.role == "admin" or user.role == "teacher":
-                login(request, user)
-                request.session["username"] = user.username
-                return redirect('/editor/main')
-            else:
-                messages.error(request, 'Only teachers can access this area.',
-                               extra_tags='alert alert-danger text-center')
-                return render(request, 'editor/useraccess/login.html')
+            login(request, user)
+            request.session["username"] = user.username
+            return redirect('/editor/main')
+            # if user.role == "admin" or user.role == "teacher":
+            #     login(request, user)
+            #     request.session["username"] = user.username
+            #     return redirect('/editor/main')
+            # else:
+            #     messages.error(request, 'Solo los profesores pueden acceder a este área.',
+            #                    extra_tags='alert alert-danger text-center')
+            #     return render(request, 'editor/useraccess/login.html')
         else:
-            messages.error(request, 'Invalid username or password',
+            messages.error(request, 'Usuario o contraseña incorrectos',
                            extra_tags='alert alert-danger text-center')
             return render(request, 'editor/useraccess/login.html')
     else:

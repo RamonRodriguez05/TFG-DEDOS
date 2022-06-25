@@ -196,7 +196,7 @@ $(document).ready(function () {
 
         // Start file download.
         download(nombreZip + ".zip", cargar);
-     //   window.location.href = "http://127.0.0.1:8000/editor/proyectos";
+        window.location.href = "http://127.0.0.1:8000/editor/proyectos";
     }
 
 });

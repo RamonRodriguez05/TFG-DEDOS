@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% extends "editor/dash/base.html" %}
+{% load static %} <!-- Cargamos los archivos estaticos -->
+{% load i18n %} <!-- Cargamos el módulo de Internacionalización -->
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Proyectos{% endblock %}</title>
@@ -33,28 +36,28 @@
 
 <body>
 
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark fondoCabecera">
+    <!-- <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark fondoCabecera">
         
         
         <a style="color: white;background-color: blue;margin: 2px; border-radius: 5px;" class="navbar-brand" href="\editor\editor">Crear nuevo proyecto</a>
-        <!-- <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
-                class="fas fa-bars"></i></button> -->
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
+                class="fas fa-bars"></i></button> 
 
-        <!-- <button id="botonGuardar" class="btn btn-primary" type="button"  data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-floppy-disk"></i></i> Guardar</button> -->
+        <button id="botonGuardar" class="btn btn-primary" type="button"  data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-floppy-disk"></i></i> Guardar</button> 
 
   
 
-        <!-- Navbar Search-->
+       
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <div class="input-group">
-                <!-- <input class="form-control" type="text" placeholder="Buscar..." aria-label="Search"
+                <input class="form-control" type="text" placeholder="Buscar..." aria-label="Search"
                     aria-describedby="basic-addon2" />
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
-                </div> -->
+                </div> 
             </div>
         </form>
-        <!-- Navbar-->
+        
         <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
@@ -67,7 +70,7 @@
                 </div>
             </li>
         </ul>
-    </nav>
+    </nav> -->
 
     <div id="tabs">
         <h2 style="text-align: center;font-weight: bold;">Proyectos</h2> 
@@ -93,5 +96,5 @@
     </div>
 
 </body>
-
+{% endblock %}
 </html>

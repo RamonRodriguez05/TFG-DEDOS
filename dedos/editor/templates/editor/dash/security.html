@@ -3,12 +3,12 @@
 {% load i18n %} <!-- Cargamos el módulo de Internacionalización -->
 {% block content %}
 <div class="container-fluid">
-    <h1 class="mt-4"> User profile</h1>
+    <h1 class="mt-4">Mi Perfil</h1>
     <div class="row">
         <div class="col-md-3">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Change Password</h4>
+              <h5 class="card-title">Cambiar contraseña</h5>
             </div>
             <div class="card-body">
               <form method="POST" action="/editor/change_password" id="profile_form">
@@ -16,7 +16,7 @@
                  <div class="row">
                       <div class="col-md-10">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Old password</label>
+                          <label class="bmd-label-floating">Contraseña antigua</label>
                           <input type="password" name="old_password" class="form-control">
                         </div>
                           {% if "old_password" in form_errors %}
@@ -31,7 +31,7 @@
                   <div class="row">
                       <div class="col-md-10">
                         <div class="form-group">
-                          <label class="bmd-label-floating">New password</label>
+                          <label class="bmd-label-floating">Nueva contraseña</label>
                           <input type="password" name="new_password1" class="form-control">
                         </div>
                                           {% if "new_password1" in form_errors %}
@@ -46,7 +46,7 @@
                   <div class="row">
                       <div class="col-md-10">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Confirm password</label>
+                          <label class="bmd-label-floating">Confirmar contraseña</label>
                           <input type="password" name="new_password2" class="form-control">
                         </div>
                           {% if "new_password2" in form_errors %}
@@ -58,7 +58,7 @@
                 {% endif %}
                       </div>
                   </div>
-                <button type="submit" class="btn btn-primary float-right">Change password</button>
+                <button type="submit" class="btn btn-primary float-right">Cambiar Contraseña</button>
                 <div class="clearfix"></div>
               </form>
             </div>

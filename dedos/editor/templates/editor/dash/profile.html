@@ -3,12 +3,12 @@
 {% load i18n %} <!-- Cargamos el módulo de Internacionalización -->
 {% block content %}
 <div class="container-fluid">
-    <h1 class="mt-4"> User profile</h1>
+    <h1 class="mt-4"> Mi Perfil</h1>
     <div class="row">
         <div class="col-md-8">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title">Edit Profile</h4>
+              <h4 class="card-title">Editar Perfil</h4>
             </div>
             <div class="card-body">
               <form method="POST" action="/editor/update_profile" id="profile_form">
@@ -16,19 +16,19 @@
                 <div class="row">
                   <div class="col-md-5">
                     <div class="form-group">
-                      <label class="bmd-label-floating">Company</label>
+                      <label class="bmd-label-floating">Centro</label>
                       <input type="text" name="company" value="{{user.company}}" class="form-control">
                     </div>
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label class="bmd-label-floating">Username</label>
+                      <label class="bmd-label-floating">Usuario</label>
                       <input type="text" name="username" class="form-control" placeholder="{{user.username}}" value="{{user.username}}" readonly="readonly">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label class="bmd-label-floating">Email address</label>
+                      <label class="bmd-label-floating">Email</label>
                       <input type="email" name="email" class="form-control" value="{{user.email}}">
                     </div>
                   </div>
@@ -36,13 +36,13 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label class="bmd-label-floating">First Name</label>
+                      <label class="bmd-label-floating">Nombre</label>
                       <input type="text" name="first_name" class="form-control" value="{{user.first_name}}">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label class="bmd-label-floating">Last Name</label>
+                      <label class="bmd-label-floating">Apellidos</label>
                       <input type="text" name="last_name" class="form-control" value="{{user.last_name}}">
                     </div>
                   </div>
@@ -51,13 +51,13 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label class="bmd-label-floating">City</label>
+                      <label class="bmd-label-floating">Ciudad</label>
                       <input type="text" name="city" class="form-control" value="{{user.city}}">
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label class="bmd-label-floating">Country</label>
+                      <label class="bmd-label-floating">País</label>
                       <input type="text" name="country" class="form-control" value="{{user.country}}">
                     </div>
                   </div>
@@ -65,14 +65,14 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label>About Me</label>
+                      <label>Sobre mi</label>
                       <div class="form-group">
                         <textarea name="about" form="profile_form" class="form-control" rows="5">{{user.about_me}}</textarea>
                       </div>
                     </div>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary float-right">Update Profile</button>
+                <button type="submit" class="btn btn-primary float-right">Actualizar Perfil</button>
                 <div class="clearfix"></div>
               </form>
             </div>

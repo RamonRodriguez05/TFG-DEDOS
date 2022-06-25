@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="author" content="Kodinger">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>My Login Page &mdash; Bootstrap 4 Login Page Snippet</title>
+	<title>Inicio Sesión</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="{% static 'login/css/register.css' %}">
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
@@ -53,27 +53,27 @@
     {% endfor %}
 {% endif %}
           <div class="card-body">
-            <h5 class="card-title text-center">Sign In</h5>
+            <h5 class="card-title text-center">Iniciar Sesión</h5>
             <form method="POST" action="/editor/login" class="form-signin">
               {% csrf_token %}
               <div class="form-label-group">
-                <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
-                <label for="inputEmail">Username</label>
+                <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Usuario" required autofocus>
+                <label for="inputEmail">Usuario</label>
               </div>
 
               <div class="form-label-group">
-                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
-                <label for="inputPassword">Password</label>
+                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Contraseña" required>
+                <label for="inputPassword">Contraseña</label>
               </div>
                 <div class="col-md-12 form-group">
-                    <a href="#" data-target="#pwdModal" data-toggle="modal"><u>Forgot my password</u></a>
-                           <a class="float-right" href="/editor/register"><u>Sign Up</u></a>
+                    <a href="#" data-target="#pwdModal" data-toggle="modal"><u>Olvidé mi contraseña</u></a>
+                           <a class="float-right" href="/editor/register"><u>Registrarse</u></a>
                 </div>
 
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Iniciar Sesión</button>
               <hr class="my-4">
-              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i>  <a style="color:#fff" href="{% provider_login_url 'google' %}">Log in with Google</a></button>
-              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> <a style="color:#fff" href="{% provider_login_url "facebook" method="oauth2" %}">Log in with Facebook</a></button>
+              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i>  <a style="color:#fff" href="{% provider_login_url 'google' %}">Iniciar sesión con Google</a></button>
+              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> <a style="color:#fff" href="{% provider_login_url "facebook" method="oauth2" %}">Iniciar sesión con Facebook</a></button>
             </form>
           </div>
         </div>

@@ -378,7 +378,7 @@ function evaluarPosicionInicio($item) {
 				} else {
 				//	document.getElementById("picture_1").append(document.getElementById("pairing_1"))
 					document.addEventListener('mousemove', e => {
-						if(mover){ 
+						if (mover) {
 							lineaFinal.color = 'rgba(255, 153, 0, 1)';
 							var x = e.clientX;
 							var y = e.clientY;
@@ -387,27 +387,18 @@ function evaluarPosicionInicio($item) {
 							$item[0].style.left = x - 245
 							$item[0].style.top = y - 80
 							$item[0].style = "z-index:500; left:" + (x) + ";top:" + (y) + ";"
-							console.log("moviendome")
-							var positionPairing2 = document.getElementById($item[0].id).getBoundingClientRect()
-						var elems2 = document.elementsFromPoint(positionPairing2.left, positionPairing2.top)
-						console.log("Elementossssss detectados al dejar el pairing es", elems2)
-						mover = true
-						for (var el2 = 0; el2 < elems2.length; el2++) {
 
-							if ((elems2[el2].id.includes("picture_") || elems2[el2].id.includes("card_")) && elems2[el2].id != $item[0].id) {
-								
-								lineaFinal.color = 'rgba(0, 128, 0, 1)';
-								
+							var positionPairing2 = document.getElementById($item[0].id).getBoundingClientRect()
+							var elems2 = document.elementsFromPoint(positionPairing2.left, positionPairing2.top)
+							mover = true
+							for (var el2 = 0; el2 < elems2.length; el2++) {
+
+								if ((elems2[el2].id.includes("picture_") || elems2[el2].id.includes("card_")) && elems2[el2].id != $item[0].id) {
+									lineaFinal.color = 'rgba(0, 128, 0, 1)';
+								}
 							}
 						}
-							
-					
-						}
-							fixLine()
-							
-						
-								
-
+						fixLine()
 					});
 
 

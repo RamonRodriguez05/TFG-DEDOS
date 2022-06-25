@@ -45,11 +45,11 @@ def view_login(request):
                 request.session["username"] = user.username
                 return redirect('/editor/main')
             else:
-                messages.error(request, 'Only teachers can access this area.',
+                messages.error(request, 'Solo los profesores pueden acceder a este área',
                                extra_tags='alert alert-danger text-center')
                 return render(request, 'editor/useraccess/login.html')
         else:
-            messages.error(request, 'Invalid username or password',
+            messages.error(request, 'Usuario o contraseña incorrecta',
                            extra_tags='alert alert-danger text-center')
             return render(request, 'editor/useraccess/login.html')
     else:

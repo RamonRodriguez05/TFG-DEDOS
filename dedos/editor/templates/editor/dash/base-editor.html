@@ -546,8 +546,8 @@ fieldset label {
         <a class="navbar-brand" href="\editor\proyectos">Ver Proyectos</a>
         <!-- <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
                 class="fas fa-bars"></i></button> -->
-
-        <button id="botonGuardar" class="btn btn-primary" type="button"  data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-floppy-disk"></i></i> Guardar</button>
+        <a class="navbar-brand" href="/editor/main"><i class="fa-solid fa-house"></i></a>
+        <button id="botonGuardar" class="btn btn-primary" style="margin-left: 0px;" type="button"  data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-floppy-disk"></i></i> Guardar</button>
 
   
 
@@ -567,10 +567,10 @@ fieldset label {
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <a class="dropdown-item" href="#">Activity Log</a>
+                    <a class="dropdown-item" href="#">Configuración</a>
+                    <!-- <a class="dropdown-item" href="#">Activity Log</a> -->
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/editor/logout">Logout</a>
+                    <a class="dropdown-item" href="/editor/logout">Cerrar Sesión</a>
                 </div>
             </li>
         </ul>
@@ -615,8 +615,8 @@ fieldset label {
                             onclick="addActivity()">Insertar</button>
                     </div>
                     <hr>
-                    <div class="small">Logged in as:</div>
-                    {{user.username |json_script:"user_id"}}
+                    <div class="small">Logueado como:</div>
+                    {{user.username}}
                 </div>
             </nav>
         </div>
