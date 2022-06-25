@@ -1312,9 +1312,16 @@
 				}
 			}
 
-			if (elems != null) (
-				pointerElementID = elems[0].id
-			)
+			if (elems != null) {
+				try {
+					pointerElementID = elems[0].id
+				} catch (error) {
+					
+				}
+				
+			}
+				
+			
 			
 			// for(var flechas = 0; flechas < listaFlechas.length; flechas++){
 			// 				lineaFinal = listaFlechas[flechas].line
@@ -1324,8 +1331,9 @@
 			// 				// drag1.remove() 
 			// 				// $(document.getElementById(elementoEmparejar)).draggable()
 			// 		 		// makeDraggable($(document.getElementById(elementoEmparejar)))
-			// 			}
-			// Evaluar elementos emparejados
+			// 			} 
+
+			// Evaluar elementos emparejados para saber si se deben borrar
 			var elementosEmparejados = document.getElementsByClassName("emparejado")
 			var papelera = document.getElementById("papelera")
 
@@ -1341,11 +1349,7 @@
 				//	console.log("Posicion elemento:", "left:", posicion.left, "top:", posicion.top,"ancho:", elemento.offsetWidth, "alto:" ,elemento.offsetHeight)
 					if (posicion.bottom - 30 > rect.top && posicion.left + 30 < rect.right) {
 						eliminarElementoEmparejado(elementosEmparejados[emp].id)
-						
-						
-						
 					}
-
 				}
 			}
 

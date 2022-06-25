@@ -16,6 +16,7 @@ function fijarPicture(input) {
 
 		var clases = parentDiv.attr("class") + " fixed picture"
 		parentDiv.attr("class", clases)
+		parentDiv.draggable();
 		parentDiv.draggable("enable");
 	}
 

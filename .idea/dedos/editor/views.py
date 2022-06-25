@@ -267,7 +267,7 @@ def update_profile(request):
         if form.is_valid():
             print("UPDATED PROFILE")
             user = User.objects.get(username=form["username"].value())
-            print("OMPANY:", form["company"].value())
+            print("COMPANY:", form["company"].value())
             user.company = form["company"].value()
             user.email = form["email"].value()
             user.first_name = form["first_name"].value()
