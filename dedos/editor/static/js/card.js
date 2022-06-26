@@ -2,7 +2,8 @@
 
 function fijarCard(input) {
     var parentDiv = $(input).parent();
-
+    	
+    parentDiv.draggable()
     if (fix) {
         var clases = parentDiv.attr("class") + " fixed card"
         parentDiv.attr("class", clases)
@@ -10,6 +11,7 @@ function fijarCard(input) {
     } else {
         var clases = parentDiv.attr("class") + " fixed card"
         parentDiv.attr("class", clases)
+
         parentDiv.draggable("enable");
     }
 }

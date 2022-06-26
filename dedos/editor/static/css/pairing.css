@@ -2,7 +2,7 @@
  .pairing {
     min-width: 30px;
     min-height: 30px;
-    border: 2px solid red;
+    
     resize: none !important;
     position: fixed;
 }

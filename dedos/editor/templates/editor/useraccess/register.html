@@ -3,10 +3,11 @@
 	<meta charset="utf-8">
 	<meta name="author" content="Kodinger">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>My Login Page &mdash; Bootstrap 4 Login Page Snippet</title>
+	<title>Login</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="{% static 'login/css/register.css' %}">
 		<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="icon" type="image/png" href="{% static 'dash/dist/assets/img/dedosLogo.png' %}"/>
 </head>
 <body>
   <div class="container">
@@ -15,12 +16,12 @@
         <div class="card card-signin flex-row my-5">
 
           <div class="card-body">
-            <h5 class="card-title text-center">Register</h5>
+            <h5 class="card-title text-center">Registrar</h5>
             <form method="POST" action="/editor/register" class="form-signin">
 				{% csrf_token %}
               <div class="form-label-group">
-                <input type="text" name="username" id="inputUserame" class="form-control" placeholder="Username" required autofocus>
-                <label for="inputUserame">Username</label>
+                <input type="text" name="username" id="inputUserame" class="form-control" placeholder="Usuario" required autofocus>
+                <label for="inputUserame">Usuario</label>
               </div>
                 {% if "username" in form_errors %}
                     <div class="alert alert-danger">
@@ -31,8 +32,8 @@
                 {% endif %}
 
               <div class="form-label-group">
-                <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required>
-                <label for="inputEmail">Email address</label>
+                <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email" required>
+                <label for="inputEmail">Email</label>
               </div>
                 {% if "email" in form_errors %}
                     <div class="alert alert-danger">
@@ -45,16 +46,16 @@
               <hr>
 
               <div class="form-label-group">
-                <input type="password" id="inputPassword" name="password1" class="form-control" placeholder="Password" required>
-                <label for="inputPassword">Password</label>
+                <input type="password" id="inputPassword" name="password1" class="form-control" placeholder="Contraseña" required>
+                <label for="inputPassword">Contraseña</label>
               </div>
 
               <div class="form-label-group">
-                <input type="password" id="inputConfirmPassword" name="password2" class="form-control" placeholder="Password" required>
-                <label for="inputConfirmPassword">Confirm password</label>
+                <input type="password" id="inputConfirmPassword" name="password2" class="form-control" placeholder="Contraseña" required>
+                <label for="inputConfirmPassword">Confirmar contraseña</label>
               </div>
 
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Registrar</button>
               <hr class="my-4">
             </form>
           </div>
