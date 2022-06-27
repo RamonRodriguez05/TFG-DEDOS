@@ -71,6 +71,7 @@ function evaluarPosicion($item) {
 				// Eliminar clase drag del elemento incial
 				for (var n = 0; n < listaFlechas.length; n++) {
 					if(listaFlechas[n].elementoInicio == elInicial){
+						
 						if(countInicio > 1){
 							eliminarDrag = false
 							break
@@ -102,7 +103,7 @@ function evaluarPosicion($item) {
 				var elementosEmparejados = document.getElementsByClassName("emparejado")
 
 				for(var emparejado = 0; emparejado < elementosEmparejados.length; emparejado++){
-					var borrarClase = true
+					
 					for (var k = 0; k < listaFlechas.length; k++) {
 						if(listaFlechas[k].elementoInicio == elementosEmparejados[emparejado].id){
 							countEmparejado++
@@ -114,20 +115,24 @@ function evaluarPosicion($item) {
 					}
 				}
 
-
-				for (var j = 0; j < listaFlechas.length; j++) {
-					if(listaFlechas[j].elementoFin == $item[0].id){
+				console.log("Eliminar DRAAAAG", eliminarDrag)
+				var numeroFlechasEliminar = 0
+				for (var jj = 0; jj < listaFlechas.length; jj++) {
+					if(listaFlechas[jj].elementoFin === $item[0].id){
 						if(eliminarDrag){
-							listaFlechas[j].drag.remove()
-							makeDraggable($(document.getElementById(listaFlechas[j].elementoInicio)))
-							
+							listaFlechas[jj].drag.remove()
+							console.log("hagodragable", listaFlechas[jj].elementoInicio.id)
+							makeDraggable($(document.getElementById(listaFlechas[jj].elementoInicio)))
+							alert("se quita el drag")
 						}
-						document.getElementById(listaFlechas[j].elementoInicio).classList.remove("emparejadoCon-" + $item[0].id)
-						listaFlechas[j].line.remove()
-						delete listaFlechas[j]
-						listaFlechas.length--
+						document.getElementById(listaFlechas[jj].elementoInicio).classList.remove("emparejadoCon-" + $item[0].id)
+						listaFlechas[jj].line.remove()
+						listaFlechas = listaFlechas.filter(item => item.elementoFin !== $item[0].id)
+
+						break
 					}
 				}
+				//listaFlechas.length = listaFlechas.length - numeroFlechasEliminar
 
 				
 				console.log("lista flechas", listaFlechas)
@@ -640,7 +645,7 @@ function evaluarPosicionInicio($item) {
 
 				var elFlecha = new elementoFlecha(lineaFinal, elementoEmparejar, $item[0].id, drag1)
 				listaFlechas.push(elFlecha)
-				console.log("Lista de flechas", listaFlechas)
+				console.log("Lista de flechas iniciales", listaFlechas)
 					}
 
 			
