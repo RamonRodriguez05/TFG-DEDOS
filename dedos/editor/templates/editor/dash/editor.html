@@ -1341,7 +1341,7 @@
 			//console.log("Posicion papelera:", "left:", rect.left, "top:", rect.top,"ancho:", papelera.offsetWidth, "alto:" ,papelera.offsetHeight)
   
 			if(elementosEmparejados.length > 0){
-				console.log("ELEMENTO EMPAREJADOS",elementosEmparejados)
+				//console.log("ELEMENTO EMPAREJADOS",elementosEmparejados)
 				for(var emp = 0; emp < elementosEmparejados.length;emp++){
 					var elemento = document.getElementById(elementosEmparejados[emp].id)
 					//console.log("elemento buscado emp", elemento)
@@ -1383,10 +1383,11 @@
 			this.file = file;
 		}
 
-		function elementoFlecha(line, elementoInicio, elementoFin) {
+		function elementoFlecha(line, elementoInicio, elementoFin, drag) {
 			this.line = line;
 			this.elementoInicio = elementoInicio;
 			this.elementoFin = elementoFin;
+			this.drag = drag;
 		}
 
 		// function probarsubir(){

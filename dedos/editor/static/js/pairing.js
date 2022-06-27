@@ -84,6 +84,18 @@ function getPositionElement(elementoID){
 
 function eliminarElementoEmparejado(idEliminar){
     console.log("BORROOOOOO ELEMENTOOOOO")
+    console.log("Tengo flechas", listaFlechas)
+
+    var numeroFlechasEliminadas = 0
+    for (var m = 0; m < listaFlechas.length; m++) {
+        if(listaFlechas[m].elementoFin == idEliminar || listaFlechas[m].elementoInicio == idEliminar){
+            document.getElementById(listaFlechas[m].elementoInicio).classList.remove("emparejadoCon-" + idEliminar)
+            listaFlechas[m].line.remove()
+            delete listaFlechas[m]
+            numeroFlechasEliminadas++  
+        }
+    }
+    listaFlechas.length = listaFlechas.length - numeroFlechasEliminadas
     document.getElementById(idEliminar).remove()
     captura(activity, canvas)
 }

@@ -47,16 +47,89 @@ function evaluarPosicion($item) {
 			}
 
 			if ($item[0].id.includes("pairing_")) {
+				var elInicial = ""
+				var elFinal = ""
+				var eliminarDrag = true
+				var countInicio = 1
+				var countFinal = 1
+				var countEmparejado = 0
+				var eliminarClaseFinal = true
+
+				console.log("EL PADRE DEL PAIRING ES", listaFlechas)
 				for (var m = 0; m < listaFlechas.length; m++) {
 					if(listaFlechas[m].elementoFin == $item[0].id){
-						document.getElementById(listaFlechas[m].elementoInicio).classList.remove("emparejadoCon-" + $item[0].id)
-						listaFlechas[m].line.remove()
-						delete listaFlechas[m]
+						elInicial = listaFlechas[m].elementoInicio
+						var elementos = document.getElementsByClassName($item[0].id)
+						if(elementos.length > 0) {
+							elFinal = elementos[0].id
+						}
+						console.log("El final es", elFinal)
+						break
+					}
+				}
+				
+				// Eliminar clase drag del elemento incial
+				for (var n = 0; n < listaFlechas.length; n++) {
+					if(listaFlechas[n].elementoInicio == elInicial){
+						if(countInicio > 1){
+							eliminarDrag = false
+							break
+						}
+						countInicio++
+					}
+				}
+
+				if(elFinal != ""){
+					var clasesFinal = document.getElementById(elFinal).classList
+
+					
+					for (var l = 0; l < clasesFinal.length; l++) {
+						if(clasesFinal[l].includes("pairing_")){
+							
+							if(countFinal > 1){
+								eliminarClaseFinal = false
+								break
+							}
+							countFinal++
+						}
+					}
+					document.getElementById(elFinal).classList.remove($item[0].id)
+					if(eliminarClaseFinal){
+						document.getElementById(elFinal).classList.remove("ElementoFinal")
+					}
+				}
+					
+				var elementosEmparejados = document.getElementsByClassName("emparejado")
+
+				for(var emparejado = 0; emparejado < elementosEmparejados.length; emparejado++){
+					var borrarClase = true
+					for (var k = 0; k < listaFlechas.length; k++) {
+						if(listaFlechas[k].elementoInicio == elementosEmparejados[emparejado].id){
+							countEmparejado++
+						}
+					}
+
+					if(countEmparejado == 1){
+						document.getElementById(elementosEmparejados[emparejado].id).classList.remove("emparejado")
+					}
+				}
+
+
+				for (var j = 0; j < listaFlechas.length; j++) {
+					if(listaFlechas[j].elementoFin == $item[0].id){
+						if(eliminarDrag){
+							listaFlechas[j].drag.remove()
+							makeDraggable($(document.getElementById(listaFlechas[j].elementoInicio)))
+							
+						}
+						document.getElementById(listaFlechas[j].elementoInicio).classList.remove("emparejadoCon-" + $item[0].id)
+						listaFlechas[j].line.remove()
+						delete listaFlechas[j]
 						listaFlechas.length--
 					}
-					
-
 				}
+
+				
 				console.log("lista flechas", listaFlechas)
 			}
 			
@@ -458,6 +531,7 @@ function evaluarPosicionInicio($item) {
 
 									document.getElementById(elems2[el2].id).appendChild($item[0])
 									document.getElementById(elems2[el2].id).classList.add("ElementoFinal")
+									document.getElementById(elems2[el2].id).classList.add($item[0].id)
 									elementoAsociado = elems2[el2].id
 									lineaFinal.color = 'rgba(0, 128, 0, 1)';
 
@@ -512,6 +586,7 @@ function evaluarPosicionInicio($item) {
 
 					
 					document.getElementById(elementoEmparejar).classList.add("emparejadoCon-" + $item[0].id)
+					document.getElementById(elementoEmparejar).classList.add("emparejado")
 					var startElement = document.getElementById(elementoEmparejar),
 					endElement = document.getElementById($item[0].id),
 					lineaFinal = new LeaderLine(startElement, endElement);
@@ -563,7 +638,7 @@ function evaluarPosicionInicio($item) {
 				// //	$("#editor").addClass("active");
 
 
-				var elFlecha = new elementoFlecha(lineaFinal, elementoEmparejar, $item[0].id)
+				var elFlecha = new elementoFlecha(lineaFinal, elementoEmparejar, $item[0].id, drag1)
 				listaFlechas.push(elFlecha)
 				console.log("Lista de flechas", listaFlechas)
 					}
