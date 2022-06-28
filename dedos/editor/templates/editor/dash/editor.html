@@ -267,7 +267,7 @@
 		lineaFinal = null
 		$(document).ready(function () {
 			//document.getElementById('d1').droppable´
-
+				
 
 			//var line2 =	new LeaderLine(document.getElementById('d1'), LeaderLine.pointAnchor(document.getElementById('d2'))); 
 			//		var line = new LeaderLine(
@@ -283,31 +283,31 @@
 
 
 
-			var xml = getXMLString() // new XMLSerializer().serializeToString(getXMLString());
-			//	console.log("El xml es", getXMLString())
+			// var xml = getXMLString() // new XMLSerializer().serializeToString(getXMLString());
+			// //	console.log("El xml es", getXMLString())
 
-			// directory path
+			// // directory path
 
-			var zip = new JSZip();
-			// create a file
-			zip.file("hello.txt", "Hello");
-			// oops, cat on keyboard. Fixing !
-			zip.file("hello2.txt", "Hello World\n");
-			zip.file("nested/hello.txt", "Hello World\n");
-			zip.file("prueba2.xml", xml)
+			// var zip = new JSZip();
+			// // create a file
+			// zip.file("hello.txt", "Hello");
+			// // oops, cat on keyboard. Fixing !
+			// zip.file("hello2.txt", "Hello World\n");
+			// zip.file("nested/hello.txt", "Hello World\n");
+			// zip.file("prueba2.xml", xml)
 
-			// create a file and a folder
-
-
-
-			zip.generateAsync({ type: "blob" }).then(function (content) {
+			// // create a file and a folder
 
 
 
-				//	console.log("Content es", content)
-				//	saveAs(content, "prueba.zip")
+			// zip.generateAsync({ type: "blob" }).then(function (content) {
 
-			});
+
+
+			// 	//	console.log("Content es", content)
+			// 	//	saveAs(content, "prueba.zip")
+
+			// });
 
 
 
@@ -1100,7 +1100,7 @@
 		// }
 
 		function captura(name, canvas) {
-			getXMLString()
+		//	getXMLString()
 			var el = document.querySelector(canvas)
 			html2canvas(el, {
 				scale: 0.9,
@@ -1179,7 +1179,7 @@
 
 
 
-				generarZIP2()
+				//generarZIP2()
 
 			});
 		}
@@ -1383,11 +1383,11 @@
 			this.file = file;
 		}
 
-		function elementoFlecha(line, elementoInicio, elementoFin, drag) {
+		function elementoFlecha(line, elementoInicio, elementoFin) {
 			this.line = line;
 			this.elementoInicio = elementoInicio;
 			this.elementoFin = elementoFin;
-			this.drag = drag;
+			//this.drag = drag;
 		}
 
 		// function probarsubir(){

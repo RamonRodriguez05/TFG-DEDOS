@@ -616,6 +616,7 @@ fieldset label {
                             onclick="addActivity()">Insertar</button>
                     </div>
                     <hr>
+                    {{ user.username|json_script:"user_id" }}
                     <div class="small">Logueado como:</div>
                     {{user.username}}
                 </div>

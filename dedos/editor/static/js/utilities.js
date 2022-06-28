@@ -49,7 +49,7 @@ function evaluarPosicion($item) {
 			if ($item[0].id.includes("pairing_")) {
 				var elInicial = ""
 				var elFinal = ""
-				var eliminarDrag = true
+				//var eliminarDrag = true
 				var countInicio = 1
 				var countFinal = 1
 				var countEmparejado = 0
@@ -69,16 +69,16 @@ function evaluarPosicion($item) {
 				}
 				
 				// Eliminar clase drag del elemento incial
-				for (var n = 0; n < listaFlechas.length; n++) {
-					if(listaFlechas[n].elementoInicio == elInicial){
+				// for (var n = 0; n < listaFlechas.length; n++) {
+				// 	if(listaFlechas[n].elementoInicio == elInicial){
 						
-						if(countInicio > 1){
-							eliminarDrag = false
-							break
-						}
-						countInicio++
-					}
-				}
+				// 		if(countInicio > 1){
+				// 			eliminarDrag = false
+				// 			break
+				// 		}
+				// 		countInicio++
+				// 	}
+				// }
 
 				if(elFinal != ""){
 					var clasesFinal = document.getElementById(elFinal).classList
@@ -115,16 +115,17 @@ function evaluarPosicion($item) {
 					}
 				}
 
-				console.log("Eliminar DRAAAAG", eliminarDrag)
+				//console.log("Eliminar DRAAAAG", eliminarDrag)
 				var numeroFlechasEliminar = 0
 				for (var jj = 0; jj < listaFlechas.length; jj++) {
 					if(listaFlechas[jj].elementoFin === $item[0].id){
-						if(eliminarDrag){
-							listaFlechas[jj].drag.remove()
-							console.log("hagodragable", listaFlechas[jj].elementoInicio.id)
-							makeDraggable($(document.getElementById(listaFlechas[jj].elementoInicio)))
-							alert("se quita el drag")
-						}
+						// if(eliminarDrag){
+						// 	listaFlechas[jj].drag.remove()
+						// 	console.log("hagodragable", listaFlechas[jj].elementoInicio.id)
+						 	makeDraggable($(document.getElementById(listaFlechas[jj].elementoInicio)))
+						// 	alert("se quita el drag")
+						// }
+						
 						document.getElementById(listaFlechas[jj].elementoInicio).classList.remove("emparejadoCon-" + $item[0].id)
 						listaFlechas[jj].line.remove()
 						listaFlechas = listaFlechas.filter(item => item.elementoFin !== $item[0].id)
@@ -198,6 +199,7 @@ function evaluarPosicion($item) {
 						//	console.log("ENCONTRADOO OBJETIVEe", objetiveEncontrado)
 						if (!objetiveEncontrado) {
 							padreAbsoluto.classList.add("selector")
+							padreAbsoluto.classList.add("selector" + canvas)
 							parent.insertBefore(hijo, parent.children[0]);
 							lastPadreObjetive = padreAbsoluto
 						} else {
@@ -367,6 +369,7 @@ function evaluarPosicionInicio($item) {
 							//	console.log("ENCONTRADOO OBJETIVEe", objetiveEncontrado)
 							if (!objetiveEncontrado) {
 								padreAbsoluto.classList.add("selector")
+								padreAbsoluto.classList.add("selector" + canvas)
 								//	console.log("El padreabsoluto", padreAbsoluto)
 								padreAbsoluto.children[0].insertBefore(hijo, padreAbsoluto.children[0].children[0]);
 								lastPadreObjetive = padreAbsoluto
@@ -458,6 +461,7 @@ function evaluarPosicionInicio($item) {
 						borrarPairing = false; 
 						$(document.getElementById(elementoEmparejar)).draggable()
 						$(document.getElementById(elementoEmparejar)).draggable('destroy')
+						break
 					}
 					}	
 				}
@@ -538,6 +542,7 @@ function evaluarPosicionInicio($item) {
 									document.getElementById(elems2[el2].id).classList.add("ElementoFinal")
 									document.getElementById(elems2[el2].id).classList.add($item[0].id)
 									elementoAsociado = elems2[el2].id
+									
 									lineaFinal.color = 'rgba(0, 128, 0, 1)';
 
 
@@ -571,7 +576,7 @@ function evaluarPosicionInicio($item) {
 					//$(document.getElementById("area_1")).draggable()
 				//	$(document.getElementById("area_1")).draggable('destroy')
 
-					var drag1 = new PlainDraggable(document.getElementById(elementoEmparejar), { onMove: fixLine });
+					//var drag1 =  new PlainDraggable(document.getElementById(elementoEmparejar), { onMove: fixLine });
 					function fixLine() {
 						for(var flechas = 0; flechas < listaFlechas.length; flechas++){
 							//lineaFinal = listaFlechas[flechas].line
@@ -618,11 +623,7 @@ function evaluarPosicionInicio($item) {
 
 				// 	// };
 				// 	var drag1=	new PlainDraggable(endElement, { onMove: fixLine });
-				// 	drag1.onDragEnd = function() {
-				// 		console.log("Drag End")
-				// 		$(document.getElementById("area_1")).draggable()
-				// 		makeDraggable($(document.getElementById("area_1")))
-				// 	}
+				 	
 				//  drag1.onDragStart = function() {
 				// 	for(var flechas = 0; flechas < listaFlechas.length; flechas++){
 				// 		if (flechas === 0){
@@ -641,9 +642,9 @@ function evaluarPosicionInicio($item) {
 			//	new PlainDraggable(document.getElementById("picture_1"), { onMove: fixLine });
 				// //	$("#groupMenu").collapse("toggle");
 				// //	$("#editor").addClass("active");
-
-
-				var elFlecha = new elementoFlecha(lineaFinal, elementoEmparejar, $item[0].id, drag1)
+				makeDraggable($(document.getElementById(elementoEmparejar)))
+			 	//var elFlecha = new elementoFlecha(lineaFinal, elementoEmparejar, $item[0].id, drag1)
+				var elFlecha = new elementoFlecha(lineaFinal, elementoEmparejar, $item[0].id)
 				listaFlechas.push(elFlecha)
 				console.log("Lista de flechas iniciales", listaFlechas)
 					}
@@ -677,10 +678,20 @@ function actualizarTarjetas(id) {
 				}
 			}
 		}
-		cards[i].classList.remove("selector")
+		var clases = cards[i].classList
+		console.log("las cards son ",cards[i].id)
+		for (var cl=0; cl < clases.length; cl++){
+			if(clases[cl].includes(canvas)){
+				cards[i].classList.remove("selector")
+		cards[i].classList.remove("selector" + canvas)
 		if (hasSelector) {
 			cards[i].classList.add("selector")
+			cards[i].classList.add("selector" + canvas)
 		}
+			}
+		}
+		
+		
 	}
 }
 

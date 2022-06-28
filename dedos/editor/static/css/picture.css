@@ -25,12 +25,13 @@
 
 .tituloTexto2 {
 
-    background-color: rgb(243, 203, 93);
+    background-color: rgb(253, 255, 106);
     border-bottom: 1px solid rgb(0, 0, 0);
     text-align: center;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     height: 30px;
+    
     
 }
 

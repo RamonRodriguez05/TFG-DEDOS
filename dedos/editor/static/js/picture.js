@@ -5,7 +5,7 @@ function fijarPicture(input) {
 	//	console.log("title texto", parentDiv)
 	parentDiv.appendTo($('#source2'))
 	$('#source2 div').appendTo($('#source2'));
-
+	parentDiv.draggable();
 	if (fix) {
 
 		var clases = parentDiv.attr("class") + " fixed picture"
@@ -16,7 +16,7 @@ function fijarPicture(input) {
 
 		var clases = parentDiv.attr("class") + " fixed picture"
 		parentDiv.attr("class", clases)
-		parentDiv.draggable();
+		
 		parentDiv.draggable("enable");
 	}
 

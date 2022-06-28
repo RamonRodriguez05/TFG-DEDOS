@@ -5,6 +5,7 @@ function iniciarEditar() {
 	console.log("Cargando proyecto a editar")
 	let url = window.location.href;
 	if (url.includes("/edit/")) {
+		
 		// Obtener valores e inicializarlo
 		var nombre = elminarCarateres(document.getElementById("nombreEditar").value)
 		document.getElementById("nombre").value = nombre.trim()

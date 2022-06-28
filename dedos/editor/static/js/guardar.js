@@ -276,86 +276,93 @@ function generarZIP2(nombre) {
 
 function getXMLString() {
     var parser = new DOMParser();
-    var xml = '<Project version="2">'
+    var xml = '<Project version="2">\n'
 
 
-    xml += '<resolution x="' + window.screen.availWidth + '" y="' + window.screen.availHeight + '"/>'
-    xml += '<language code="es"/>'
-    xml += '<Activity>'
-
-    var tieneSelectores = false
-    var select = ""
-    // Listado con selectores
-    var selectores = document.getElementsByClassName("selector")
-    for (var l = 0; l < selectores.length; l++) {
-        //Card
-        if (selectores[l].id.includes("card_")) {
-            var hijos = document.getElementById("idTitle_" + selectores[l].id.split("_")[1]).children
-            for (var m = 0; m < hijos.length; m++) {
-                if (hijos[m].id.includes("objetive")) {
-                    tieneSelectores = true
-                    select += '<obj type="sel" obj="' + selectores[l].id + '"/>'
-                }
-
-                if (hijos[m].id.includes("math")) {
-                    //InputNumber_1
-                    tieneSelectores = true
-                    var valueNumber = document.getElementById("InputNumber_" + hijos[m].id.split("_")[1]).value
-                    document.getElementById("InputNumber_" + hijos[m].id.split("_")[1]).setAttribute("value", valueNumber)//.value = valueNumber
-                    select += '<obj type="tokenMeter" id="' + selectores[l].id + '" numValue="' + valueNumber + '">'
-                    select += '<OriginTokens/><OriginZones/></obj>'
-                }
-            }
-        }
-
-        //Picture
-        if (selectores[l].id.includes("picture_")) {
-            var hijos = document.getElementById("titleImage_" + selectores[l].id.split("_")[1]).children
-            for (var m = 0; m < hijos.length; m++) {
-                if (hijos[m].id.includes("objetive")) {
-                    tieneSelectores = true
-                    select += '<obj type="sel" obj="' + selectores[l].id + '"/>'
-                }
-
-                if (hijos[m].id.includes("math")) {
-                    //InputNumber_1
-                    tieneSelectores = true
-                    var valueNumber = document.getElementById("InputNumber_" + hijos[m].id.split("_")[1]).value
-                    document.getElementById("InputNumber_" + hijos[m].id.split("_")[1]).setAttribute("value", valueNumber) //  value = valueNumber
-                    select += '<obj type="tokenMeter" id="' + selectores[l].id + '" numValue="' + valueNumber + '">'
-                    select += '<OriginTokens/><OriginZones/></obj>'
-                }
-            }
-        }
-    }
-
-
-
-
-    if (tieneSelectores) {
-        xml += '<Objectives>'
-        xml += select
-        xml += '</Objectives>'
-    } else {
-        xml += '<Objectives/>'
-    }
-
-    xml += '<Tokenlist/>'
+    xml += '<resolution x="' + window.screen.availWidth + '" y="' + window.screen.availHeight + '"/>\n'
+    xml += '<language code="es"/>\n'
+    
 
 
 
     // Obtener actividades
     var activities = document.getElementsByClassName("editor-canvas")
+
+    //console.log("Los canvasssss activieties sonn", activities)
     for (var i = 0; i < activities.length; i++) {
-        //   console.log("Activity",activities[i].id)
+        document.getElementById(activities[i].id).classList.remove("ocultar")
+        xml += '<Activity>\n'
+
+        var tieneSelectores = false
+        var select = ""
+        // Listado con selectores
+        var selectores = null
+        selectores = document.getElementsByClassName("selector#" + activities[i].id)
+        console.log("los selectores son", selectores)
+        for (var l = 0; l < selectores.length; l++) {
+            //Card
+            if (selectores[l].id.includes("card_")) {
+                var hijos = document.getElementById("idTitle_" + selectores[l].id.split("_")[1]).children
+                for (var m = 0; m < hijos.length; m++) {
+                    if (hijos[m].id.includes("objetive")) {
+                        tieneSelectores = true
+                        select += '<obj type="sel" obj="' + selectores[l].id + '"/>\n'
+                    }
+
+                    if (hijos[m].id.includes("math")) {
+                        //InputNumber_1
+                        tieneSelectores = true
+                        var valueNumber = document.getElementById("InputNumber_" + hijos[m].id.split("_")[1]).value
+                        document.getElementById("InputNumber_" + hijos[m].id.split("_")[1]).setAttribute("value", valueNumber)//.value = valueNumber
+                        select += '<obj type="tokenMeter" id="' + selectores[l].id + '" numValue="' + valueNumber + '">\n'
+                        select += '<OriginTokens/>\n'
+                        select += '<OriginZones/>\n'
+                        select += '</obj>\n'
+                    }
+                }
+            }
+
+            //Picture
+            if (selectores[l].id.includes("picture_")) {
+                var hijos = document.getElementById("titleImage_" + selectores[l].id.split("_")[1]).children
+                for (var m = 0; m < hijos.length; m++) {
+                    if (hijos[m].id.includes("objetive")) {
+                        tieneSelectores = true
+                        select += '<obj type="sel" obj="' + selectores[l].id + '"/>\n'
+                    }
+
+                    if (hijos[m].id.includes("math")) {
+                        //InputNumber_1
+                        tieneSelectores = true
+                        var valueNumber = document.getElementById("InputNumber_" + hijos[m].id.split("_")[1]).value
+                        document.getElementById("InputNumber_" + hijos[m].id.split("_")[1]).setAttribute("value", valueNumber) //  value = valueNumber
+                        select += '<obj type="tokenMeter" id="' + selectores[l].id + '" numValue="' + valueNumber + '">\n'
+                        select += '<OriginTokens/>\n<OriginZones/>\n</obj>\n'
+                    }
+                }
+            }
+        }
+
+
+
+
+        if (tieneSelectores) {
+            xml += '<Objectives>\n'
+            xml += select
+            xml += '</Objectives>\n'
+        } else {
+            xml += '<Objectives/>\n'
+        }
+
+        xml += '<Tokenlist/>\n'
 
         //Areas
         var areas = document.getElementsByClassName("area#" + activities[i].id)
         //      console.log("numero de areas es", areas.length)
         if (areas.length == 0) {
-            xml += '<Arealist/>'
+            xml += '<Arealist/>\n'
         } else {
-            xml += '<Arealist>'
+            xml += '<Arealist>\n'
             for (var j = 0; j < areas.length; j++) {
                 //console.log(areas[j])
 
@@ -374,21 +381,21 @@ function getXMLString() {
                     urlImageArea = '"' + image.name + '"'
                 }
                 var area = document.getElementById(idArea)
-                xml += '<Area id="' + idArea + '" type="' + tipo + '">'
-                xml += '<pos x="' + (parseFloat(area.getBoundingClientRect().left)) + '" y="' + (parseFloat(area.getBoundingClientRect().top)) + '"/>'
-                xml += '<rotation value="0"/>'
-                xml += '<posfondo x="0" y="0"/>'
-                xml += '<size height="' + area.offsetHeight + '" width="' + area.offsetWidth + '"/>'
-                xml += '<bg url=' + urlImageArea + '/>'
+                xml += '<Area id="' + idArea + '" type="' + tipo + '">\n'
+                xml += '<pos x="' + (parseFloat(area.getBoundingClientRect().left)) + '" y="' + (parseFloat(area.getBoundingClientRect().top)) + '"/>\n'
+                xml += '<rotation value="0"/>\n'
+                xml += '<posfondo x="0" y="0"/>\n'
+                xml += '<size height="' + area.offsetHeight + '" width="' + area.offsetWidth + '"/>\n'
+                xml += '<bg url=' + urlImageArea + '/>\n'
 
 
 
                 // Obtener hijos areas
                 var hijosAreas = document.getElementsByClassName("hijode" + idArea)
                 if (hijosAreas.length == 0) {
-                    xml += '<Tokenlist/>'
+                    xml += '<Tokenlist/>\n'
                 } else {
-                    xml += '<Tokenlist>'
+                    xml += '<Tokenlist>\n'
                     for (var k = 0; k < hijosAreas.length; k++) {
                         // Card
                         if (hijosAreas[k].id.includes("card_")) {
@@ -416,25 +423,25 @@ function getXMLString() {
                             }
 
 
-
-                            xml += '<Token id="' + hijosAreas[k].id + '" type="txt" numValue="' + valorNumerico + '">'
-                            xml += '<pos x="' + (parseFloat(card.getBoundingClientRect().left) - (parseFloat(area.getBoundingClientRect().left))) + '" y="' + (parseFloat(card.getBoundingClientRect().top) - (parseFloat(area.getBoundingClientRect().top))) + '"/>'
-                            xml += '<size height="' + card.offsetHeight + '" width="' + card.offsetWidth + '"/>'
-                            xml += '<rotation value="0"/>'
-                            xml += '<clickable>' + clickable + '</clickable>'
-                            xml += '<rotatable>' + rotatable + '</rotatable>'
-                            xml += '<resizable>' + resizable + '</resizable>'
-                            xml += '<movable>' + movable + '</movable>'
-                            xml += '<content>'
-                            xml += '<text>' + texto + '</text>'
+                            
+                            xml += '<Token id="' + hijosAreas[k].id + '" type="txt" numValue="' + valorNumerico + '">\n'
+                            xml += '<pos x="' + (parseFloat(card.getBoundingClientRect().left) - (parseFloat(area.getBoundingClientRect().left))) + '" y="' + (parseFloat(card.getBoundingClientRect().top) - (parseFloat(area.getBoundingClientRect().top))) + '"/>\n'
+                            xml += '<size height="' + card.offsetHeight + '" width="' + card.offsetWidth + '"/>\n'
+                            xml += '<rotation value="0"/>\n'
+                            xml += '<clickable>' + clickable + '</clickable>\n'
+                            xml += '<rotatable>' + rotatable + '</rotatable>\n'
+                            xml += '<resizable>' + resizable + '</resizable>\n'
+                            xml += '<movable>' + movable + '</movable>\n'
+                            xml += '<content>\n'
+                            xml += '<text>' + texto + '</text>\n'
                             if (feedback == "Escriba aquí el texto") {
-                                xml += '<feedback/>'
+                                xml += '<feedback/>\n'
                             } else {
-                                xml += '<feedback>' + feedback + '</feedback>'
+                                xml += '<feedback>' + feedback + '</feedback>\n'
                             }
 
-                            xml += '</content>'
-                            xml += '</Token>'
+                            xml += '</content>\n'
+                            xml += '</Token>\n'
 
 
                          //   console.log("Card", hijosAreas[k].id)
@@ -463,15 +470,15 @@ function getXMLString() {
 
 
 
-                            xml += '<Token id="' + hijosAreas[k].id + '" type="img" numValue="' + valorNumerico + '">'
-                            xml += '<pos x="' + (parseFloat(picture.getBoundingClientRect().left) - (parseFloat(area.getBoundingClientRect().left))) + '" y="' + (parseFloat(picture.getBoundingClientRect().top) - (parseFloat(area.getBoundingClientRect().top))) + '"/>'
-                            xml += '<size height="' + picture.offsetHeight + '" width="' + picture.offsetWidth + '"/>'
-                            xml += '<rotation value="0"/>'
-                            xml += '<clickable>' + clickable + '</clickable>'
-                            xml += '<rotatable>' + rotatable + '</rotatable>'
-                            xml += '<resizable>' + resizable + '</resizable>'
-                            xml += '<movable>' + movable + '</movable>'
-                            xml += '<content>'
+                            xml += '<Token id="' + hijosAreas[k].id + '" type="img" numValue="' + valorNumerico + '">\n'
+                            xml += '<pos x="' + (parseFloat(picture.getBoundingClientRect().left) - (parseFloat(area.getBoundingClientRect().left))) + '" y="' + (parseFloat(picture.getBoundingClientRect().top) - (parseFloat(area.getBoundingClientRect().top))) + '"/>\n'
+                            xml += '<size height="' + picture.offsetHeight + '" width="' + picture.offsetWidth + '"/>\n'
+                            xml += '<rotation value="0"/>\n'
+                            xml += '<clickable>' + clickable + '</clickable>\n'
+                            xml += '<rotatable>' + rotatable + '</rotatable>\n'
+                            xml += '<resizable>' + resizable + '</resizable>\n'
+                            xml += '<movable>' + movable + '</movable>\n'
+                            xml += '<content>\n'
 
                             var tieneimagenes = false
                             var urlDropzone = ""
@@ -479,44 +486,46 @@ function getXMLString() {
 
                                 if (listaImagenesDropzone[p].id.includes("dropzone_" + picture.id.split("_")[1])) {
                                     tieneimagenes = true
-                                    urlDropzone += '<url>' + listaImagenesDropzone[p].file.name + '</url>'
+                                    urlDropzone += '<url>' + listaImagenesDropzone[p].file.name + '</url>\n'
                                 }
                             }
                             if (tieneimagenes) {
-                                xml += '<urlList>'
+                                xml += '<urlList>\n'
                                 xml += urlDropzone
-                                xml += '</urlList>'
+                                xml += '</urlList>\n'
                             } else {
-                                xml += '<urlList/>'
+                                xml += '<urlList/>\n'
                             }
 
                             if (feedback == "Escriba aquí el texto") {
-                                xml += '<feedback/>'
+                                xml += '<feedback/>\n'
                             } else {
-                                xml += '<feedback>' + feedback + '</feedback>'
+                                xml += '<feedback>' + feedback + '</feedback>\n'
                             }
 
-                            xml += '</content>'
-                            xml += '</Token>'
+                            xml += '</content>\n'
+                            xml += '</Token>\n'
 
 
                             //  console.log("Picture", hijosAreas[k].id)
                         }
                     }
-                    xml += '</Tokenlist>'
+                    xml += '</Tokenlist>\n'
                 }
 
 
-                xml += '<Tokenlist>null</Tokenlist>'
-                xml += '</Area>'
+                xml += '<Tokenlist>null</Tokenlist>\n'
+                xml += '</Area>\n'
             }
         }
 
+        xml += '</Arealist>\n'
+        xml += '<Arrows/>\n'
+        xml += '</Activity>\n'
         //  console.log("La activitie",activities[i].children)
+        document.getElementById(activities[i].id).classList.add("ocultar")
     }
-    xml += '</Arealist>'
-    xml += '<Arrows/>'
-    xml += '</Activity>'
+    
     xml += '</Project>'
 
 
