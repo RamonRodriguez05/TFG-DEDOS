@@ -64,7 +64,7 @@
 function getPositionElement(elementoID){
     console.log("Entro en el getpositionElement con el elemento", elementoID)
 
-    document.getElementById(elementoID).classList.add("emparejado")
+    document.getElementById(elementoID).classList.add("emparejado" + canvas)
 
     // document.getElementById("pairing_1").addEventListener('mousemove', e => {
     //       var x = e.offsetX;
@@ -82,9 +82,49 @@ function getPositionElement(elementoID){
      
 }
 
+// function eliminarElementoEmparejado(idEliminar){
+//     console.log("BORROOOOOO ELEMENTOOOOO")
+//     console.log("Tengo flechas", listaFlechas)
+
+//     var numeroFlechasEliminadas = 0
+//     for (var m = 0; m < listaFlechas.length; m++) {
+//         if(listaFlechas[m].elementoFin == idEliminar || listaFlechas[m].elementoInicio == idEliminar){
+//             document.getElementById(listaFlechas[m].elementoInicio).classList.remove("emparejadoCon-" + idEliminar)
+//             listaFlechas[m].line.remove()
+//             delete listaFlechas[m]
+//             numeroFlechasEliminadas++  
+//         }
+//     }
+//     listaFlechas.length = listaFlechas.length - numeroFlechasEliminadas
+//    // document.getElementById(idEliminar).remove()
+//     captura(activity, canvas)
+// }
+
+
 function eliminarElementoEmparejado(idEliminar){
     console.log("BORROOOOOO ELEMENTOOOOO")
     console.log("Tengo flechas", listaFlechas)
+    var borrarEmparejado = true
+    var clases = document.getElementById(idEliminar).classList
+    for (var cl = 0; cl < clases.length; cl++) {
+        if (clases[cl].includes("pairing_")) {
+           
+            //   listaFlechas = listaFlechas.filter(item => item.elementoFin !== elementoID)	
+            for (var m = 0; m < listaFlechas.length; m++) {
+                if (listaFlechas[m].elementoFin == clases[cl] || listaFlechas[m].elementoInicio == clases[cl]) {
+                    document.getElementById(listaFlechas[m].elementoInicio).classList.remove("emparejadoCon-" + clases[cl])
+                    listaFlechas[m].line.remove()
+                    listaFlechas = listaFlechas.filter(item => item.elementoFin !== clases[cl])
+                }
+            }
+            
+
+
+        }
+    }
+
+    
+    
 
     var numeroFlechasEliminadas = 0
     for (var m = 0; m < listaFlechas.length; m++) {
@@ -96,6 +136,24 @@ function eliminarElementoEmparejado(idEliminar){
         }
     }
     listaFlechas.length = listaFlechas.length - numeroFlechasEliminadas
-    document.getElementById(idEliminar).remove()
+
+
+    //Evaluar clases emparejado
+    var countEmparejado = 0
+    var elementosEmparejados = document.getElementsByClassName("emparejado" + canvas)
+
+				for(var emparejado = 0; emparejado < elementosEmparejados.length; emparejado++){
+					
+					for (var k = 0; k < listaFlechas.length; k++) {
+						if(listaFlechas[k].elementoInicio == elementosEmparejados[emparejado].id){
+							countEmparejado++
+						}
+					}
+
+					if(countEmparejado == 1){
+						document.getElementById(elementosEmparejados[emparejado].id).classList.remove("emparejado" + canvas)
+					}
+				} 
+   
     captura(activity, canvas)
 }

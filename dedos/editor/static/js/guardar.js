@@ -278,9 +278,11 @@ function getXMLString() {
     var parser = new DOMParser();
     var xml = '<Project version="2">\n'
 
+    var tieneFlechas = false
+    var flechas = ""
 
-    xml += '<resolution x="' + window.screen.availWidth + '" y="' + window.screen.availHeight + '"/>\n'
-    xml += '<language code="es"/>\n'
+    xml += '  <resolution x="' + window.screen.availWidth + '" y="' + window.screen.availHeight + '"/>\n'
+    xml += '  <language code="es"/>\n'
     
 
 
@@ -291,13 +293,35 @@ function getXMLString() {
     //console.log("Los canvasssss activieties sonn", activities)
     for (var i = 0; i < activities.length; i++) {
         document.getElementById(activities[i].id).classList.remove("ocultar")
-        xml += '<Activity>\n'
+        xml += '  <Activity>\n'
 
         var tieneSelectores = false
         var select = ""
-        // Listado con selectores
-        var selectores = null
-        selectores = document.getElementsByClassName("selector#" + activities[i].id)
+        // Listado con selectores pairing
+        var selectoresPairing = document.getElementsByClassName("emparejado#" + activities[i].id)
+        console.log("LAS FLECHAS SOOOON AL GUARDAR", selectoresPairing)
+        for (var p = 0; p < selectoresPairing.length; p++) {
+            var clases = document.getElementById(selectoresPairing[p].id).classList
+            tieneSelectores = true
+            tieneFlechas = true
+            select  += '      <obj type="pair" origen="' + selectoresPairing[p].id + '" tokenMeter="false">\n'
+            select += '        <Targets>\n'
+            for (var cl = 0; cl < clases.length; cl++){
+                if(clases[cl].includes("emparejadoCon-")){
+                   
+                    flechas += '      <arrow origin="' + selectoresPairing[p].id + '" dest="' + document.getElementsByClassName(clases[cl].split("-")[1])[0].id + '"/>\n'
+                    
+                    select += '          <target name="' + document.getElementsByClassName(clases[cl].split("-")[1])[0].id + '"/>\n'
+            	    
+                }
+            }
+            select += '        </Targets>\n      </obj>\n'	
+        }
+
+
+
+        // Listado con selectores math y objetive
+        var selectores = document.getElementsByClassName("selector#" + activities[i].id)
         console.log("los selectores son", selectores)
         for (var l = 0; l < selectores.length; l++) {
             //Card
@@ -306,7 +330,7 @@ function getXMLString() {
                 for (var m = 0; m < hijos.length; m++) {
                     if (hijos[m].id.includes("objetive")) {
                         tieneSelectores = true
-                        select += '<obj type="sel" obj="' + selectores[l].id + '"/>\n'
+                        select += '      <obj type="sel" obj="' + selectores[l].id + '"/>\n'
                     }
 
                     if (hijos[m].id.includes("math")) {
@@ -347,22 +371,22 @@ function getXMLString() {
 
 
         if (tieneSelectores) {
-            xml += '<Objectives>\n'
+            xml += '    <Objectives>\n'
             xml += select
-            xml += '</Objectives>\n'
+            xml += '    </Objectives>\n'
         } else {
-            xml += '<Objectives/>\n'
+            xml += '    <Objectives/>\n'
         }
 
-        xml += '<Tokenlist/>\n'
+        xml += '    <Tokenlist/>\n'
 
         //Areas
         var areas = document.getElementsByClassName("area#" + activities[i].id)
         //      console.log("numero de areas es", areas.length)
         if (areas.length == 0) {
-            xml += '<Arealist/>\n'
+            xml += '    <Arealist/>\n'
         } else {
-            xml += '<Arealist>\n'
+            xml += '    <Arealist>\n'
             for (var j = 0; j < areas.length; j++) {
                 //console.log(areas[j])
 
@@ -381,21 +405,21 @@ function getXMLString() {
                     urlImageArea = '"' + image.name + '"'
                 }
                 var area = document.getElementById(idArea)
-                xml += '<Area id="' + idArea + '" type="' + tipo + '">\n'
-                xml += '<pos x="' + (parseFloat(area.getBoundingClientRect().left)) + '" y="' + (parseFloat(area.getBoundingClientRect().top)) + '"/>\n'
-                xml += '<rotation value="0"/>\n'
-                xml += '<posfondo x="0" y="0"/>\n'
-                xml += '<size height="' + area.offsetHeight + '" width="' + area.offsetWidth + '"/>\n'
-                xml += '<bg url=' + urlImageArea + '/>\n'
+                xml += '      <Area id="' + idArea + '" type="' + tipo + '">\n'
+                xml += '        <pos x="' + (parseFloat(area.getBoundingClientRect().left)) + '" y="' + (parseFloat(area.getBoundingClientRect().top)) + '"/>\n'
+                xml += '        <rotation value="0"/>\n'
+                xml += '        <posfondo x="0" y="0"/>\n'
+                xml += '        <size height="' + area.offsetHeight + '" width="' + area.offsetWidth + '"/>\n'
+                xml += '        <bg url=' + urlImageArea + '/>\n'
 
 
 
                 // Obtener hijos areas
                 var hijosAreas = document.getElementsByClassName("hijode" + idArea)
                 if (hijosAreas.length == 0) {
-                    xml += '<Tokenlist/>\n'
+                    xml += '        <Tokenlist/>\n'
                 } else {
-                    xml += '<Tokenlist>\n'
+                    xml += '        <Tokenlist>\n'
                     for (var k = 0; k < hijosAreas.length; k++) {
                         // Card
                         if (hijosAreas[k].id.includes("card_")) {
@@ -424,24 +448,24 @@ function getXMLString() {
 
 
                             
-                            xml += '<Token id="' + hijosAreas[k].id + '" type="txt" numValue="' + valorNumerico + '">\n'
-                            xml += '<pos x="' + (parseFloat(card.getBoundingClientRect().left) - (parseFloat(area.getBoundingClientRect().left))) + '" y="' + (parseFloat(card.getBoundingClientRect().top) - (parseFloat(area.getBoundingClientRect().top))) + '"/>\n'
-                            xml += '<size height="' + card.offsetHeight + '" width="' + card.offsetWidth + '"/>\n'
-                            xml += '<rotation value="0"/>\n'
-                            xml += '<clickable>' + clickable + '</clickable>\n'
-                            xml += '<rotatable>' + rotatable + '</rotatable>\n'
-                            xml += '<resizable>' + resizable + '</resizable>\n'
-                            xml += '<movable>' + movable + '</movable>\n'
-                            xml += '<content>\n'
-                            xml += '<text>' + texto + '</text>\n'
+                            xml += '          <Token id="' + hijosAreas[k].id + '" type="txt" numValue="' + valorNumerico + '">\n'
+                            xml += '            <pos x="' + (parseFloat(card.getBoundingClientRect().left) - (parseFloat(area.getBoundingClientRect().left))) + '" y="' + (parseFloat(card.getBoundingClientRect().top) - (parseFloat(area.getBoundingClientRect().top))) + '"/>\n'
+                            xml += '            <size height="' + card.offsetHeight + '" width="' + card.offsetWidth + '"/>\n'
+                            xml += '            <rotation value="0"/>\n'
+                            xml += '            <clickable>' + clickable + '</clickable>\n'
+                            xml += '            <rotatable>' + rotatable + '</rotatable>\n'
+                            xml += '            <resizable>' + resizable + '</resizable>\n'
+                            xml += '            <movable>' + movable + '</movable>\n'
+                            xml += '            <content>\n'
+                            xml += '              <text>' + texto + '</text>\n'
                             if (feedback == "Escriba aquí el texto") {
-                                xml += '<feedback/>\n'
+                                xml += '              <feedback/>\n'
                             } else {
-                                xml += '<feedback>' + feedback + '</feedback>\n'
+                                xml += '              <feedback>' + feedback + '</feedback>\n'
                             }
 
-                            xml += '</content>\n'
-                            xml += '</Token>\n'
+                            xml += '            </content>\n'
+                            xml += '          </Token>\n'
 
 
                          //   console.log("Card", hijosAreas[k].id)
@@ -470,15 +494,15 @@ function getXMLString() {
 
 
 
-                            xml += '<Token id="' + hijosAreas[k].id + '" type="img" numValue="' + valorNumerico + '">\n'
-                            xml += '<pos x="' + (parseFloat(picture.getBoundingClientRect().left) - (parseFloat(area.getBoundingClientRect().left))) + '" y="' + (parseFloat(picture.getBoundingClientRect().top) - (parseFloat(area.getBoundingClientRect().top))) + '"/>\n'
-                            xml += '<size height="' + picture.offsetHeight + '" width="' + picture.offsetWidth + '"/>\n'
-                            xml += '<rotation value="0"/>\n'
-                            xml += '<clickable>' + clickable + '</clickable>\n'
-                            xml += '<rotatable>' + rotatable + '</rotatable>\n'
-                            xml += '<resizable>' + resizable + '</resizable>\n'
-                            xml += '<movable>' + movable + '</movable>\n'
-                            xml += '<content>\n'
+                            xml += '          <Token id="' + hijosAreas[k].id + '" type="img" numValue="' + valorNumerico + '">\n'
+                            xml += '            <pos x="' + (parseFloat(picture.getBoundingClientRect().left) - (parseFloat(area.getBoundingClientRect().left))) + '" y="' + (parseFloat(picture.getBoundingClientRect().top) - (parseFloat(area.getBoundingClientRect().top))) + '"/>\n'
+                            xml += '            <size height="' + picture.offsetHeight + '" width="' + picture.offsetWidth + '"/>\n'
+                            xml += '            <rotation value="0"/>\n'
+                            xml += '            <clickable>' + clickable + '</clickable>\n'
+                            xml += '            <rotatable>' + rotatable + '</rotatable>\n'
+                            xml += '            <resizable>' + resizable + '</resizable>\n'
+                            xml += '            <movable>' + movable + '</movable>\n'
+                            xml += '            <content>\n'
 
                             var tieneimagenes = false
                             var urlDropzone = ""
@@ -490,38 +514,45 @@ function getXMLString() {
                                 }
                             }
                             if (tieneimagenes) {
-                                xml += '<urlList>\n'
+                                xml += '              <urlList>\n'
                                 xml += urlDropzone
-                                xml += '</urlList>\n'
+                                xml += '              </urlList>\n'
                             } else {
-                                xml += '<urlList/>\n'
+                                xml += '              <urlList/>\n'
                             }
 
                             if (feedback == "Escriba aquí el texto") {
-                                xml += '<feedback/>\n'
+                                xml += '              <feedback/>\n'
                             } else {
-                                xml += '<feedback>' + feedback + '</feedback>\n'
+                                xml += '              <feedback>' + feedback + '</feedback>\n'
                             }
 
-                            xml += '</content>\n'
-                            xml += '</Token>\n'
+                            xml += '            </content>\n'
+                            xml += '          </Token>\n'
 
 
                             //  console.log("Picture", hijosAreas[k].id)
                         }
                     }
-                    xml += '</Tokenlist>\n'
+                    xml += '        </Tokenlist>\n'
                 }
 
 
-                xml += '<Tokenlist>null</Tokenlist>\n'
-                xml += '</Area>\n'
+                xml += '        <Tokenlist>null</Tokenlist>\n'
+                xml += '      </Area>\n'
             }
         }
 
-        xml += '</Arealist>\n'
-        xml += '<Arrows/>\n'
-        xml += '</Activity>\n'
+        xml += '    </Arealist>\n'
+        if(tieneFlechas){
+            xml += '    <Arrows>\n'
+            xml += flechas
+            xml += '    </Arrows>\n'
+        }else{
+             xml += '    <Arrows/>\n'
+        }
+       
+        xml += '  </Activity>\n'
         //  console.log("La activitie",activities[i].children)
         document.getElementById(activities[i].id).classList.add("ocultar")
     }

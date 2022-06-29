@@ -47,98 +47,14 @@ function evaluarPosicion($item) {
 			}
 
 			if ($item[0].id.includes("pairing_")) {
-				var elInicial = ""
-				var elFinal = ""
-				//var eliminarDrag = true
-				var countInicio = 1
-				var countFinal = 1
-				var countEmparejado = 0
-				var eliminarClaseFinal = true
-
-				console.log("EL PADRE DEL PAIRING ES", listaFlechas)
-				for (var m = 0; m < listaFlechas.length; m++) {
-					if(listaFlechas[m].elementoFin == $item[0].id){
-						elInicial = listaFlechas[m].elementoInicio
-						var elementos = document.getElementsByClassName($item[0].id)
-						if(elementos.length > 0) {
-							elFinal = elementos[0].id
-						}
-						console.log("El final es", elFinal)
-						break
-					}
-				}
 				
-				// Eliminar clase drag del elemento incial
-				// for (var n = 0; n < listaFlechas.length; n++) {
-				// 	if(listaFlechas[n].elementoInicio == elInicial){
-						
-				// 		if(countInicio > 1){
-				// 			eliminarDrag = false
-				// 			break
-				// 		}
-				// 		countInicio++
-				// 	}
-				// }
-
-				if(elFinal != ""){
-					var clasesFinal = document.getElementById(elFinal).classList
-
-					
-					for (var l = 0; l < clasesFinal.length; l++) {
-						if(clasesFinal[l].includes("pairing_")){
-							
-							if(countFinal > 1){
-								eliminarClaseFinal = false
-								break
-							}
-							countFinal++
-						}
-					}
-					document.getElementById(elFinal).classList.remove($item[0].id)
-					if(eliminarClaseFinal){
-						document.getElementById(elFinal).classList.remove("ElementoFinal")
-					}
-				}
-					
-				var elementosEmparejados = document.getElementsByClassName("emparejado")
-
-				for(var emparejado = 0; emparejado < elementosEmparejados.length; emparejado++){
-					
-					for (var k = 0; k < listaFlechas.length; k++) {
-						if(listaFlechas[k].elementoInicio == elementosEmparejados[emparejado].id){
-							countEmparejado++
-						}
-					}
-
-					if(countEmparejado == 1){
-						document.getElementById(elementosEmparejados[emparejado].id).classList.remove("emparejado")
-					}
-				}
-
-				//console.log("Eliminar DRAAAAG", eliminarDrag)
-				var numeroFlechasEliminar = 0
-				for (var jj = 0; jj < listaFlechas.length; jj++) {
-					if(listaFlechas[jj].elementoFin === $item[0].id){
-						// if(eliminarDrag){
-						// 	listaFlechas[jj].drag.remove()
-						// 	console.log("hagodragable", listaFlechas[jj].elementoInicio.id)
-						 	makeDraggable($(document.getElementById(listaFlechas[jj].elementoInicio)))
-						// 	alert("se quita el drag")
-						// }
-						
-						document.getElementById(listaFlechas[jj].elementoInicio).classList.remove("emparejadoCon-" + $item[0].id)
-						listaFlechas[jj].line.remove()
-						listaFlechas = listaFlechas.filter(item => item.elementoFin !== $item[0].id)
-
-						break
-					}
-				}
 				//listaFlechas.length = listaFlechas.length - numeroFlechasEliminar
-
+				evaluarFlechasClases($item[0].id, true)
 				
 				console.log("lista flechas", listaFlechas)
 			}
 			
+			eliminarElementoEmparejado($item[0].id)
 			//	lineaFinal.remove()
 			
 			$($item).remove()
@@ -303,6 +219,7 @@ function evaluarPosicionInicio($item) {
 				num_area--;
 			}
 			evaluarMostrarMenu()
+			eliminarElementoEmparejado($item[0].id)
 			$($item).remove()
 		} else {
 			// Alinear con padre 
@@ -438,6 +355,7 @@ function evaluarPosicionInicio($item) {
 
 			// Pairing
 			if ($item[0].id.includes("pairing")) {
+				$(document.getElementById($item[0].id)).resizable()
 				$(document.getElementById($item[0].id)).resizable("destroy")
 				
 				var mover = true;
@@ -532,11 +450,11 @@ function evaluarPosicionInicio($item) {
 								}
 
 								if(unir){
-									var width = document.getElementById(elems2[el2].id).offsetWidth + 20
+									var width = document.getElementById(elems2[el2].id).offsetWidth + 5
 
-									var height = document.getElementById(elems2[el2].id).offsetHeight + 20
+									var height = document.getElementById(elems2[el2].id).offsetHeight + 5
 									console.log("width", width, "height", height)
-									document.getElementById($item[0].id).style = "width:" + width + "px;height:" + height + "px; position: absolute; left: -10px; top: -10px;z-index:-222"
+									document.getElementById($item[0].id).style = "width:" + width + "px;height:" + height + "px; position: absolute; left: -4px; top: -4px;z-index:-222"
 
 									document.getElementById(elems2[el2].id).appendChild($item[0])
 									document.getElementById(elems2[el2].id).classList.add("ElementoFinal")
@@ -553,6 +471,7 @@ function evaluarPosicionInicio($item) {
 						}
 
 						if(mover){
+							evaluarFlechasClases($item[0].id, false)
 							document.getElementById($item[0].id).style = "width:" + 30 + "px;height:" + 30 + "px; position: absolute;"
 							document.getElementById(canvas.replace("#","")).appendChild($item[0])	
 							for (var key in listaFlechas) {
@@ -596,7 +515,7 @@ function evaluarPosicionInicio($item) {
 
 					
 					document.getElementById(elementoEmparejar).classList.add("emparejadoCon-" + $item[0].id)
-					document.getElementById(elementoEmparejar).classList.add("emparejado")
+					document.getElementById(elementoEmparejar).classList.add("emparejado" + canvas)
 					var startElement = document.getElementById(elementoEmparejar),
 					endElement = document.getElementById($item[0].id),
 					lineaFinal = new LeaderLine(startElement, endElement);
@@ -1009,4 +928,97 @@ function moverHijo(id) {
 	const list = document.getElementById("editor-canvas_1");
 	list.insertBefore(node, list.children[2]);
 	console.log("hijos", document.getElementById("editor-canvas_1").children)
+}
+
+
+function evaluarFlechasClases(elementoID, eliminar){
+	var elInicial = ""
+				var elFinal = ""
+				//var eliminarDrag = true
+				var countInicio = 1
+				var countFinal = 1
+				var countEmparejado = 0
+				var eliminarClaseFinal = true
+
+				console.log("EL PADRE DEL PAIRING ES", listaFlechas)
+				for (var m = 0; m < listaFlechas.length; m++) {
+					if(listaFlechas[m].elementoFin == elementoID){
+						elInicial = listaFlechas[m].elementoInicio
+						var elementos = document.getElementsByClassName(elementoID)
+						if(elementos.length > 0) {
+							elFinal = elementos[0].id
+						}
+						console.log("El final es", elFinal)
+						break
+					}
+				}
+				
+				// Eliminar clase drag del elemento incial
+				// for (var n = 0; n < listaFlechas.length; n++) {
+				// 	if(listaFlechas[n].elementoInicio == elInicial){
+						
+				// 		if(countInicio > 1){
+				// 			eliminarDrag = false
+				// 			break
+				// 		}
+				// 		countInicio++
+				// 	}
+				// }
+
+				if(elFinal != ""){
+					var clasesFinal = document.getElementById(elFinal).classList
+
+					
+					for (var l = 0; l < clasesFinal.length; l++) {
+						if(clasesFinal[l].includes("pairing_")){
+							
+							if(countFinal > 1){
+								eliminarClaseFinal = false
+								break
+							}
+							countFinal++
+						}
+					}
+					document.getElementById(elFinal).classList.remove(elementoID)
+					if(eliminarClaseFinal){
+						document.getElementById(elFinal).classList.remove("ElementoFinal")
+					}
+				}
+					
+				var elementosEmparejados = document.getElementsByClassName("emparejado" + canvas)
+
+				for(var emparejado = 0; emparejado < elementosEmparejados.length; emparejado++){
+					
+					for (var k = 0; k < listaFlechas.length; k++) {
+						if(listaFlechas[k].elementoInicio == elementosEmparejados[emparejado].id){
+							countEmparejado++
+						}
+					}
+
+					if(countEmparejado == 1){
+						document.getElementById(elementosEmparejados[emparejado].id).classList.remove("emparejado" + canvas)
+					}
+				}
+
+				//console.log("Eliminar DRAAAAG", eliminarDrag)
+				var numeroFlechasEliminar = 0
+				for (var jj = 0; jj < listaFlechas.length; jj++) {
+					if(listaFlechas[jj].elementoFin === elementoID){
+						// if(eliminarDrag){
+						// 	listaFlechas[jj].drag.remove()
+						// 	console.log("hagodragable", listaFlechas[jj].elementoInicio.id)
+						 	makeDraggable($(document.getElementById(listaFlechas[jj].elementoInicio)))
+						// 	alert("se quita el drag")
+						// }
+						
+						document.getElementById(listaFlechas[jj].elementoInicio).classList.remove("emparejadoCon-" + elementoID)
+						if(eliminar){
+							listaFlechas[jj].line.remove()
+							listaFlechas = listaFlechas.filter(item => item.elementoFin !== elementoID)	
+						}
+						
+
+						break
+					}
+				}
 }
