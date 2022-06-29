@@ -47,16 +47,16 @@ function evaluarPosicion($item) {
 			}
 
 			if ($item[0].id.includes("pairing_")) {
-				
+
 				//listaFlechas.length = listaFlechas.length - numeroFlechasEliminar
 				evaluarFlechasClases($item[0].id, true)
-				
+
 				console.log("lista flechas", listaFlechas)
 			}
-			
+
 			eliminarElementoEmparejado($item[0].id)
 			//	lineaFinal.remove()
-			
+
 			$($item).remove()
 		} else {
 			//	lastItem.style ="left:" + posLeft + "; right:"+ posRight;
@@ -357,7 +357,7 @@ function evaluarPosicionInicio($item) {
 			if ($item[0].id.includes("pairing")) {
 				$(document.getElementById($item[0].id)).resizable()
 				$(document.getElementById($item[0].id)).resizable("destroy")
-				
+
 				var mover = true;
 				var elementoEmparejar = ""
 				var borrarPairing = true;
@@ -373,15 +373,15 @@ function evaluarPosicionInicio($item) {
 					if (elems[el].id.includes("area_") || elems[el].id.includes("picture_") || elems[el].id.includes("card_")) {
 						elementoEmparejar = elems[el].id
 
-						if(!document.getElementById(elementoEmparejar).classList.contains("ElementoFinal")){
-							
-						
-						borrarPairing = false; 
-						$(document.getElementById(elementoEmparejar)).draggable()
-						$(document.getElementById(elementoEmparejar)).draggable('destroy')
-						break
+						if (!document.getElementById(elementoEmparejar).classList.contains("ElementoFinal")) {
+
+
+							borrarPairing = false;
+							$(document.getElementById(elementoEmparejar)).draggable()
+							$(document.getElementById(elementoEmparejar)).draggable('destroy')
+							break
+						}
 					}
-					}	
 				}
 
 				// Se borrar si no se ha soltado sobre un area, card o picture
@@ -389,45 +389,45 @@ function evaluarPosicionInicio($item) {
 					console.log("Borrar Pairing")
 					$item[0].remove()
 				} else {
-					
-				//	document.getElementById("picture_1").append(document.getElementById("pairing_1"))
+
+					//	document.getElementById("picture_1").append(document.getElementById("pairing_1"))
 					document.addEventListener('mousemove', e => {
-						try{
-						if (mover) {
-							lineaFinal.color = 'rgba(255, 153, 0, 1)';
-							var x = e.clientX;
-							var y = e.clientY;
-						//	console.log("Offset X:", x, "offset Y:", y)
+						try {
+							if (mover) {
+								lineaFinal.color = 'rgba(255, 153, 0, 1)';
+								var x = e.clientX;
+								var y = e.clientY;
+								//	console.log("Offset X:", x, "offset Y:", y)
 
-							$item[0].style.left = x - 245
-							$item[0].style.top = y - 80
-							$item[0].style = "z-index:500; left:" + (x) + ";top:" + (y) + ";"
+								$item[0].style.left = x - 245
+								$item[0].style.top = y - 80
+								$item[0].style = "z-index:500; left:" + (x) + ";top:" + (y) + ";"
 
-							var positionPairing2 = document.getElementById($item[0].id).getBoundingClientRect()
-							var elems2 = document.elementsFromPoint(positionPairing2.left, positionPairing2.top)
-							mover = true
-							for (var el2 = 0; el2 < elems2.length; el2++) {
-								if ((elems2[el2].id.includes("picture_") || elems2[el2].id.includes("card_")) && elems2[el2].id != $item[0].id) {
-									var unir = true
+								var positionPairing2 = document.getElementById($item[0].id).getBoundingClientRect()
+								var elems2 = document.elementsFromPoint(positionPairing2.left, positionPairing2.top)
+								mover = true
+								for (var el2 = 0; el2 < elems2.length; el2++) {
+									if ((elems2[el2].id.includes("picture_") || elems2[el2].id.includes("card_")) && elems2[el2].id != $item[0].id) {
+										var unir = true
 
-								for(var flechas = 0; flechas < listaFlechas.length; flechas++){
-									if(listaFlechas[flechas].elementoInicio == elems2[el2].id){
-										unir  = false
+										for (var flechas = 0; flechas < listaFlechas.length; flechas++) {
+											if (listaFlechas[flechas].elementoInicio == elems2[el2].id) {
+												unir = false
+											}
+
+										}
+										if (unir) {
+											lineaFinal.color = 'rgba(0, 128, 0, 1)';
+										}
+
+
 									}
-									
-								}
-									if(unir){
-										lineaFinal.color = 'rgba(0, 128, 0, 1)';
-									}
-
-									
 								}
 							}
-						}
-						fixLine()
-					}catch{
+							fixLine()
+						} catch {
 
-					}
+						}
 					});
 
 
@@ -442,14 +442,14 @@ function evaluarPosicionInicio($item) {
 
 								var unir = true
 
-								for(var flechas = 0; flechas < listaFlechas.length; flechas++){
-									if(listaFlechas[flechas].elementoInicio == elems2[el2].id){
-										unir  = false
+								for (var flechas = 0; flechas < listaFlechas.length; flechas++) {
+									if (listaFlechas[flechas].elementoInicio == elems2[el2].id) {
+										unir = false
 									}
-									
+
 								}
 
-								if(unir){
+								if (unir) {
 									var width = document.getElementById(elems2[el2].id).offsetWidth + 5
 
 									var height = document.getElementById(elems2[el2].id).offsetHeight + 5
@@ -460,116 +460,117 @@ function evaluarPosicionInicio($item) {
 									document.getElementById(elems2[el2].id).classList.add("ElementoFinal")
 									document.getElementById(elems2[el2].id).classList.add($item[0].id)
 									elementoAsociado = elems2[el2].id
-									
+
 									lineaFinal.color = 'rgba(0, 128, 0, 1)';
 
 
 									mover = false
 								}
-								
+
 							}
 						}
 
-						if(mover){
+						if (mover) {
 							evaluarFlechasClases($item[0].id, false)
 							document.getElementById($item[0].id).style = "width:" + 30 + "px;height:" + 30 + "px; position: absolute;"
-							document.getElementById(canvas.replace("#","")).appendChild($item[0])	
+							document.getElementById(canvas.replace("#", "")).appendChild($item[0])
 							for (var key in listaFlechas) {
 								if (listaFlechas[key].elementoFin == $item[0].id) {
 									lineaFinal = listaFlechas[key].line
 								}
 							}
 						}
-						
+
 					});
 
-					
-					
 
-					
+
+
+
 
 
 					//	$item.draggable('destroy')
 
 
 					//$(document.getElementById("area_1")).draggable()
-				//	$(document.getElementById("area_1")).draggable('destroy')
+					//	$(document.getElementById("area_1")).draggable('destroy')
 
 					//var drag1 =  new PlainDraggable(document.getElementById(elementoEmparejar), { onMove: fixLine });
 					function fixLine() {
-						for(var flechas = 0; flechas < listaFlechas.length; flechas++){
+						for (var flechas = 0; flechas < listaFlechas.length; flechas++) {
 							//lineaFinal = listaFlechas[flechas].line
 							lineaFinal.position();
 							//console.log("entra en fixline")	
 							// Como borrar
 							// drag1.remove() 
 							// $(document.getElementById(elementoEmparejar)).draggable()
-					 		// makeDraggable($(document.getElementById(elementoEmparejar)))
+							// makeDraggable($(document.getElementById(elementoEmparejar)))
 						}
-						
+
 						// 		//captura(activity, canvas)
 						// 	´
 					}
 
 					var emparejarInicio = true
 
-					
+
 					document.getElementById(elementoEmparejar).classList.add("emparejadoCon-" + $item[0].id)
 					document.getElementById(elementoEmparejar).classList.add("emparejado" + canvas)
 					var startElement = document.getElementById(elementoEmparejar),
-					endElement = document.getElementById($item[0].id),
-					lineaFinal = new LeaderLine(startElement, endElement);
-				//	attachment2 = LeaderLine.pointAnchor({element: endElement, x: 8});
+						endElement = document.getElementById($item[0].id),
+						lineaFinal = new LeaderLine(startElement, endElement);
+					//	attachment2 = LeaderLine.pointAnchor({element: endElement, x: 8});
 					//lineaFinal = new LeaderLine(startElement, attachment2);
 
 
 
 					// lineaFinal = new LeaderLine(startElement, endElement);
-				//	endElement.pointAnchor({element: endElement, x: 16, y: 32});
-				// 	  $(document.getElementById("pairing_1")).resizable("destroy")
-				// 	function fixLine() {
-				// 		lineaFinal.position();
-				// 		//captura(activity, canvas)
-				// 	}
+					//	endElement.pointAnchor({element: endElement, x: 16, y: 32});
+					// 	  $(document.getElementById("pairing_1")).resizable("destroy")
+					// 	function fixLine() {
+					// 		lineaFinal.position();
+					// 		//captura(activity, canvas)
+					// 	}
 
-				// 	// document.getElementById("area_1").onmouseover = function(){	
-				//     //    lineaFinal.position();
-				// 	// };
+					// 	// document.getElementById("area_1").onmouseover = function(){	
+					//     //    lineaFinal.position();
+					// 	// };
 
-				// 	// document.getElementById("pairing_1").onmouseover = function(){
+					// 	// document.getElementById("pairing_1").onmouseover = function(){
 
-				// 	// 	lineaFinal.position();
+					// 	// 	lineaFinal.position();
 
-				// 	// };
-				// 	var drag1=	new PlainDraggable(endElement, { onMove: fixLine });
-				 	
-				//  drag1.onDragStart = function() {
-				// 	for(var flechas = 0; flechas < listaFlechas.length; flechas++){
-				// 		if (flechas === 0){
-				// 			lineaFinal = new LeaderLine(document.getElementById("area_1"), document.getElementById("pairing_1"));
-				// 		}
-				// 		if (flechas === 1){
-				// 			lineaFinal = new LeaderLine(document.getElementById("area_1"), document.getElementById("pairing_2"));
-				// 		}
-				// 	//	lineaFinal = listaFlechas[flechas].line 
-				// 		console.log("muevo flecha", flechas, lineaFinal)
-				// 		fixLine()
-				// 	}
-					
-				//  }
-			//	new PlainDraggable(endElement, { onMove: fixLine });
-			//	new PlainDraggable(document.getElementById("picture_1"), { onMove: fixLine });
-				// //	$("#groupMenu").collapse("toggle");
-				// //	$("#editor").addClass("active");
-				makeDraggable($(document.getElementById(elementoEmparejar)))
-			 	//var elFlecha = new elementoFlecha(lineaFinal, elementoEmparejar, $item[0].id, drag1)
-				var elFlecha = new elementoFlecha(lineaFinal, elementoEmparejar, $item[0].id)
-				listaFlechas.push(elFlecha)
-				console.log("Lista de flechas iniciales", listaFlechas)
-					}
+					// 	// };
+					// 	var drag1=	new PlainDraggable(endElement, { onMove: fixLine });
 
-			
-		}
+					//  drag1.onDragStart = function() {
+					// 	for(var flechas = 0; flechas < listaFlechas.length; flechas++){
+					// 		if (flechas === 0){
+					// 			lineaFinal = new LeaderLine(document.getElementById("area_1"), document.getElementById("pairing_1"));
+					// 		}
+					// 		if (flechas === 1){
+					// 			lineaFinal = new LeaderLine(document.getElementById("area_1"), document.getElementById("pairing_2"));
+					// 		}
+					// 	//	lineaFinal = listaFlechas[flechas].line 
+					// 		console.log("muevo flecha", flechas, lineaFinal)
+					// 		fixLine()
+					// 	}
+
+					//  }
+					//	new PlainDraggable(endElement, { onMove: fixLine });
+					//	new PlainDraggable(document.getElementById("picture_1"), { onMove: fixLine });
+					// //	$("#groupMenu").collapse("toggle");
+					// //	$("#editor").addClass("active");
+
+					makeDraggable($(document.getElementById(elementoEmparejar)))
+					//var elFlecha = new elementoFlecha(lineaFinal, elementoEmparejar, $item[0].id, drag1)
+					var elFlecha = new elementoFlecha(lineaFinal, elementoEmparejar, $item[0].id)
+					listaFlechas.push(elFlecha)
+					console.log("Lista de flechas iniciales", listaFlechas)
+				}
+
+
+			}
 		}
 	}
 
@@ -598,19 +599,19 @@ function actualizarTarjetas(id) {
 			}
 		}
 		var clases = cards[i].classList
-		console.log("las cards son ",cards[i].id)
-		for (var cl=0; cl < clases.length; cl++){
-			if(clases[cl].includes(canvas)){
+		console.log("las cards son ", cards[i].id)
+		for (var cl = 0; cl < clases.length; cl++) {
+			if (clases[cl].includes(canvas)) {
 				cards[i].classList.remove("selector")
-		cards[i].classList.remove("selector" + canvas)
-		if (hasSelector) {
-			cards[i].classList.add("selector")
-			cards[i].classList.add("selector" + canvas)
-		}
+				cards[i].classList.remove("selector" + canvas)
+				if (hasSelector) {
+					cards[i].classList.add("selector")
+					cards[i].classList.add("selector" + canvas)
+				}
 			}
 		}
-		
-		
+
+
 	}
 }
 
@@ -931,94 +932,94 @@ function moverHijo(id) {
 }
 
 
-function evaluarFlechasClases(elementoID, eliminar){
+function evaluarFlechasClases(elementoID, eliminar) {
 	var elInicial = ""
-				var elFinal = ""
-				//var eliminarDrag = true
-				var countInicio = 1
-				var countFinal = 1
-				var countEmparejado = 0
-				var eliminarClaseFinal = true
+	var elFinal = ""
+	//var eliminarDrag = true
+	var countInicio = 1
+	var countFinal = 1
+	var countEmparejado = 0
+	var eliminarClaseFinal = true
 
-				console.log("EL PADRE DEL PAIRING ES", listaFlechas)
-				for (var m = 0; m < listaFlechas.length; m++) {
-					if(listaFlechas[m].elementoFin == elementoID){
-						elInicial = listaFlechas[m].elementoInicio
-						var elementos = document.getElementsByClassName(elementoID)
-						if(elementos.length > 0) {
-							elFinal = elementos[0].id
-						}
-						console.log("El final es", elFinal)
-						break
-					}
+	console.log("EL PADRE DEL PAIRING ES", listaFlechas)
+	for (var m = 0; m < listaFlechas.length; m++) {
+		if (listaFlechas[m].elementoFin == elementoID) {
+			elInicial = listaFlechas[m].elementoInicio
+			var elementos = document.getElementsByClassName(elementoID)
+			if (elementos.length > 0) {
+				elFinal = elementos[0].id
+			}
+			console.log("El final es", elFinal)
+			break
+		}
+	}
+
+	// Eliminar clase drag del elemento incial
+	// for (var n = 0; n < listaFlechas.length; n++) {
+	// 	if(listaFlechas[n].elementoInicio == elInicial){
+
+	// 		if(countInicio > 1){
+	// 			eliminarDrag = false
+	// 			break
+	// 		}
+	// 		countInicio++
+	// 	}
+	// }
+
+	if (elFinal != "") {
+		var clasesFinal = document.getElementById(elFinal).classList
+
+
+		for (var l = 0; l < clasesFinal.length; l++) {
+			if (clasesFinal[l].includes("pairing_")) {
+
+				if (countFinal > 1) {
+					eliminarClaseFinal = false
+					break
 				}
-				
-				// Eliminar clase drag del elemento incial
-				// for (var n = 0; n < listaFlechas.length; n++) {
-				// 	if(listaFlechas[n].elementoInicio == elInicial){
-						
-				// 		if(countInicio > 1){
-				// 			eliminarDrag = false
-				// 			break
-				// 		}
-				// 		countInicio++
-				// 	}
-				// }
+				countFinal++
+			}
+		}
+		document.getElementById(elFinal).classList.remove(elementoID)
+		if (eliminarClaseFinal) {
+			document.getElementById(elFinal).classList.remove("ElementoFinal")
+		}
+	}
 
-				if(elFinal != ""){
-					var clasesFinal = document.getElementById(elFinal).classList
+	var elementosEmparejados = document.getElementsByClassName("emparejado" + canvas)
 
-					
-					for (var l = 0; l < clasesFinal.length; l++) {
-						if(clasesFinal[l].includes("pairing_")){
-							
-							if(countFinal > 1){
-								eliminarClaseFinal = false
-								break
-							}
-							countFinal++
-						}
-					}
-					document.getElementById(elFinal).classList.remove(elementoID)
-					if(eliminarClaseFinal){
-						document.getElementById(elFinal).classList.remove("ElementoFinal")
-					}
-				}
-					
-				var elementosEmparejados = document.getElementsByClassName("emparejado" + canvas)
+	for (var emparejado = 0; emparejado < elementosEmparejados.length; emparejado++) {
 
-				for(var emparejado = 0; emparejado < elementosEmparejados.length; emparejado++){
-					
-					for (var k = 0; k < listaFlechas.length; k++) {
-						if(listaFlechas[k].elementoInicio == elementosEmparejados[emparejado].id){
-							countEmparejado++
-						}
-					}
+		for (var k = 0; k < listaFlechas.length; k++) {
+			if (listaFlechas[k].elementoInicio == elementosEmparejados[emparejado].id) {
+				countEmparejado++
+			}
+		}
 
-					if(countEmparejado == 1){
-						document.getElementById(elementosEmparejados[emparejado].id).classList.remove("emparejado" + canvas)
-					}
-				}
+		if (countEmparejado == 1) {
+			document.getElementById(elementosEmparejados[emparejado].id).classList.remove("emparejado" + canvas)
+		}
+	}
 
-				//console.log("Eliminar DRAAAAG", eliminarDrag)
-				var numeroFlechasEliminar = 0
-				for (var jj = 0; jj < listaFlechas.length; jj++) {
-					if(listaFlechas[jj].elementoFin === elementoID){
-						// if(eliminarDrag){
-						// 	listaFlechas[jj].drag.remove()
-						// 	console.log("hagodragable", listaFlechas[jj].elementoInicio.id)
-						 	makeDraggable($(document.getElementById(listaFlechas[jj].elementoInicio)))
-						// 	alert("se quita el drag")
-						// }
-						
-						document.getElementById(listaFlechas[jj].elementoInicio).classList.remove("emparejadoCon-" + elementoID)
-						if(eliminar){
-							listaFlechas[jj].line.remove()
-							listaFlechas = listaFlechas.filter(item => item.elementoFin !== elementoID)	
-						}
-						
+	//console.log("Eliminar DRAAAAG", eliminarDrag)
+	var numeroFlechasEliminar = 0
+	for (var jj = 0; jj < listaFlechas.length; jj++) {
+		if (listaFlechas[jj].elementoFin === elementoID) {
+			// if(eliminarDrag){
+			// 	listaFlechas[jj].drag.remove()
+			// 	console.log("hagodragable", listaFlechas[jj].elementoInicio.id)
+			makeDraggable($(document.getElementById(listaFlechas[jj].elementoInicio)))
+			// 	alert("se quita el drag")
+			// }
 
-						break
-					}
-				}
+			document.getElementById(listaFlechas[jj].elementoInicio).classList.remove("emparejadoCon-" + elementoID)
+			if (eliminar) {
+				listaFlechas[jj].line.remove()
+				listaFlechas = listaFlechas.filter(item => item.elementoFin !== elementoID)
+			}
+
+
+			break
+		}
+	}
 }

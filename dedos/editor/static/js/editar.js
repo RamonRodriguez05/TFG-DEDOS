@@ -51,7 +51,8 @@ function iniciarEditar() {
 		cargar = cargar.replace(/\\r/g, " ");
 		cargar = cargar.replace(/[']/g, "");
 		cargar = cargar.replace("[(", "")
-		cargar = cargar.replace(",)]>", "")
+		cargar = cargar.replace(",)]>", "") 
+		
 		cargar = cargar.replace('<div id="listaCanvas">', "")
 		cargar = cargar.substring(0, cargar.length - 6);
 		cargar = cargar.replace('left: 20px; bottom: -15px; margin-bottom: -15px; position: relative;', 'left: 20px; bottom:-2px; margin-bottom: -15px; position:relative')
@@ -72,8 +73,10 @@ function iniciarEditar() {
 		lanzarElementos("picture")
 		lanzarElementos("time")
 		lanzarElementos("objetive")
-		lanzarElementos("math") 
+		lanzarElementos("math")
+		lanzarElementos("pairing") 
 
+		crearFlechas()
 		// var el = $(document.getElementById("math1"))
 			
 		// 	el.draggable()
@@ -224,8 +227,212 @@ function lanzarElementos(nombreClase) {
 					num_math = id
 				}
 				listaSelectores.push(elementoLista)
+			}else if (nombreClase.includes("pairing")) {
+				if (id > num_pairing) {
+					num_pairing = id
+				}
+				//listaSelectores.push(elementoLista)
 			}
 		}
 
 	}
+}
+
+
+function crearFlechas() {
+	// Obtener actividades
+	var activities = document.getElementsByClassName("editor-canvas")
+
+	//console.log("Los canvasssss activieties sonn", activities)
+	for (var i = 0; i < activities.length; i++) {
+		// document.getElementById(activities[i].id).classList.remove("ocultar")
+		// xml += '  <Activity>\n'
+
+		// var tieneSelectores = false
+		// var select = ""
+		// Listado con selectores pairing
+		var selectoresPairing = document.getElementsByClassName("emparejado#" + activities[i].id)
+
+		for (var pair = 0; pair < selectoresPairing.length; pair++) {
+
+			
+
+
+
+
+
+
+			var mover = false;
+			var pairingElemento = ""
+			var clases = document.getElementById(selectoresPairing[pair].id).classList
+
+			for (var cl = 0; cl < clases.length; cl++) {
+				if (clases[cl].includes("emparejadoCon-")) {
+					//if(pairingElemento == ""){
+						pairingElemento = document.getElementById(clases[cl].split("-")[1])
+					
+					//}
+					document.getElementById(selectoresPairing[pair].id).classList.add("emparejadoCon-" + pairingElemento.id)
+					document.getElementById(selectoresPairing[pair].id).classList.add("emparejado" + canvas)
+					var startElement = document.getElementById(selectoresPairing[pair].id),
+						endElement = document.getElementById(pairingElemento.id),
+						lineaFinal = new LeaderLine(startElement, endElement);
+					
+
+					makeDraggable($(document.getElementById(selectoresPairing[pair].id)))
+				//	makeDraggable($(document.getElementById(pairingElemento.id)))
+					//var elFlecha = new elementoFlecha(lineaFinal, elementoEmparejar, $item[0].id, drag1)
+					var elFlecha = new elementoFlecha(lineaFinal, selectoresPairing[pair].id, pairingElemento.id)
+					listaFlechas.push(elFlecha)
+					console.log("Lista de flechas iniciales editar", listaFlechas)
+
+
+
+
+
+					//pairingElemento = document.getElementById(clases[cl].split("-")[1])
+					document.addEventListener('mousemove', e => {
+						
+					
+							if (mover) { 
+								console.log("entro mover de  mousemove")
+								lineaFinal.color = 'rgba(255, 153, 0, 1)';
+								var x = e.clientX;
+								var y = e.clientY;
+
+								
+								console.log("El pairing es", pairingElemento)
+							//	pairingElemento = document.getElementById("pairing_3")
+								
+								pairingElemento.style.left = x - 245
+								pairingElemento.style.top = y - 80
+								pairingElemento.style = "z-index:500; left:" + (x) + ";top:" + (y) + ";"
+
+								var positionPairing2 = document.getElementById(pairingElemento.id).getBoundingClientRect()
+								var elems2 = document.elementsFromPoint(positionPairing2.left, positionPairing2.top)
+								mover = true
+								for (var el2 = 0; el2 < elems2.length; el2++) {
+									if ((elems2[el2].id.includes("picture_") || elems2[el2].id.includes("card_")) && elems2[el2].id != pairingElemento.id) {
+										var unir = true
+
+										for (var flechas = 0; flechas < listaFlechas.length; flechas++) {
+											if (listaFlechas[flechas].elementoInicio == elems2[el2].id) {
+												unir = false
+											}
+
+										}
+										if (unir) {
+											lineaFinal.color = 'rgba(0, 128, 0, 1)';
+										}
+
+
+									}
+								}
+							}
+							fixLine()
+						
+					});
+
+
+					document.getElementById(pairingElemento.id).addEventListener("click", e => {
+						console.log("HAGLO CLICK EDITAR")
+						var positionPairing2 = document.getElementById(pairingElemento.id).getBoundingClientRect()
+						var elems2 = document.elementsFromPoint(positionPairing2.left, positionPairing2.top)
+						console.log("Elementossssss detectados al dejar el pairing es", elems2)
+						mover = true
+						console.log("HAGLO CLICK EDITAR", mover)
+						for (var el2 = 0; el2 < elems2.length; el2++) {
+							if ((elems2[el2].id.includes("picture_") || elems2[el2].id.includes("card_")) && elems2[el2].id != pairingElemento.id) {
+								console.log("Entro en pairing y debo PARAR")
+
+								var unir = true
+
+								for (var flechas = 0; flechas < listaFlechas.length; flechas++) {
+									if (listaFlechas[flechas].elementoInicio == elems2[el2].id) {
+										unir = false
+									}
+
+								}
+
+								if (unir) {
+									var width = document.getElementById(elems2[el2].id).offsetWidth + 5
+
+									var height = document.getElementById(elems2[el2].id).offsetHeight + 5
+									console.log("width", width, "height", height)
+									document.getElementById(pairingElemento.id).style = "width:" + width + "px;height:" + height + "px; position: absolute; left: -4px; top: -4px;z-index:-222"
+
+									document.getElementById(elems2[el2].id).appendChild(document.getElementById(pairingElemento.id))
+									document.getElementById(elems2[el2].id).classList.add("ElementoFinal")
+									document.getElementById(elems2[el2].id).classList.add(pairingElemento.id)
+									
+
+									lineaFinal.color = 'rgba(0, 128, 0, 1)';
+
+
+									mover = false
+								}
+
+							}
+						}
+
+						if (mover) {
+							console.log("entro en mover para quitar y seguir")
+							evaluarFlechasClases(pairingElemento.id, false)
+							document.getElementById(pairingElemento.id).style = "width:" + 30 + "px;height:" + 30 + "px; position: absolute;"
+							document.getElementById(canvas.replace("#", "")).appendChild(pairingElemento)
+							for (var key in listaFlechas) {
+								if (listaFlechas[key].elementoFin == pairingElemento.id) {
+									lineaFinal = listaFlechas[key].line
+								}
+							}
+						}
+
+					});
+
+					function fixLine() {
+						for (var flechas = 0; flechas < listaFlechas.length; flechas++) {
+							
+							listaFlechas[flechas].line.position()
+							lineaFinal.position();
+						}
+					}
+
+					var emparejarInicio = true
+
+
+					
+
+					
+
+
+
+
+
+
+
+					// var startElement = document.getElementById(selectoresPairing[pair].id),
+					// 	endElement = document.getElementsByClassName(clases[cl].split("-")[1])[0],
+					// 	lineaFinal = new LeaderLine(startElement, endElement);
+
+					// makeDraggable($(document.getElementById(document.getElementById(selectoresPairing[pair].id))))
+					// var elFlecha = new elementoFlecha(lineaFinal, selectoresPairing[pair].id, clases[cl].split("-")[1])
+					// listaFlechas.push(elFlecha)
+					// console.log("Lista de flechas iniciales editar", listaFlechas)
+
+
+
+
+
+
+
+
+				}
+			}
+
+
+		}
+
+	}
+
+
 }
