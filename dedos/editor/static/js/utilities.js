@@ -450,11 +450,11 @@ function evaluarPosicionInicio($item) {
 								}
 
 								if (unir) {
-									var width = document.getElementById(elems2[el2].id).offsetWidth + 5
+									var width = document.getElementById(elems2[el2].id).offsetWidth + 10
 
-									var height = document.getElementById(elems2[el2].id).offsetHeight + 5
+									var height = document.getElementById(elems2[el2].id).offsetHeight + 10
 									console.log("width", width, "height", height)
-									document.getElementById($item[0].id).style = "width:" + width + "px;height:" + height + "px; position: absolute; left: -4px; top: -4px;z-index:-222"
+									document.getElementById($item[0].id).style = "width:" + width + "px;height:" + height + "px; position: absolute; left: -6px; top: -6px;z-index:-222"
 
 									document.getElementById(elems2[el2].id).appendChild($item[0])
 									document.getElementById(elems2[el2].id).classList.add("ElementoFinal")

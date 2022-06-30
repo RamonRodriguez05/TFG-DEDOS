@@ -107,30 +107,30 @@ def view_register(request):
         if form.is_valid():
             print("AQUI 1")
             user = form.save(commit=True)
-            user.is_active = False
+            user.is_active = True
             user.save()
             current_site = get_current_site(request)
             site_name = request.get_host()
             # falta activar user.is_active = True para que el usuario pueda utilizar la plataforma
-            mail_subject = 'Activa tu cuenta de %(site)s!' % {'site': site_name},
+            # mail_subject = 'Activa tu cuenta de %(site)s!' % {'site': site_name},
 
-            message = render_to_string('editor/useraccess/acc_active_email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
-            to_email = form.cleaned_data.get('email')
-            send_mail(mail_subject, message, settings.EMAIL_HOST_USER, [to_email])
+            # message = render_to_string('editor/useraccess/acc_active_email.html', {
+            #     'user': user,
+            #     'domain': current_site.domain,
+            #     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            #     'token': account_activation_token.make_token(user),
+            # })
+            # to_email = form.cleaned_data.get('email')
+        #   send_mail(mail_subject, message, settings.EMAIL_HOST_USER, [to_email])
             msg = "Debes recibir un correo electrónico de verificación. Por favor, confirma tú cuenta de correo " \
                   "electrónico antes de completar el registro. "
             context = {
                 "success": True,
                 "message": msg,
-                "authenticate": False,
+                "authenticate": True,
             }
             print("SEND EMAIL")
-            messages.success(request, 'A message to activate your account has been sent to your inbox.',
+            messages.success(request, 'Cuenta creada con éxito. Por favor, inicie sesión',
                              extra_tags='alert alert-info text-center')
 
             return render(request, 'editor/useraccess/login.html', context)
@@ -367,7 +367,7 @@ def proyectos(request):
     return render(request, 'editor/dash/proyectos.html', {'myProjects':myProjects, 'allProjects': allProjects})
 
 
-
+@login_required
 def insert(request):    
     
     proyecto = Projects(nombre=request.POST['nombre'], asignatura=request.POST['asignatura'], curso=request.POST['curso'], etiquetas=request.POST['etiquetas'], 
@@ -376,12 +376,13 @@ def insert(request):
     proyecto.save()
     return redirect('/')
 
-
+@login_required
 def delete(request,id):
     proyecto = Projects.objects.get(id=id)  
     proyecto.delete()  
     return redirect('/editor/proyectos') 
 
+@login_required
 def download(request):
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     filename = 'test.txt'
@@ -396,7 +397,7 @@ def download(request):
 
     return response
 
-
+@login_required
 def edit(request,id):
     data = Projects.objects.filter(id=id).values_list("canvas")
     nombre = Projects.objects.filter(id=id).values_list("nombre") 
@@ -405,17 +406,19 @@ def edit(request,id):
     asignatura = Projects.objects.filter(id=id).values_list("asignatura")
     etiquetas = Projects.objects.filter(id=id).values_list("etiquetas")
     privacidad = Projects.objects.filter(id=id).values_list("privado")
+    contenido = Projects.objects.filter(id=id).values_list("contenido")
 
     return render(request, 'editor/dash/editor.html', {'myProjects':id, 'data':data, 'nombre':nombre, 'descripcion':descripcion, 'curso':curso
-    , 'asignatura':asignatura, 'etiquetas':etiquetas, 'privacidad':privacidad})
+    , 'asignatura':asignatura, 'etiquetas':etiquetas, 'privacidad':privacidad, 'contenido': contenido})
   
- 
+
+@login_required
 def download2(request, id):
     dataBase64 = Projects.objects.filter(id=id).values_list("contenido")
     nombre = Projects.objects.filter(id=id).values_list("nombre")
     return render(request, 'editor/dash/proyectos.html', {'zip':dataBase64, 'nombre':nombre})
 
-
+@login_required
 def update(request):    
     proyecto = Projects.objects.get(id=request.POST['idProyecto'])
 

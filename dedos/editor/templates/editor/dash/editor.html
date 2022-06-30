@@ -176,6 +176,7 @@
 	<input type="hidden" id="asignaturaEditar" name="variable" value="{{ asignatura }}">
 	<input type="hidden" id="etiquetasEditar" name="variable" value="{{ etiquetas }}">
 	<input type="hidden" id="privacidadEditar" name="variable" value="{{ privacidad }}">
+	<input type="hidden" id="contenidoEditar" name="variable" value="{{ contenido }}">
 
 
 	<div id="listaCanvas">
@@ -262,9 +263,14 @@
 		listaSelectores = []
 		listaImagenesDropzone = []
 		listaCapturas = []
+		listaCapturasEditar = []
 		listaFlechas = []
 
 		lineaFinal = null
+
+		editarInicial = true
+
+		numeroActividadesEditarCapturas = null
 		$(document).ready(function () {
 			//document.getElementById('d1').droppable´
 				
@@ -336,7 +342,8 @@
 			theDiv.appendChild(tag3);
 
 			iniciarEditar()
-			captura(activity, canvas)
+			
+			//captura(activity, canvas)
 			//editar
 			// rpueba
 			//var canvasprueba = document.getElementById("previewactivity_1");
@@ -1118,7 +1125,7 @@
 				canvas.style.width = "100%"
 				canvas.style.height = "auto"
 				canvas.id = "preview" + name
-				//	console.log("la captura es", canvas)
+				console.log("la captura es", canvas)
 				prueba.appendChild(canvas)
 
 				var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
@@ -1371,6 +1378,14 @@
 			this.canvas = canvas;
 			this.file = file;
 		}
+
+		function elementoCapturaEditar(canvas, file, base64) {
+			this.canvas = canvas;
+			this.file = file;
+			this.base64 = base64
+		}
+
+
 
 		function elementoModulo(nombre, x, y) {
 			this.nombre = nombre;
