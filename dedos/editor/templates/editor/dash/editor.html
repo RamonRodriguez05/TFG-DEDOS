@@ -111,16 +111,16 @@
 	<!--<div class="col-md-12">Proyecto | Actividad | Modo | Idioma</div>-->
 </div>
 <div id="editzone">
-	<section class="sticky-div fondo">
+	<section class="sticky-div fondo top">
 		<div class="row" id="toolbar" style="margin-top: 10px;">
 			<div class="col-md-2"></div>
-			<div class="col-md-1 tool " id="tool-1-icon draggable tool"
+			<div class="col-md-1 tool top" id="tool-1-icon draggable tool"
 				title="Arrástreme al área de edición para crear una Zona" type="area">
 				<i id="imagenArea" class="fa-solid fa-square fa-2x"></i>
 			</div>
 
 			<!-- Buenos area-accept-->
-			<div id="TextoBueno" class="col-md-1 tool   ocultar" id="tool-2-icon draggable tool" type="card">
+			<div id="TextoBueno" class="col-md-1 tool ocultar" id="tool-2-icon draggable tool" type="card">
 				<i id="imagenTexto" class="fa-solid fa-pen fa-2xl"></i>
 			</div>
 			<div id="FotoBueno" class="col-md-1 tool  ocultar" id="tool-3-icon draggable tool" type="picture">
@@ -940,7 +940,9 @@
 				containment: "#editzone",
 				helper: "original",
 				appendTo: "body",
-				start: function () { },
+				start: function () {
+					console.log("moviendoooo", $item[0].id)
+				 },
 				stop: function () {
 					console.log('stopped 1')
 
