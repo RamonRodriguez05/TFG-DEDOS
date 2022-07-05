@@ -371,7 +371,7 @@ def proyectos(request):
 def insert(request):    
     
     proyecto = Projects(nombre=request.POST['nombre'], asignatura=request.POST['asignatura'], curso=request.POST['curso'], etiquetas=request.POST['etiquetas'], 
-    privado=request.POST['privado'], usuario=request.POST['usuario'], fecha=request.POST['fecha'], canvas=request.POST['canvas'], contenido=request.POST['contenido2'],
+    privado=request.POST['privado'], usuario=request.POST['usuario'], fecha=request.POST['fecha'], canvas=request.POST['canvas'], contenido=request.POST['contenidoZIP'],
     descripcion=request.POST['descripcion'])
     proyecto.save()
     return redirect('/')
@@ -428,7 +428,7 @@ def update(request):
     proyecto.etiquetas=request.POST['etiquetas']
     proyecto.privado=request.POST['privado']
     proyecto.canvas=request.POST['canvas']
-    proyecto.contenido=request.POST['contenido2']
+    proyecto.contenido=request.POST['contenidoZIP']
     proyecto.descripcion=request.POST['descripcion']
 
     proyecto.save()

@@ -265,6 +265,7 @@
 		listaCapturas = []
 		listaCapturasEditar = []
 		listaFlechas = []
+		listaImagenesAreas = []
 
 		lineaFinal = null
 
@@ -297,7 +298,7 @@
 			// var zip = new JSZip();
 			// // create a file
 			// zip.file("hello.txt", "Hello");
-			// // oops, cat on keyboard. Fixing !
+			// // oops, cat on keyboard. Fixing !´´
 			// zip.file("hello2.txt", "Hello World\n");
 			// zip.file("nested/hello.txt", "Hello World\n");
 			// zip.file("prueba2.xml", xml)
@@ -1127,7 +1128,7 @@
 				canvas.style.width = "100%"
 				canvas.style.height = "auto"
 				canvas.id = "preview" + name
-				console.log("la captura es", canvas)
+				//console.log("la captura es", canvas)
 				prueba.appendChild(canvas)
 
 				var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");

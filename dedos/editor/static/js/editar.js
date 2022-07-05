@@ -45,12 +45,7 @@ async function iniciarEditar() {
 
 
 
-
-
-
-
-
-		document.getElementById("botonGuardar").innerHTML = '<i class="fa-solid fa-floppy-disk"></i></i> Actualizar'
+		//document.getElementById("botonGuardar").innerHTML = '<i class="fa-solid fa-floppy-disk"></i></i> Actualizar'
 		borrar = true
 		lanzar()
 		var myVar = document.getElementById("myVar").value;
@@ -111,7 +106,8 @@ async function iniciarEditar() {
 		//  captura("activity_" + 2, "#editor-canvas_" + 2);
 		//  captura("activity_" + 3, "#editor-canvas_" + 3);
 
-		cargarImagenes(contenido, nombre)
+		cargarImagenes(contenido, nombre) 
+		cargarImagenesAreasTarjetas(contenido, nombre)
 
 
 		// 	console.log("Lista capturas al editar", listaCapturas)
@@ -466,22 +462,12 @@ function crearFlechas() {
 }
 
 function cargarImagenes(contenido, nombre) {
-
 	const promises = [];
 	var counter = 0
 
-
-
-
 	promises.push(JSZip.loadAsync(contenido, { base64: true }).then(function (zip) {
 		counter++
-		const numberOfCallbacks = Object.keys(zip.files).length - 1;
-
 		Object.keys(zip.files).forEach(function (filename) {
-
-
-
-
 			if (filename.includes("/screenshots/") && filename != nombre + "/screenshots/") {
 				console.log("El filename", filename)
 				promises.push(zip.files[filename].async('base64').then(function (fileData) {
@@ -497,7 +483,7 @@ function cargarImagenes(contenido, nombre) {
 					// 			prueba.appendChild(image)
 					// 			//document.getElementById("pruebaImagen").appendChild(image);
 
-					console.log("no se que es el content", image);
+					//console.log("no se que es el content", image);
 
 					var elCaptura = new elementoCapturaEditar(filename.split("/screenshots/")[1], image, fileData)
 					listaCapturasEditar.push(elCaptura)
@@ -507,18 +493,13 @@ function cargarImagenes(contenido, nombre) {
 						type: "image/png"
 					});
 
-
+						
 
 					elCaptura = new elementoCaptura(filename.split("/screenshots/")[1], imageFile)
 					listaCapturas.push(elCaptura)
 					counter++;
 
 					return "ok"
-
-
-
-
-
 				}))
 			}
 
@@ -527,7 +508,7 @@ function cargarImagenes(contenido, nombre) {
 					var actividad = listaCapturasEditar[cap].canvas.split("_")[1].replace(".png", "")
 					var prueba = document.getElementById("activity_" + actividad)
 
-					console.log("el prueba es", prueba)
+					//console.log("el prueba es", prueba)
 					// 			//Descomentar
 
 					prueba.appendChild(listaCapturasEditar[cap].file) 
@@ -536,8 +517,6 @@ function cargarImagenes(contenido, nombre) {
 					var imageFile = new File([listaCapturasEditar[cap].base64], filename.split("/screenshots/")[1], {
 						type: "image/png"
 					});
-
-
 
 					var elCaptura = new elementoCaptura(filename.split("/screenshots/")[1], imageFile)
 					//listaCapturas.push(elCaptura)
@@ -608,3 +587,95 @@ function cargarImagenes(contenido, nombre) {
 
 }
 
+function cargarImagenesAreasTarjetas(contenido, nombre) {
+	const promises = [];
+	var counter = 0
+
+	promises.push(JSZip.loadAsync(contenido, { base64: true }).then(function (zip) {
+		counter++
+		Object.keys(zip.files).forEach(function (filename) {
+			if (filename.includes("/contents/") && filename != nombre + "/contents/") {
+				//console.log("El filename", filename)
+				promises.push(zip.files[filename].async('base64').then(function (fileData) {
+					//console.log("filedataa", filename, fileData)
+					var image = new Image();
+					image.src = 'data:image/png;base64,' + fileData;
+					var p = dataURLtoFile(image.src, filename.split("/contents/")[1])
+					listaImagenesAreas.push(p)
+					counter++;
+		 			//console.log("La imagen es", image)
+					return "ok"
+				}))
+			}
+
+			Promise.all(promises).then(values => {
+				//console.log("las imanages de las areas son", listaImagenesAreas)
+				for (var img = 0; img < listaImagenesAreas.length; img++) {
+					var elementosImagenes = document.getElementsByClassName(listaImagenesAreas[img].name)
+					for (var el= 0; el < elementosImagenes.length; el++){
+						var id = elementosImagenes[el].id.split("_")[1]
+						var src1 = URL.createObjectURL(listaImagenesAreas[img]);					
+						console.log("el src", src1)
+						document.getElementById("area_" + id).style.backgroundImage = 'url(' + src1 + ')';
+
+						
+					}
+
+					var elementosImagenesDZ = document.getElementsByClassName("DZ_" +listaImagenesAreas[img].name)
+					for (var dz= 0; dz < elementosImagenesDZ.length; dz++){
+						//var id = elementosImagenesDZ[el].id.split("_")[1]
+						
+
+						var elFile = new elementoFileDropzone("dropzone_1", listaImagenesAreas[img])
+						listaImagenesDropzone.push(elFile) 
+
+						
+					}
+					console.log("listado dropzone", listaImagenesDropzone)
+					//DZ
+
+					// var myDropzone = document.getElementById("dropzone_1")
+					// var existingFiles = [
+					// 	{ name: listaImagenesAreas[img].name, size: listaImagenesAreas[img].size }
+					// ]
+			
+					// for (var i = 0; i < existingFiles.length; i++) {
+					// 	myDropzone.emit("addedfile", existingFiles[i]);
+					// 	myDropzone.emit("thumbnail", existingFiles[i], "/image/url");
+					// 	myDropzone.emit("complete", existingFiles[i]);                
+					// }
+					
+				}
+				/*
+					const fileName = src1.split('/').pop();
+					var	 el = document.createElement("a");
+					el.setAttribute("href", src1);
+					el.setAttribute("download", fileName);
+					document.body.appendChild(el);
+					el.click();
+					el.remove();
+					*/
+			}, reason => {
+				console.log("fallo", reason)
+			});
+		})
+		return "ok"
+	}))
+}
+
+
+
+function dataURLtoFile(dataurl, filename) {
+ 
+	var arr = dataurl.split(','),
+		mime = arr[0].match(/:(.*?);/)[1],
+		bstr = atob(arr[1]), 
+		n = bstr.length, 
+		u8arr = new Uint8Array(n);
+		
+	while(n--){
+		u8arr[n] = bstr.charCodeAt(n);
+	}
+	
+	return new File([u8arr], filename, {type:mime});
+}

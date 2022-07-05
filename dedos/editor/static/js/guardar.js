@@ -56,7 +56,7 @@ $(document).ready(function () {
         }
         var fecha = yyyy + '-' + mm + '-' + dd;
 
-        var contenido2 = ""
+        var contenidoZIP = ""
 
         //
         var zip = generarZIP2(nombre)
@@ -71,7 +71,7 @@ $(document).ready(function () {
             reader.onloadend = function () {
                 var base64String = reader.result;
                 var splitbase = base64String.split("base64,")
-                contenido2 = splitbase[1]
+                contenidoZIP = splitbase[1]
 
                 var ele = document.getElementsByName('privacidad');
 
@@ -89,7 +89,7 @@ $(document).ready(function () {
                     for (var j = 0; j < listaImagenesDropzone.length; j++) {
 
                         var _ref;
-                        (_ref = listaImagenesDropzone[j].file.previewElement) != null ? _ref.parentNode.removeChild(listaImagenesDropzone[j].file.previewElement) : void 0;
+                      //  (_ref = listaImagenesDropzone[j].file.previewElement) != null ? _ref.parentNode.removeChild(listaImagenesDropzone[j].file.previewElement) : void 0;
                     }
 
                     //Eliminar clases areas para botones
@@ -112,20 +112,14 @@ $(document).ready(function () {
                                 curso: curso,
                                 etiquetas: etiquetas,
                                 privado: privado,
-                                
-                                
                                 canvas: listaCanvas,
-                                contenido2: contenido2,
+                                usuario: JSON.parse(document.getElementById('user_id').textContent),
+                                contenidoZIP: contenidoZIP,
                                 descripcion: descripcion,
                                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
                             },
                             success: function () {
-                                alert('Proyecto creado correctamente');
-                                $('#nombre').val('');
-                                $('#asignatura').val('');
-                                $('#curso').val('');
-                                $('#etiquetas').val('');
-                              //  console.log("El elemento grande es", document.getElementById("listaCanvas").innerHTML)
+                                alert('Proyecto actualizado correctamente');
                                 window.location = "/editor/proyectos";
                             }
                         });
@@ -143,7 +137,7 @@ $(document).ready(function () {
                             usuario: JSON.parse(document.getElementById('user_id').textContent),
                             fecha: fecha,
                             canvas: listaCanvas,
-                            contenido2: contenido2,
+                            contenidoZIP: contenidoZIP,
                             descripcion: descripcion,
                             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
                         },
@@ -153,7 +147,6 @@ $(document).ready(function () {
                             $('#asignatura').val('');
                             $('#curso').val('');
                             $('#etiquetas').val('');
-                          //  console.log("El elemento grande es", document.getElementById("listaCanvas").innerHTML)
                             window.location = "/editor/proyectos";
                         }
                     });

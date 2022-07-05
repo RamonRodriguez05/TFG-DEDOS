@@ -98,7 +98,10 @@ function dropzoneUpload(id) {
 				var elFile = new elementoFileDropzone(id, file)
 				listaImagenesDropzone.push(elFile) 
 				
-				console.log("lista files dropzone", listaImagenesDropzone)
+				console.log("lista files dropzone", listaImagenesDropzone, id)
+				document.getElementById(id).classList.add("DZ_" + file.name)
+
+				/*
 				var zip = new JSZip(); 
 				zip.file("contents/" + file.name , file);
 	
@@ -111,16 +114,19 @@ function dropzoneUpload(id) {
 	
 				});
 			//	generarZIP()
+			*/
 				captura(activity, canvas)
 			}, 
 			removedfile: function(file) {
 				console.log("Borrar fichero", file.name)
+				document.getElementById(id).classList.remove("DZ_" + file.name)
 				listaImagenesDropzone = listaImagenesDropzone.filter(item => !(item.file.name == file.name));
 				console.log("lista files dropzone", listaImagenesDropzone)	
 				var _ref;
     			return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
 			}
 		});
+		console.log("Dropzone creado es", myDropzone)
 	} catch (error) {
 		//	console.log("No se crea dropzone")
 	}
