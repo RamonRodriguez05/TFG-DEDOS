@@ -10,14 +10,14 @@ $(document).ready(function () {
         "columns": [
             { "width": "5px", "visible": false },
             { "width": "5px", "visible": false },
-            { "width": "750px" },
-            { "width": "750px" },
-            { "width": "500px" },
-            { "width": "300px" },
+            { "width": "200px" },
             { "width": "100px" },
-            { "width": "30px" },
-            { "width": "250px" },
-            { "width": "30px" },
+            { "width": "100px" },
+            { "width": "100px" },
+            { "width": "80px" },
+            // { "width": "30px" },
+            { "width": "100px" },
+            { "width": "500px" },
             { "orderable": false },
             { "orderable": false },
             { "orderable": false }
@@ -49,33 +49,33 @@ $(document).ready(function () {
         "columns": [
             { "width": "5px", "visible": false },
             { "width": "5px", "visible": false },
-            { "width": "1050px" },
-            { "width": "650px" },
-            { "width": "500px" },
-            { "width": "300px" },
+            { "width": "2000px" },
             { "width": "100px" },
+            { "width": "100px" },
+            { "width": "100px" },
+            // { "width": "100px" },
             { "width": "30px" },
-            { "width": "250px" },
+            { "width": "150px" },
             { "width": "30px" },
             { "orderable": false },
             { "orderable": false }
         ],
-        columnDefs: [
-            {
-                // The `data` parameter refers to the data for the cell (defined by the
-                // `data` option, which defaults to the column being worked with, in
-                // this case `data: 0`.
-                render: function (data, type, row) {
-                    if (data == "True") {
-                        return "Privado"
-                    } else {
-                        return "Público"
-                    }
+        // columnDefs: [
+        //     {
+        //         // The `data` parameter refers to the data for the cell (defined by the
+        //         // `data` option, which defaults to the column being worked with, in
+        //         // this case `data: 0`.
+        //         render: function (data, type, row) {
+        //             if (data == "True") {
+        //                 return "Privado"
+        //             } else {
+        //                 return "Público"
+        //             }
 
-                },
-                targets: 7,
-            }
-        ],
+        //         },
+        //         targets: 7,
+        //     }
+        // ],
 
     });
 

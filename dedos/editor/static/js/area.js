@@ -19,11 +19,28 @@ function uploadAreaButton(input, id) {
                 console.log("entra en el distinto del filename",id)
                 var file = document.getElementById(id).files[0]
                 var nameFile = file.name
+                
+                /*
+                var imagenAnterior = document.getElementById(id).classList
+                if (imagenAnterior.length != 0){
+                    listaImagenesAreas = listaImagenesAreas.filter(item => !(item.name == imagenAnterior[0]));
+                }
+                */
+              
+				listaImagenesAreas.push(file)
+                document.getElementById(id).classList = ""
                 document.getElementById(id).classList.add(nameFile)
                 var src1 = URL.createObjectURL(file);
                 console.log("el src", src1)
                 document.getElementById(uploadAreaID).style.backgroundImage = 'url(' + src1 + ')';
             } else {
+
+                /*
+                var imagenAnterior = document.getElementById(id).classList
+                if (imagenAnterior.length != 0){
+                    listaImagenesAreas = listaImagenesAreas.filter(item => !(item.name == imagenAnterior[0]));
+                }
+                */
                 document.getElementById(id).classList = ""
                 document.getElementById(uploadAreaID).style.backgroundImage = 'none';
             }

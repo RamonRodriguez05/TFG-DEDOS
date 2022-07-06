@@ -41,7 +41,7 @@ $(document).ready(function () {
         var descripcion = $('#descripcion').val();
         etiquetas = replaceAll(etiquetas, ",", ", ")
 
-        //
+
         var today = new Date();
 
         var dd = today.getDate();
@@ -65,7 +65,7 @@ $(document).ready(function () {
 
         zip.generateAsync({ type: "blob" }).then(function (content) {
             //	saveAs(content, "prueba.zip")
-          //  console.log("El contenido es", content)
+            //  console.log("El contenido es", content)
             var reader = new FileReader();
             reader.readAsDataURL(content);
             reader.onloadend = function () {
@@ -80,8 +80,8 @@ $(document).ready(function () {
                         var privado = ele[i].value;
                 }
 
-             //   console.log("privacidad", privado)
-             //   console.log("fecha", today)
+                //   console.log("privacidad", privado)
+                //   console.log("fecha", today)
                 if (nombre == "" || descripcion == "" || asignatura == "" || curso == "" || etiquetas == "null") {
                     alert("Por favor, rellene todos los datos");
                 } else {
@@ -89,7 +89,7 @@ $(document).ready(function () {
                     for (var j = 0; j < listaImagenesDropzone.length; j++) {
 
                         var _ref;
-                      //  (_ref = listaImagenesDropzone[j].file.previewElement) != null ? _ref.parentNode.removeChild(listaImagenesDropzone[j].file.previewElement) : void 0;
+                        //  (_ref = listaImagenesDropzone[j].file.previewElement) != null ? _ref.parentNode.removeChild(listaImagenesDropzone[j].file.previewElement) : void 0;
                     }
 
                     //Eliminar clases areas para botones
@@ -97,60 +97,70 @@ $(document).ready(function () {
 
                     var listaCanvas = document.getElementById("listaCanvas").innerHTML
                     let url = window.location.href;
-	    	        if (url.includes("/edit/")) {
+                    if (url.includes("/edit/")) {
                         var urlSplit = url.split("/")
-                        var idProyecto = urlSplit[urlSplit.length-1]
-                        console.log("el id proyecto es",idProyecto)
+                        var idProyecto = urlSplit[urlSplit.length - 1]
+                        console.log("el id proyecto es", idProyecto)
+                        var usuario = elminarCarateres(document.getElementById("usuarioEditar").value) 
+                        var creado = elminarCarateres(document.getElementById("creadoEditar").value)
 
+                        if(usuario != JSON.parse(document.getElementById('user_id').textContent)){
+                            guardarProyecto(nombre,asignatura, curso, etiquetas, privado, JSON.parse(document.getElementById('user_id').textContent), fecha, listaCanvas, contenidoZIP, descripcion, creado)
+                        }else{
+                            $.ajax({
+                                type: "POST",
+                                url: "/editor/update/",
+                                data: {
+                                    idProyecto: idProyecto,
+                                    nombre: nombre,
+                                    asignatura: asignatura,
+                                    curso: curso,
+                                    etiquetas: etiquetas,
+                                    privado: privado,
+                                    canvas: listaCanvas,
+                                    usuario: JSON.parse(document.getElementById('user_id').textContent),
+                                    contenidoZIP: contenidoZIP,
+                                    descripcion: descripcion,
+                                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                                },
+                                success: function () {
+                                    alert('Proyecto actualizado correctamente');
+                                    window.location = "/editor/proyectos";
+                                }
+                            });
+                        }
+                    } else {
+
+                        guardarProyecto(nombre,asignatura, curso, etiquetas, privado, JSON.parse(document.getElementById('user_id').textContent), fecha, listaCanvas, contenidoZIP, descripcion, JSON.parse(document.getElementById('user_id').textContent))
+                        
+                        /*
                         $.ajax({
                             type: "POST",
-                            url: "/editor/update/",
+                            url: "/editor/insert/",
                             data: {
-                                idProyecto: idProyecto,
                                 nombre: nombre,
                                 asignatura: asignatura,
                                 curso: curso,
                                 etiquetas: etiquetas,
                                 privado: privado,
-                                canvas: listaCanvas,
                                 usuario: JSON.parse(document.getElementById('user_id').textContent),
+                                fecha: fecha,
+                                canvas: listaCanvas,
                                 contenidoZIP: contenidoZIP,
                                 descripcion: descripcion,
                                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
                             },
                             success: function () {
-                                alert('Proyecto actualizado correctamente');
+                                alert('Proyecto creado correctamente');
+                                $('#nombre').val('');
+                                $('#asignatura').val('');
+                                $('#curso').val('');
+                                $('#etiquetas').val('');
                                 window.location = "/editor/proyectos";
                             }
                         });
-                    }else{
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/editor/insert/",
-                        data: {
-                            nombre: nombre,
-                            asignatura: asignatura,
-                            curso: curso,
-                            etiquetas: etiquetas,
-                            privado: privado,
-                            usuario: JSON.parse(document.getElementById('user_id').textContent),
-                            fecha: fecha,
-                            canvas: listaCanvas,
-                            contenidoZIP: contenidoZIP,
-                            descripcion: descripcion,
-                            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-                        },
-                        success: function () {
-                            alert('Proyecto creado correctamente');
-                            $('#nombre').val('');
-                            $('#asignatura').val('');
-                            $('#curso').val('');
-                            $('#etiquetas').val('');
-                            window.location = "/editor/proyectos";
-                        }
-                    });
-                }
+                        */
+                    }
                 }
             }
             //	console.log("Content es", content)
@@ -162,6 +172,34 @@ $(document).ready(function () {
     });
 });
 
+function guardarProyecto(nombre,asignatura, curso, etiquetas, privado, usuario, fecha, listaCanvas, contenidoZIP, descripcion, creado){
+    $.ajax({
+        type: "POST",
+        url: "/editor/insert/",
+        data: {
+            nombre: nombre,
+            asignatura: asignatura,
+            curso: curso,
+            etiquetas: etiquetas,
+            privado: privado,
+            usuario: usuario,
+            fecha: fecha,
+            canvas: listaCanvas,
+            contenidoZIP: contenidoZIP,
+            descripcion: descripcion,
+            creado: creado,
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+        },
+        success: function () {
+            alert('Proyecto creado correctamente');
+            $('#nombre').val('');
+            $('#asignatura').val('');
+            $('#curso').val('');
+            $('#etiquetas').val('');
+            window.location = "/editor/proyectos";
+        }
+    });
+}
 
 // function generarZIP() { 
 //     var el = document.getElementById("uploadArea_1")
@@ -230,7 +268,9 @@ function generarZIP2(nombre) {
 
     //Obtener imagenes areas
     var areas = document.getElementsByClassName("area")
-    for (var i = 0; i < areas.length; i++) {
+    for (var i = 0; i < listaImagenesAreas.length; i++) {
+        zip.file(nombre + "/contents/" + listaImagenesAreas[i].name, listaImagenesAreas[i]);
+        /*
         var id = areas[i].id.split("_")[1]
         var upload = document.getElementById("uploadArea_" + id)
         var image = upload.files[0]
@@ -238,6 +278,7 @@ function generarZIP2(nombre) {
         if (image != undefined) {
             zip.file(nombre + "/contents/" + image.name, image);
         }
+        */
     }
 
     //Obtener imagenes dropzone
@@ -276,7 +317,7 @@ function getXMLString() {
 
     xml += '  <resolution x="' + window.screen.availWidth + '" y="' + window.screen.availHeight + '"/>\n'
     xml += '  <language code="es"/>\n'
-    
+
 
 
 
@@ -297,18 +338,18 @@ function getXMLString() {
             var clases = document.getElementById(selectoresPairing[p].id).classList
             tieneSelectores = true
             tieneFlechas = true
-            select  += '      <obj type="pair" origen="' + selectoresPairing[p].id + '" tokenMeter="false">\n'
+            select += '      <obj type="pair" origen="' + selectoresPairing[p].id + '" tokenMeter="false">\n'
             select += '        <Targets>\n'
-            for (var cl = 0; cl < clases.length; cl++){
-                if(clases[cl].includes("emparejadoCon-")){
-                   
+            for (var cl = 0; cl < clases.length; cl++) {
+                if (clases[cl].includes("emparejadoCon-")) {
+
                     flechas += '      <arrow origin="' + selectoresPairing[p].id + '" dest="' + document.getElementsByClassName(clases[cl].split("-")[1])[0].id + '"/>\n'
-                    
+
                     select += '          <target name="' + document.getElementsByClassName(clases[cl].split("-")[1])[0].id + '"/>\n'
-            	    
+
                 }
             }
-            select += '        </Targets>\n      </obj>\n'	
+            select += '        </Targets>\n      </obj>\n'
         }
 
 
@@ -440,7 +481,7 @@ function getXMLString() {
                             }
 
 
-                            
+
                             xml += '          <Token id="' + hijosAreas[k].id + '" type="txt" numValue="' + valorNumerico + '">\n'
                             xml += '            <pos x="' + (parseFloat(card.getBoundingClientRect().left) - (parseFloat(area.getBoundingClientRect().left))) + '" y="' + (parseFloat(card.getBoundingClientRect().top) - (parseFloat(area.getBoundingClientRect().top))) + '"/>\n'
                             xml += '            <size height="' + card.offsetHeight + '" width="' + card.offsetWidth + '"/>\n'
@@ -461,10 +502,10 @@ function getXMLString() {
                             xml += '          </Token>\n'
 
 
-                         //   console.log("Card", hijosAreas[k].id)
+                            //   console.log("Card", hijosAreas[k].id)
                         }
 
-                    
+
                         // Picture
                         if (hijosAreas[k].id.includes("picture_")) {
                             var picture = document.getElementById(hijosAreas[k].id)
@@ -537,19 +578,19 @@ function getXMLString() {
         }
 
         xml += '    </Arealist>\n'
-        if(tieneFlechas){
+        if (tieneFlechas) {
             xml += '    <Arrows>\n'
             xml += flechas
             xml += '    </Arrows>\n'
-        }else{
-             xml += '    <Arrows/>\n'
+        } else {
+            xml += '    <Arrows/>\n'
         }
-       
+
         xml += '  </Activity>\n'
         //  console.log("La activitie",activities[i].children)
         document.getElementById(activities[i].id).classList.add("ocultar")
     }
-    
+
     xml += '</Project>'
 
 
@@ -562,6 +603,6 @@ function getXMLString() {
     // xml = xml + "</Plans></PlanInfo>";
 
     var xmlDoc = parser.parseFromString(xml, "application/xml");
- //   console.log("el xml es", xml)
+    //   console.log("el xml es", xml)
     return xml;
 }

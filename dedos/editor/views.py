@@ -1,5 +1,6 @@
 import base64
 import chunk
+from io import UnsupportedOperation
 import mimetypes
 from wsgiref.util import FileWrapper
 from django.contrib.auth import authenticate, login, logout
@@ -372,7 +373,7 @@ def insert(request):
     
     proyecto = Projects(nombre=request.POST['nombre'], asignatura=request.POST['asignatura'], curso=request.POST['curso'], etiquetas=request.POST['etiquetas'], 
     privado=request.POST['privado'], usuario=request.POST['usuario'], fecha=request.POST['fecha'], canvas=request.POST['canvas'], contenido=request.POST['contenidoZIP'],
-    descripcion=request.POST['descripcion'])
+    descripcion=request.POST['descripcion'], creado=request.POST['creado'])
     proyecto.save()
     return redirect('/')
 
@@ -407,9 +408,11 @@ def edit(request,id):
     etiquetas = Projects.objects.filter(id=id).values_list("etiquetas")
     privacidad = Projects.objects.filter(id=id).values_list("privado")
     contenido = Projects.objects.filter(id=id).values_list("contenido")
+    usuario = Projects.objects.filter(id=id).values_list("usuario")
+    creado = Projects.objects.filter(id=id).values_list("creado")
 
     return render(request, 'editor/dash/editor.html', {'myProjects':id, 'data':data, 'nombre':nombre, 'descripcion':descripcion, 'curso':curso
-    , 'asignatura':asignatura, 'etiquetas':etiquetas, 'privacidad':privacidad, 'contenido': contenido})
+    , 'asignatura':asignatura, 'etiquetas':etiquetas, 'privacidad':privacidad, 'contenido': contenido, 'usuario': usuario, 'creado': creado})
   
 
 @login_required
@@ -421,7 +424,6 @@ def download2(request, id):
 @login_required
 def update(request):    
     proyecto = Projects.objects.get(id=request.POST['idProyecto'])
-
     proyecto.nombre=request.POST['nombre']
     proyecto.asignatura=request.POST['asignatura']
     proyecto.curso=request.POST['curso']

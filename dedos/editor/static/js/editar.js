@@ -505,6 +505,7 @@ function cargarImagenes(contenido, nombre) {
 
 			Promise.all(promises).then(values => {
 				for (var cap = 0; cap < listaCapturasEditar.length; cap++) {
+					try{
 					var actividad = listaCapturasEditar[cap].canvas.split("_")[1].replace(".png", "")
 					var prueba = document.getElementById("activity_" + actividad)
 
@@ -521,6 +522,7 @@ function cargarImagenes(contenido, nombre) {
 					var elCaptura = new elementoCaptura(filename.split("/screenshots/")[1], imageFile)
 					//listaCapturas.push(elCaptura)
 					// 			//document.getElementById("pruebaImagen").appendChild(image);
+				}catch{}
 				}
 
 

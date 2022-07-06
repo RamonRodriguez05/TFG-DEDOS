@@ -39,3 +39,4 @@ class Projects(models.Model):
     canvas = models.TextField(default="")
     descripcion = models.TextField(max_length=500, null=True)
     version = models.TextField(max_length=3, default=1)
+    creado = models.CharField(max_length=50, null=True)
