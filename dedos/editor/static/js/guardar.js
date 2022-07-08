@@ -89,7 +89,7 @@ $(document).ready(function () {
                     for (var j = 0; j < listaImagenesDropzone.length; j++) {
 
                         var _ref;
-                        //  (_ref = listaImagenesDropzone[j].file.previewElement) != null ? _ref.parentNode.removeChild(listaImagenesDropzone[j].file.previewElement) : void 0;
+                          (_ref = listaImagenesDropzone[j].file.previewElement) != null ? _ref.parentNode.removeChild(listaImagenesDropzone[j].file.previewElement) : void 0;
                     }
 
                     //Eliminar clases areas para botones

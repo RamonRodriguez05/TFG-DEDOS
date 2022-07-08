@@ -86,7 +86,7 @@ function dropzoneUpload(id) {
 			url: "/editor/editor", // Set the url for your upload script location
 			headers: { 'X-CSRFToken': csrftoken },
 			paramName: "file", // The name that will be used to transfer the file
-			maxFiles: 10,
+			maxFiles: 15,
 			acceptedFiles: ".jpeg,.jpg,.png,.gif",
 			maxFilesize: 100, // MB
 			addRemoveLinks: true,
@@ -126,8 +126,43 @@ function dropzoneUpload(id) {
     			return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
 			}
 		});
-		console.log("Dropzone creado es", myDropzone)
+		console.log("Dropzone creado es antes", myDropzone.files)
+
+		var existingFiles = [
+            { name: listaImagenesDropzone[0].file.name , size: listaImagenesDropzone[0].file.size}
+        ];
+
+        for (var i = 0; i < existingFiles.length; i++) {
+			console.log("ha entrado")
+			var src1 = URL.createObjectURL(listaImagenesDropzone[0].file);	
+			
+			console.log("Base644444", src1)
+            myDropzone.emit("addedfile", existingFiles[i]);
+            myDropzone.emit("thumbnail", existingFiles[i], src1);
+            myDropzone.emit("complete", existingFiles[i]);                
+        }
+
+		console.log("Dropzone creado es despues", myDropzone.files)
 	} catch (error) {
-		//	console.log("No se crea dropzone")
+			//console.log("No se crea dropzone", error)
 	}
 }
+
+
+function getBase64(file) {
+	
+  
+    var reader = new FileReader();
+    console.log("next");
+      
+    reader.onload = function () {
+        base64String = reader.result.replace("data:", "")
+            .replace(/^.+,/, "");
+  
+        imageBase64Stringsep = base64String;
+  
+        // alert(imageBase64Stringsep);
+        console.log(base64String);
+    }
+    reader.readAsDataURL(file);
+ }

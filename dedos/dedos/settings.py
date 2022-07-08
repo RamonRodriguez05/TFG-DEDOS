@@ -33,6 +33,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 AUTH_USER_MODEL = "editor.User"
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 # Application definition
 
 INSTALLED_APPS = [

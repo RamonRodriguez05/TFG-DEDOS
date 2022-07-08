@@ -76,7 +76,7 @@ async function iniciarEditar() {
 		// Lanzar elementos
 		lanzarElementos("area")
 		lanzarElementos("card")
-		lanzarElementos("picture")
+		
 		lanzarElementos("time")
 		lanzarElementos("objetive")
 		lanzarElementos("math")
@@ -107,9 +107,14 @@ async function iniciarEditar() {
 		//  captura("activity_" + 3, "#editor-canvas_" + 3);
 
 		cargarImagenes(contenido, nombre) 
-		cargarImagenesAreasTarjetas(contenido, nombre)
+		let prueba = cargarImagenesAreasTarjetas(contenido, nombre)
+		console.log("prueba valeeeeeee", prueba)
+		
 
 
+
+
+		
 		// 	console.log("Lista capturas al editar", listaCapturas)
 
 		// 	for(var cap= 0; cap < listaCapturas.length; listaCapturas++){
@@ -121,7 +126,10 @@ async function iniciarEditar() {
 		// 					prueba.appendChild(listaCapturas[cap].file)
 		// 	   // 			//document.getElementById("pruebaImagen").appendChild(image);
 		//    }
+		var myDropzone = document.getElementById("dropzone_1");
+		console.log("listado imagenes dropzone", listaImagenesDropzone)
 
+		
 	}
 }
 
@@ -611,7 +619,7 @@ function cargarImagenesAreasTarjetas(contenido, nombre) {
 			}
 
 			Promise.all(promises).then(values => {
-				//console.log("las imanages de las areas son", listaImagenesAreas)
+				console.log("las imanages de las areas son", listaImagenesAreas, counter, promises)
 				for (var img = 0; img < listaImagenesAreas.length; img++) {
 					var elementosImagenes = document.getElementsByClassName(listaImagenesAreas[img].name)
 					for (var el= 0; el < elementosImagenes.length; el++){
@@ -624,12 +632,21 @@ function cargarImagenesAreasTarjetas(contenido, nombre) {
 					}
 
 					var elementosImagenesDZ = document.getElementsByClassName("DZ_" +listaImagenesAreas[img].name)
+					console.log("Élementos con DZ clase", elementosImagenesDZ)
 					for (var dz= 0; dz < elementosImagenesDZ.length; dz++){
-						//var id = elementosImagenesDZ[el].id.split("_")[1]
-						
+						var add = true
+						for(var drop = 0; drop < listaImagenesDropzone.length; drop++){
+							if(listaImagenesDropzone[drop].file == listaImagenesAreas[img] && listaImagenesDropzone[drop].id == "dropzone_1"){
+								add = false
+								break;
+							}
+						}
 
-						var elFile = new elementoFileDropzone("dropzone_1", listaImagenesAreas[img])
-						listaImagenesDropzone.push(elFile) 
+						if(add){
+							var elFile = new elementoFileDropzone("dropzone_1", listaImagenesAreas[img])
+							listaImagenesDropzone.push(elFile)	
+						}
+						 
 
 						
 					}
@@ -648,6 +665,14 @@ function cargarImagenesAreasTarjetas(contenido, nombre) {
 					// }
 					
 				}
+				
+				if(promises.length - 1 == listaImagenesAreas.length){
+					console.log("promesas-listaareas", promises.length -1, listaImagenesAreas)
+					lanzarElementos("picture")
+				}
+				
+				console.log("ok promises")
+			return "ok promises"
 				/*
 					const fileName = src1.split('/').pop();
 					var	 el = document.createElement("a");
@@ -660,9 +685,12 @@ function cargarImagenesAreasTarjetas(contenido, nombre) {
 			}, reason => {
 				console.log("fallo", reason)
 			});
+			
 		})
 		return "ok"
 	}))
+
+	
 }
 
 
