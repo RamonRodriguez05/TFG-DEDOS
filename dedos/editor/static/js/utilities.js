@@ -56,7 +56,7 @@ function evaluarPosicion($item) {
 
 			eliminarElementoEmparejado($item[0].id)
 			//	lineaFinal.remove()
-
+			console.log("lista final", listaFlechas)
 			$($item).remove()
 		} else {
 			//	lastItem.style ="left:" + posLeft + "; right:"+ posRight;
@@ -1014,6 +1014,7 @@ function evaluarFlechasClases(elementoID, eliminar) {
 
 			document.getElementById(listaFlechas[jj].elementoInicio).classList.remove("emparejadoCon-" + elementoID)
 			if (eliminar) {
+				console.log("Flecha eliminadaaaaaaa")
 				listaFlechas[jj].line.remove()
 				listaFlechas = listaFlechas.filter(item => item.elementoFin !== elementoID)
 			}

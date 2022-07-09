@@ -41,7 +41,7 @@ async function iniciarEditar() {
 
 		var contenido = elminarCarateres(document.getElementById("contenidoEditar").value)
 
-		console.log("Contenido editar", contenido)
+		//console.log("Contenido editar", contenido)
 
 
 
@@ -51,7 +51,7 @@ async function iniciarEditar() {
 		var myVar = document.getElementById("myVar").value;
 		var procesado = myVar.split("QuerySet")
 		var cargar = procesado[1]
-
+		
 		cargar = cargar.replace(/\\t/g, " ");
 		cargar = cargar.replace(/\\n/g, " ");
 		cargar = cargar.replace(/\\r/g, " ");
@@ -64,7 +64,7 @@ async function iniciarEditar() {
 		cargar = cargar.replace('left: 20px; bottom: -15px; margin-bottom: -15px; position: relative;', 'left: 20px; bottom:-2px; margin-bottom: -15px; position:relative')
 		cargar = cargar.replace('left: 20px; bottom: -5px; margin-bottom: -15px; position: relative;', 'left: 20px; bottom:-2px; margin-bottom: -15px; position: relative;')
 
-		console.log("El cargar es", cargar)
+		//console.log("El cargar es", cargar)
 		//	console.log("El valor valee", cargar)
 		document.getElementById("myVar").remove()
 		document.getElementById("listaCanvas").innerHTML = ""
@@ -108,7 +108,7 @@ async function iniciarEditar() {
 
 		cargarImagenes(contenido, nombre) 
 		let prueba = cargarImagenesAreasTarjetas(contenido, nombre)
-		console.log("prueba valeeeeeee", prueba)
+		//console.log("prueba valeeeeeee", prueba)
 		
 
 
@@ -224,7 +224,7 @@ function lanzarElementos(nombreClase) {
 					num_card = id
 				}
 			} else if (nombreClase.includes("picture")) {
-				console.log("el picture es", el)
+				//console.log("el picture es", el)
 				dropzoneUpload("dropzone_" + id)
 				if (id > num_picture) {
 					num_picture = id
@@ -273,6 +273,7 @@ function crearFlechas() {
 	// Obtener actividades
 	var activities = document.getElementsByClassName("editor-canvas")
 
+	
 	//console.log("Los canvasssss activieties sonn", activities)
 	for (var i = 0; i < activities.length; i++) {
 		// document.getElementById(activities[i].id).classList.remove("ocultar")
@@ -308,12 +309,24 @@ function crearFlechas() {
 						endElement = document.getElementById(pairingElemento.id),
 						lineaFinal = new LeaderLine(startElement, endElement);
 
-
+				
 					makeDraggable($(document.getElementById(selectoresPairing[pair].id)))
 					//	makeDraggable($(document.getElementById(pairingElemento.id)))
 					//var elFlecha = new elementoFlecha(lineaFinal, elementoEmparejar, $item[0].id, drag1)
-					var elFlecha = new elementoFlecha(lineaFinal, selectoresPairing[pair].id, pairingElemento.id)
-					listaFlechas.push(elFlecha)
+					var add = true
+					
+					for(var listArrow = 0; listArrow < listaFlechas.length; listArrow++){
+						if(listaFlechas[listArrow].elementoFin == pairingElemento.id && listaFlechas[listArrow].elementoInicio == selectoresPairing[pair].id ){
+							add = false
+						}
+					}
+
+					if(add){
+						var elFlecha = new elementoFlecha(lineaFinal, selectoresPairing[pair].id, pairingElemento.id)
+						listaFlechas.push(elFlecha)
+					}
+
+					
 					console.log("Lista de flechas iniciales editar", listaFlechas)
 
 
@@ -323,10 +336,13 @@ function crearFlechas() {
 					//pairingElemento = document.getElementById(clases[cl].split("-")[1])
 					document.addEventListener('mousemove', e => {
 
-
+						try{
 						if (mover) {
 							console.log("entro mover de  mousemove")
+							
 							lineaFinal.color = 'rgba(255, 153, 0, 1)';
+							
+							
 							var x = e.clientX;
 							var y = e.clientY;
 
@@ -360,6 +376,7 @@ function crearFlechas() {
 							}
 						}
 						fixLine()
+					}catch{}
 
 					});
 
@@ -440,6 +457,7 @@ function crearFlechas() {
 					});
 
 					function fixLine() {
+						try{
 						for (var flechas = 0; flechas < listaFlechas.length; flechas++) {
 							lineaFinal = listaFlechas[flechas].line
 							if (editarInicial) {
@@ -450,6 +468,7 @@ function crearFlechas() {
 							lineaFinal.position();
 						}
 						editarInicial = false
+					}catch{}
 					}
 
 
@@ -501,10 +520,38 @@ function cargarImagenes(contenido, nombre) {
 						type: "image/png"
 					});
 
-						
+					var editorCanvasElementos = document.getElementsByClassName("editor-canvas")
+					var previous = "editor-canvas_1"
+					for (var canvas = 0; canvas <editorCanvasElementos.length; canvas++) {
+						if(editorCanvasElementos[canvas].id != previous){
+							document.getElementById(previous).classList.add("ocultar")
+						}
+						document.getElementById(editorCanvasElementos[canvas].id).classList.remove("ocultar")
+						var idCanvas = editorCanvasElementos[canvas].id.split("_")[1]
+						captura("activity_" + idCanvas, "#editor-canvas_" + idCanvas)
+						previous = editorCanvasElementos[canvas].id
+					}
+					
+					for (var canvas2 = 0; canvas2 <editorCanvasElementos.length; canvas2++) {
+						document.getElementById(editorCanvasElementos[canvas2].id).classList.add("ocultar")
+					}
+					document.getElementById("editor-canvas_1").classList.remove("ocultar")
 
-					elCaptura = new elementoCaptura(filename.split("/screenshots/")[1], imageFile)
-					listaCapturas.push(elCaptura)
+// 					var ImageURL = 'data:image/png;base64,' + fileData;
+// // Split the base64 string in data and contentType
+// var block = ImageURL.split(";");
+// // Get the content type of the image
+// var contentType = block[0].split(":")[1];// In this case "image/gif"
+// // get the real base64 content of the file
+// var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
+
+// // Convert it to a blob to upload
+// var blob = b64toBlob(realData, contentType);
+
+// 					console.log("BLOBBBBBBBBB", blob)
+					
+// 					elCaptura = new elementoCaptura(filename.split("/screenshots/")[1], blob)
+// 					listaCapturas.push(elCaptura)
 					counter++;
 
 					return "ok"
@@ -636,14 +683,14 @@ function cargarImagenesAreasTarjetas(contenido, nombre) {
 					for (var dz= 0; dz < elementosImagenesDZ.length; dz++){
 						var add = true
 						for(var drop = 0; drop < listaImagenesDropzone.length; drop++){
-							if(listaImagenesDropzone[drop].file == listaImagenesAreas[img] && listaImagenesDropzone[drop].id == "dropzone_1"){
+							if(listaImagenesDropzone[drop].file == listaImagenesAreas[img] && listaImagenesDropzone[drop].id == elementosImagenesDZ[dz].id){
 								add = false
 								break;
 							}
 						}
 
 						if(add){
-							var elFile = new elementoFileDropzone("dropzone_1", listaImagenesAreas[img])
+							var elFile = new elementoFileDropzone(elementosImagenesDZ[dz].id, listaImagenesAreas[img])
 							listaImagenesDropzone.push(elFile)	
 						}
 						 
@@ -708,4 +755,28 @@ function dataURLtoFile(dataurl, filename) {
 	}
 	
 	return new File([u8arr], filename, {type:mime});
+}
+
+function b64toBlob(b64Data, contentType, sliceSize) {
+	contentType = contentType || '';
+	sliceSize = sliceSize || 512;
+
+	var byteCharacters = atob(b64Data);
+	var byteArrays = [];
+
+	for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+		var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+		var byteNumbers = new Array(slice.length);
+		for (var i = 0; i < slice.length; i++) {
+			byteNumbers[i] = slice.charCodeAt(i);
+		}
+
+		var byteArray = new Uint8Array(byteNumbers);
+
+		byteArrays.push(byteArray);
+	}
+
+  var blob = new Blob(byteArrays, {type: contentType});
+  return blob;
 }

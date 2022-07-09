@@ -363,8 +363,8 @@ def editor(request):
 @login_required
 def proyectos(request):
 
-    myProjects = Projects.objects.filter(usuario=request.user.username)
-    allProjects = Projects.objects.filter(privado= 0).exclude(usuario=request.user.username)
+    myProjects = Projects.objects.filter(usuario=request.user.username).order_by('-fecha')
+    allProjects = Projects.objects.filter(privado= 0).exclude(usuario=request.user.username).order_by('-fecha')
     return render(request, 'editor/dash/proyectos.html', {'myProjects':myProjects, 'allProjects': allProjects})
 
 

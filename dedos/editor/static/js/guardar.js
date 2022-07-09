@@ -86,12 +86,24 @@ $(document).ready(function () {
                     alert("Por favor, rellene todos los datos");
                 } else {
                     // Elimina las imagenes para luego editar
-                    for (var j = 0; j < listaImagenesDropzone.length; j++) {
-
-                        var _ref;
-                          (_ref = listaImagenesDropzone[j].file.previewElement) != null ? _ref.parentNode.removeChild(listaImagenesDropzone[j].file.previewElement) : void 0;
+                    var picturesEditar = document.getElementsByClassName("picture")
+                    for(var pic = 0; pic < picturesEditar.length; pic++){
+                        var idDrop = "dropzone_" + picturesEditar[pic].id.split("_")[1]
+    	                while (document.getElementById(idDrop).children.length > 1){
+                        document.getElementById(idDrop).lastElementChild.remove()
+                        }
                     }
+                    // console.log("los hijos dropzone", document.getElementById("dropzone_1").children)
+                    // var hijosDropzone = document.getElementById("dropzone_1").children
+                    // var hijosDropzoneAux = hijosDropzone
+                    //hijosDropzone = hijosDropzone[0]
+                    
+                    // for (var j = 1; j < hijosDropzone.length; j++) {
 
+                        
+                    // }
+
+                    console.log("los hijos dropzone despues", document.getElementById("dropzone_1").children)
                     //Eliminar clases areas para botones
                     var elementos = document.getElementsByClassName("area")
 
@@ -103,7 +115,7 @@ $(document).ready(function () {
                         console.log("el id proyecto es", idProyecto)
                         var usuario = elminarCarateres(document.getElementById("usuarioEditar").value) 
                         var creado = elminarCarateres(document.getElementById("creadoEditar").value)
-
+                        console.log("contenido zip", contenidoZIP)
                         if(usuario != JSON.parse(document.getElementById('user_id').textContent)){
                             guardarProyecto(nombre,asignatura, curso, etiquetas, privado, JSON.parse(document.getElementById('user_id').textContent), fecha, listaCanvas, contenidoZIP, descripcion, creado)
                         }else{
