@@ -26,8 +26,19 @@ function uploadAreaButton(input, id) {
                     listaImagenesAreas = listaImagenesAreas.filter(item => !(item.name == imagenAnterior[0]));
                 }
                 */
+                var add = true
+
+                for(var a = 0; a < listaImagenesAreas.length; a++){
+                    if(file.name == listaImagenesAreas[a].name && file.size == listaImagenesAreas[a].size){
+                        add = false
+                        break
+                    }
+                }
+                if(add){
+                    listaImagenesAreas.push(file)
+                }
               
-				listaImagenesAreas.push(file)
+				
                 document.getElementById(id).classList = ""
                 document.getElementById(id).classList.add(nameFile)
                 var src1 = URL.createObjectURL(file);

@@ -470,7 +470,9 @@
 
 						// Temporizador
 						var idTemporizador = "Temporizador_" + (num_time + 1)
-						var TemporizadorIcono = $('<section  id="' + idTemporizador + '"><div style="margin-bottom:8px;">La actividad finaliza en:</div> <div><i class="TempIcono fa-solid fa-stopwatch fa-2xl"></i><input id="temporizadorMinutos" type="number" value="1" step="any" /> seg.</div></div></section>')
+						var inputTemporizador = "temporizadorMinutos_" + (num_time + 1)
+						var claseTemp = "temp" + canvas
+						var TemporizadorIcono = $('<section  id="' + idTemporizador + '"><div style="margin-bottom:8px;">La actividad finaliza en:</div> <div><i class="TempIcono fa-solid fa-stopwatch fa-2xl"></i><input id="'+ inputTemporizador +'" class="temporizadorMinutos '+ claseTemp +'" type="number" value="1" step="any" /> seg.</div></div></section>')
 
 						// Path 
 						var idSquarePath = "SquearePath_" + (num_path + 1)
@@ -600,7 +602,7 @@
 							identifier = 'time_' + num_time.toString()
 							$item.empty()
 							$item.attr("id", 'time_' + num_time.toString());
-							$item.attr("class", 'time ui-resizable ')
+							$item.attr("class", 'time ui-resizable')
 							$item.append(TemporizadorIcono)
 							itemTemporizador = $item
 

@@ -127,7 +127,7 @@ async function iniciarEditar() {
 		// 	   // 			//document.getElementById("pruebaImagen").appendChild(image);
 		//    }
 		var myDropzone = document.getElementById("dropzone_1");
-		console.log("listado imagenes dropzone", listaImagenesDropzone)
+		//console.log("listado imagenes dropzone", listaImagenesDropzone)
 
 		
 	}
@@ -236,8 +236,8 @@ function lanzarElementos(nombreClase) {
 			var el = $(document.getElementById(elementos[i].id))
 			var idSplit = elementos[i].id.split("_")
 			var id = parseInt(idSplit[1]);
-			console.log("id al lanzar es", elementos[i].id)
-			console.log("el padre al lanzar", elementos[i].parentNode.parentNode.id)
+			//console.log("id al lanzar es", elementos[i].id)
+			//console.log("el padre al lanzar", elementos[i].parentNode.parentNode.id)
 			el.draggable()
 			makeDraggable(el);
 			el.resizable("destroy")
@@ -327,7 +327,7 @@ function crearFlechas() {
 					}
 
 					
-					console.log("Lista de flechas iniciales editar", listaFlechas)
+					//console.log("Lista de flechas iniciales editar", listaFlechas)
 
 
 
@@ -496,7 +496,7 @@ function cargarImagenes(contenido, nombre) {
 		counter++
 		Object.keys(zip.files).forEach(function (filename) {
 			if (filename.includes("/screenshots/") && filename != nombre + "/screenshots/") {
-				console.log("El filename", filename)
+				//console.log("El filename", filename)
 				promises.push(zip.files[filename].async('base64').then(function (fileData) {
 
 					//console.log("filedataa", filename, fileData)

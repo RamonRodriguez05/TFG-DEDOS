@@ -343,6 +343,26 @@ function getXMLString() {
 
         var tieneSelectores = false
         var select = ""
+
+        //Temporizador 
+        var temporizador = document.getElementsByClassName("temp#"+ activities[i].id)
+
+        if(temporizador.length > 0){
+            tieneSelectores = true
+            var valueTemp = temporizador[0].value
+            document.getElementById(temporizador[0].id).setAttribute("value", valueTemp)
+            select += '      <obj type="time" time="'+ valueTemp +'"/>\n'
+
+            /*
+            var valueNumber = document.getElementById("InputNumber_" + hijos[m].id.split("_")[1]).value
+            document.getElementById("InputNumber_" + hijos[m].id.split("_")[1]).setAttribute("value", valueNumber)
+            */
+        }
+
+
+
+
+
         // Listado con selectores pairing
         var selectoresPairing = document.getElementsByClassName("emparejado#" + activities[i].id)
         console.log("LAS FLECHAS SOOOON AL GUARDAR", selectoresPairing)
@@ -398,7 +418,7 @@ function getXMLString() {
                 for (var m = 0; m < hijos.length; m++) {
                     if (hijos[m].id.includes("objetive")) {
                         tieneSelectores = true
-                        select += '<obj type="sel" obj="' + selectores[l].id + '"/>\n'
+                        select += '      <obj type="sel" obj="' + selectores[l].id + '"/>\n'
                     }
 
                     if (hijos[m].id.includes("math")) {
