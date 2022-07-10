@@ -1,27 +1,23 @@
-
- .pairing {
+.pairing {
     min-width: 30px;
     min-height: 30px;
-   /* border: 2px solid red; */
     resize: none !important;
     position: fixed;
 }
 
 
-.marginCanvas{
-    margin-left: auto; 
+.marginCanvas {
+    margin-left: auto;
     margin-right: 0;
-   
+
     display: inline-block;
-   
+
 }
 
-.pairingFront{
+.pairingFront {
     z-index: 3 !important;
 }
 
-.pairingBack{
+.pairingBack {
     z-index: 1 !important;
 }
-
-

@@ -2,8 +2,8 @@
 
 function fijarCard(input) {
     var parentDiv = $(input).parent();
-    	
     parentDiv.draggable()
+
     if (fix) {
         var clases = parentDiv.attr("class") + " fixed card"
         parentDiv.attr("class", clases)
@@ -11,7 +11,6 @@ function fijarCard(input) {
     } else {
         var clases = parentDiv.attr("class") + " fixed card"
         parentDiv.attr("class", clases)
-
         parentDiv.draggable("enable");
     }
 }
@@ -19,7 +18,6 @@ function fijarCard(input) {
 function mostrarConfigCard(input) {
     var parentDiv = $(input).parent();
     var hijo = parentDiv.children(0).children(7).context.id
-
     var splitData = hijo.split('_')
     var idd = "back_" + splitData[2].toString();
     var idd2 = "textArea_" + splitData[2].toString();
@@ -41,7 +39,6 @@ function mostrarConfigCard(input) {
 }
 
 function evalutarTab(idElemento, evt, element, deseleccionar) {
-    console.log("el evento",evt)
     if (idElemento == element.id) {
         document.getElementById(idElemento).style.display = "block";
         evt.currentTarget.className += " active";
@@ -51,17 +48,13 @@ function evalutarTab(idElemento, evt, element, deseleccionar) {
         var el = document.getElementsByClassName(deseleccionar[i])
         el[0].classList.remove("active")
         document.getElementById(deseleccionar[i]).style.display = "none";
-        document.getElementById(deseleccionar[i]).classList.remove("active") //= document.getElementById(idElemento).className.replace(" active", "");
+        document.getElementById(deseleccionar[i]).classList.remove("active")
     }
 }
 
 function evaluarTabCard(evt, element) {
-    //	console.log("Entro en evaluarTabCard", element)
-
     var deseleccionar = []
-
     var elementID = element.id.split("_")[1];
-    var elementooo = element.id
 
     var Acciones = "Acciones_" + elementID;
     var Feedback = "Feedback_" + elementID;
@@ -70,22 +63,19 @@ function evaluarTabCard(evt, element) {
     if (element.id.includes(Acciones)) {
         deseleccionar[0] = Feedback
         deseleccionar[1] = Matematicas
-        
     }
 
     if (element.id.includes(Feedback)) {
         deseleccionar[0] = Acciones
         deseleccionar[1] = Matematicas
-        
     }
 
     if (element.id.includes(Matematicas)) {
         deseleccionar[0] = Feedback
         deseleccionar[1] = Acciones
-        
     }
-    
+
     evalutarTab(Acciones, evt, element, deseleccionar)
-    evalutarTab(Feedback, evt, element, deseleccionar)	
+    evalutarTab(Feedback, evt, element, deseleccionar)
     evalutarTab(Matematicas, evt, element, deseleccionar)
 }

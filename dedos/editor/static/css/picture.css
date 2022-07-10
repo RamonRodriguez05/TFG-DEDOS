@@ -11,13 +11,13 @@
     -moz-box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.75);
     box-shadow: -1px 2px 24px -4px rgba(0, 0, 0, 0.7 5);
     border-style: ridge;
-    border: 1px solid rgb(21, 138, 17); 
-     z-index: 3 ;
-} 
+    border: 1px solid rgb(21, 138, 17);
+    z-index: 3;
+}
 
 
 
-.pictureBack{
+.pictureBack {
     z-index: 1 !important;
 }
 
@@ -31,23 +31,23 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     height: 30px;
-    
-    
+
+
 }
 
 
-.dz-clickable{
-  
-    height: 90% !important; 
-    
+.dz-clickable {
+
+    height: 90% !important;
+
 }
 
-.ms-4{
+.ms-4 {
     font-size: x-small;
-    
-} 
 
-.dz-clickable{
+}
+
+.dz-clickable {
     height: fit-content !important;
     padding-bottom: 0 !important;
 }
@@ -61,14 +61,14 @@
     border: dashed 3px rgb(92, 152, 180);
     border-radius: 35px;
     margin: 1%;
-    margin-bottom: 3%; 
+    margin-bottom: 3%;
     min-height: 100px !important;
-    border: 2pxsolidrgba(0,0,0,.3);
+    border: 2pxsolidrgba(0, 0, 0, .3);
     background: #fff;
     padding: 0 !important;
     height: 90% !important;
 
-} 
+}
 
 img,
 .dz-preview,
@@ -118,22 +118,22 @@ img,
     height: 1.3em;
     font-size: 1.4em !important;
     background-color: red;
-    color: white; 
-    
+    color: white;
+
 }
 
 .dz-preview {
     display: flex;
     max-width: 60% !important;
     max-height: 50% !important;
-    margin-bottom: 2%; 
+    margin-bottom: 2%;
     margin-top: 3.5% !important;
     margin-left: 10px !important;
     font-size: x-small !important;
     background-color: transparent !important;
 
 
-} 
+}
 
 .dropzone .dz-preview {
     position: relative;
@@ -148,13 +148,14 @@ img,
     display: none;
 }
 
-.dropzone.dz-clickable .dz-message, .dropzone.dz-clickable .dz-message * {
+.dropzone.dz-clickable .dz-message,
+.dropzone.dz-clickable .dz-message * {
     margin: 4%;
     text-align: center !important;
     cursor: pointer;
 }
 
-.dz-details{
+.dz-details {
     width: 50% !important;
 }
 

@@ -12,13 +12,8 @@
 		<div class="modal-content">
 			<div class="modal-header" style="text-align: center;">
 				<h4 class="modal-title" id="exampleModalLabel">Datos del proyecto</h4>
-				<!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button> -->
 			</div>
 			<div class="modal-body" style="margin: 35px;">
-
-
 				<div class="row">
 					<div class="column" style="width: 25%;">
 						<label for="nombre" style="font-weight: bold;">Nombre:</label>
@@ -66,7 +61,7 @@
 								participación en el medio físico y social</option>
 							<option value="Comunicación y lenguaje">Comunicación y lenguaje</option>
 						</select>
-					</div> 
+					</div>
 				</div></br>
 
 				<div class="row">
@@ -77,14 +72,7 @@
 
 						<select style="width: 375px;" name="etiquetas" id="etiquetas" class="form-control"
 							multiple="multiple">
-
-
-
 						</select>
-
-
-
-						<!-- <input type="text" style="width: 375px;" name="etiquetas" id="etiquetas" maxlength="200"> -->
 					</div>
 				</div></br>
 				<div class="row">
@@ -108,7 +96,6 @@
 	</div>
 </div>
 <div class=" align-content-center" style="background-color: lightgrey">
-	<!--<div class="col-md-12">Proyecto | Actividad | Modo | Idioma</div>-->
 </div>
 <div id="editzone">
 	<section class="sticky-div fondo top">
@@ -142,7 +129,6 @@
 				type="time"><i id="imagenTemporizador" class="fa-solid fa-stopwatch fa-2xl"></i></div>
 
 			<!-- Temporales-->
-
 			<div id="TextoTemp" class="col-md-1" id="tool-2-icon draggable tool" type="card"><i
 					class="fa-solid fa-pen fa-2xl"></i>
 			</div>
@@ -164,7 +150,6 @@
 			<div id="TemporizadorTemp" class="col-md-1" id="tool-8-icon draggable tool" type="time"><i
 					class="fa-solid fa-stopwatch fa-2xl"></i></div>
 			<br>
-
 		</div>
 		<hr>
 	</section>
@@ -180,37 +165,17 @@
 	<input type="hidden" id="usuarioEditar" name="variable" value="{{ usuario }}">
 	<input type="hidden" id="creadoEditar" name="variable" value="{{ creado }}">
 
-
 	<div id="listaCanvas">
 
 		<div id="editor-canvas_1" class="editor-canvas dropzone" style="border:2px;width:100%; height:100%">
-
-			<!-- <div id="d1" style="width: 20px; height:20px; background-color: blue;"></div></br></br></br></br></br></br>
-			<div id="d2" style="width: 20px; height:20px; background-color: blue;"></div> -->
-			<!-- <canvas onl id="prueba" onclick="dibujarFlecha(this)" class="marginCanvas" width="1000px" height="400px"></canvas>' -->
-
-			<!-- <label for="myfile">Select files:</label>
-				<input type="file" id="myfile" name="myfile" multiple accept="image/png, image/gif, image/jpeg"><br><br>
-				<input type="submit" onclick="generarZIP()">  -->
-
-
 		</div>
-
-
-
-
-
-
 	</div>
+
 	<div id="papelera" class="eliminar" class="col-md-1"><i class="fas fa-trash-alt fa-2x"
 			style="margin-top: 22px ;"></i></div>
-
 	{% csrf_token %}
 
-
-
 	<script type="text/javascript">
-
 		Dropzone.autoDiscover = false;
 		num_config_card = 0;
 		num_area = 0;
@@ -230,8 +195,6 @@
 		lastItem = null
 		posLeft = 0
 		posRight = 0
-
-		
 		num_pathid = 1
 		mouseX = 500
 		mouseY = 500
@@ -241,8 +204,8 @@
 		canvas = "#editor-canvas_1"
 		isarea = true
 		pointerElementID = ""
-		listPath = [] // Lista de todos los caminos y elementos
-		lastCamino = null // ultimo path creado
+		listPath = [] 
+		lastCamino = null 
 		listElementoCaminosClonados = []
 		numCaminos = 1
 		const position = {
@@ -254,74 +217,25 @@
 		fix = false;
 		var uploadAreaID = ""
 		var original = document.getElementById("activity_1")
-
 		const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
 		isPicture = false
 		isCard = false
 		padrePicture = null
 		padreCard = null
-
 		listaSelectores = []
 		listaImagenesDropzone = []
 		listaCapturas = []
 		listaCapturasEditar = []
 		listaFlechas = []
 		listaImagenesAreas = []
-
 		lineaFinal = null
-
 		editarInicial = true
-
 		numeroActividadesEditarCapturas = null
+
 		$(document).ready(function () {
-			//document.getElementById('d1').droppable´
-				
-
-			//var line2 =	new LeaderLine(document.getElementById('d1'), LeaderLine.pointAnchor(document.getElementById('d2'))); 
-			//		var line = new LeaderLine(
-			//			document.getElementById('d1'),
-			//			document.getElementById('d2')
-			//		);
-			//line.end = document.getElementById('d2');
-			//line2.setOptions({startSocket: 'bottom', endSocket: 'auto'});
-			//line2.setOptions({startSocket: 'auto', endSocket: 'auto'});´
-
-
 			console.log("Docuemnt ready")
 
-
-
-			// var xml = getXMLString() // new XMLSerializer().serializeToString(getXMLString());
-			// //	console.log("El xml es", getXMLString())
-
-			// // directory path
-
-			// var zip = new JSZip();
-			// // create a file
-			// zip.file("hello.txt", "Hello");
-			// // oops, cat on keyboard. Fixing !´´
-			// zip.file("hello2.txt", "Hello World\n");
-			// zip.file("nested/hello.txt", "Hello World\n");
-			// zip.file("prueba2.xml", xml)
-
-			// // create a file and a folder
-
-
-
-			// zip.generateAsync({ type: "blob" }).then(function (content) {
-
-
-
-			// 	//	console.log("Content es", content)
-			// 	//	saveAs(content, "prueba.zip")
-
-			// });
-
-
-
 			var theDiv = document.getElementById(canvas.replace("#", ""));
-
 			theDiv.appendChild(document.createElement("br"));
 			theDiv.appendChild(document.createElement("br"));
 			var tag = document.createElement("h1");
@@ -345,58 +259,15 @@
 			theDiv.appendChild(tag3);
 
 			iniciarEditar()
-			
-			//captura(activity, canvas)
-			//editar
-			// rpueba
-			//var canvasprueba = document.getElementById("previewactivity_1");
-
-			// canvasprueba.toBlob(function (blob) {
-			// 	var newImg = document.createElement('img'),
-			// 		url = URL.createObjectURL(blob);
-
-			// 	newImg.onload = function () {
-			// 		// no longer need to read the blob so it's revoked
-			// 		URL.revokeObjectURL(url);
-			// 	};
-
-			// 	newImg.src = url;
-			// 	document.body.appendChild(newImg);
-			// });
-
-
-			//fin prueba
-
-
 		})
 
-
-		// function addCanvas() {
-		// 	num_editor_canvas = num_editor_canvas + 1;
-		// 	editorCanvasID = "editor-canvas-" + num_editor_canvas.toString();
-
-		// 	if (num_editor_canvas == 2) {
-		// 		$("#listaCanvas").append('<div id="' + editorCanvasID + '" class="editor-canvas dropzone" style="background-color:green;border:2px;width:100%; height:100%">');
-		// 	} else {
-
-		// 		$("#listaCanvas").append('<div id="' + editorCanvasID + '" class="editor-canvas dropzone" style="background-color:powderblue;border:2px;width:100%; height:100%">');
-		// 	}
-		// }
 		function lanzar() {
 			$(canvas).droppable({
 				drop: function (event, ui) {
-					//this if condition is for avoiding multiple time drop and attachment of same item
-					//	console.log("Drop en canvas de nuevo "); 
-
 					limpiarCanvas()
 
-					//		konvas2()
-
-
-
 					if (ui.draggable.hasClass("tool")) {
-						//	console.log("Tiene clase tool");
-						var $item = $(ui.helper).clone(); //getting the cloned item
+						var $item = $(ui.helper).clone();
 
 						type = $item.attr('type');
 						$item.removeAttr('title');
@@ -406,7 +277,6 @@
 						var imageUsuarioID = "usuario_" + (num_area + 1)
 						var botonUsuarioID = "botonUsuario_" + (num_area + 1)
 						var addUser = $('<a id="' + botonUsuarioID + '" class="btn user-image" title="Cambiar a zona de juego" onclick=addUserButton(this)><img id="' + imageUsuarioID + '" src="/static/dash/dist/assets/img/user.png" class="margenIzquierdo user"/></a>')
-
 						var idUploadArea = "uploadArea_" + (num_area + 1)
 						var uploadArea = $('<div class="image-upload" onclick=uploadAreaButton(this,"' + idUploadArea + '") > <label for="' + idUploadArea + '"> <i class="fa-solid fa-upload image-upload"></i> </label> <input id="' + idUploadArea + '" type="file"  accept="image/png, image/gif, image/jpeg"  style="display: none;" /> </div>')
 
@@ -414,7 +284,6 @@
 						var idTextoTitle = "idTitle_" + (num_card + 1)
 						var idButtonCard = "idbuttonCard_" + (num_card + 1)
 						var titleTextoCard = $('<div id="' + idTextoTitle + '" class="tituloTexto" onclick=fijarCard(this)><button id="' + idButtonCard + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span style="font-weight: bold;">Texto</span></div>')
-
 						var texto3id = "back_" + (num_card + 1)
 						var idAcciones = "Acciones_" + (num_card + 1)
 						var idFeedback = "Feedback_" + (num_card + 1)
@@ -426,10 +295,8 @@
 						var idValorNumerico = "ValorNumerico_" + (num_card + 1)
 						var tabsCard = $('<section id ="' + texto3id + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + idAcciones + '" onclick="evaluarTabCard(event, ' + idAcciones + ')">Acciones</button><button class="tablinks ' + idFeedback + '" onclick="evaluarTabCard(event, ' + idFeedback + ')">Feedback</button><button class="tablinks ' + idMatematicas + '" style="margin-right:5px;" onclick="evaluarTabCard(event, ' + idMatematicas + ')">Matemáticas</button></div><div id="' + idAcciones + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="' + idSeleccionable + '" value="firest_checkbox"> <label for="' + idSeleccionable + '">Seleccionable</label><br><input type="checkbox" checked="true" id="' + idGirable + '" value="second_checkbox"> <label for="' + idGirable + '">Girable</label><br><input type="checkbox" checked="true" id="' + idRedimensionable + '" value="firest_checkbox"> <label for="' + idRedimensionable + '">Redimensionable</label></div><div id="' + idFeedback + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea id="' + idRetroalimentacion + '" class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
 							idMatematicas + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input id="' + idValorNumerico + '" type="number" step="any" value="1" /></div></div> </section>')
-
 						var textAreaid = "textArea_" + (num_card + 1)
 						var inputTexto = $('<textarea id="' + textAreaid + '"class="inputText" placeholder="Escriba aquí el texto" name = "description" ></textarea>')
-
 						var configid = "config_card_" + (num_card + 1)
 						var configurationButton = $("<div id='" + configid + "' class='config' onclick=mostrarConfigCard(this)><i class='fa-solid fa-gear'></i></div>")
 
@@ -443,17 +310,13 @@
 						var idRedimensionableImage = "RedimensionableImage_" + (num_picture + 1)
 						var idRetroalimentacionImage = "RetroalimentacionImage_" + (num_picture + 1)
 						var idValorNumericoImage = "ValorNumericoImage_" + (num_picture + 1)
-
 						var tabImage = $('<section id ="' + backImageID + '" class="ocultar"><div class="tab center"><button class="tablinks active ' + AccionesImageID + '" onclick="evaluarTabImage(event, ' + AccionesImageID + ')">Acciones</button><button class="tablinks ' + FeedbackImageID + '" onclick="evaluarTabImage(event, ' + FeedbackImageID + ')">Feedback</button><button class="tablinks ' + MatematicasImageID + '" style="margin-right:5px;" onclick="evaluarTabImage(event, ' + MatematicasImageID + ')">Matemáticas</button></div><div id="' + AccionesImageID + '" style="display:block;" class="tabcontent "><input type="checkbox" checked="true" id="' + idSeleccionableImage + '" value="firest_checkbox"> <label for="' + idSeleccionableImage + '">Seleccionable</label><br><input type="checkbox" checked="true" id="' + idGirableImage + '" value="second_checkbox"> <label for="' + idGirableImage + '">Girable</label><br><input type="checkbox" checked="true" id="' + idRedimensionableImage + '" value="firest_checkbox"> <label for="' + idRedimensionableImage + '">Redimensionable</label></div><div id="' + FeedbackImageID + '" class="tabcontent inputTextRetroalimentacion"><div><div>Retroalimentación</div><textarea id="' + idRetroalimentacionImage + '" class="inputTextRetroalimentacion" placeholder="Escriba aquí el texto" name = "textoRetroalimentacion" ></textarea></div></div><div id="' +
 							MatematicasImageID + '" class="tabcontent inputNumero"><div><div style="width=100%;">Valor numérico</div><input id="' + idValorNumericoImage + '" type="number" step="any" value="1" /></div></div> </section>')
-
 						var titleImageID = "titleImage_" + (num_picture + 1)
 						var idButtonImage = "idbuttonImage_" + (num_picture + 1)
 						var titleImage = $('<div id="' + titleImageID + '" class="tituloTexto2" onclick=fijarPicture(this)><button id="' + idButtonImage + '" class="transparente" onclick="fijarTarjeta(this)"><i class="fa-solid fa-thumbtack  fa-rotate-by" style="--fa-rotate-angle: 320deg;"></i></button><span style = "font-weight: bold;">Imagen</span></div>')
-
 						var configidImagen = "config_picture_" + (num_picture + 1)
 						var configurationButtonImagen = $("<div id='" + configidImagen + "' class='config' onclick=mostrarConfigPicture(this)><i class='fa-solid fa-gear'></i></div>")
-
 						var dropzoneID = "dropzone_" + (num_picture + 1)
 						dropzoneIDCrear = dropzoneID
 						var formDropzoneID = "formDropzone_" + (num_picture + 1)
@@ -472,29 +335,23 @@
 						var idTemporizador = "Temporizador_" + (num_time + 1)
 						var inputTemporizador = "temporizadorMinutos_" + (num_time + 1)
 						var claseTemp = "temp" + canvas
-						var TemporizadorIcono = $('<section  id="' + idTemporizador + '"><div style="margin-bottom:8px;">La actividad finaliza en:</div> <div><i class="TempIcono fa-solid fa-stopwatch fa-2xl"></i><input id="'+ inputTemporizador +'" class="temporizadorMinutos '+ claseTemp +'" type="number" value="1" step="any" /> seg.</div></div></section>')
+						var TemporizadorIcono = $('<section  id="' + idTemporizador + '"><div style="margin-bottom:8px;">La actividad finaliza en:</div> <div><i class="TempIcono fa-solid fa-stopwatch fa-2xl"></i><input id="' + inputTemporizador + '" class="temporizadorMinutos ' + claseTemp + '" type="number" value="1" step="any" /> seg.</div></div></section>')
 
 						// Path 
 						var idSquarePath = "SquearePath_" + (num_path + 1)
-						var pathSqueareIcono = $('<div class="squarePath"><div><i id="' + idSquarePath + '" class="squarePath fa-solid fa-square"></i></div></i></div>').click(function () {
-						});
+						var pathSqueareIcono = $('<div class="squarePath"><div><i id="' + idSquarePath + '" class="squarePath fa-solid fa-square"></i></div></i></div>').click(function () {});
 						var idPath = "Path_" + (num_path + 1)
 						var pathIcono = $('<div class="PathIcono"><i id="' + idPath + '"class="fa-solid fa-location-dot fa-2xl"></i></div>').click(function () { });
-
 						var idConf = "configuration_" + (num_path + 1)
 						var idPadrePath = "pathIdPadre_" + (num_path + 1)
-
 						var idHijoPath = "pathIdHijo_" + (num_path + 1)
 						var crearCamino = "crearCamino_" + (num_path + 1)
 						var pathElemento = $('<section><div><i class="squarePath fa-solid fa-square" onclick="mostrar(' + idConf + ')"></i></div><div><div class="PathIcono"><i class="fa-solid fa-location-dot fa-2xl"></i></div><div id="' + idConf + '" class="configurarPath ocultar"><div style="height:50px"><i class="PathIcono fa-solid fa-location-dot fa-2xl"></i><i class=" fa-solid fa-square"></i><i class="xMark fa-solid fa-xmark" onclick="ocultar(' + idConf + ')"></i></div><div  class="insidePath "><div style="background-color: green;width:40px">Hola</div><div id="' + idPadrePath + '" class="wrap2" style="width:220px"><div id ="' + idHijoPath + '" class="links"></div></div><div style="background-color: green;width:40px; text-align: center;"><i class="fa-solid fa-eye fa-xl"></i></br><input type="color" id="favcolor" name="favcolor" value="#ff0000" ></br><i class="fa-brands fa-connectdevelop fa-xl"></i></div></div><div id="' + crearCamino + '"  class="insidePath"><i class="PathIcono fa-solid fa-location-dot fa-2x"></i>Arrastre hasta aquí para crear un nuevo camino</div></div></div></section>')
-
-
 						// Para los clones de los caminos
 						var idClonCamino = "clonCamino_" + (num_path + 1)
 
 						// Unir
 						var idUnir = "Unir_" + (num_pairing + 1)
-						//	var unir = $('<canvas id="' + idUnir + '" class="marginCanvas" width="1000px" height="400px"></canvas>').click(function () { });
 						var unir = $('<div id="' + idUnir + '"></div>');
 						var claseXML = type + canvas
 
@@ -509,10 +366,9 @@
 							$item.attr("class", 'area ui-resizable ' + claseXML);
 							$item.append(addUser)
 							$item.append(uploadArea)
-
+							
 							makeAreaDroppable($item)
 						} else if (type == "card") {
-
 							num_card = num_card + 1
 							identifier = 'card_' + num_card.toString()
 							$item.empty()
@@ -564,7 +420,6 @@
 							$item.empty()
 							$item.attr("id", 'path_' + num_path.toString());
 							$item.attr("class", 'path ui-resizable area-accept originalPath' + " " + canvas + " " + claseXML)
-							//	$item.append(pathSqueareIcono)
 							$item.append(pathElemento)
 							lastPath = $item
 
@@ -578,25 +433,6 @@
 								const resultado = listPath.find(Camino => Camino.caminoID === lastCamino);
 								resultado.elementos += idClonCamino + ";"
 							}
-
-
-							// if(num_path <= 5){
-							// 	document.getElementById("pathid").append(newDiv)
-							// }else{
-							// 	document.getElementById("pathid2").append(newDiv)
-							// }
-							// var rect = newDiv.getBoundingClientRect();
-							// console.log("Path position:",rect.top, rect.right, rect.bottom, rect.left);
-							// var medioX = rect.top + 30
-							// console.log("mdioX", medioX)
-							// var medioY = rect.right + 30
-							// console.log("mdioY", medioY)
-							// if (num_path == 2){
-							// 	unir()
-							// }
-
-							//makeAreaDroppable(document.getElementById("arrastrar"))
-
 						} else if (type == "time") {
 							num_time = num_time + 1
 							identifier = 'time_' + num_time.toString()
@@ -605,13 +441,12 @@
 							$item.attr("class", 'time ui-resizable')
 							$item.append(TemporizadorIcono)
 							itemTemporizador = $item
-
 						}
+
 						$(this).append($item);
 						makeDraggable($item);
 						lastItem = $item
-						//var a = document.getElementById("area1").getBoundingClientRect();
-						//	console.log("a", a.left, a.top, a.bottom, a.right)
+
 						if (type == "objetive" || type == "math" || type == "time" || type == "path") {
 							var content = document.getElementById($item[0].id)
 							if (content.lastElementChild != null) {
@@ -627,30 +462,19 @@
 						}
 
 						if (type == "card" || type == "picture") {
-							//	console.log("ENTRO A RECOLOCAR")
 							if (pointerElementID != "" && pointerElementID.includes("area")) {
-
-								//	console.log("el hijoopadre del item es area ", $item[0].id)
 								var hijo = document.getElementById($item[0].id)
-									//	var rect = hijo.getBoundingClientRect();
-									//	console.log("Las posiciones hijo son",rect.top, rect.right, rect.bottom, rect.left);
-									;// =" position: absolute; left: 60px; top: 35px;"
 								parent = document.getElementById(pointerElementID)
 								var rect = parent.getBoundingClientRect();
-								//	console.log("Las posiciones padre son", rect.top, rect.right, rect.bottom, rect.left);
 								var je = posRight - rect.top
 								var jo = posLeft - rect.left
-								//	console.log("resta top", je, "resta left", jo)
 								hijo.style = "top:" + je + "px; left:" + jo + "px;"
 								parent.appendChild(document.getElementById($item[0].id))
-
 							}
 						}
 
 						if (type == "path") {
-
 							var idCamino = "camino_" + numCaminos
-							//	console.log("el path es", $item[0])
 							var clon = document.createElement("div")
 							clon.innerHTML = '<i class="fa-solid fa-location-dot fa-2xl"></i>'
 							clon.style = "left: 0px; top: 0px; position: relative"
@@ -658,32 +482,16 @@
 							clon.classList.remove("originalPath")
 							clon.classList.add(idCamino)
 							clon.classList.add("dot")
-
-							//	var newDiv = document.createElement("div");
-							//	newDiv.id = "pruebamover_" + num_path.toString()
 							clon.classList.add("inline")
-							//	newDiv.classList.add("links")
-							//	newDiv.style = "width: 30px; height: 30px"
-							//	newDiv.appendChild(clon)
 							var elementoCaminoNuevo = new ElementoCamino(idClonCamino, clon, canvas)
 							listElementoCaminosClonados.push(elementoCaminoNuevo)
 
 							getElementPath()
 							$(clon).draggable();
 
-
 							$("#" + crearCamino).droppable({
 								drop: function (event, ui) {
 									$(this).css('background', 'rgb(0,200,0)');
-									//	console.log("Elemento", ui.draggable[0].id)
-									/*
-									var newDiv = document.createElement("div");
-									newDiv.id = "pathid" + num_pathid.toString()
-									num_pathid++
-									newDiv.append(document.getElementById(ui.draggable[0].id))
-
-									document.getElementById("pathidPadre").append(newDiv)
-									*/
 								},
 								over: function (event, ui) {
 									$(this).css('background', 'orange');
@@ -692,104 +500,9 @@
 									$(this).css('background', 'cyan');
 								}
 							});
-							//	document.getElementById(idHijoPath).append(clon)
-
 						}
-
-						// if (type == "pairing") {
-						// 	let elem = null
-						// 	let dibujo = true;
-						// 	// if(dibujo){
-						// 	// 	activarPairing("pairing_" + num_pairing)
-						// 	// }
-
-						// 	document.getElementById("pairing_" + num_pairing).addEventListener("mousemove", function move(e) {
-						// 		var elems = document.elementsFromPoint(e.clientX, e.clientY)
-
-						// 		if (elem == null) {
-						// 			for (let i = 0; i < elems.length; i++) {
-						// 				console.log("eleentossss", elems[i].id)
-						// 				if (elems[i].id.includes("area_")) {
-						// 					console.log("POSICION AREA", elems[i].id)
-						// 					elem = document.getElementById(elems[i].id);
-						// 					break;
-						// 				}
-						// 			}
-						// 		} else {
-						// 			//activarPairing("pairing_" + num_pairing)
-						// 			let rect2 = elem.getBoundingClientRect();
-						// 			console.log("el x", elem.offsetLeft)
-						// 			var item = document.getElementById("pairing_" + num_pairing)
-						// 			// item.style.width = -1 * event.clientX + 'px';
-						// 			// item.style.height = -1 * event.clientY + 'px';
-						// 			item.style = "position: absolute; left: 0px; top: 55px;"
-						// 			//	flecha("pairing_" + num_pairing)
-						// 			const target = e.target;
-
-						// 			// Get the bounding rectangle of target
-						// 			const rect = target.getBoundingClientRect();
-						// 			console.log("")
-						// 			console.log("right: " + rect2.right, "bottom:", rect2.bottom);
-						// 			console.log("left: " + rect2.left, "top: " + rect2.top);
-						// 			// Mouse position
-						// 			posLeft = e.clientX - rect.left;;
-						// 			posRight = e.clientY - rect.top;
-
-
-
-						// 			var x1 = (elem.offsetLeft) + (elem.offsetWidth / 2)
-						// 			var y1 = elem.offsetTop * 0.59
-
-						// 			console.log(x1, y1)
-						// 			var x2 = elem.offsetLeft
-						// 			var y2 = elem.offsetTop * 1.45
-
-						// 			var x3 = (elem.offsetLeft) + (elem.offsetWidth / 2)
-						// 			var y3 = elem.offsetTop * 1.9
-
-						// 			var x4 = (elem.offsetLeft) + (elem.offsetWidth)
-						// 			var y4 = elem.offsetTop * 1.45
-
-						// 			// Calcular distancias
-
-						// 			var modulo1 = Math.sqrt(Math.pow(x1 - posLeft, 2) + Math.pow(y1 - posRight, 2))
-						// 			var modulo2 = Math.sqrt(Math.pow(x2 - posLeft, 2) + Math.pow(y2 - posRight, 2))
-						// 			var modulo3 = Math.sqrt(Math.pow(x3 - posLeft, 2) + Math.pow(y3 - posRight, 2))
-						// 			var modulo4 = Math.sqrt(Math.pow(x4 - posLeft, 2) + Math.pow(y4 - posRight, 2))
-						// 			console.log("Modulo 1", modulo1)
-						// 			console.log("Modulo 2", modulo2)
-						// 			var elementoFinal = new elementoModulo("nombre", x1, y1)
-						// 			if (modulo2 < modulo1) {
-						// 				elementoFinal = new elementoModulo("nombre", x2, y2)
-						// 			}
-						// 			if (dibujo) {
-						// 				activarPairing("pairing_" + num_pairing)
-						// 				dibujar(elementoFinal.x, elementoFinal.y, posLeft, posRight, idUnir)
-						// 			}
-
-
-						// 		}
-						// 	});
-
-
-						// 	document.getElementById("pairing_" + num_pairing).addEventListener("mouseup", function stop(e) {
-
-
-						// 		console.log("lo paroo")
-						// 		dibujo = !dibujo
-						// 		if(!dibujo){
-						// 			moverHijo("id")
-						// 		//	desactivarPairing()
-						// 		}
-						// 		console.log("Dibujar es", dibujo)
-						// 		//document.getElementById("pairing_1").removeEventListener("mousemove", function move(e) {});
-
-						// 	});
-
-						// }
 					} else {
 						/** Una tarjeta, área o objetivo se está soltando **/
-						//	console.log("recolocooooo 1")
 						var $item = $(ui.draggable[0])
 						if ($item.parent().attr("id") != $(this).attr("id")) {
 							$item.css("left", parseFloat($item.css("left"), 10) + parseFloat($item.parent().css(
@@ -799,9 +512,6 @@
 						}
 						$(this).append($item)
 					}
-					//	console.log("numero areas activas", numero_areas_activas)
-
-
 				}
 			})
 		}
@@ -812,11 +522,9 @@
 				accept: ".area-accept",
 				greedy: true,
 				drop: function (event, ui) {
-					//this if condition is for avoiding multiple time drop and attachment of same item
-					console.log("Drop en zona")
+	
 					if (ui.draggable.hasClass("tool")) {
-						console.log("Se dropea en zona");
-						var $item = $(ui.helper).clone(); //getting the cloned item
+						var $item = $(ui.helper).clone(); 
 						type = $item.attr('type');
 						$item.removeClass("tool");
 						if (type == "area") {
@@ -880,64 +588,40 @@
 								10))
 							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
 						}
-						//	console.log("por el 2")
+						
 						$(this).append($item);
 						makeDraggable($item);
 					} else {
 						/** Una tarjeta, área o objetivo se está soltando **/
-						//	console.log("recolocooooo 2")
 						var $item = $(ui.draggable[0])
 						if ($item.parent().attr("id") != $(this).attr("id")) {
-							console.log("Cambia de padre");
 							$item.css("left", parseFloat($item.css("left"), 10) - parseFloat($(this).css("left"),
 								10))
 							$item.css("top", parseFloat($item.css("top"), 10) - parseFloat($(this).css("top"), 10))
 
 							var clasesElemento = document.getElementById($item[0].id).classList
 							for (var i = 0; i < clasesElemento.length; i++) {
-								//	console.log("el type", $item.attr("type"))
 								if (clasesElemento[i].includes("hijode")) {
 									document.getElementById($item[0].id).classList.remove(clasesElemento[i])
 								}
 							}
 							document.getElementById($item[0].id).classList.add("hijode" + $(this)[0].id)
 						}
-						console.log("el padres this es", $(this)[0].id)
-						console.log("el padre item es", $item[0].id)
 
 						$(this).append($item)
 					}
 				}
 			})
 		}
+
 		onmousemove = function (e) {
-
 			const target = e.target;
-
-			// Get the bounding rectangle of target
 			const rect = target.getBoundingClientRect();
 
 			// Mouse position
-			posLeft = e.clientX //  - rect.left;;
-			posRight = e.clientY - 48 // - rect.top; 
-			//	dibujar(mouseX,mouseY,posLeft,posRight, "canvas2")
-
-			// var canv = document.getElementById("canvas2")
-			// var ctx = document.getElementById("canvas2").getContext("2d")
-			// ctx.clearRect(0, 0, canv.width, canv.height);
-
-			// ctx.beginPath();
-			// ctx.moveTo(mouseX,mouseY)
-			// ctx.lineTo(posLeft, posRight)
-			// ctx.strokeStyle = "black"
-			// ctx.lineWidth = 10;
-			// ctx.stroke()
-			// 	console.log("mouse location:", "left", posLeft, "top", posRight)
-			//
-
-
+			posLeft = e.clientX 
+			posRight = e.clientY - 48 
 		}
-
 
 
 		function makeDraggable($item) {
@@ -946,12 +630,11 @@
 				helper: "original",
 				appendTo: "body",
 				start: function () {
-					console.log("moviendoooo", $item[0].id)
-				 },
+			
+				},
 				stop: function () {
 					console.log('stopped 1')
 
-					//console.log($item[0].parentElement.id)
 					if ($item[0].parentElement.id.includes("editor-canvas")) {
 						var clasesElemento = document.getElementById($item[0].id).classList
 						for (var i = 0; i < clasesElemento.length; i++) {
@@ -965,37 +648,26 @@
 					actualizarTarjetas("picture")
 					evaluarMostrarMenu()
 					limpiarCanvas()
-					//	ocultarOpciones()
-
-
 				}
 			}).resizable({
 				start: function (e, ui) {
-					console.log('resizing started');
+
 				},
 				resize: function (e, ui) {
 
 				},
 				stop: function (e, ui) {
-					console.log('resizing stopped');
 					captura(activity, canvas)
-					console.log("El act de captura", activity)
-					console.log("el canvas de captura", canvas)
 				}
 			});
 		}
 
 		function printMousePos(event) {
-			console.log("mouseee", "top:", event.clientY, "left:", event.clientX)
-
 			mouseX = event.clientX
 			mouseY = event.clientY
 		}
 
 		document.addEventListener("click", printMousePos);
-
-
-
 
 		$(".tool").draggable({
 			containment: "#editzone",
@@ -1005,11 +677,10 @@
 				console.log('stopped 2')
 
 				var isDropzone = document.getElementById(dropzoneIDCrear)
-				console.log("El id del dropzone a crear", dropzoneIDCrear)
+	
 				dropzoneUpload(dropzoneIDCrear)
 
 				if (itemTemporizador != null) {
-					//	console.log('Temporizador', itemTemporizador[0].id)
 					var temporizador = document.getElementById(itemTemporizador[0].id)
 					temporizador.style.position = "fixed"
 					temporizador.style.left = "87%"
@@ -1017,201 +688,51 @@
 				}
 
 				evaluarPosicionInicio(lastItem)
-				//		evaluarPosicion(lastItem)
-
-
-				//	captura();
 				captura(activity, canvas);
-
 				actualizarTarjetas("card")
 				actualizarTarjetas("picture")
 				evaluarMostrarMenu()
 				limpiarCanvas()
-				// var canvas = document.getElementById("editor-canvas")
-
-				// var clone = canvas.cloneNode(true)
-
-				// console.log("El canvas es", canvas)
-				// console.log("El clon es", clone)
-
-
-				// var prueba = 	document.getElementById("prueba")
-				// prueba.innerHTML = '';
-				// console.log("La ´hijos prueba es", prueba)
-
-				// console.log("La prueba es", prueba)
-
-				// var nodes = clone.childNodes;
-				// for(var i=0; i<nodes.length; i++) {
-
-				// 		 nodes[i].style.width = "10%";
-				// 		 nodes[i].style.height = "auto";
-
-				// }
-				// prueba.append(clone)
-				//	$("#prueba").load("/editor/editor #area1");
-
-				// if (lastItem != null ) {
-				// 	console.log("el id es", lastItem[0].id)
-				// 	console.log("el padre del item es", lastItem.parent()[0].id)
-				// }
-
 			}
 		});
 
-
-
-
-
-
-
-		/*
-				$(document).on("input", "input:file", function (e) {
-					let fileName = e.target.files[0];
-					console.log("EL UPLOAD AREA ES", uploadAreaID)
-					console.log("el evento es", e)
-					if (uploadAreaID != "") {
-						if (fileName != undefined) {
-							src1 = URL.createObjectURL(e.target.files[0]);
-							document.getElementById(uploadAreaID).style.backgroundImage = 'url(' + src1 + ')';
-						} else {
-							document.getElementById(uploadAreaID).style.backgroundImage = 'none';
-						}
-					}
-					
-					//     alert('The file name is : "' + fileName);
-				});
-				*/
-
-
-
-		// function changeBackground(input) {
-		// 	//	console.log("el id del input es", input.id)
-		// 	var idinput = input.id.split("_")
-		// 	id = parseInt(idinput[1]) + 1
-		// 	areaID = "area" + id.toString()
-		// 	if (isarea) {
-		// 		var file = $("input[type=file]").get(0).files[0];
-		// 	}
-		// }
-
-
-
-
-
-
-
-
-		// function captura() {
-		// 	html2canvas(document.querySelector("#editzone")).then(canvas => {
-		// 		var prueba = document.getElementById("pruebita")
-		// 		prueba.innerHTML = ''; 
-		// 		canvas.style.width = "80%"
-		// 		canvas.style.height = "auto"
-		// 		console.log("la captura es", canvas)
-		// 		prueba.appendChild(canvas)
-		// 	});
-		// }
-
 		function captura(name, canvas) {
-		//	getXMLString()
 			var el = document.querySelector(canvas)
 			html2canvas(el, {
 				scale: 0.9,
 				useCORS: true,
-				// foreignObjectRendering:true,
-				//    windowWidth: el.scrollWidth,
-				//   windowHeight: el.scrollHeight,
 				onclone: () => {
-					//lert();
+					
 				}
 			}).then((canvas) => {
-
 				var prueba = document.getElementById(name)
 				prueba.innerHTML = '<div class="deleteActivity" onclick="eliminarActividad($(this))" >x</div>';
 				canvas.style.width = "100%"
 				canvas.style.height = "auto"
 				canvas.id = "preview" + name
-				//console.log("la captura es", canvas)
 				prueba.appendChild(canvas)
-
 				var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
 
-				//	const url = 'data:image/png;base6....';
 				fetch(image)
 					.then(res => res.blob())
 					.then(blob => {
 						const file = new File([blob], canvas.id + ".png", { type: "image/png" })
-						//	console.log("file generate", file)
 
 						// Añadir captura
-						//	console.log("el canvas es", canvas)
 						listaCapturas = listaCapturas.filter(item => !(item.canvas == canvas.id));
 						var elCaptura = new elementoCaptura(canvas.id, file)
 						listaCapturas.push(elCaptura)
-						//	console.log("El listado de las capturas es", listaCapturas)
-						// 		listaCapturas = [] 
-						// elementoCaptura
-
-
 					})
-				//	console.log("Image capture", image)
-
-				// here is the most important part because if you dont replace you will get a DOM 18 exception.
-				//	image.src = "jjjeje.png"
-				//	console.log("Canvas...", canvas.toDataURL("image/png"))
-
-				// var image = new Image();
-				// image.src = canvas.toDataURL("image/png")
-				// console.log("Canvas imagen...", image)
-				// document.getElementById("meterImagen").appendChild(image);
-
-				// var img = document.getElementById("meterImagen");
-
-				//
-				// 	var dataURL = canvas.toDataURL("image/png");
-				// 	$.ajax({
-				// 		type: "POST",
-				// 		url: "/static/upload.php",
-				// 	data: { 
-				// 		imgBase64: dataURL
-				// 		}
-				// 	}).done(function(o) {
-				// 		 console.log('saved',o); 
-				// 		 // If you want the file to be visible in the browser 
-				// 		 // - please modify the callback in javascript. All you
-				// 		// need is to return the url to the file, you just saved 
-				// 		// and than put the image in your browser.
-				//  });
-
-
-
-
-				//
-				//		window.location.href=image;
-				//	console.log("La imagen captura es",canvas.toDataURL('image/png'))´
-
-
-
-				//generarZIP2()
-
 			});
 		}
-
-		// $("#pruebamover_1").draggable();
-		// $("#jeje_1").draggable();
-
 
 		$("#arrastrar").droppable({
 			drop: function (event, ui) {
 				$(this).css('background', 'rgb(0,200,0)');
-				console.log("Elemento", ui.draggable[0].id)
-
 				var newDiv = document.createElement("div");
 				newDiv.id = "pathid" + num_pathid.toString()
 				num_pathid++
 				newDiv.append(document.getElementById(ui.draggable[0].id))
-
 				document.getElementById("pathidPadre").append(newDiv)
 			},
 			over: function (event, ui) {
@@ -1224,77 +745,14 @@
 
 
 		function ocultar(elemento) {
-			//	console.log("El id para borrar", elemento)
 			document.getElementById(elemento.id).classList.add("ocultar")
 			captura(activity, canvas)
 		}
 
 		function mostrar(elemento) {
-			//	console.log("El id para mostrar", elemento[0].id)
-
 			document.getElementById(elemento.id).classList.remove("ocultar")
 			captura(activity, canvas)
 		}
-
-
-
-		//Canvas
-
-		// function dibujar(x1, y1, x2, y2, id) {
-		// 	var canvas = document.getElementById(id);
-		// 	var context = canvas.getContext("2d");
-
-		// 	//console.log("elementos en una posicion dada", document.elementFromPoint(x1, y1))
-		// 	function Line(x1, y1, x2, y2) {
-		// 		this.x1 = x1;
-		// 		this.y1 = y1;
-		// 		this.x2 = x2;
-		// 		this.y2 = y2;
-		// 	}
-		// 	Line.prototype.drawWithArrowheads = function (ctx) {
-
-		// 		// arbitrary styling
-		// 		ctx.strokeStyle = "gray";
-		// 		ctx.fillStyle = "red";
-		// 		ctx.lineWidth = 5;
-
-		// 		// draw the line
-		// 		ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-
-		// 		ctx.beginPath();
-		// 		ctx.moveTo(this.x1, this.y1);
-		// 		ctx.lineTo(this.x2, this.y2);
-
-		// 		ctx.lineCap = "round";
-		// 		ctx.stroke();
-
-		// 		// draw the starting arrowhead
-
-		// 		// draw the ending arrowhead
-		// 		var endRadians = Math.atan((this.y2 - this.y1) / (this.x2 - this.x1));
-		// 		endRadians += ((this.x2 > this.x1) ? 90 : -90) * Math.PI / 180;
-		// 		this.drawArrowhead(ctx, this.x2, this.y2, endRadians);
-
-		// 	}
-		// 	Line.prototype.drawArrowhead = function (ctx, x, y, radians) {
-		// 		ctx.save();
-		// 		ctx.beginPath();
-		// 		ctx.translate(x, y);
-		// 		ctx.rotate(radians);
-		// 		ctx.moveTo(0, 0);
-		// 		ctx.lineTo(50, 100);
-		// 		ctx.lineTo(-50, 100);
-		// 		ctx.closePath();
-		// 		ctx.restore();
-		// 		ctx.fill();
-		// 	}
-
-		// 	// create a new line object
-		// 	var line = new Line(x1, y1, x2, y2);
-		// 	// draw the line
-		// 	line.drawWithArrowheads(context);
-		// }
 
 		//Evaluar elementos que hay en la posicion que se encuentra el ratón
 		document.addEventListener('mousemove', e => {
@@ -1302,11 +760,9 @@
 			isCard = false
 			padrePicture = null
 			padreCard = null
-			// console.clear()
 			var elems = document.elementsFromPoint(e.clientX, e.clientY)
-			//console.log("elementos",elems)
-			for (let i = 0; i < elems.length; i++) {
 
+			for (let i = 0; i < elems.length; i++) {
 				if (elems[i].id.includes("dropzone_") || elems[i].id.includes("picture") || elems[i].id.includes("titleImage_")) {
 					isPicture = true
 					if (elems[i].id.includes("picture")) {
@@ -1329,56 +785,28 @@
 			if (elems != null) {
 				try {
 					pointerElementID = elems[0].id
-				} catch (error) {
-					
-				}
-				
+				} catch (error) {}
 			}
-				
-			
-			
-			// for(var flechas = 0; flechas < listaFlechas.length; flechas++){
-			// 				lineaFinal = listaFlechas[flechas].line
-			// 				lineaFinal.position();
-			// 				console.log("entra en fixline")	
-			// 				// Como borrar
-			// 				// drag1.remove() 
-			// 				// $(document.getElementById(elementoEmparejar)).draggable()
-			// 		 		// makeDraggable($(document.getElementById(elementoEmparejar)))
-			// 			} 
 
 			// Evaluar elementos emparejados para saber si se deben borrar
 			var elementosEmparejados = document.getElementsByClassName("emparejado" + canvas)
 			var papelera = document.getElementById("papelera")
-
 			const rect = papelera.getBoundingClientRect();
-			//console.log("Posicion papelera:", "left:", rect.left, "top:", rect.top,"ancho:", papelera.offsetWidth, "alto:" ,papelera.offsetHeight)
-  
-			if(elementosEmparejados.length > 0){
-				//console.log("ELEMENTO EMPAREJADOS",elementosEmparejados)
-				for(var emp = 0; emp < elementosEmparejados.length;emp++){
+
+			if (elementosEmparejados.length > 0) {
+				for (var emp = 0; emp < elementosEmparejados.length; emp++) {
 					var elemento = document.getElementById(elementosEmparejados[emp].id)
-					//console.log("elemento buscado emp", elemento)
 					var posicion = elemento.getBoundingClientRect();
-				//	console.log("Posicion elemento:", "left:", posicion.left, "top:", posicion.top,"ancho:", elemento.offsetWidth, "alto:" ,elemento.offsetHeight)
 					if (posicion.bottom - 30 > rect.top && posicion.left + 30 < rect.right) {
 						eliminarElementoEmparejado(elementosEmparejados[emp].id)
 					}
 				}
 			}
-
-			//Fin evaluar elemento emparejados
-			
 		}, { passive: true })
-
-
-
-
 
 		function elementoSelectores(padre, hijo) {
 			this.padre = padre;
 			this.hijo = hijo;
-
 		}
 
 		function elementoCaptura(canvas, file) {
@@ -1391,8 +819,6 @@
 			this.file = file;
 			this.base64 = base64
 		}
-
-
 
 		function elementoModulo(nombre, x, y) {
 			this.nombre = nombre;
@@ -1409,16 +835,13 @@
 			this.line = line;
 			this.elementoInicio = elementoInicio;
 			this.elementoFin = elementoFin;
-			//this.drag = drag;
 		}
 
-		function elementoFileDropzoneEditar(name, size,file) {
+		function elementoFileDropzoneEditar(name, size, file) {
 			this.name = name;
 			this.size = size;
 			this.file = file
 		}
 
-
-
 	</script>
-	{% endblock %} 
+	{% endblock %}
