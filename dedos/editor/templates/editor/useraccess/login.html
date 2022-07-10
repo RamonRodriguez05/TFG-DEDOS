@@ -8,7 +8,22 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="{% static 'login/css/register.css' %}">
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="icon" type="image/png" href="{% static 'dash/dist/assets/img/dedosLogo.png' %}"/>
 </head>
+
+<style>
+  body,
+  html {
+    margin: 0;  
+    background-image: url("{% static 'dash/dist/assets/img/dedosFondo2.png' %}");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  
+</style>
+
 <body>
 
 <div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -53,6 +68,7 @@
     {% endfor %}
 {% endif %}
           <div class="card-body">
+            <img src="{% static 'dash/dist/assets/img/dedos-logo.png' %}" alt="" width="95%; margin:author"></br></br>
             <h5 class="card-title text-center">Iniciar Sesión</h5>
             <form method="POST" action="/editor/login" class="form-signin">
               {% csrf_token %}
@@ -71,9 +87,9 @@
                 </div>
 
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Iniciar Sesión</button>
-              <hr class="my-4">
+              <!-- <hr class="my-4">
               <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i>  <a style="color:#fff" href="{% provider_login_url 'google' %}">Iniciar sesión con Google</a></button>
-              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> <a style="color:#fff" href="{% provider_login_url "facebook" method="oauth2" %}">Iniciar sesión con Facebook</a></button>
+              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> <a style="color:#fff" href="{% provider_login_url "facebook" method="oauth2" %}">Iniciar sesión con Facebook</a></button> -->
             </form>
           </div>
         </div>
