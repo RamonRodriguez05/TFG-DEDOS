@@ -52,7 +52,7 @@ def view_login(request):
         if user is not None:
             login(request, user)
             request.session["username"] = user.username
-            return redirect('/editor/main')
+            return redirect('/editor/proyectos')
             # if user.role == "admin" or user.role == "teacher":
             #     login(request, user)
             #     request.session["username"] = user.username

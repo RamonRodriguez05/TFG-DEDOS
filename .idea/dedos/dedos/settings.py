@@ -155,7 +155,7 @@ EMAIL_PORT = env("EMAIL_PORT")
 EMAIL_PORT = env.int("EMAIL_PORT")
 
 SITE_ID = 1
-LOGIN_REDIRECT_URL = '/editor/main'
+LOGIN_REDIRECT_URL = '/editor/proyectos'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
